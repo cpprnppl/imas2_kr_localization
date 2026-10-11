@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-XMB 번역 협업 웹앱 데이터 생성기
+XMB 번역 협업 웹앱 빌더 (Vercel + Supabase)
 
 xmb_texts.json(JP/CN) + xmb_translations.json(KR 제안) + font_mapping.json(2,359자)
-+ 파일별 값 섹션 바이트 예산을 내장한 단일 HTML을 scratchpad에 생성한다.
-생성물은 Claude가 아티팩트로 게시(팀 공유)하며, 회수는 아티팩트 DB에서 한다.
++ 파일별 값 섹션 바이트 예산 + Supabase 접속 정보(webapp_config.json)를 내장한
+단일 index.html을 webapp_deploy/ 에 생성한다. 배포는 그 폴더에서 `vercel deploy`.
 
-  python webapp_build.py <출력.html 경로>
+  python webapp_build.py [출력.html]   # 기본: webapp_deploy/index.html
+
+webapp_config.json: {"url": "https://xxxx.supabase.co", "anon_key": "..."}
+(anon key는 공개용 키. 접근 통제는 Supabase RLS의 팀 암호 — supabase_setup.sql)
 """
 import os
 import sys
@@ -44,7 +47,16 @@ def budgets():
 
 
 def main():
-    out_path = sys.argv[1]
+    out_path = sys.argv[1] if len(sys.argv) > 1 else \
+        os.path.join(HERE, "webapp_deploy", "index.html")
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    cfg_path = os.path.join(HERE, "webapp_config.json")
+    cfg = None
+    if os.path.exists(cfg_path):
+        c = json.load(open(cfg_path, encoding="utf-8"))
+        cfg = {"url": c["url"], "key": c["anon_key"]}
+    else:
+        print("[주의] webapp_config.json 없음 — 오프라인 미리보기용으로 생성")
     texts = json.load(open(os.path.join(HERE, "xmb_texts.json"), encoding="utf-8"))
     tr = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
     mapping = json.load(open(MAPPING_PATH, encoding="utf-8"))
@@ -78,6 +90,10 @@ def main():
     }
     tpl = open(os.path.join(HERE, "webapp_template.html"), encoding="utf-8").read()
     html = tpl.replace("/*__DATA__*/null", json.dumps(payload, ensure_ascii=False))
+    html = html.replace("/*__CFG__*/null", json.dumps(cfg))
+    html = ('<!doctype html>\n<meta charset="utf-8">\n'
+            '<meta name="viewport" content="width=device-width,initial-scale=1">\n'
+            + html)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
     n = sum(len(f_["rows"]) for f_ in files)

@@ -1,7 +1,10 @@
 <title>iM@S2 XMB 번역표</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <style>
 /* 레이아웃: 고정 상단바(탭·필터·예산) + 전폭 테이블, 스프레드시트 밀도 */
+[hidden]{display:none!important}
+img{max-width:100%}
 :root{
   --bg:#f4f4f2; --surface:#ffffff; --fg:#1c1d1f; --muted:#6e7075;
   --line:#d8d8d4; --accent:#31557d; --accent-fg:#ffffff;
@@ -77,13 +80,36 @@ td.st{white-space:nowrap}
 tr.done td{opacity:.62}
 tr.blank td{opacity:.4}
 #empty{color:var(--muted);padding:40px 0;text-align:center}
+#gate{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;
+  align-items:center;justify-content:center}
+.gatebox{background:var(--surface);border:1px solid var(--line);padding:28px 32px;
+  display:flex;flex-direction:column;gap:10px;width:300px;max-width:88vw}
+.gatebox h2{margin:0;font-size:15px}
+.gatebox p{margin:0;font-size:12px;color:var(--muted)}
+.gatebox input{font:inherit;color:var(--fg);background:var(--surface);
+  border:1px solid var(--line);padding:6px 8px}
+.gbtn{font:inherit;background:var(--accent);color:var(--accent-fg);
+  border:1px solid var(--accent);padding:6px;cursor:pointer}
+#gateMsg{font-size:12px;color:var(--err);min-height:1em}
+#nick{font:inherit;color:var(--fg);background:var(--surface);
+  border:1px solid var(--line);padding:3px 8px;width:110px}
 @media (max-width:700px){ col.c-id{width:84px} .r2 input[type=search]{width:130px} }
 </style>
 
+<div id="gate" hidden>
+  <div class="gatebox">
+    <h2>iM@S2 XMB 번역표</h2>
+    <p>디스코드 채널에 공지된 참여 암호를 입력하세요.</p>
+    <input id="pw" type="password" autocomplete="off" placeholder="암호">
+    <button class="gbtn" id="pwGo">입장</button>
+    <div id="gateMsg"></div>
+  </div>
+</div>
 <div id="top">
   <div class="r1">
     <h1>iM@S2 XMB 번역표</h1>
-    <span id="who">불러오는 중…</span>
+    <input id="nick" placeholder="작성자 이름" title="저장 기록에 남는 이름">
+    <span id="who">연결 중…</span>
     <span id="msg"></span>
   </div>
   <div class="r1" style="justify-content:space-between">
@@ -112,10 +138,12 @@ const U16 = s => s.length;                       // JS length = UTF-16 코드유
 const BYTES = s => 2 * (U16(s) + 1);             // BE UTF-16 + 종단 \0\0
 const $ = s => document.querySelector(s);
 
-let db = null, me = null, canWrite = false;
+const CFG = /*__CFG__*/null;   // {url, key} — Supabase 프로젝트 (anon key)
+let sb = null, lastTs = 0;
 const docs = {};          // docid -> {kr, st}
-let cur = null, filter = "all", query = "";
-try { cur = localStorage.getItem("tab"); filter = localStorage.getItem("f") || "all"; } catch(e){}
+let cur = null, filter = "all", query = "", nick = "";
+try { cur = localStorage.getItem("tab"); filter = localStorage.getItem("f") || "all";
+      nick = localStorage.getItem("nick") || ""; } catch(e){}
 if (!DATA.files.some(f => f.f === cur)) cur = DATA.files[0].f;
 
 const fileOf = f => DATA.files.find(x => x.f === f);
@@ -271,16 +299,18 @@ function note(s){ $("#msg").textContent = s; clearTimeout(noteTimer);
 async function save(fi, r, val) {
   const id = docid(fi.f, r.k);
   docs[id] = val;
-  if (!db) { note("로그인 상태가 아니어서 이 기기에서만 보입니다"); return; }
+  if (!sb) { note("연결돼 있지 않아 이 기기에서만 보입니다"); return; }
   const dot = document.querySelector(`.dot[data-d="${id}"]`);
   if (dot) dot.className = "dot saving";
-  try {
-    await db.collection("tr").doc(id).set(
-      Object.assign({ f: fi.f, k: r.k, ts: Date.now(), by: me || "" }, val));
-    if (dot) dot.className = "dot";
-  } catch (err) {
+  const row = Object.assign({ id, f: fi.f, k: r.k, ts: Date.now(), by: nick }, val);
+  const { error } = await sb.from("tr").upsert(row);
+  if (error) {
     if (dot) dot.className = "dot fail";
-    note("저장 실패: 편집 권한이 없을 수 있습니다 (공유 설정 확인)");
+    note("저장 실패: " + (error.code === "42501" ? "암호가 맞지 않습니다 — 새로고침 후 다시 입장"
+                                                 : error.message));
+  } else {
+    lastTs = Math.max(lastTs, row.ts);
+    if (dot) dot.className = "dot";
   }
 }
 
@@ -298,21 +328,66 @@ addEventListener("resize", measureHeader);
 
 renderAll(); measureHeader();
 
+$("#nick").value = nick;
+$("#nick").onchange = ev => { nick = ev.target.value.trim();
+  try{localStorage.setItem("nick", nick)}catch(e){} };
+
+function mergeRows(rows) {
+  for (const v of rows) {
+    docs[v.id] = { kr: v.kr !== undefined && v.kr !== null ? v.kr : "", st: v.st || 0 };
+    if (v.ts > lastTs) lastTs = v.ts;
+  }
+  if (!document.querySelector("#tbl textarea")) renderAll();
+  else renderTabs();
+}
+
+async function pull(initial) {
+  if (!sb) return false;
+  let q = sb.from("tr").select("*").limit(5000);
+  if (!initial) q = q.gt("ts", lastTs);
+  const { data, error } = await q;
+  if (error) return false;
+  mergeRows(data || []);
+  return true;
+}
+
+function makeClient(pw) {
+  return window.supabase.createClient(CFG.url, CFG.key,
+    { global: { headers: { "x-team-code": pw } }, auth: { persistSession: false } });
+}
+
+async function connect(pw) {
+  const cand = makeClient(pw);
+  // RLS의 select 거부는 '빈 결과'라 오류가 안 남 → 전용 RPC로 암호 검증
+  const { data, error } = await cand.rpc("team_ok");
+  if (error || data !== true) return false;
+  sb = cand;
+  try { localStorage.setItem("pw", pw); } catch (e) {}
+  await pull(true);
+  $("#who").textContent = "연결됨 — 자동 저장";
+  setInterval(() => pull(false), 15000);
+  addEventListener("focus", () => pull(false));
+  return true;
+}
+
 (async () => {
-  db = await claude.use("db");
-  const user = await claude.use("user");
-  if (user) { try { me = await user.id(); } catch (e) {}
-    canWrite = (user.can && await user.can("data.write")) !== false; }
-  if (!db) { $("#who").textContent = "읽기 전용 — claude.ai 로그인 후 편집 가능"; return; }
-  $("#who").textContent = canWrite ? "편집 가능" : "권한 확인 중 — 저장이 거부되면 공유 설정에서 편집 권한이 필요합니다";
-  db.collection("tr").onSnapshot(snap => {
-    for (const d of snap.docs) {
-      const v = d.data();
-      if (!v) continue;
-      docs[d.id] = { kr: v.kr !== undefined ? v.kr : "", st: v.st || 0 };
-    }
-    if (!document.querySelector("#tbl textarea")) renderAll();
-    else renderTabs();
-  });
+  if (!CFG || !window.supabase) { $("#who").textContent = "오프라인 미리보기 (저장 안 됨)"; return; }
+  let pw = "";
+  try { pw = localStorage.getItem("pw") || ""; } catch (e) {}
+  if (pw && await connect(pw)) return;
+  const gate = $("#gate");
+  gate.hidden = false;
+  $("#pw").focus();
+  const go = async () => {
+    $("#gateMsg").textContent = "";
+    const v = $("#pw").value;
+    if (!v) return;
+    $("#pwGo").disabled = true;
+    if (await connect(v)) gate.hidden = true;
+    else $("#gateMsg").textContent = "암호가 맞지 않습니다";
+    $("#pwGo").disabled = false;
+  };
+  $("#pwGo").onclick = go;
+  $("#pw").addEventListener("keydown", ev => { if (ev.key === "Enter") go(); });
 })();
 </script>
