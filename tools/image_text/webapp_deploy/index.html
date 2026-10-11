@@ -8,6 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <style>
 /* PatternFly 위 최소 보정만 — 프레임워크 기본을 그대로 쓴다 */
+[hidden]{display:none!important}
 .kr-cell{cursor:text;white-space:pre-wrap;min-width:14rem}
 .kr-cell:hover{outline:1px dashed var(--pf-v5-global--primary-color--100);outline-offset:2px}
 .kr-cell.is-empty{color:var(--pf-v5-global--Color--200)}
@@ -504,6 +505,7 @@ $("#nick").onchange = ev => { nick = ev.target.value.trim();
 /* ---------------- 부팅 ---------------- */
 async function boot() {
   $("#gatewrap").hidden = true;
+  $("#gatewrap").style.display = "none";   // CSS display:flex보다 확실하게
   $("#app").hidden = false;
   $("#nick").value = nick;
   renderNav();
