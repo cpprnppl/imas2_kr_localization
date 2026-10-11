@@ -60,4 +60,20 @@ create policy hist_select on public.hist for select using (public.team_ok());
 create policy hist_insert on public.hist for insert with check (public.team_ok());
 -- update/delete 정책 없음 = 이력 불변
 
+-- ---------- 이미지 작업본 (작업자 업로드 PNG, base64)
+create table if not exists public.tex_kr (
+  md5  text primary key,          -- rows(cat=image)의 key
+  data text not null,             -- PNG base64 (data: URI 아님, 순수 base64)
+  ts   bigint not null default 0,
+  by   text not null default ''
+);
+alter table public.tex_kr enable row level security;
+drop policy if exists texkr_select on public.tex_kr;
+drop policy if exists texkr_insert on public.tex_kr;
+drop policy if exists texkr_update on public.tex_kr;
+create policy texkr_select on public.tex_kr for select using (public.team_ok());
+create policy texkr_insert on public.tex_kr for insert with check (public.team_ok());
+create policy texkr_update on public.tex_kr for update
+  using (public.team_ok()) with check (public.team_ok());
+
 -- 암호 변경: team_ok() 함수만 새 암호로 다시 실행

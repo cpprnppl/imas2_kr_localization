@@ -76,11 +76,7 @@ td textarea{width:100%;min-height:4rem;font:inherit}
   <main class="pf-v5-c-page__main">
     <section class="pf-v5-c-page__main-section pf-m-light pf-m-no-padding" style="padding:8px 16px">
       <div class="pf-v5-c-toolbar"><div class="pf-v5-c-toolbar__content" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-        <select class="pf-v5-c-form-control" style="width:auto" id="filter">
-          <option value="all">전체</option><option value="todo">미번역</option>
-          <option value="warn">경고 있음</option><option value="review">검수 대기</option>
-          <option value="done">검수 완료</option>
-        </select>
+        <select class="pf-v5-c-form-control" style="width:auto" id="filter"></select>
         <input class="pf-v5-c-form-control" style="width:16rem" type="search" id="q" placeholder="검색 (원문·번역·식별자)">
         <button class="pf-v5-c-button pf-m-secondary" id="frOpen">바꾸기</button>
         <span id="grpStat" class="pf-v5-u-color-200" style="font-size:13px"></span>
@@ -133,7 +129,7 @@ td textarea{width:100%;min-height:4rem;font:inherit}
         <button class="pf-v5-c-button pf-m-control" data-z="4">4×</button>
         <span id="imgMeta" class="pf-v5-u-color-200" style="font-size:12px"></span>
       </div>
-      <div class="imgbox"><img id="imgView" alt=""></div>
+      <div id="imgStack" style="display:flex;flex-direction:column;gap:10px"></div>
     </div>
     <footer class="pf-v5-c-modal-box__footer">
       <button class="pf-v5-c-button pf-m-primary" id="imgClose">닫기</button>
@@ -170,6 +166,7 @@ const U16 = s => s.length;
 const BYTES = s => 2 * (U16(s) + 1);
 
 let sb = null, nick = "", teamCode = "";
+const KRIMG = {};          // md5 -> {ts, by, url?} 이미지 작업본 메타/블롭 캐시
 let cat = "xmb", grp = null;          // 현재 선택
 let rows = [];                        // 현재 그룹 행 (메모리)
 let filter = "all", query = "", page = 0, perPage = 100;
@@ -222,6 +219,10 @@ async function connect(code) {
 /* ---------------- 네비게이션 ---------------- */
 function renderNav() {
   const ul = $("#nav"); ul.innerHTML = "";
+  const dash = document.createElement("li");
+  dash.className = "pf-v5-c-nav__item";
+  dash.innerHTML = `<a class="pf-v5-c-nav__link${cat === "dash" ? " pf-m-current" : ""}" data-cat="dash">진행 현황</a>`;
+  ul.appendChild(dash);
   for (const sec of META.nav) {
     const li = document.createElement("li");
     const open = sec.cat === cat;
@@ -247,8 +248,9 @@ function renderNav() {
   li.innerHTML = `<a class="pf-v5-c-nav__link${cat === "activity" ? " pf-m-current" : ""}" data-cat="activity">수정 이력</a>`;
   ul.appendChild(li);
   ul.onclick = ev => {
-    const a = ev.target.closest("[data-grp],[data-sec],[data-cat='activity']");
+    const a = ev.target.closest("[data-grp],[data-sec],[data-cat='activity'],[data-cat='dash']");
     if (!a) return;
+    if (a.dataset.cat === "dash") { showDash(); return; }
     if (a.dataset.sec) {
       const item = a.closest(".pf-v5-c-nav__item");
       const sub = item.querySelector(".pf-v5-c-nav__subnav");
@@ -280,16 +282,42 @@ async function fetchAll(c, g) {
   return out;
 }
 
+function renderFilter() {
+  const opts = cat === "image"
+    ? [["all", "전체"], ["todo", "문구 미정"], ["translated", "번역됨 (식질 대기)"],
+       ["edited", "식질됨 (검수 대기)"], ["done", "검수 완료"], ["warn", "경고 있음"]]
+    : [["all", "전체"], ["todo", "미번역"], ["review", "번역됨 (검수 대기)"],
+       ["done", "검수 완료"], ["warn", "경고 있음"]];
+  const counts = {};
+  for (const [v] of opts) counts[v] = 0;
+  for (const r of rows) {
+    for (const [v] of opts) if (passFilter(r, v)) counts[v]++;
+  }
+  $("#filter").innerHTML = opts.map(([v, l]) =>
+    `<option value="${v}">${l} · ${counts[v]}</option>`).join("");
+  $("#filter").value = filter;
+}
+
 async function openGroup(c, g) {
   closeNavIfNarrow();
   cat = c; grp = g; page = 0; filter = "all"; query = "";
-  $("#filter").value = "all"; $("#q").value = "";
+  $("#q").value = "";
   renderNav();
   const { sec, grp: gm } = navMeta(c, g);
   $("#crumb").textContent = `${sec.label} › ${gm.label}`;
   $("#content").innerHTML = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content">불러오는 중…</div></div>`;
   rows = await fetchAll(c, g);
+  if (c === "image") await loadKrimgList();
   render();
+}
+
+async function loadKrimgList() {
+  const { data, error } = await sb.from("tex_kr").select("md5,ts,by").limit(1000);
+  if (error) return;   // 테이블 미생성 등 — 작업본 없음으로 취급
+  for (const v of data) {
+    const old = KRIMG[v.md5];
+    KRIMG[v.md5] = { ts: v.ts, by: v.by, url: old && old.ts === v.ts ? old.url : null };
+  }
 }
 
 /* ---------------- 경고/통계 ---------------- */
@@ -315,14 +343,16 @@ function warns(r) {
 const isBlank = r => r.cat !== "image" && !r.jp;
 
 function grpStats() {
-  let tgt = 0, tr = 0, rv = 0, bytes = 0;
+  let tgt = 0, tr = 0, rv = 0, ed = 0, bytes = 0;
   for (const r of rows) {
     if (cat === "xmb") bytes += BYTES(r.kr || r.jp);
     if (isBlank(r)) continue;
     tgt++;
-    if (r.kr) { tr++; if (r.st >= 2) rv++; }
+    if (r.kr) tr++;
+    if (r.st >= 2) rv++;
+    if (r.cat === "image" && KRIMG[r.key]) ed++;
   }
-  return { tgt, tr, rv, bytes };
+  return { tgt, tr, rv, ed, bytes };
 }
 
 /* ---------------- 렌더 ---------------- */
@@ -330,18 +360,32 @@ function markMissing(kr) {
   return esc(kr).replace(/[가-힣]/g, ch => MAP.has(ch) ? ch : `<span class="kr-miss">${ch}</span>`);
 }
 
+function passFilter(r, f) {
+  if (f === "all") return true;
+  if (f === "warn") return warns(r).length > 0;
+  if (isBlank(r)) return false;
+  if (r.cat === "image") {
+    const img = KRIMG[r.key];
+    switch (f) {
+      case "todo": return !r.kr;
+      case "translated": return !!r.kr && !img;
+      case "edited": return !!img && r.st < 2;
+      case "done": return r.st >= 2;
+    }
+  }
+  switch (f) {
+    case "todo": return !r.kr;
+    case "review": return !!r.kr && r.st < 2;
+    case "done": return r.st >= 2;
+  }
+  return true;
+}
+
 function visibleRows() {
   const q = query.toLowerCase();
   return rows.filter(r => {
     if (q && ![r.key, r.jp, r.kr, (r.meta || {}).sp || ""].some(s => (s || "").toLowerCase().includes(q))) return false;
-    const w = warns(r);
-    switch (filter) {
-      case "todo": return !isBlank(r) && !r.kr;
-      case "warn": return w.length > 0;
-      case "review": return !isBlank(r) && r.kr && r.st < 2;
-      case "done": return !isBlank(r) && r.st >= 2;
-      default: return true;
-    }
+    return passFilter(r, filter);
   });
 }
 
@@ -373,7 +417,14 @@ function render() {
     let first, second;
     if (cat === "image") {
       const m = r.meta || {};
-      first = `<div class="thumb thumb-click" data-act="view" title="클릭하면 크게 보기"><img loading="lazy" src="${CFG.texbase}/jp/${r.key}.png" alt=""></div>`;
+      const img = KRIMG[r.key];
+      first = `<div style="display:flex;gap:6px;align-items:flex-start;flex-wrap:wrap">
+        <div><div class="thumb thumb-click" data-act="view" title="클릭하면 크게 보기"><img loading="lazy" src="${CFG.texbase}/jp/${r.key}.png" alt=""></div>
+          <div class="pf-v5-u-color-200" style="font-size:10px">원본</div></div>
+        ${img ? `<div><div class="thumb thumb-click" data-act="view"><img class="krimg-slot" data-md5="${esc(r.key)}" alt="작업본"></div>
+          <div class="pf-v5-u-color-200" style="font-size:10px">작업본 · ${esc(img.by || "")}</div></div>` : ""}
+        <button class="pf-v5-c-button pf-m-control pf-m-compact" data-act="upload">${img ? "교체" : "작업본 업로드"}</button>
+      </div>`;
       second = `<span class="nowrap">${m.w}×${m.h} ${esc(m.fmt || "")}</span><br>
                 <span class="pf-v5-u-color-200" style="font-size:12px">${esc((m.locs || [])[0] || "")}${(m.locs || []).length > 1 ? ` 외 ${m.locs.length - 1}곳` : ""}</span>`;
     } else if (cat === "script") {
@@ -396,11 +447,32 @@ function render() {
   h += "</tbody></table>";
   if (!slice.length) h = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content"><h2 class="pf-v5-c-title pf-m-lg">조건에 맞는 행이 없습니다</h2></div></div>`;
   $("#content").innerHTML = h;
+  renderFilter();
+  document.querySelectorAll("img.krimg-slot").forEach(im => loadKrThumb(im.dataset.md5, im));
+}
+
+async function krimgUrl(md5) {
+  const meta = KRIMG[md5];
+  if (!meta) return null;
+  if (meta.url) return meta.url;
+  const { data, error } = await sb.from("tex_kr").select("data").eq("md5", md5).single();
+  if (error || !data) return null;
+  const bin = atob(data.data);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  meta.url = URL.createObjectURL(new Blob([arr], { type: "image/png" }));
+  return meta.url;
+}
+async function loadKrThumb(md5, imgEl) {
+  const u = await krimgUrl(md5);
+  if (u) imgEl.src = u;
 }
 
 function renderStats() {
   const s = grpStats();
-  $("#grpStat").textContent = `번역 ${s.tr}/${s.tgt} · 검수 ${s.rv}`;
+  $("#grpStat").textContent = cat === "image"
+    ? `문구 ${s.tr}/${s.tgt} · 식질 ${s.ed} · 검수 ${s.rv}`
+    : `번역 ${s.tr}/${s.tgt} · 검수 ${s.rv}`;
   const bud = META.xmb_budgets[grp];
   if (cat === "xmb" && bud) {
     $("#budget").hidden = false;
@@ -426,7 +498,47 @@ $("#content").addEventListener("click", ev => {
   else if (act.dataset.act === "st2") setSt(r, r.st >= 2 ? 1 : 2);
   else if (act.dataset.act === "hist") showHist(r);
   else if (act.dataset.act === "view") openViewer(r);
+  else if (act.dataset.act === "upload") pickUpload(r);
 });
+
+/* ---------------- 이미지 작업본 업로드 ---------------- */
+function needNick() {
+  if (nick) return false;
+  toast("작업자 이름을 먼저 입력하세요 (오른쪽 위)");
+  $("#nick").focus();
+  return true;
+}
+function pickUpload(r) {
+  if (needNick()) return;
+  const inp = document.createElement("input");
+  inp.type = "file";
+  inp.accept = "image/png";
+  inp.onchange = () => { if (inp.files[0]) doUpload(r, inp.files[0]); };
+  inp.click();
+}
+async function doUpload(r, file) {
+  const m = r.meta || {};
+  const buf = await file.arrayBuffer();
+  if (buf.byteLength > 4 * 1024 * 1024) { toast("4MB 이하 PNG만 업로드할 수 있습니다"); return; }
+  const bmp = await createImageBitmap(new Blob([buf]));
+  if (bmp.width !== m.w || bmp.height !== m.h) {
+    toast(`치수 불일치: 업로드 ${bmp.width}×${bmp.height} ≠ 원본 ${m.w}×${m.h} — 치수를 바꾸면 게임에 못 넣습니다`);
+    return;
+  }
+  let b64 = "";
+  const bytes = new Uint8Array(buf);
+  for (let i = 0; i < bytes.length; i += 0x8000)
+    b64 += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  b64 = btoa(b64);
+  const ts = Date.now();
+  const { error } = await sb.from("tex_kr").upsert({ md5: r.key, data: b64, ts, by: nick });
+  if (error) { toast("업로드 실패: " + error.message); return; }
+  const old = KRIMG[r.key];
+  if (old && old.url) URL.revokeObjectURL(old.url);
+  KRIMG[r.key] = { ts, by: nick, url: URL.createObjectURL(new Blob([bytes], { type: "image/png" })) };
+  toast("작업본 업로드 완료", "success");
+  render();
+}
 
 /* ---------------- 이미지 뷰어 ---------------- */
 let viewZoom = 2, viewRow = null;
@@ -439,13 +551,19 @@ function openViewer(r) {
   applyViewZoom();
   $("#imgModal").hidden = false;
 }
-function applyViewZoom() {
+async function applyViewZoom() {
   if (!viewRow) return;
   const m = viewRow.meta || {};
-  const im = $("#imgView");
-  im.src = `${CFG.texbase}/jp/${viewRow.key}.png`;
-  im.style.width = (m.w * viewZoom) + "px";
-  im.style.height = (m.h * viewZoom) + "px";
+  const sz = `width:${m.w * viewZoom}px;height:${m.h * viewZoom}px;image-rendering:pixelated;display:block`;
+  const img = KRIMG[viewRow.key];
+  let h = `<div><div class="pf-v5-u-color-200" style="font-size:12px;margin-bottom:2px">원본 (JP)</div>
+    <div class="imgbox"><img style="${sz}" src="${CFG.texbase}/jp/${viewRow.key}.png" alt=""></div></div>`;
+  if (img) {
+    const u = await krimgUrl(viewRow.key);
+    if (u) h += `<div><div class="pf-v5-u-color-200" style="font-size:12px;margin-bottom:2px">작업본 · ${esc(img.by || "")} · ${fmtTs(img.ts)}</div>
+      <div class="imgbox"><img style="${sz}" src="${u}" alt=""></div></div>`;
+  }
+  $("#imgStack").innerHTML = h;
 }
 document.querySelectorAll("#imgModal [data-z]").forEach(b =>
   b.onclick = () => { viewZoom = +b.dataset.z; applyViewZoom(); });
@@ -466,6 +584,7 @@ function openEditorFor(r) {
 }
 
 function startEdit(r, td) {
+  if (needNick()) return;
   if (td.querySelector("textarea")) return;
   const ta = document.createElement("textarea");
   ta.className = "pf-v5-c-form-control";
@@ -494,7 +613,8 @@ function startEdit(r, td) {
 }
 
 function setSt(r, st) {
-  if (st >= 1 && !r.kr) { toast("번역문이 비어 있습니다"); return; }
+  if (needNick()) return;
+  if (st >= 1 && !r.kr && r.cat !== "image") { toast("번역문이 비어 있습니다"); return; }
   save(r, r.kr, st);
 }
 
@@ -539,6 +659,69 @@ async function showHist(r) {
 $("#histClose").onclick = () => $("#histModal").hidden = true;
 $("#histModal").addEventListener("click", ev => { if (ev.target === $("#histModal")) $("#histModal").hidden = true; });
 
+/* ---------------- 진행 현황 대시보드 ---------------- */
+let DASH = null;
+async function countQ(c, g, extra) {
+  let q = sb.from("rows").select("id", { count: "exact", head: true })
+    .eq("cat", c).eq("grp", g);
+  if (extra) q = extra(q);
+  const { count } = await q;
+  return count || 0;
+}
+async function showDash(force) {
+  closeNavIfNarrow();
+  cat = "dash"; grp = null; renderNav();
+  $("#crumb").textContent = "진행 현황";
+  $("#budget").hidden = true; $("#grpStat").textContent = "";
+  if (!DASH || force) {
+    $("#content").innerHTML = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content">집계 중…</div></div>`;
+    const out = [];
+    for (const sec of META.nav) {
+      const rows_ = await Promise.all(sec.groups.map(async gm => {
+        const [tgt, tr, rv] = await Promise.all([
+          countQ(sec.cat, gm.g, sec.cat === "image" ? null : q => q.neq("jp", "")),
+          countQ(sec.cat, gm.g, q => q.neq("kr", "")),
+          countQ(sec.cat, gm.g, q => q.eq("st", 2)),
+        ]);
+        return { gm, tgt, tr, rv };
+      }));
+      out.push({ sec, rows: rows_ });
+    }
+    DASH = out;
+  }
+  if (cat !== "dash") return;   // 집계 중 다른 메뉴로 이동한 경우
+  const bar = (n, d, color) => {
+    const pct = d ? Math.round(100 * n / d) : 0;
+    return `<div class="pf-v5-c-progress pf-m-sm" style="min-width:140px">
+      <div class="pf-v5-c-progress__bar"><div class="pf-v5-c-progress__indicator" style="width:${pct}%${color ? ";background:" + color : ""}"></div></div></div>`;
+  };
+  $("#content").innerHTML = DASH.map(({ sec, rows: rs }) => {
+    const T = rs.reduce((a, r) => a + r.tgt, 0), TR = rs.reduce((a, r) => a + r.tr, 0),
+          RV = rs.reduce((a, r) => a + r.rv, 0);
+    return `<h2 class="pf-v5-c-title pf-m-lg" style="margin:14px 0 6px">${esc(sec.label)}
+      <span class="pf-v5-u-color-200" style="font-size:13px;font-weight:400"> 번역 ${TR.toLocaleString()}/${T.toLocaleString()} · 검수 ${RV.toLocaleString()}</span></h2>
+    <table class="pf-v5-c-table pf-m-compact"><thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">
+      <th class="pf-v5-c-table__th" style="width:16rem">소분류</th>
+      <th class="pf-v5-c-table__th">번역</th><th class="pf-v5-c-table__th" style="width:10rem"></th>
+      <th class="pf-v5-c-table__th">검수</th><th class="pf-v5-c-table__th" style="width:10rem"></th></tr></thead>
+    <tbody class="pf-v5-c-table__tbody">${rs.map(r => `
+      <tr class="pf-v5-c-table__tr">
+        <td class="pf-v5-c-table__td"><a href="#" data-open="${sec.cat}:${r.gm.g}">${esc(r.gm.label)}</a></td>
+        <td class="pf-v5-c-table__td nowrap" style="font-variant-numeric:tabular-nums">${r.tr}/${r.tgt}</td>
+        <td class="pf-v5-c-table__td">${bar(r.tr, r.tgt)}</td>
+        <td class="pf-v5-c-table__td nowrap" style="font-variant-numeric:tabular-nums">${r.rv}/${r.tgt}</td>
+        <td class="pf-v5-c-table__td">${bar(r.rv, r.tgt, "var(--pf-v5-global--success-color--100)")}</td>
+      </tr>`).join("")}</tbody></table>`;
+  }).join("") +
+  `<p style="margin-top:12px"><button class="pf-v5-c-button pf-m-secondary" id="dashRefresh">새로 집계</button></p>`;
+  $("#dashRefresh").onclick = () => showDash(true);
+  $("#content").querySelectorAll("[data-open]").forEach(a => a.onclick = ev => {
+    ev.preventDefault();
+    const [c, g] = a.dataset.open.split(":");
+    openGroup(c, g);
+  });
+}
+
 /* ---------------- 활동(전체 이력) 뷰 ---------------- */
 async function showActivity() {
   closeNavIfNarrow();
@@ -579,15 +762,15 @@ async function showActivity() {
 
 /* ---------------- 잡동사니 ---------------- */
 let toastTimer;
-function toast(msg) {
+function toast(msg, kind) {
   let el = $("#toast");
   if (!el) {
     el = document.createElement("div");
     el.id = "toast";
-    el.className = "pf-v5-c-alert pf-m-danger pf-m-inline";
     el.style.cssText = "position:fixed;bottom:16px;right:16px;z-index:99;max-width:24rem";
     document.body.appendChild(el);
   }
+  el.className = `pf-v5-c-alert pf-m-${kind || "danger"} pf-m-inline`;
   el.innerHTML = `<div class="pf-v5-c-alert__title">${esc(msg)}</div>`;
   el.hidden = false;
   clearTimeout(toastTimer);
@@ -632,6 +815,7 @@ $("#frPreview").onclick = () => {
   $("#frApply").disabled = false;
 };
 $("#frApply").onclick = async () => {
+  if (needNick()) return;
   const f = $("#frFind").value, rep = $("#frRepl").value;
   $("#frApply").disabled = true; $("#frPreview").disabled = true;
   let n = 0;
@@ -662,6 +846,11 @@ function closeNavIfNarrow() {
 }
 $("#nick").onchange = ev => { nick = ev.target.value.trim();
   try { localStorage.setItem("nick", nick); } catch (e) {} };
+document.addEventListener("keydown", ev => {   // '/' = 검색 포커스
+  if (ev.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) {
+    ev.preventDefault(); $("#q").focus();
+  }
+});
 
 /* ---------------- 부팅 ---------------- */
 async function boot() {
@@ -670,8 +859,7 @@ async function boot() {
   $("#app").hidden = false;
   $("#nick").value = nick;
   renderNav();
-  const first = META.nav[0];
-  openGroup(first.cat, first.groups[0].g);
+  showDash();   // 홈 = 진행 현황
 }
 // 게이트 핸들러는 어떤 비동기 작업보다 먼저 바인딩한다 (무반응 방지)
 const go = async () => {

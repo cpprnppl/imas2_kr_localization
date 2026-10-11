@@ -99,7 +99,9 @@ def pull_script(rows, reviewed_only):
     print("excel2scb 전환은 scb-excel 파이프라인에서 이 파일로 교체 후 실행")
 
 
-def pull_image(rows, reviewed_only):
+def pull_image(rows, reviewed_only, code=None):
+    import base64
+    from extract_image_text import OUT_DEFAULT
     sp_path = os.path.join(HERE, "label_specs.json")
     specs = json.load(open(sp_path, encoding="utf-8")) if os.path.exists(sp_path) \
         else {"presets": {}, "items": {}}
@@ -114,7 +116,43 @@ def pull_image(rows, reviewed_only):
             n += 1
     json.dump(specs, open(sp_path, "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
-    print(f"label_specs.json 문구 반영 {n}건 → 다음: python label_tool.py --export")
+    print(f"label_specs.json 문구 반영 {n}건")
+
+    # 웹앱 업로드 작업본(tex_kr) → kr/ PNG (md5의 모든 위치에 복제)
+    by_key = {r["key"]: r for r in rows}
+    imgs = []
+    offset = 0
+    while True:
+        req_ = urllib.request.Request(
+            f"{CFG['url']}/rest/v1/tex_kr?select=*&limit=100&offset={offset}",
+            headers={"apikey": CFG["anon_key"],
+                     "Authorization": f"Bearer {CFG['anon_key']}",
+                     "x-team-code": code})
+        chunk = json.load(urllib.request.urlopen(req_))
+        imgs += chunk
+        if len(chunk) < 100:
+            break
+        offset += 100
+    m = 0
+    for im in imgs:
+        r = by_key.get(im["md5"])
+        if r is None:
+            continue
+        if reviewed_only and r.get("st", 0) < 2:
+            continue
+        png = base64.b64decode(im["data"])
+        for loc in (r.get("meta") or {}).get("locs", []):
+            rel, nn = loc.rsplit("#", 1)
+            rel = rel.replace("/", "\\")
+            stem = os.path.splitext(os.path.basename(rel))[0]
+            dst = os.path.join(OUT_DEFAULT, "kr", os.path.dirname(rel),
+                               f"{stem}_{nn}.png")
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            with open(dst, "wb") as f:
+                f.write(png)
+            m += 1
+    print(f"작업본 PNG {m}장 저장 ({len(imgs)}개 업로드본, 모든 위치 복제)")
+    print("다음: python label_tool.py --export (라벨 렌더) → python inject_image_text.py")
 
 
 def main():
@@ -124,8 +162,10 @@ def main():
     ap.add_argument("--reviewed-only", action="store_true")
     args = ap.parse_args()
     rows = fetch(args.cat, args.code)
-    {"xmb": pull_xmb, "script": pull_script, "image": pull_image}[args.cat](
-        rows, args.reviewed_only)
+    if args.cat == "image":
+        pull_image(rows, args.reviewed_only, code=args.code)
+    else:
+        {"xmb": pull_xmb, "script": pull_script}[args.cat](rows, args.reviewed_only)
 
 
 if __name__ == "__main__":
