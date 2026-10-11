@@ -109,7 +109,13 @@ const CFG = /*__CFG__*/null;
 const META = /*__DATA__*/null;
 const MAP = new Set(META.mapchars);
 const $ = s => document.querySelector(s);
-const esc = s => (s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc = s => (s == null ? "" : String(s)).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// 스크립트 오류가 "무반응"으로 보이지 않게 게이트에 표시
+window.addEventListener("error", e => {
+  const g = document.getElementById("gateMsg");
+  if (g && !document.getElementById("gatewrap").hidden)
+    g.textContent = "스크립트 오류: " + (e.message || e.type);
+});
 const U16 = s => s.length;
 const BYTES = s => 2 * (U16(s) + 1);
 
@@ -128,7 +134,8 @@ function applyTheme() {
     matchMedia("(prefers-color-scheme: dark)").matches);
 }
 applyTheme();
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme);
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme); }
+catch (e) { try { matchMedia("(prefers-color-scheme: dark)").addListener(applyTheme); } catch (e2) {} }
 
 /* ---------------- 접속 ---------------- */
 function makeClient(code) {
@@ -485,25 +492,38 @@ async function boot() {
   const first = META.nav[0];
   openGroup(first.cat, first.groups[0].g);
 }
+// 게이트 핸들러는 어떤 비동기 작업보다 먼저 바인딩한다 (무반응 방지)
+const go = async () => {
+  $("#gateMsg").textContent = "";
+  if (!CFG) { $("#gateMsg").textContent = "오프라인 빌드 — 접속 불가"; return; }
+  if (!window.supabase) {
+    $("#gateMsg").textContent = "라이브러리 로드 실패 — 새로고침하거나 차단 확장(애드블록)을 확인하세요";
+    return;
+  }
+  const v = $("#pw").value;
+  if (!v) { $("#gateMsg").textContent = "암호를 입력하세요"; return; }
+  $("#pwGo").disabled = true;
+  $("#gateMsg").textContent = "확인 중…";
+  nick = $("#gnick").value.trim() || nick;
+  try { localStorage.setItem("nick", nick); } catch (e) {}
+  let ok = false;
+  try { ok = await connect(v); }
+  catch (e) { $("#gateMsg").textContent = "접속 오류: " + (e.message || e); }
+  if (ok) boot();
+  else if ($("#gateMsg").textContent === "확인 중…")
+    $("#gateMsg").textContent = "암호가 맞지 않습니다";
+  $("#pwGo").disabled = false;
+};
+$("#pwGo").onclick = go;
+$("#pw").addEventListener("keydown", ev => { if (ev.key === "Enter") go(); });
+$("#gnick").value = nick;
+
 (async () => {
-  if (!CFG || !window.supabase) { $("#gateMsg").textContent = "오프라인 빌드 — 접속 불가"; return; }
+  if (!CFG || !window.supabase) return;
   let pw = "";
   try { pw = localStorage.getItem("pw") || ""; } catch (e) {}
-  if (pw && await connect(pw)) { boot(); return; }
-  $("#gnick").value = nick;
-  const go = async () => {
-    $("#gateMsg").textContent = "";
-    const v = $("#pw").value;
-    if (!v) return;
-    $("#pwGo").disabled = true;
-    nick = $("#gnick").value.trim() || nick;
-    try { localStorage.setItem("nick", nick); } catch (e) {}
-    if (await connect(v)) boot();
-    else $("#gateMsg").textContent = "암호가 맞지 않습니다";
-    $("#pwGo").disabled = false;
-  };
-  $("#pwGo").onclick = go;
-  $("#pw").addEventListener("keydown", ev => { if (ev.key === "Enter") go(); });
+  if (!pw) return;
+  try { if (await connect(pw)) boot(); } catch (e) {}
 })();
 </script>
 </body>
