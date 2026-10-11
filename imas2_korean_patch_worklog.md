@@ -591,3 +591,43 @@ python deploy_fonts.py     # 검증 게이트 통과 시: 백업 → loose 교�
 - 매핑 2,359자를 tools\font_mapping.json·resource\im2_font_mapping.json에 동기화 —
   **다음 excel2scb 실행부터 큿큥햣쌰겍츗 인코딩됨**
 - 남은 확인: 인게임 스크린샷으로 잘림/혼입 해소 확인 (사용자)
+
+---
+
+## 19. UI 이미지 텍스트 추출 패키지 (2026-10-12)
+
+메뉴·UI·튜토리얼에 비트맵으로 박힌 일본어를 PNG로 추출해 이미지 작업자에게 넘길
+패키지 생성. 도구: `tools/image_text/extract_image_text.py` (README 참조).
+
+### 인벤토리/결과
+
+- 대상 = 중국팀 패치(`Desktop\偶像大师2汉化补丁\games\...\resource`)에서
+  gscript/·initialFix·initialTemp 제외 전 56파일. JP 원본은 NPJB00337 동일 상대경로.
+- 산출: `Desktop\imas2_image_text\` — jp/(작업 대상)·cn_ref/(중국어 참고)·
+  _review/(JP|CN 비교 시트)·index.md/json.
+- **JP 텍스처 4,758장 중 CN 수정(=payload md5 상이=텍스트 있는) 505장, 유니크 333장.**
+  같은 라벨 세트가 여러 pac에 중복(도도부현 라벨 5개 pac, お守りINFO류 4개 pac 등).
+
+### 포맷 지식 (실측 확정)
+
+- NUT 두 레이아웃: ver=0x0100 → `[80B 헤더][데이터]` 인터리브,
+  ver=0x0200 → 헤더 연속(16+80i) 후 데이터 연속(폰트 NUT와 동일). 마커 eXt/GIDX 검증.
+- 텍스처 fmt(+0x13): 0=DXT1, 1=DXT3, 2=DXT5, 6=RGB565(BE), 7=ARGB4444(BE),
+  14/17=ARGB8888(BE). DXT 블록 내부는 표준 LE. 모두 디코드 검증 완료(잔여 오류 0).
+- 암호화 파일(.s2d/.nut/.tsk/.xmb)은 평문보다 +80B. imas2dec로 사본만 복호화
+  (게임 원본 불변). `.s2d`=TSK 컨테이너, 그 안에 NUT.
+- pac 엔트리 테이블 대신 NTP3 시그니처 카빙이 신뢰됨 (워크로그 §8·브리핑 방침 유지).
+
+### 비이미지(텍스트) 후속 과제 — 이미지 작업 범위 아님
+
+- `text/install.xmb`·`scene/exep_init.mpc`(내부 XMB)·`ranker/ranker_npc.xmb`:
+  XMB 텍스트 테이블(설치/트로피 메시지, ジュピター 소개, NPC 유닛명).
+- `scene/attract.mpc`: **gscript 밖 SCB 2개** 내장 — excel2scb 파이프라인 미커버.
+- `game/les_mar.mpc`·`scene/saveLoad.mpc`: CN이 포함했지만 텍스처 차이 0 —
+  비텍스처 데이터 수정으로 추정.
+
+### 재주입(다음 단계) 방침
+
+같은 포맷·같은 크기로 재인코딩해 index.json의 data_off에 제자리 덮어쓰기(크기 불변,
+pac 헤더 갱신 불필요). 중국팀은 암호화 파일을 전부 복호화 상태로 배포 — 평문 교체가
+통하는 것으로 보이나 인게임 1회 검증 후 전체 적용. 치수 변경 금지(배치 좌표 외부).
