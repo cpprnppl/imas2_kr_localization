@@ -22,9 +22,11 @@ build는 **파일 크기를 원본과 동일하게 유지**한다(뒤쪽 0 패�
 id/구조/이름은 불변이므로 id색인은 재계산이 필요 없다(id 오프셋 불변 배치).
 
 사용:
-  python xmb_text.py dump   # 3종 JP+CN을 파싱해 xmb_texts.json(+report md) 생성
-  python xmb_text.py build  # xmb_translations.json의 kr로 patched/ 산출 (검증 포함)
-    --no-font-mapping       # 한글→한자 슬롯 매핑 인코딩 생략 (기본: 적용)
+  python xmb_text.py dump         # 3종 JP+CN을 파싱해 xmb_texts.json 생성
+  python xmb_text.py export-xlsx  # 번역팀용 엑셀 생성 (기본: 게임 tools/xmb_translation_1.xlsx)
+  python xmb_text.py import-xlsx  # 엑셀의 '한국어' 열 → xmb_translations.json 반영
+  python xmb_text.py build        # xmb_translations.json의 kr로 patched/ 산출 (검증 포함)
+    --no-font-mapping             # 한글→한자 슬롯 매핑 인코딩 생략 (기본: 적용)
 """
 import os
 import sys
@@ -284,12 +286,85 @@ def cmd_build(args):
         print("  → font-atlas 세션에 슬롯 추가 요청 필요 (repatch_fonts.py NEW_CHARS)")
 
 
+# ---------------------------------------------------------------- xlsx
+
+XLSX_DEFAULT = os.path.join(JP_ROOT, "gscript", "tools", "xmb_translation_1.xlsx")
+XLSX_HEAD = ["파일", "id", "원문(JP)", "중국어역(CN)", "한국어(KR)", "메모"]
+
+
+def cmd_export_xlsx(args):
+    """번역팀용 엑셀: 파일별 시트, 기존 kr 제안은 미리 채움(검수 대상 표시)."""
+    from openpyxl import Workbook
+    from openpyxl.styles import Alignment, Font, PatternFill
+    from openpyxl.utils import get_column_letter
+
+    table = json.load(open(os.path.join(HERE, "xmb_texts.json"), encoding="utf-8"))
+    tr_path = os.path.join(HERE, "xmb_translations.json")
+    tr = json.load(open(tr_path, encoding="utf-8")) if os.path.exists(tr_path) else {}
+
+    wb = Workbook()
+    wb.remove(wb.active)
+    wrap = Alignment(wrap_text=True, vertical="top")
+    head_f = Font(bold=True)
+    fill = PatternFill("solid", fgColor="FFF2CC")  # kr 제안 채워진 행 표시
+    for rel, rows in table.items():
+        ws = wb.create_sheet(rel.split("/")[-1][:28])
+        ws.append(XLSX_HEAD)
+        for c in ws[1]:
+            c.font = head_f
+        for r in rows:
+            kr = (tr.get(rel, {}).get(r["id"]) or {}).get("kr", "")
+            memo = "제안 — 검수 요망" if kr else ""
+            ws.append([rel, r["id"], r["jp"], r["cn"], kr, memo])
+            if kr:
+                for c in ws[ws.max_row]:
+                    c.fill = fill
+        for col, w in zip("ABCDEF", (22, 14, 52, 52, 52, 16)):
+            ws.column_dimensions[col].width = w
+        for row in ws.iter_rows(min_row=2):
+            for c in row:
+                c.alignment = wrap
+        ws.freeze_panes = "A2"
+    path = args.path or XLSX_DEFAULT
+    if os.path.exists(path):
+        raise SystemExit(f"[중단] 이미 존재: {path} — 기존 번역 엑셀을 덮지 않음. "
+                         "--path로 새 파일명을 지정하세요")
+    wb.save(path)
+    n = sum(len(r) for r in table.values())
+    print(f"엑셀 생성: {path} ({n}행, 시트 {len(table)}개)")
+    print("한국어(KR) 열을 채워 import-xlsx 하면 됩니다. 줄바꿈은 셀 내 Alt+Enter.")
+
+
+def cmd_import_xlsx(args):
+    from openpyxl import load_workbook
+    path = args.path or XLSX_DEFAULT
+    wb = load_workbook(path, read_only=True)
+    tr_path = os.path.join(HERE, "xmb_translations.json")
+    tr = json.load(open(tr_path, encoding="utf-8"))
+    n = 0
+    for ws in wb.worksheets:
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            rel, tid, _jp, _cn, kr = (row + (None,) * 5)[:5]
+            if not rel or not tid or not kr:
+                continue
+            ent = tr.setdefault(str(rel), {}).setdefault(
+                str(tid), {"jp": _jp or "", "cn": _cn or "", "kr": ""})
+            if ent.get("kr") != str(kr):
+                ent["kr"] = str(kr)
+                n += 1
+    with open(tr_path, "w", encoding="utf-8") as f:
+        json.dump(tr, f, ensure_ascii=False, indent=1)
+    print(f"반영 {n}건 → {tr_path}. 이제 `python xmb_text.py build` 실행.")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["dump", "build"])
+    ap.add_argument("cmd", choices=["dump", "build", "export-xlsx", "import-xlsx"])
     ap.add_argument("--no-font-mapping", action="store_true")
+    ap.add_argument("--path", help="export/import-xlsx 대상 경로")
     args = ap.parse_args()
-    (cmd_dump if args.cmd == "dump" else cmd_build)(args)
+    {"dump": cmd_dump, "build": cmd_build,
+     "export-xlsx": cmd_export_xlsx, "import-xlsx": cmd_import_xlsx}[args.cmd](args)
 
 
 if __name__ == "__main__":

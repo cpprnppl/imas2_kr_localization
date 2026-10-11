@@ -13,6 +13,8 @@ python tools/image_text/inject_image_text.py --selftest    # CN 텍스처 505장
 python tools/image_text/inject_image_text.py               # <out>/kr/의 한글 PNG 주입
 
 python tools/image_text/xmb_text.py dump                   # XMB 3종 텍스트 덤프
+python tools/image_text/xmb_text.py export-xlsx            # 번역팀용 엑셀 (게임 tools/)
+python tools/image_text/xmb_text.py import-xlsx            # 엑셀 KR 열 → translations.json
 python tools/image_text/xmb_text.py build                  # xmb_translations.json → patched/
 ```
 
@@ -72,5 +74,8 @@ index.md / index.json             파일별 결과 + 재주입 주의점 / 오�
   초과 시 오류), 재파싱 검증 내장. 기본으로 **한글→한자 슬롯 폰트 매핑 인코딩**
   적용(`--no-font-mapping`으로 끔) — CN 패치도 매핑 한자로 저장돼 있어 XMB
   텍스트가 게임 폰트로 렌더됨을 확인함.
-- install 22건·ranker 4건 한국어 제안 기입 완료(사용자 확정 대기), exep_init
-  867건은 고유명사 표기 방침 확정 후 일괄 번역 예정.
+- 번역 워크플로: `export-xlsx` → 게임 tools 폴더 `xmb_translation_1.xlsx`
+  (시트 3개 1,030행, 기존 kr 제안은 노란 행) → 번역팀이 '한국어(KR)' 열 작성 →
+  `import-xlsx` → `build`. 기존 파일이 있으면 덮지 않고 중단(--path로 새 이름).
+- 고유명사 표기는 통용(나무위키/SideM) 기준: 아마가세 토우마·미타라이 쇼타·
+  **이쥬인 호쿠토**·주피터. install 22건·ranker 4건 제안 기입 완료.
