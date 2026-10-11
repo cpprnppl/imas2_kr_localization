@@ -656,3 +656,31 @@ pac 헤더 갱신 불필요). 중국팀은 암호화 파일을 전부 복호화 
   번역 후 재실행하면 반영).
 - **배포는 보류** — 게임 폴더 배포는 메인 세션 전담 규칙. `output_scene/attract.mpc`
   준비 완료, `python patch_attract.py --deploy`만 남음.
+
+---
+
+## 21. 이미지 재주입 파이프라인 + XMB 텍스트 도구 (2026-10-12, §19 후속)
+
+### inject_image_text.py — 한글 PNG → 텍스처 제자리 주입
+
+- 인코더: DXT1/3/5(range-fit + 최소자승 끝점 정제 2회 — fan_letter 무지개 봉투
+  26.6dB→통과), RGB565/ARGB4444/ARGB8888(무손실). 크기·치수·포맷 불변.
+- 검증 게이트: ① 파일 크기·주입영역 밖 바이트 불변 ② NUT 재파싱 구조 일치
+  ③ 재디코드 vs 입력 PNG(무손실 포맷 완전일치, DXT PSNR≥33dB).
+- `--selftest` = CN 수정 텍스처 505장 전량 주입: **50/50 파일 통과**
+  (DXT 36.8~61dB). 입력은 `<out>/kr/`, 산출은 `<out>/patched/` — 게임 폴더 배포는
+  수동 + 평문 교체(구 암호화 파일) 인게임 1회 검증 먼저.
+
+### xmb_text.py — XMB 텍스트 테이블 (dump/build)
+
+- XMB 구조 확정: 헤더(+4 node/attr/name/id count, +0x14 섹션 ofs×6), 노드 16B
+  (nameOfs u32, attrCount/childCount/firstAttr/firstChild/parent u16), 속성 8B
+  (nameOfs, valueOfs), 값 섹션 = id ASCII + _text UTF-16BE, id 정렬 색인(바이너리 서치).
+- 물량: install.xmb 23(시스템 메시지) / ranker_npc.xmb 5(NPC 유닛명) /
+  exep_init.mpc 내장 XMB **1,002**(NPCP 200·NPCU 200·NPCS 601·PROD 1, JP≠CN 867).
+- **CN 패치의 XMB 텍스트가 매핑 한자 인코딩으로 저장돼 있음** → XMB도 게임 폰트
+  렌더 확정, build는 기본으로 font_mapping(2,359자) 인코딩 적용.
+- build 게이트: 파일 크기 불변(값 섹션 초과 시 오류, pac 내장은 세그먼트만 교체),
+  재파싱으로 교체 텍스트/id/구조 검증. install 22건·ranker 4건 한국어 제안 기입
+  (매핑 미보유 한글 0자) → patched/ 산출 확인. **사용자 문구 확정 대기**,
+  exep_init 867건은 고유명사 표기 방침 확정 후 일괄 번역.
