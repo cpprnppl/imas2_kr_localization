@@ -631,3 +631,28 @@ python deploy_fonts.py     # 검증 게이트 통과 시: 백업 → loose 교�
 같은 포맷·같은 크기로 재인코딩해 index.json의 data_off에 제자리 덮어쓰기(크기 불변,
 pac 헤더 갱신 불필요). 중국팀은 암호화 파일을 전부 복호화 상태로 배포 — 평문 교체가
 통하는 것으로 보이나 인게임 1회 검증 후 전체 적용. 치수 변경 금지(배치 좌표 외부).
+
+## 20. scene/attract.mpc 내장 SCB 패치 (2026-10-12, scb-excel 세션)
+
+어트랙트(타이틀 방치) 데모가 gscript 밖 `scene/attract.mpc`에 대사 SCB 사본을
+내장하고 있어 excel2scb 파이프라인이 커버하지 못하던 건 처리 (워크로그 §19 후속 과제).
+
+### 구조 (실측 확정)
+- `attract.mpc` = 평문 pac (암호화·AES 푸터 없음). 서브파일 2개 = **순정
+  `dec(all/all_dem_01.scb)`·`dec(all/all_dem_02.scb)`와 바이트 동일**한 내부 pac.
+- 레이아웃: 헤더+MSG 매니페스트(파일명표, 크기 참조 없음) 0x000~0x11F, 데이터 베이스
+  0x120, 각 서브파일 뒤 16B 제로 패딩. 크기 참조는 `+0x08`(서브파일 크기 합),
+  rec0.size(+0x48), rec1.size(+0x68), rec1.ofs(+0x6C) **4곳뿐** (0x140까지 전수 스캔).
+
+### 도구: `tools/scb/patch_attract.py`
+- 순정 SCB → excel2scb와 **동일 코드 경로**(translation_2 로드·rewrap·테이블 리빌드·
+  내부 pac 헤더 4필드 갱신)로 패치 dec 생성 → 외곽 pac 재조립(위 4필드 갱신).
+- 최초 실행 시 live가 순정인지(내장==순정 dec) 검증 후 `attract.mpc.orig` 백업 생성,
+  이후 항상 .orig에서 읽음(재패치 오염 방지). 내장 검증 게이트(외곽 invariant,
+  MSG count/문자열 일치, 컷씬 pac 보존) 통과 시에만 `tools/output_scene/`에 저장,
+  배포는 `--deploy`로만.
+- 교차 검증: 내장 패치 dec == 당일 메인 파이프라인 산출 `tools/output/all/all_dem_01·02.scb`의
+  dec와 바이트 동일. 적용 7/8 + 4/4줄 (all_dem_01 index7은 신규추출 미번역 행 —
+  번역 후 재실행하면 반영).
+- **배포는 보류** — 게임 폴더 배포는 메인 세션 전담 규칙. `output_scene/attract.mpc`
+  준비 완료, `python patch_attract.py --deploy`만 남음.
