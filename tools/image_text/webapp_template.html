@@ -142,10 +142,28 @@ function makeClient(code) {
   return window.supabase.createClient(CFG.url, CFG.key,
     { global: { headers: { "x-team-code": code } }, auth: { persistSession: false } });
 }
+function withTimeout(p, ms) {
+  return Promise.race([p, new Promise((_, rej) =>
+    setTimeout(() => rej(new Error("timeout")), ms))]);
+}
 async function connect(code) {
   const cand = makeClient(code);
-  const { data, error } = await cand.rpc("team_ok");
-  if (error || data !== true) return false;
+  let res;
+  try {
+    res = await withTimeout(cand.rpc("team_ok"), 10000);
+  } catch (e) {
+    // 왜 안 되는지 구분: 서버 자체 도달 가능 여부 (헤더 없는 단순 요청)
+    let reach = "불가";
+    try {
+      await withTimeout(fetch(CFG.url + "/rest/v1/", { method: "GET" }), 5000);
+      reach = "가능";
+    } catch (e2) {}
+    throw new Error(e.message === "timeout"
+      ? `인증 요청 응답 없음 (서버 도달: ${reach}) — 네트워크/광고차단 확장/DNS를 확인하세요`
+      : `${e.message} (서버 도달: ${reach})`);
+  }
+  if (res.error) throw new Error(res.error.message);
+  if (res.data !== true) return false;
   sb = cand; teamCode = code;
   try { localStorage.setItem("pw", code); } catch (e) {}
   return true;
