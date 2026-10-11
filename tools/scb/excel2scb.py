@@ -40,6 +40,7 @@ _ORIG_CANDIDATE = os.path.normpath(os.path.join(
     os.path.dirname(os.path.dirname(GSCRIPT_DIR)), "gscript - 복사본"))
 ORIG_DIR = _ORIG_CANDIDATE if os.path.isdir(_ORIG_CANDIDATE) else GSCRIPT_DIR
 
+EXCEL_PATH_V2         = os.path.join(TOOLS_DIR, "translation_2.xlsx")  # 재추출판(오프셋 교정, 최우선)
 EXCEL_PATH_WITH_ENTRY = os.path.join(TOOLS_DIR, "translation_1_with_entry.xlsx")
 EXCEL_PATH_FALLBACK   = os.path.join(TOOLS_DIR, "translation_1.xlsx")
 FONT_MAPPING_JSON     = os.path.join(TOOLS_DIR, "font_mapping.json")
@@ -285,6 +286,8 @@ def rewrap(text: str) -> str:
 # Excel load (abs_offset-based)
 # -------------------------
 def choose_excel_path():
+    if os.path.exists(EXCEL_PATH_V2):
+        return EXCEL_PATH_V2
     if os.path.exists(EXCEL_PATH_WITH_ENTRY):
         return EXCEL_PATH_WITH_ENTRY
     return EXCEL_PATH_FALLBACK
@@ -619,6 +622,7 @@ def main():
     if not os.path.exists(excel_path):
         print(f"❌ 엑셀 파일 없음: {excel_path}")
         sys.exit(1)
+    print(f"번역 엑셀: {os.path.basename(excel_path)}")
 
     font_map = load_font_mapping()
     translations = load_translations(excel_path)
