@@ -184,11 +184,54 @@ def render_label(w, h, text, st):
     return img
 
 
+REGION_KEYS = ("size", "align", "fill", "stroke", "stroke_w",
+               "glow_r", "glow", "glow_a", "line_h", "spacing", "fit", "margin")
+
+
+def clean_plate(md5):
+    p = os.path.join(OUT_DEFAULT, "clean", f"{md5}.png")
+    return p if os.path.exists(p) else None
+
+
 def render_group(md5):
     g = GROUPS[md5]
     item = SPECS["items"].get(md5, {})
-    text = item.get("text", "")
-    return render_label(g["w"], g["h"], text, style_of(item))
+    st = style_of(item)
+    if item.get("mode") != "regions":
+        return render_label(g["w"], g["h"], item.get("text", ""), st)
+
+    # 다중 영역: 배경(클린 플레이트 > JP 원본 > 투명) 위에 영역별 텍스트 합성
+    cp = clean_plate(md5)
+    base_mode = item.get("base", "jp")
+    if cp:
+        img = Image.open(cp).convert("RGBA")
+        if img.size != (g["w"], g["h"]):
+            img = img.resize((g["w"], g["h"]))
+    elif base_mode == "jp":
+        L = g["locs"][0]
+        p = os.path.join(OUT_DEFAULT, "jp", os.path.dirname(L["rel"]), L["png"])
+        img = Image.open(p).convert("RGBA")
+    else:
+        img = Image.new("RGBA", (g["w"], g["h"]), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+    for rg in item.get("regions", []):
+        x, y = int(rg.get("x", 0)), int(rg.get("y", 0))
+        w = max(4, int(rg.get("w", 4)))
+        h = max(4, int(rg.get("h", 4)))
+        if rg.get("bg"):
+            draw.rectangle([x, y, x + w - 1, y + h - 1], fill=rg["bg"])
+        txt = rg.get("text", "")
+        if not txt:
+            continue
+        sub = dict(st)
+        sub["fit"] = True
+        for k in REGION_KEYS:
+            v = rg.get(k)
+            if v not in (None, ""):
+                sub[k] = v
+        lbl = render_label(w, h, txt, sub)
+        img.alpha_composite(lbl, (x, y))
+    return img
 
 
 def export_all(log=print):
@@ -196,9 +239,13 @@ def export_all(log=print):
     skipped = []
     for md5, g in GROUPS.items():
         item = SPECS["items"].get(md5)
-        if not item or item.get("mode", "text") != "text" or not item.get("text"):
-            if item and item.get("mode") == "manual":
-                skipped.append(md5)
+        mode = (item or {}).get("mode", "text")
+        if mode == "manual":
+            skipped.append(md5)
+            continue
+        has = item and ((mode == "text" and item.get("text"))
+                        or (mode == "regions" and item.get("regions")))
+        if not has:
             continue
         img = render_group(md5)
         n_grp += 1
@@ -321,8 +368,15 @@ body{margin:0;background:var(--bg);color:var(--fg);
 .pv{display:flex;gap:6px;align-items:center}
 .pv .lab{width:24px;color:var(--mut);font-size:11px}
 .pv .box{background:repeating-conic-gradient(#b9b9b9 0 25%,#dcdcdc 0 50%) 0 0/16px 16px;
- border:1px solid var(--ln);line-height:0}
+ border:1px solid var(--ln);line-height:0;position:relative}
 .pv img{image-rendering:pixelated}
+.rgbox{position:absolute;border:1.5px solid #e33;background:rgba(230,50,50,.12);
+ color:#e33;font-size:10px;line-height:1.1;pointer-events:none}
+#rgPanel{border:1px solid var(--ln);background:var(--sf);padding:8px;max-width:760px}
+#rgPanel h3{margin:0 0 6px;font-size:12px;color:var(--mut);font-weight:500}
+.rgrow{display:flex;gap:4px;align-items:center;margin-bottom:4px;flex-wrap:wrap}
+.rgrow input{font:inherit;border:1px solid var(--ln);padding:2px 4px}
+.rgrow .n{width:44px}.rgrow .t{flex:1;min-width:160px}.rgrow .s{width:40px}
 #side{width:320px;border-left:1px solid var(--ln);background:var(--sf);
  overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
 #side label{display:flex;justify-content:space-between;align-items:center;gap:8px;
@@ -347,17 +401,23 @@ body{margin:0;background:var(--bg);color:var(--fg);
  <input id="q" type="search" placeholder="경로 검색" style="flex:1;font:inherit;padding:3px 6px;border:1px solid var(--ln)">
 </div><div id="rows"></div></div>
 <div id="mid">
- <div class="pv"><span class="lab">JP</span><span class="box"><img id="pjp"></span></div>
+ <div class="pv"><span class="lab">JP</span><span class="box" id="jpwrap"><img id="pjp" draggable="false"></span></div>
  <div class="pv"><span class="lab">CN</span><span class="box"><img id="pcn"></span></div>
  <div class="pv"><span class="lab">KR</span><span class="box"><img id="pkr"></span></div>
  <label style="font-size:12px;color:var(--mut)">확대
   <input id="zoom" type="range" min="1" max="6" value="2" style="vertical-align:middle">
  </label>
+ <div id="rgPanel" hidden>
+  <h3>다중 영역 — JP 미리보기 위에서 드래그해 영역 추가. 배경: clean/&lt;md5&gt;.png가
+  있으면 그걸, 없으면 JP 원본을 깔고 합성 (영역 '바탕' 색을 켜면 원문 글자를 덮는다)</h3>
+  <div id="rgList"></div>
+ </div>
  <div id="locs"></div>
 </div>
 <div id="side">
  <textarea id="text" placeholder="한글 텍스트 (여러 줄 가능)"></textarea>
  <label>모드 <select id="mode"><option value="text">텍스트 렌더</option>
+  <option value="regions">다중 영역</option>
   <option value="manual">수동(포토샵)</option><option value="skip">제외</option></select></label>
  <label>프리셋 <select id="preset"></select></label>
  <div class="grp"><h3>스타일 (이 텍스처만 덮어씀 — 비우면 프리셋 값)</h3>
@@ -397,6 +457,7 @@ function stateOf(g){const it=g.item||{};
  if(!it.mode&&!it.text)return"todo";
  if(it.mode==="manual")return"manual";
  if(it.mode==="skip")return"skip";
+ if(it.mode==="regions")return(it.regions&&it.regions.length)?"done":"todo";
  return it.text?"done":"todo"}
 function renderList(){const f=$("#flt").value,q=$("#q").value.toLowerCase();
  const host=$("#rows");host.innerHTML="";
@@ -410,6 +471,7 @@ function renderList(){const f=$("#flt").value,q=$("#q").value.toLowerCase();
    ${tags}${g.w}×${g.h} ${g.fmt}${g.count>1?` ×${g.count}곳`:""}</div>`;
   d.onclick=()=>select(g.md5);
   host.appendChild(d);}}
+let REGIONS=[];
 function select(md5){cur=md5;renderList();
  const g=S.groups.find(g=>g.md5===md5),it=g.item||{};
  const sty=Object.assign({},S.default,S.presets[it.preset||"기본"]||{},it.over||{});
@@ -418,8 +480,61 @@ function select(md5){cur=md5;renderList();
  $("#preset").value=it.preset||Object.keys(S.presets)[0];
  for(const k of FIELDS){const el=$("#"+k);
   if(el.type==="checkbox")el.checked=!!sty[k];else el.value=sty[k];}
+ REGIONS=(it.regions||[]).map(r=>Object.assign({},r));
  $("#locs").textContent="사용 위치:\n"+g.locs.map(L=>`${L.rel} #${String(L.n).padStart(3,"0")}`).join("\n");
+ syncModeUI();
  refresh(g);}
+
+function syncModeUI(){
+ const m=$("#mode").value;
+ $("#rgPanel").hidden=(m!=="regions");
+ $("#text").style.display=(m==="regions")?"none":"";
+ renderRegions();}
+
+function renderRegions(){
+ document.querySelectorAll(".rgbox").forEach(e=>e.remove());
+ if(!cur)return;
+ if($("#mode").value==="regions"){
+  REGIONS.forEach((r,i)=>{const d=document.createElement("div");d.className="rgbox";
+   d.style.left=(r.x*zoom)+"px";d.style.top=(r.y*zoom)+"px";
+   d.style.width=(r.w*zoom)+"px";d.style.height=(r.h*zoom)+"px";
+   d.textContent=i+1;$("#jpwrap").appendChild(d);});}
+ const host=$("#rgList");host.innerHTML="";
+ REGIONS.forEach((r,i)=>{const row=document.createElement("div");row.className="rgrow";
+  row.innerHTML=`<b>${i+1}</b>`
+   +` x<input class="n" data-k="x" value="${r.x}"> y<input class="n" data-k="y" value="${r.y}">`
+   +` w<input class="n" data-k="w" value="${r.w}"> h<input class="n" data-k="h" value="${r.h}">`
+   +` 크기<input class="s" data-k="size" value="${r.size||""}" placeholder="자동">`
+   +` <label style="font-size:11px"><input type="checkbox" data-k="bgon" ${r.bg?"checked":""}>바탕</label>`
+   +`<input type="color" data-k="bgc" value="${r.bg||"#f2ede2"}">`
+   +` <input class="t" data-k="text" value="${(r.text||"").replace(/"/g,"&quot;").replace(/\n/g,"\\n")}" placeholder="문구 (\\n=줄바꿈)">`
+   +` <button class="btn" data-del="1">×</button>`;
+  row.addEventListener("input",ev=>{
+   const k=ev.target.dataset.k;if(!k)return;
+   if(k==="bgon")r.bg=ev.target.checked?row.querySelector('[data-k="bgc"]').value:"";
+   else if(k==="bgc"){if(r.bg)r.bg=ev.target.value;}
+   else if(k==="text")r.text=ev.target.value.replace(/\\n/g,"\n");
+   else if(k==="size")r.size=ev.target.value?parseInt(ev.target.value)||"":"";
+   else r[k]=parseInt(ev.target.value)||0;
+   push();});
+  row.querySelector("[data-del]").onclick=()=>{REGIONS.splice(i,1);renderRegions();push();};
+  host.appendChild(row);});
+}
+
+let dragStart=null;
+$("#jpwrap").addEventListener("mousedown",ev=>{
+ if($("#mode").value!=="regions"||!cur)return;
+ const rc=$("#pjp").getBoundingClientRect();
+ dragStart=[(ev.clientX-rc.left)/zoom,(ev.clientY-rc.top)/zoom];
+ ev.preventDefault();});
+addEventListener("mouseup",ev=>{
+ if(!dragStart)return;
+ const rc=$("#pjp").getBoundingClientRect();
+ const x2=(ev.clientX-rc.left)/zoom,y2=(ev.clientY-rc.top)/zoom;
+ const x=Math.round(Math.min(dragStart[0],x2)),y=Math.round(Math.min(dragStart[1],y2));
+ const w=Math.round(Math.abs(x2-dragStart[0])),h=Math.round(Math.abs(y2-dragStart[1]));
+ dragStart=null;
+ if(w>=6&&h>=6){REGIONS.push({x:x,y:y,w:w,h:h,text:""});renderRegions();push();}});
 function refresh(g){const z=zoom;
  for(const[id,src]of[["pjp","/img/jp/"],["pcn","/img/cn/"],["pkr","/render/"]]){
   const im=$("#"+id);im.src=src+g.md5+"?t="+Date.now();
@@ -434,16 +549,17 @@ function push(){clearTimeout(t);t=setTimeout(async()=>{
   if(v!==base[k]&&!(typeof base[k]==="number"&&Math.abs(v-base[k])<1e-9))over[k]=v;}
  const item={text:$("#text").value.replace(/\r\n/g,"\n"),mode:$("#mode").value,
   preset:$("#preset").value,over};
+ if(item.mode==="regions")item.regions=REGIONS;
  g.item=item;
  await fetch("/api/item",{method:"POST",body:JSON.stringify({md5:cur,item})});
  refresh(g);renderList();},350);}
 for(const k of FIELDS)$("#"+k).addEventListener("input",push);
 $("#text").addEventListener("input",push);
-$("#mode").addEventListener("input",push);
+$("#mode").addEventListener("input",()=>{syncModeUI();push();});
 $("#preset").addEventListener("input",()=>{select(cur);push();});
 $("#flt").onchange=renderList;$("#q").oninput=renderList;
 $("#zoom").oninput=e=>{zoom=+e.target.value;
- const g=S.groups.find(g=>g.md5===cur);if(g)refresh(g);};
+ const g=S.groups.find(g=>g.md5===cur);if(g){refresh(g);renderRegions();}};
 $("#savePreset").onclick=()=>{
  if($("#pnBox"))return;
  const style={};for(const k of FIELDS){const el=$("#"+k);
