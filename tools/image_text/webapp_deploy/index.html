@@ -6,6 +6,7 @@
 <title>iM@S2 KOR</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@patternfly/patternfly@5.2.1/patternfly.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 /* PatternFly 위 최소 보정만 — 프레임워크 기본을 그대로 쓴다 */
 [hidden]{display:none!important}
@@ -20,6 +21,10 @@ td textarea{width:100%;min-height:4rem;font:inherit}
   display:inline-block;line-height:0;border:1px solid var(--pf-v5-global--BorderColor--100)}
 .thumb img{image-rendering:pixelated;max-width:240px;max-height:72px;width:auto;height:auto}
 .thumb-click{cursor:zoom-in}
+.dash-table{table-layout:fixed;max-width:68rem}
+.dash-table .c-num{width:8.5rem}
+.dash-table .c-bar{width:13rem}
+.num-td{text-align:right!important;font-variant-numeric:tabular-nums;white-space:nowrap}
 .fr-del{background:rgba(214,54,40,.22);text-decoration:line-through;border-radius:2px}
 .fr-add{background:rgba(62,163,90,.28);font-weight:600;border-radius:2px}
 #frInfo td{white-space:pre-wrap}
@@ -79,6 +84,7 @@ td textarea{width:100%;min-height:4rem;font:inherit}
         <select class="pf-v5-c-form-control" style="width:auto" id="filter"></select>
         <input class="pf-v5-c-form-control" style="width:16rem" type="search" id="q" placeholder="검색 (원문·번역·식별자)">
         <button class="pf-v5-c-button pf-m-secondary" id="frOpen">바꾸기</button>
+        <button class="pf-v5-c-button pf-m-secondary" id="bulkOpen" hidden>일괄 다운로드·업로드</button>
         <span id="grpStat" class="pf-v5-u-color-200" style="font-size:13px"></span>
         <span style="flex:1"></span>
         <nav class="pf-v5-c-pagination" style="display:flex;gap:6px;align-items:center">
@@ -95,6 +101,37 @@ td textarea{width:100%;min-height:4rem;font:inherit}
       <div id="content"></div>
     </section>
   </main>
+</div>
+
+<!-- 이미지 일괄 다운로드/업로드 모달 -->
+<div class="pf-v5-c-backdrop" id="bulkModal" hidden>
+  <div class="pf-v5-c-modal-box pf-m-md" style="max-height:88vh;display:flex;flex-direction:column">
+    <header class="pf-v5-c-modal-box__header">
+      <h2 class="pf-v5-c-modal-box__title">이미지 일괄 다운로드 · 업로드</h2>
+    </header>
+    <div class="pf-v5-c-modal-box__body" style="overflow:auto;display:flex;flex-direction:column;gap:10px">
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">원본 ZIP 다운로드</div>
+        <div id="bulkGroups" style="display:flex;flex-wrap:wrap;gap:4px 14px;margin-bottom:6px"></div>
+        <label style="display:block;margin-bottom:6px"><input type="checkbox" id="bdWork"> 업로드된 작업본도 포함</label>
+        <button class="pf-v5-c-button pf-m-primary" id="bdGo">다운로드 시작</button>
+        <span id="bdMsg" class="pf-v5-u-color-200" style="font-size:13px;margin-left:8px"></span>
+        <p class="pf-v5-u-color-200" style="font-size:12px;margin:6px 0 0">
+          파일명 끝의 <code>__&lt;md5&gt;.png</code>가 매칭 키입니다 — 작업 후에도 파일명을 유지하세요.</p>
+      </div>
+      <hr>
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">작업본 일괄 업로드</div>
+        <input type="file" id="buFiles" multiple accept=".png,.zip">
+        <p class="pf-v5-u-color-200" style="font-size:12px;margin:4px 0 6px">
+          PNG 여러 개 또는 ZIP 통째로. 파일명의 md5로 자동 매칭, 치수 자동 검증.</p>
+        <pre id="buLog" style="font-size:12px;max-height:14rem;overflow:auto;white-space:pre-wrap;margin:0"></pre>
+      </div>
+    </div>
+    <footer class="pf-v5-c-modal-box__footer">
+      <button class="pf-v5-c-button pf-m-primary" id="bulkClose">닫기</button>
+    </footer>
+  </div>
 </div>
 
 <!-- 찾아 바꾸기 모달 -->
@@ -396,7 +433,7 @@ function visibleRows() {
 
 function stLabel(r) {
   return `
-    <button class="pf-v5-c-button pf-m-compact ${r.st >= 1 && r.kr ? "pf-m-primary" : "pf-m-control"}" data-act="st1">번역</button>
+    <button class="pf-v5-c-button pf-m-compact ${r.st >= 1 && r.kr ? "pf-m-primary" : "pf-m-control"}" data-act="st1">${r.cat === "image" ? "문구" : "번역"}</button>
     <button class="pf-v5-c-button pf-m-compact ${r.st >= 2 ? "pf-m-primary" : "pf-m-control"}" data-act="st2">검수</button>
     <button class="pf-v5-c-button pf-m-compact pf-m-plain" data-act="hist" title="수정 이력">🕘</button>`;
 }
@@ -474,6 +511,7 @@ async function loadKrThumb(md5, imgEl) {
 }
 
 function renderStats() {
+  $("#bulkOpen").hidden = cat !== "image";
   const s = grpStats();
   $("#grpStat").textContent = cat === "image"
     ? `문구 ${s.tr}/${s.tgt} · 식질 ${s.ed} · 검수 ${s.rv}`
@@ -505,6 +543,137 @@ $("#content").addEventListener("click", ev => {
   else if (act.dataset.act === "view") openViewer(r);
   else if (act.dataset.act === "upload") pickUpload(r);
 });
+
+/* ---------------- 이미지 일괄 다운로드/업로드 ---------------- */
+let IMGALL = null;
+async function fetchCatImage() {
+  if (IMGALL) return IMGALL;
+  const out = [];
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await sb.from("rows").select("*")
+      .eq("cat", "image").order("grp").order("seq").range(from, from + 999);
+    if (error) break;
+    out.push(...data);
+    if (data.length < 1000) break;
+  }
+  IMGALL = out;
+  return out;
+}
+function b64FromBuf(buf) {
+  const bytes = new Uint8Array(buf);
+  let s = "";
+  for (let i = 0; i < bytes.length; i += 0x8000)
+    s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+}
+async function pool(tasks, n) {
+  const q = tasks.slice();
+  await Promise.all(Array.from({ length: n }, async () => {
+    while (q.length) await q.shift()();
+  }));
+}
+const bdMsg = s => $("#bdMsg").textContent = s;
+function texName(r) {
+  const loc0 = ((r.meta || {}).locs || [])[0] || r.key;
+  return loc0.replace(/[\\\/#]/g, "_").replace(/\.(mpc|nut|s2d|tsk|xmb)_/i, "_");
+}
+
+$("#bulkOpen").onclick = async () => {
+  const sec = META.nav.find(s => s.cat === "image");
+  $("#bulkGroups").innerHTML = sec.groups.map(g =>
+    `<label><input type="checkbox" value="${g.g}" checked> ${esc(g.label)}</label>`).join("");
+  $("#bdMsg").textContent = ""; $("#buLog").textContent = "";
+  $("#bulkModal").hidden = false;
+};
+$("#bulkClose").onclick = () => $("#bulkModal").hidden = true;
+$("#bulkModal").addEventListener("click", ev => { if (ev.target === $("#bulkModal")) $("#bulkModal").hidden = true; });
+
+$("#bdGo").onclick = async () => {
+  const checked = [...document.querySelectorAll("#bulkGroups input:checked")].map(i => i.value);
+  if (!checked.length) { bdMsg("분류를 선택하세요"); return; }
+  $("#bdGo").disabled = true;
+  try {
+    const incWork = $("#bdWork").checked;
+    const all = (await fetchCatImage()).filter(r => checked.includes(r.grp));
+    await loadKrimgList();
+    const zip = new JSZip();
+    const mani = ["md5,분류,치수,포맷,문구,사용위치수,첫위치"];
+    let done = 0;
+    await pool(all.map(r => async () => {
+      const m = r.meta || {};
+      const name = `${r.grp}/${texName(r)}__${r.key}.png`;
+      const resp = await fetch(`${CFG.texbase}/jp/${r.key}.png`);
+      if (resp.ok) zip.file(name, await resp.blob());
+      if (incWork && KRIMG[r.key]) {
+        const u = await krimgUrl(r.key);
+        if (u) zip.file(`${r.grp}/_작업본/${texName(r)}__${r.key}.png`,
+                        await (await fetch(u)).blob());
+      }
+      mani.push([r.key, r.grp, `${m.w}x${m.h}`, m.fmt || "",
+                 JSON.stringify(r.kr || ""), (m.locs || []).length,
+                 (m.locs || [])[0] || ""].join(","));
+      bdMsg(`받는 중 ${++done}/${all.length}`);
+    }), 6);
+    zip.file("manifest.csv", "﻿" + mani.join("\r\n"));
+    bdMsg("압축 중…");
+    const blob = await zip.generateAsync({ type: "blob" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `imas2_tex_${new Date().toISOString().slice(0, 10)}.zip`;
+    a.click();
+    bdMsg(`완료 — 원본 ${all.length}장`);
+  } catch (e) {
+    bdMsg("실패: " + (e.message || e));
+  }
+  $("#bdGo").disabled = false;
+};
+
+$("#buFiles").onchange = async ev => {
+  if (needNick()) { ev.target.value = ""; return; }
+  const files = [...ev.target.files];
+  if (!files.length) return;
+  const items = [];
+  for (const f of files) {
+    if (/\.zip$/i.test(f.name)) {
+      const z = await JSZip.loadAsync(f);
+      for (const [name, entry] of Object.entries(z.files))
+        if (!entry.dir && /\.png$/i.test(name) )
+          items.push({ name: name.split("/").pop(), blob: await entry.async("blob") });
+    } else if (/\.png$/i.test(f.name)) items.push({ name: f.name, blob: f });
+  }
+  const byKey = {};
+  (await fetchCatImage()).forEach(r => byKey[r.key] = r);
+  const log = [];
+  let ok = 0;
+  for (const it of items) {
+    const mm = it.name.toLowerCase().match(/([0-9a-f]{32})(?:\.png)?$/);
+    const r = mm && byKey[mm[1]];
+    if (!r) { log.push(`✗ ${it.name} — 파일명에서 md5를 못 찾음 (원본 파일명 유지)`); continue; }
+    const m = r.meta || {};
+    const buf = await it.blob.arrayBuffer();
+    let bmp;
+    try { bmp = await createImageBitmap(new Blob([buf])); }
+    catch (e) { log.push(`✗ ${it.name} — PNG 해석 실패`); continue; }
+    if (bmp.width !== m.w || bmp.height !== m.h) {
+      log.push(`✗ ${it.name} — 치수 ${bmp.width}×${bmp.height} ≠ 원본 ${m.w}×${m.h}`);
+      continue;
+    }
+    const ts = Date.now();
+    const { error } = await sb.from("tex_kr").upsert(
+      { md5: r.key, data: b64FromBuf(buf), ts, by: nick });
+    if (error) { log.push(`✗ ${it.name} — ${error.message}`); continue; }
+    const old = KRIMG[r.key];
+    if (old && old.url) URL.revokeObjectURL(old.url);
+    KRIMG[r.key] = { ts, by: nick, url: null };
+    ok++;
+    log.push(`✓ ${it.name} → ${texName(r)} (${m.w}×${m.h})`);
+    $("#buLog").textContent = log.join("\n");
+  }
+  log.push(`— 완료: 성공 ${ok} / 전체 ${items.length}`);
+  $("#buLog").textContent = log.join("\n");
+  ev.target.value = "";
+  if (cat === "image") render();
+};
 
 /* ---------------- 이미지 작업본 업로드 ---------------- */
 function needNick() {
@@ -678,6 +847,7 @@ async function showDash(force) {
   cat = "dash"; grp = null; renderNav();
   $("#crumb").textContent = "진행 현황";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
+  $("#bulkOpen").hidden = true;
   if (!DASH || force) {
     $("#content").innerHTML = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content">집계 중…</div></div>`;
     const out = [];
@@ -697,7 +867,7 @@ async function showDash(force) {
   if (cat !== "dash") return;   // 집계 중 다른 메뉴로 이동한 경우
   const bar = (n, d, color) => {
     const pct = d ? Math.round(100 * n / d) : 0;
-    return `<div class="pf-v5-c-progress pf-m-sm" style="min-width:140px">
+    return `<div class="pf-v5-c-progress pf-m-sm">
       <div class="pf-v5-c-progress__bar"><div class="pf-v5-c-progress__indicator" style="width:${pct}%${color ? ";background:" + color : ""}"></div></div></div>`;
   };
   $("#content").innerHTML = DASH.map(({ sec, rows: rs }) => {
@@ -705,17 +875,19 @@ async function showDash(force) {
           RV = rs.reduce((a, r) => a + r.rv, 0);
     return `<h2 class="pf-v5-c-title pf-m-lg" style="margin:14px 0 6px">${esc(sec.label)}
       <span class="pf-v5-u-color-200" style="font-size:13px;font-weight:400"> 번역 ${TR.toLocaleString()}/${T.toLocaleString()} · 검수 ${RV.toLocaleString()}</span></h2>
-    <table class="pf-v5-c-table pf-m-compact"><thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">
-      <th class="pf-v5-c-table__th" style="width:16rem">소분류</th>
-      <th class="pf-v5-c-table__th">번역</th><th class="pf-v5-c-table__th" style="width:10rem"></th>
-      <th class="pf-v5-c-table__th">검수</th><th class="pf-v5-c-table__th" style="width:10rem"></th></tr></thead>
+    <table class="pf-v5-c-table pf-m-compact dash-table">
+    <colgroup><col><col class="c-num"><col class="c-bar"><col class="c-num"><col class="c-bar"></colgroup>
+    <thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">
+      <th class="pf-v5-c-table__th">소분류</th>
+      <th class="pf-v5-c-table__th num-td">번역</th><th class="pf-v5-c-table__th"></th>
+      <th class="pf-v5-c-table__th num-td">검수</th><th class="pf-v5-c-table__th"></th></tr></thead>
     <tbody class="pf-v5-c-table__tbody">${rs.map(r => `
       <tr class="pf-v5-c-table__tr">
-        <td class="pf-v5-c-table__td"><a href="#" data-open="${sec.cat}:${r.gm.g}">${esc(r.gm.label)}</a></td>
-        <td class="pf-v5-c-table__td nowrap" style="font-variant-numeric:tabular-nums">${r.tr}/${r.tgt}</td>
-        <td class="pf-v5-c-table__td">${bar(r.tr, r.tgt)}</td>
-        <td class="pf-v5-c-table__td nowrap" style="font-variant-numeric:tabular-nums">${r.rv}/${r.tgt}</td>
-        <td class="pf-v5-c-table__td">${bar(r.rv, r.tgt, "var(--pf-v5-global--success-color--100)")}</td>
+        <td class="pf-v5-c-table__td" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><a href="#" data-open="${sec.cat}:${r.gm.g}">${esc(r.gm.label)}</a></td>
+        <td class="pf-v5-c-table__td num-td">${r.tr.toLocaleString()}/${r.tgt.toLocaleString()}</td>
+        <td class="pf-v5-c-table__td v-mid">${bar(r.tr, r.tgt)}</td>
+        <td class="pf-v5-c-table__td num-td">${r.rv.toLocaleString()}/${r.tgt.toLocaleString()}</td>
+        <td class="pf-v5-c-table__td v-mid">${bar(r.rv, r.tgt, "var(--pf-v5-global--success-color--100)")}</td>
       </tr>`).join("")}</tbody></table>`;
   }).join("") +
   `<p style="margin-top:12px"><button class="pf-v5-c-button pf-m-secondary" id="dashRefresh">새로 집계</button></p>`;
@@ -733,6 +905,7 @@ async function showActivity() {
   cat = "activity"; grp = null; renderNav();
   $("#crumb").textContent = "수정 이력";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
+  $("#bulkOpen").hidden = true;
   $("#content").innerHTML = `
     <div class="pf-v5-c-toolbar"><div class="pf-v5-c-toolbar__content" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
       <input class="pf-v5-c-form-control" style="width:10rem" id="actBy" placeholder="작업자 필터">
@@ -756,10 +929,15 @@ async function showActivity() {
       <tbody class="pf-v5-c-table__tbody">${data.map(hh => `<tr class="pf-v5-c-table__tr">
         <td class="pf-v5-c-table__td nowrap">${fmtTs(hh.ts)}</td>
         <td class="pf-v5-c-table__td nowrap">${esc(hh.by || "—")}</td>
-        <td class="pf-v5-c-table__td nowrap"><code style="font-size:12px">${esc(hh.grp)} · ${esc(hh.key)}</code></td>
+        <td class="pf-v5-c-table__td nowrap"><a href="#" data-open="${esc(hh.cat)}:${esc(hh.grp)}"><code style="font-size:12px">${esc(hh.grp)} · ${esc(hh.key)}</code></a></td>
         <td class="pf-v5-c-table__td" style="white-space:pre-wrap;max-width:30rem">${esc(hh.kr)}</td>
         <td class="pf-v5-c-table__td nowrap">${["미번역", "번역", "검수"][hh.st] || hh.st}</td></tr>`).join("")}</tbody></table>`
       + (data.length >= 300 ? '<p class="pf-v5-u-color-200">최근 300건까지 표시</p>' : "");
+    $("#actList").querySelectorAll("[data-open]").forEach(a => a.onclick = ev => {
+      ev.preventDefault();
+      const [c, g] = a.dataset.open.split(":");
+      openGroup(c, g);
+    });
   };
   $("#actGo").onclick = run;
   run();
