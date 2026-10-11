@@ -232,6 +232,7 @@ async function fetchAll(c, g) {
 }
 
 async function openGroup(c, g) {
+  closeNavIfNarrow();
   cat = c; grp = g; page = 0; filter = "all"; query = "";
   $("#filter").value = "all"; $("#q").value = "";
   renderNav();
@@ -439,6 +440,7 @@ $("#histModal").addEventListener("click", ev => { if (ev.target === $("#histModa
 
 /* ---------------- 활동(전체 이력) 뷰 ---------------- */
 async function showActivity() {
+  closeNavIfNarrow();
   cat = "activity"; grp = null; renderNav();
   $("#crumb").textContent = "수정 이력";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
@@ -498,7 +500,14 @@ $("#perPage").onchange = ev => { perPage = +ev.target.value; page = 0;
   try { localStorage.setItem("pp", String(perPage)); } catch (e) {} render(); };
 $("#pgPrev").onclick = () => { if (page > 0) { page--; render(); } };
 $("#pgNext").onclick = () => { page++; render(); };
-$("#navToggle").onclick = () => $("#sidebar").classList.toggle("pf-m-collapsed");
+$("#navToggle").onclick = () => {
+  const el = $("#sidebar");
+  if (innerWidth >= 1200) el.classList.toggle("pf-m-collapsed");
+  else el.classList.toggle("pf-m-expanded");   // PF: 좁은 화면에선 expanded가 있어야 보임
+};
+function closeNavIfNarrow() {
+  if (innerWidth < 1200) $("#sidebar").classList.remove("pf-m-expanded");
+}
 $("#nick").onchange = ev => { nick = ev.target.value.trim();
   try { localStorage.setItem("nick", nick); } catch (e) {} };
 
