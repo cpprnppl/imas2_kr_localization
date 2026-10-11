@@ -9,6 +9,7 @@
 <style>
 /* PatternFly 위 최소 보정만 — 프레임워크 기본을 그대로 쓴다 */
 [hidden]{display:none!important}
+.pf-v5-c-page__sidebar-body{overflow-y:auto}
 .kr-cell{cursor:text;white-space:pre-wrap;min-width:14rem}
 .kr-cell:hover{outline:1px dashed var(--pf-v5-global--primary-color--100);outline-offset:2px}
 .kr-cell.is-empty{color:var(--pf-v5-global--Color--200)}
@@ -74,6 +75,7 @@ td textarea{width:100%;min-height:4rem;font:inherit}
           <option value="done">검수 완료</option>
         </select>
         <input class="pf-v5-c-form-control" style="width:16rem" type="search" id="q" placeholder="검색 (원문·번역·식별자)">
+        <button class="pf-v5-c-button pf-m-secondary" id="frOpen">바꾸기</button>
         <span id="grpStat" class="pf-v5-u-color-200" style="font-size:13px"></span>
         <span style="flex:1"></span>
         <nav class="pf-v5-c-pagination" style="display:flex;gap:6px;align-items:center">
@@ -90,6 +92,25 @@ td textarea{width:100%;min-height:4rem;font:inherit}
       <div id="content"></div>
     </section>
   </main>
+</div>
+
+<!-- 찾아 바꾸기 모달 -->
+<div class="pf-v5-c-backdrop" id="frModal" hidden>
+  <div class="pf-v5-c-modal-box pf-m-md">
+    <header class="pf-v5-c-modal-box__header">
+      <h2 class="pf-v5-c-modal-box__title">찾아 바꾸기 — 현재 그룹의 한국어</h2>
+    </header>
+    <div class="pf-v5-c-modal-box__body" style="display:flex;flex-direction:column;gap:8px">
+      <input class="pf-v5-c-form-control" id="frFind" placeholder="찾을 내용">
+      <input class="pf-v5-c-form-control" id="frRepl" placeholder="바꿀 내용">
+      <div id="frInfo" class="pf-v5-u-color-200" style="font-size:13px;white-space:pre-wrap;max-height:16rem;overflow:auto"></div>
+    </div>
+    <footer class="pf-v5-c-modal-box__footer" style="display:flex;gap:8px">
+      <button class="pf-v5-c-button pf-m-secondary" id="frPreview">미리보기</button>
+      <button class="pf-v5-c-button pf-m-primary" id="frApply" disabled>모두 바꾸기</button>
+      <button class="pf-v5-c-button pf-m-link" id="frClose">닫기</button>
+    </footer>
+  </div>
 </div>
 
 <!-- 수정 이력 모달 -->
@@ -410,16 +431,44 @@ $("#content").addEventListener("click", ev => {
   else if (act.dataset.act === "hist") showHist(r);
 });
 
+function openEditorFor(r) {
+  const vis = visibleRows();
+  const i = vis.indexOf(r);
+  if (i < 0) return;
+  page = Math.floor(i / perPage);
+  render();
+  const tr = document.querySelector(`tr[data-id="${CSS.escape(r.id)}"]`);
+  if (!tr) return;
+  tr.scrollIntoView({ block: "center" });
+  const td = tr.querySelector(".kr-cell");
+  if (td) startEdit(r, td);
+}
+
 function startEdit(r, td) {
   if (td.querySelector("textarea")) return;
   const ta = document.createElement("textarea");
   ta.className = "pf-v5-c-form-control";
   ta.value = r.kr;
   td.textContent = ""; td.appendChild(ta); ta.focus();
+  let moved = null;   // Enter/Tab = 저장 후 다음 행, Alt+↑↓ = 이동, Esc = 취소
+  ta.onkeydown = ev => {
+    if (ev.key === "Enter" && !ev.shiftKey) { ev.preventDefault(); moved = 1; ta.blur(); }
+    else if (ev.key === "Tab") { ev.preventDefault(); moved = ev.shiftKey ? -1 : 1; ta.blur(); }
+    else if (ev.key === "ArrowDown" && ev.altKey) { ev.preventDefault(); moved = 1; ta.blur(); }
+    else if (ev.key === "ArrowUp" && ev.altKey) { ev.preventDefault(); moved = -1; ta.blur(); }
+    else if (ev.key === "Escape") { moved = 0; ta.value = r.kr; ta.blur(); }
+  };
   ta.onblur = () => {
+    const dir = moved; moved = null;
     const v = ta.value.replace(/\r\n/g, "\n").replace(/\s+$/, "");
     if (v !== r.kr) save(r, v, v ? Math.max(1, r.st) : 0);
     else render();
+    if (dir === 1 || dir === -1) {
+      const vis = visibleRows();
+      let i = vis.indexOf(r) + dir;
+      while (i >= 0 && i < vis.length && isBlank(vis[i])) i += dir;
+      if (i >= 0 && i < vis.length) setTimeout(() => openEditorFor(vis[i]), 0);
+    }
   };
 }
 
@@ -428,10 +477,10 @@ function setSt(r, st) {
   save(r, r.kr, st);
 }
 
-async function save(r, kr, st) {
+async function save(r, kr, st, quiet) {
   const prev = { kr: r.kr, st: r.st };
   r.kr = kr; r.st = st; r.ts = Date.now(); r.by = nick;
-  render();
+  if (!quiet) render();
   const { error } = await sb.from("rows").upsert({
     id: r.id, cat: r.cat, grp: r.grp, seq: r.seq, key: r.key,
     jp: r.jp, kr, st, ts: r.ts, by: nick, meta: r.meta || {} });
@@ -523,6 +572,43 @@ function toast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.hidden = true, 6000);
 }
+
+/* ---------------- 찾아 바꾸기 (현재 그룹, 한국어 열) ---------------- */
+let frMatches = [];
+$("#frOpen").onclick = () => {
+  if (cat === "activity" || !rows.length) { toast("그룹을 먼저 여세요"); return; }
+  frMatches = [];
+  $("#frInfo").textContent = "";
+  $("#frApply").disabled = true;
+  $("#frModal").hidden = false;
+  $("#frFind").focus();
+};
+$("#frClose").onclick = () => $("#frModal").hidden = true;
+$("#frModal").addEventListener("click", ev => { if (ev.target === $("#frModal")) $("#frModal").hidden = true; });
+$("#frPreview").onclick = () => {
+  const f = $("#frFind").value;
+  if (!f) return;
+  const rep = $("#frRepl").value;
+  frMatches = rows.filter(r => r.kr && r.kr.indexOf(f) >= 0);
+  const sample = frMatches.slice(0, 10).map(r =>
+    `· ${r.key}\n  ${r.kr}\n  → ${r.kr.split(f).join(rep)}`).join("\n");
+  $("#frInfo").textContent = `${frMatches.length}개 행에서 발견` +
+    (frMatches.length ? "\n" + sample + (frMatches.length > 10 ? "\n…" : "") : "");
+  $("#frApply").disabled = frMatches.length === 0;
+};
+$("#frApply").onclick = async () => {
+  const f = $("#frFind").value, rep = $("#frRepl").value;
+  $("#frApply").disabled = true; $("#frPreview").disabled = true;
+  let n = 0;
+  for (const r of frMatches) {
+    const v = r.kr.split(f).join(rep);
+    if (v !== r.kr) { await save(r, v, Math.max(1, r.st), true); n++; }
+    if (n % 10 === 0) $("#frInfo").textContent = `바꾸는 중… ${n}/${frMatches.length}`;
+  }
+  $("#frInfo").textContent = `완료: ${n}개 행 변경 (행마다 수정 이력에 기록됨)`;
+  $("#frPreview").disabled = false;
+  render();
+};
 
 $("#filter").onchange = ev => { filter = ev.target.value; page = 0; render(); };
 let qt; $("#q").oninput = ev => { clearTimeout(qt); qt = setTimeout(() => { query = ev.target.value.trim(); page = 0; render(); }, 250); };
