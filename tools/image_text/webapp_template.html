@@ -18,7 +18,14 @@
 td textarea{width:100%;min-height:4rem;font:inherit}
 .thumb{background:repeating-conic-gradient(#9a9a9a 0 25%,#d4d4d4 0 50%) 0 0/12px 12px;
   display:inline-block;line-height:0;border:1px solid var(--pf-v5-global--BorderColor--100)}
-.thumb img,.thumb canvas{image-rendering:pixelated;max-width:240px;max-height:72px;width:auto;height:auto}
+.thumb img{image-rendering:pixelated;max-width:240px;max-height:72px;width:auto;height:auto}
+.thumb-click{cursor:zoom-in}
+.fr-del{background:rgba(214,54,40,.22);text-decoration:line-through;border-radius:2px}
+.fr-add{background:rgba(62,163,90,.28);font-weight:600;border-radius:2px}
+#frInfo td{white-space:pre-wrap}
+.imgbox{background:repeating-conic-gradient(#9a9a9a 0 25%,#d4d4d4 0 50%) 0 0/16px 16px;
+  border:1px solid var(--pf-v5-global--BorderColor--100);line-height:0;width:max-content;max-width:100%}
+#imgView{image-rendering:pixelated;display:block}
 .row-dim td{opacity:.55}
 #gatewrap{min-height:100vh;display:flex;align-items:center;justify-content:center}
 .v-mid{vertical-align:middle!important}
@@ -109,6 +116,27 @@ td textarea{width:100%;min-height:4rem;font:inherit}
       <button class="pf-v5-c-button pf-m-secondary" id="frPreview">미리보기</button>
       <button class="pf-v5-c-button pf-m-primary" id="frApply" disabled>모두 바꾸기</button>
       <button class="pf-v5-c-button pf-m-link" id="frClose">닫기</button>
+    </footer>
+  </div>
+</div>
+
+<!-- 이미지 뷰어 -->
+<div class="pf-v5-c-backdrop" id="imgModal" hidden>
+  <div class="pf-v5-c-modal-box pf-m-lg" style="max-height:92vh;display:flex;flex-direction:column">
+    <header class="pf-v5-c-modal-box__header">
+      <h2 class="pf-v5-c-modal-box__title" id="imgTitle">원본 보기</h2>
+    </header>
+    <div class="pf-v5-c-modal-box__body" style="overflow:auto">
+      <div style="margin-bottom:8px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+        <button class="pf-v5-c-button pf-m-control" data-z="1">1×</button>
+        <button class="pf-v5-c-button pf-m-control" data-z="2">2×</button>
+        <button class="pf-v5-c-button pf-m-control" data-z="4">4×</button>
+        <span id="imgMeta" class="pf-v5-u-color-200" style="font-size:12px"></span>
+      </div>
+      <div class="imgbox"><img id="imgView" alt=""></div>
+    </div>
+    <footer class="pf-v5-c-modal-box__footer">
+      <button class="pf-v5-c-button pf-m-primary" id="imgClose">닫기</button>
     </footer>
   </div>
 </div>
@@ -333,7 +361,7 @@ function render() {
   $("#pgInfo").textContent = vis.length ? `${page * perPage + 1}–${page * perPage + slice.length} / ${vis.length}` : "0 / 0";
 
   const heads = cat === "image"
-    ? ["원본 (JP) · 미리보기 (KR)", "정보", "한국어 라벨", "경고", "상태"]
+    ? ["원본 (JP)", "정보", "한국어 라벨", "경고", "상태"]
     : cat === "script"
       ? ["화자", "원문", "한국어", "경고", "상태"]
       : ["id", "원문", "한국어", "경고", "상태"];
@@ -345,8 +373,7 @@ function render() {
     let first, second;
     if (cat === "image") {
       const m = r.meta || {};
-      first = `<div class="thumb"><img loading="lazy" src="${CFG.texbase}/jp/${r.key}.png" alt=""></div>
-               ${r.kr ? `<div class="thumb"><canvas class="krpv" data-id="${esc(r.id)}" width="${m.w}" height="${m.h}"></canvas></div>` : ""}`;
+      first = `<div class="thumb thumb-click" data-act="view" title="클릭하면 크게 보기"><img loading="lazy" src="${CFG.texbase}/jp/${r.key}.png" alt=""></div>`;
       second = `<span class="nowrap">${m.w}×${m.h} ${esc(m.fmt || "")}</span><br>
                 <span class="pf-v5-u-color-200" style="font-size:12px">${esc((m.locs || [])[0] || "")}${(m.locs || []).length > 1 ? ` 외 ${m.locs.length - 1}곳` : ""}</span>`;
     } else if (cat === "script") {
@@ -369,37 +396,6 @@ function render() {
   h += "</tbody></table>";
   if (!slice.length) h = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content"><h2 class="pf-v5-c-title pf-m-lg">조건에 맞는 행이 없습니다</h2></div></div>`;
   $("#content").innerHTML = h;
-  for (const cv of document.querySelectorAll("canvas.krpv")) {
-    const r = rowById(cv.dataset.id);
-    if (r) drawKrPreview(cv, r.kr);
-  }
-}
-
-/* 단순 라벨 근사 미리보기 (최종 렌더는 label_tool의 PIL — 같은 기본 스타일) */
-function drawKrPreview(cv, text) {
-  const w = cv.width, h = cv.height, ctx = cv.getContext("2d");
-  ctx.clearRect(0, 0, w, h);
-  const lines = text.split("\n");
-  const margin = 2, strokeW = 2;
-  const fam = 'bold %Spx "Malgun Gothic","맑은 고딕",sans-serif';
-  let size = 24, lh = 0;
-  const tryFit = s => {
-    ctx.font = fam.replace("%S", s);
-    const tw = Math.max.apply(null, lines.map(l => ctx.measureText(l).width)) + strokeW * 2;
-    const lineH = Math.round(s * 1.25);
-    return (tw <= w - margin * 2 && lineH * lines.length <= h - margin * 2) ? lineH : 0;
-  };
-  while (size > 7 && !(lh = tryFit(size))) size--;
-  if (!lh) lh = Math.round(size * 1.25);
-  ctx.font = fam.replace("%S", size);
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.lineJoin = "round"; ctx.lineWidth = strokeW * 2;
-  ctx.strokeStyle = "#1a1a1a"; ctx.fillStyle = "#fff";
-  const y0 = h / 2 - lh * (lines.length - 1) / 2;
-  lines.forEach((l, i) => {
-    ctx.strokeText(l, w / 2, y0 + i * lh);
-    ctx.fillText(l, w / 2, y0 + i * lh);
-  });
 }
 
 function renderStats() {
@@ -429,7 +425,32 @@ $("#content").addEventListener("click", ev => {
   else if (act.dataset.act === "st1") setSt(r, r.st >= 1 ? 0 : 1);
   else if (act.dataset.act === "st2") setSt(r, r.st >= 2 ? 1 : 2);
   else if (act.dataset.act === "hist") showHist(r);
+  else if (act.dataset.act === "view") openViewer(r);
 });
+
+/* ---------------- 이미지 뷰어 ---------------- */
+let viewZoom = 2, viewRow = null;
+function openViewer(r) {
+  viewRow = r;
+  const m = r.meta || {};
+  $("#imgTitle").textContent = (m.locs || [])[0] || r.key;
+  $("#imgMeta").textContent = `${m.w}×${m.h} ${m.fmt || ""}` +
+    ((m.locs || []).length > 1 ? ` · ${m.locs.length}곳에서 사용` : "");
+  applyViewZoom();
+  $("#imgModal").hidden = false;
+}
+function applyViewZoom() {
+  if (!viewRow) return;
+  const m = viewRow.meta || {};
+  const im = $("#imgView");
+  im.src = `${CFG.texbase}/jp/${viewRow.key}.png`;
+  im.style.width = (m.w * viewZoom) + "px";
+  im.style.height = (m.h * viewZoom) + "px";
+}
+document.querySelectorAll("#imgModal [data-z]").forEach(b =>
+  b.onclick = () => { viewZoom = +b.dataset.z; applyViewZoom(); });
+$("#imgClose").onclick = () => $("#imgModal").hidden = true;
+$("#imgModal").addEventListener("click", ev => { if (ev.target === $("#imgModal")) $("#imgModal").hidden = true; });
 
 function openEditorFor(r) {
   const vis = visibleRows();
@@ -590,11 +611,25 @@ $("#frPreview").onclick = () => {
   if (!f) return;
   const rep = $("#frRepl").value;
   frMatches = rows.filter(r => r.kr && r.kr.indexOf(f) >= 0);
-  const sample = frMatches.slice(0, 10).map(r =>
-    `· ${r.key}\n  ${r.kr}\n  → ${r.kr.split(f).join(rep)}`).join("\n");
-  $("#frInfo").textContent = `${frMatches.length}개 행에서 발견` +
-    (frMatches.length ? "\n" + sample + (frMatches.length > 10 ? "\n…" : "") : "");
-  $("#frApply").disabled = frMatches.length === 0;
+  if (!frMatches.length) {
+    $("#frInfo").textContent = "발견된 행이 없습니다";
+    $("#frApply").disabled = true;
+    return;
+  }
+  const mark = (s, needle, cls, subst) => s.split(needle).map(esc)
+    .join(`<mark class="${cls}">${esc(subst !== undefined ? subst : needle)}</mark>`);
+  const rowsHtml = frMatches.slice(0, 20).map(r => `
+    <tr class="pf-v5-c-table__tr">
+      <td class="pf-v5-c-table__td"><code style="font-size:11px">${esc(r.key)}</code></td>
+      <td class="pf-v5-c-table__td">${mark(r.kr, f, "fr-del")}</td>
+      <td class="pf-v5-c-table__td">${mark(r.kr, f, "fr-add", rep)}</td>
+    </tr>`).join("");
+  $("#frInfo").innerHTML = `<p class="pf-v5-u-mb-sm"><b>${frMatches.length}</b>개 행에서 발견${frMatches.length > 20 ? " (앞 20개 표시)" : ""}</p>
+    <table class="pf-v5-c-table pf-m-compact">
+      <thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">
+        <th class="pf-v5-c-table__th">행</th><th class="pf-v5-c-table__th">현재</th><th class="pf-v5-c-table__th">변경 후</th></tr></thead>
+      <tbody class="pf-v5-c-table__tbody">${rowsHtml}</tbody></table>`;
+  $("#frApply").disabled = false;
 };
 $("#frApply").onclick = async () => {
   const f = $("#frFind").value, rep = $("#frRepl").value;
