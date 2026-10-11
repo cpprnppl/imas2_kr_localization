@@ -1,73 +1,131 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-웹앱(Supabase) 번역 회수 → xmb_translations.json 반영
+iM@S2 KOR 번역 플랫폼 회수 (Supabase rows → 파이프라인 입력)
 
-  python webapp_pull.py --code <팀암호> [--reviewed-only]
-
-- webapp_config.json의 url/anon_key + 팀 암호 헤더로 tr 테이블 전체를 읽어
-  kr이 비어 있지 않은 행을 xmb_translations.json에 병합한다.
-- --reviewed-only: 검수완료(st=2)만 반영.
-- 이후 `python xmb_text.py build` 로 patched/ 생성.
+  python webapp_pull.py xmb    --code <암호> [--reviewed-only]
+      → xmb_translations.json 병합 (이후 xmb_text.py build)
+  python webapp_pull.py script --code <암호> [--reviewed-only]
+      → 게임 tools에 translation_webapp_<날짜>.xlsx 생성
+        (translation_2.xlsx와 같은 7열 포맷, 기존 파일 안 덮음.
+         excel2scb 전환은 scb-excel 쪽에서 파일명 교체로)
+  python webapp_pull.py image  --code <암호> [--reviewed-only]
+      → label_specs.json의 items[md5].text 병합 (이후 label_tool --export)
 """
 import os
 import sys
 import json
+import time
 import argparse
 import urllib.request
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from extract_image_text import JP_ROOT  # noqa: E402
+
 HERE = os.path.dirname(os.path.abspath(__file__))
+CFG = json.load(open(os.path.join(HERE, "webapp_config.json"), encoding="utf-8"))
+GRP2REL = {"install": "text/install.xmb", "ranker": "ranker/ranker_npc.xmb",
+           "exep_init": "scene/exep_init.mpc"}
 
-SHORT2REL = {"install": "text/install.xmb",
-             "ranker": "ranker/ranker_npc.xmb",
-             "exep_init": "scene/exep_init.mpc"}
 
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--code", required=True, help="팀 암호 (x-team-code)")
-    ap.add_argument("--reviewed-only", action="store_true")
-    args = ap.parse_args()
-
-    cfg = json.load(open(os.path.join(HERE, "webapp_config.json"), encoding="utf-8"))
+def fetch(cat, code):
     rows = []
     offset = 0
     while True:
-        req = urllib.request.Request(
-            f"{cfg['url']}/rest/v1/tr?select=*&order=id&limit=1000&offset={offset}",
-            headers={"apikey": cfg["anon_key"],
-                     "Authorization": f"Bearer {cfg['anon_key']}",
-                     "x-team-code": args.code})
-        chunk = json.load(urllib.request.urlopen(req))
+        url = (f"{CFG['url']}/rest/v1/rows?cat=eq.{cat}&select=*"
+               f"&order=grp,seq&limit=1000&offset={offset}")
+        r = urllib.request.Request(url, headers={
+            "apikey": CFG["anon_key"], "Authorization": f"Bearer {CFG['anon_key']}",
+            "x-team-code": code})
+        chunk = json.load(urllib.request.urlopen(r))
         rows += chunk
         if len(chunk) < 1000:
             break
         offset += 1000
-    print(f"서버 행 {len(rows)}개")
+    print(f"{cat}: 서버 {len(rows)}행")
+    return rows
 
+
+def want(r, reviewed_only):
+    return bool(r.get("kr")) and (not reviewed_only or r.get("st", 0) >= 2)
+
+
+def pull_xmb(rows, reviewed_only):
     tr_path = os.path.join(HERE, "xmb_translations.json")
     tr = json.load(open(tr_path, encoding="utf-8"))
     n = 0
-    stat = {0: 0, 1: 0, 2: 0}
     for r in rows:
-        stat[r.get("st", 0)] = stat.get(r.get("st", 0), 0) + 1
-        if not r.get("kr"):
+        if not want(r, reviewed_only):
             continue
-        if args.reviewed_only and r.get("st", 0) < 2:
+        rel = GRP2REL.get(r["grp"])
+        if not rel:
             continue
-        rel = SHORT2REL.get(r["f"])
-        if rel is None:
-            continue
-        tid = r["k"].split("#")[0]        # "id#n" 중복 행 키 → 원 id
+        tid = r["key"].split("#")[0]
         ent = tr.setdefault(rel, {}).setdefault(tid, {"jp": "", "cn": "", "kr": ""})
         if ent.get("kr") != r["kr"]:
             ent["kr"] = r["kr"]
             n += 1
-    with open(tr_path, "w", encoding="utf-8") as f:
-        json.dump(tr, f, ensure_ascii=False, indent=1)
-    print(f"반영 {n}건 (상태 분포: 미번역 {stat.get(0,0)} / 번역 {stat.get(1,0)} / 검수 {stat.get(2,0)})")
-    print("다음: python xmb_text.py build")
+    json.dump(tr, open(tr_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"xmb_translations.json 반영 {n}건 → 다음: python xmb_text.py build")
+
+
+def pull_script(rows, reviewed_only):
+    """translation_2.xlsx를 베이스로 kr만 갱신한 새 xlsx 스냅샷 생성."""
+    from openpyxl import load_workbook
+    src = os.path.join(JP_ROOT, "gscript", "tools", "translation_2.xlsx")
+    dst = os.path.join(JP_ROOT, "gscript", "tools",
+                       f"translation_webapp_{time.strftime('%Y%m%d_%H%M')}.xlsx")
+    upd = {}
+    for r in rows:
+        if want(r, reviewed_only):
+            upd[(r["grp"], r["key"].split("#")[0])] = r["kr"]
+    wb = load_workbook(src)
+    n = 0
+    for ws in wb.worksheets:
+        if "(" not in ws.title:
+            continue
+        grp = ws.title.split("(", 1)[0]
+        for row in ws.iter_rows(min_row=2):
+            file, off = row[4].value, row[5].value
+            if file is None:
+                continue
+            kr = upd.get((grp, f"{file}:{off}"))
+            if kr is not None and row[2].value != kr:
+                row[2].value = kr
+                n += 1
+    wb.save(dst)
+    print(f"갱신 {n}셀 → {dst}")
+    print("excel2scb 전환은 scb-excel 파이프라인에서 이 파일로 교체 후 실행")
+
+
+def pull_image(rows, reviewed_only):
+    sp_path = os.path.join(HERE, "label_specs.json")
+    specs = json.load(open(sp_path, encoding="utf-8")) if os.path.exists(sp_path) \
+        else {"presets": {}, "items": {}}
+    n = 0
+    for r in rows:
+        if not want(r, reviewed_only):
+            continue
+        it = specs["items"].setdefault(r["key"], {"preset": "기본", "over": {},
+                                                  "mode": "text"})
+        if it.get("text") != r["kr"]:
+            it["text"] = r["kr"]
+            n += 1
+    json.dump(specs, open(sp_path, "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+    print(f"label_specs.json 문구 반영 {n}건 → 다음: python label_tool.py --export")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("cat", choices=["xmb", "script", "image"])
+    ap.add_argument("--code", required=True)
+    ap.add_argument("--reviewed-only", action="store_true")
+    args = ap.parse_args()
+    rows = fetch(args.cat, args.code)
+    {"xmb": pull_xmb, "script": pull_script, "image": pull_image}[args.cat](
+        rows, args.reviewed_only)
 
 
 if __name__ == "__main__":

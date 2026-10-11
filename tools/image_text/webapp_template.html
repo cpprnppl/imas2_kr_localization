@@ -1,389 +1,504 @@
-<title>iM@S2 XMB 번역표</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>iM@S2 KOR</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@patternfly/patternfly@5.2.1/patternfly.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <style>
-/* 레이아웃: 고정 상단바(탭·필터·예산) + 전폭 테이블, 스프레드시트 밀도 */
-[hidden]{display:none!important}
-img{max-width:100%}
-:root{
-  --bg:#f4f4f2; --surface:#ffffff; --fg:#1c1d1f; --muted:#6e7075;
-  --line:#d8d8d4; --accent:#31557d; --accent-fg:#ffffff;
-  --ok:#2f7d4f; --warn:#9a6700; --err:#b3362b; --hl:#fdf6e3;
-  --mono:ui-monospace,Consolas,"Cascadia Mono",monospace;
-}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#17181a; --surface:#1f2023; --fg:#e8e8e6; --muted:#9a9ca1;
-  --line:#3a3b3e; --accent:#7da4cc; --accent-fg:#14161a;
-  --ok:#5fb982; --warn:#d7a53f; --err:#e07b70; --hl:#2a2618;
-  color-scheme:dark }}
-:root[data-theme="dark"]{
-  --bg:#17181a; --surface:#1f2023; --fg:#e8e8e6; --muted:#9a9ca1;
-  --line:#3a3b3e; --accent:#7da4cc; --accent-fg:#14161a;
-  --ok:#5fb982; --warn:#d7a53f; --err:#e07b70; --hl:#2a2618;
-  color-scheme:dark }
-body{background:var(--bg);color:var(--fg);
-  font:13px/1.55 "Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
-  margin:0;padding-block:0 32px}
-#top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
-  background:var(--bg);border-bottom:1px solid var(--line);
-  padding:8px 16px 0;display:flex;flex-direction:column;gap:6px}
-#top .r1{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-h1{font-size:15px;font-weight:700;margin:0}
-#who{color:var(--muted);font-size:12px}
-#tabs{display:flex;gap:2px}
-#tabs button{border:1px solid var(--line);border-bottom:none;background:var(--surface);
-  color:var(--fg);padding:5px 12px;font:inherit;cursor:pointer}
-#tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-fg);
-  border-color:var(--accent);font-weight:500}
-#tabs .n{color:inherit;opacity:.75;font-size:11px;margin-left:6px;font-variant-numeric:tabular-nums}
-.r2{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding-bottom:8px}
-.r2 select,.r2 input[type=search]{font:inherit;color:var(--fg);background:var(--surface);
-  border:1px solid var(--line);padding:4px 8px}
-.r2 input[type=search]{width:220px;max-width:45vw}
-#budget{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);
-  font-variant-numeric:tabular-nums}
-#budget .bar{width:140px;height:8px;border:1px solid var(--line);background:var(--surface)}
-#budget .bar i{display:block;height:100%;background:var(--ok)}
-#budget.over .bar i{background:var(--err)}
-#budget.over{color:var(--err);font-weight:500}
-#msg{font-size:12px;color:var(--err)}
-main{padding:0 16px}
-table{border-collapse:collapse;width:100%;table-layout:fixed}
-th{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--thdr,96px));
-  background:var(--bg);z-index:4;text-align:left;font-size:11px;font-weight:500;
-  color:var(--muted);border-bottom:1px solid var(--line);padding:4px 8px}
-td{border-bottom:1px solid var(--line);padding:5px 8px;vertical-align:top;
-  overflow-wrap:break-word}
-col.c-id{width:118px}col.c-st{width:72px}col.c-w{width:92px}
-td.id{font-family:var(--mono);font-size:11px;color:var(--muted)}
-td.jp,td.cn{white-space:pre-wrap;color:var(--fg)}
-td.cn{color:var(--muted)}
-td.kr{white-space:pre-wrap;cursor:text}
-td.kr:hover{background:var(--hl)}
-td.kr.empty::before{content:"—";color:var(--muted)}
-td.kr textarea{width:100%;box-sizing:border-box;font:inherit;color:var(--fg);
-  background:var(--surface);border:1px solid var(--accent);padding:4px 6px;
-  resize:vertical;min-height:3.2em}
-td.kr .miss{color:var(--err);font-weight:700;text-decoration:underline}
-.badges{display:flex;flex-wrap:wrap;gap:3px}
-.b{font-size:10px;padding:0 5px;border:1px solid currentColor}
-.b.w{color:var(--warn)} .b.e{color:var(--err)} .b.m{color:var(--muted)}
-td.st{white-space:nowrap}
-.chk{display:inline-block;border:1px solid var(--line);background:var(--surface);
-  color:var(--muted);font-size:11px;padding:1px 7px;cursor:pointer;user-select:none}
-.chk+.chk{margin-left:3px}
-.chk.on1{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
-.chk.on2{background:var(--ok);border-color:var(--ok);color:#fff}
-.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:5px;
-  vertical-align:middle}
-.dot.saving{background:var(--warn)} .dot.fail{background:var(--err)}
-tr.done td{opacity:.62}
-tr.blank td{opacity:.4}
-#empty{color:var(--muted);padding:40px 0;text-align:center}
-#gate{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;
-  align-items:center;justify-content:center}
-.gatebox{background:var(--surface);border:1px solid var(--line);padding:28px 32px;
-  display:flex;flex-direction:column;gap:10px;width:300px;max-width:88vw}
-.gatebox h2{margin:0;font-size:15px}
-.gatebox p{margin:0;font-size:12px;color:var(--muted)}
-.gatebox input{font:inherit;color:var(--fg);background:var(--surface);
-  border:1px solid var(--line);padding:6px 8px}
-.gbtn{font:inherit;background:var(--accent);color:var(--accent-fg);
-  border:1px solid var(--accent);padding:6px;cursor:pointer}
-#gateMsg{font-size:12px;color:var(--err);min-height:1em}
-#nick{font:inherit;color:var(--fg);background:var(--surface);
-  border:1px solid var(--line);padding:3px 8px;width:110px}
-@media (max-width:700px){ col.c-id{width:84px} .r2 input[type=search]{width:130px} }
+/* PatternFly 위 최소 보정만 — 프레임워크 기본을 그대로 쓴다 */
+.kr-cell{cursor:text;white-space:pre-wrap;min-width:14rem}
+.kr-cell:hover{outline:1px dashed var(--pf-v5-global--primary-color--100);outline-offset:2px}
+.kr-cell.is-empty{color:var(--pf-v5-global--Color--200)}
+.jp-cell{white-space:pre-wrap;color:var(--pf-v5-global--Color--100)}
+.kr-miss{color:var(--pf-v5-global--danger-color--100);font-weight:700;text-decoration:underline}
+td textarea{width:100%;min-height:4rem;font:inherit}
+.thumb{background:repeating-conic-gradient(#9a9a9a 0 25%,#d4d4d4 0 50%) 0 0/12px 12px;
+  display:inline-block;line-height:0;border:1px solid var(--pf-v5-global--BorderColor--100)}
+.thumb img{image-rendering:pixelated;max-width:240px;max-height:72px;width:auto;height:auto}
+.row-dim td{opacity:.55}
+#gatewrap{min-height:100vh;display:flex;align-items:center;justify-content:center}
+.v-mid{vertical-align:middle!important}
+.pf-v5-c-page__sidebar .pf-v5-c-nav__link{cursor:pointer}
+.nowrap{white-space:nowrap}
 </style>
+</head>
+<body>
+<div id="gatewrap">
+  <div class="pf-v5-c-card" style="width:22rem">
+    <div class="pf-v5-c-card__title"><h1 class="pf-v5-c-title pf-m-xl">iM@S2 KOR</h1></div>
+    <div class="pf-v5-c-card__body">
+      <p class="pf-v5-u-color-200 pf-v5-u-mb-md">아이돌마스터 2 한글화 번역 플랫폼.<br>디스코드에 공지된 참여 암호를 입력하세요.</p>
+      <input class="pf-v5-c-form-control" style="display:block" id="pw" type="password" placeholder="참여 암호" autocomplete="off">
+      <input class="pf-v5-c-form-control pf-v5-u-mt-sm" style="display:block" id="gnick" placeholder="작업자 이름 (기록에 남습니다)">
+      <button class="pf-v5-c-button pf-m-primary pf-m-block pf-v5-u-mt-md" id="pwGo">입장</button>
+      <p class="pf-v5-u-danger-color-100 pf-v5-u-mt-sm" id="gateMsg" style="min-height:1.2em"></p>
+    </div>
+  </div>
+</div>
 
-<div id="gate" hidden>
-  <div class="gatebox">
-    <h2>iM@S2 XMB 번역표</h2>
-    <p>디스코드 채널에 공지된 참여 암호를 입력하세요.</p>
-    <input id="pw" type="password" autocomplete="off" placeholder="암호">
-    <button class="gbtn" id="pwGo">입장</button>
-    <div id="gateMsg"></div>
+<div class="pf-v5-c-page" id="app" hidden>
+  <header class="pf-v5-c-masthead">
+    <span class="pf-v5-c-masthead__toggle">
+      <button class="pf-v5-c-button pf-m-plain" id="navToggle" aria-label="메뉴">☰</button>
+    </span>
+    <div class="pf-v5-c-masthead__main"><span class="pf-v5-c-masthead__brand" style="font-weight:700">iM@S2 KOR</span></div>
+    <div class="pf-v5-c-masthead__content">
+      <div style="display:flex;gap:12px;align-items:center;width:100%">
+        <span id="crumb" class="pf-v5-u-color-200"></span>
+        <span style="flex:1"></span>
+        <span id="budget" style="min-width:220px" hidden>
+          <div class="pf-v5-c-progress pf-m-sm">
+            <div class="pf-v5-c-progress__description" id="budgetLbl" style="font-size:12px"></div>
+            <div class="pf-v5-c-progress__bar"><div class="pf-v5-c-progress__indicator" id="budgetBar"></div></div>
+          </div>
+        </span>
+        <input class="pf-v5-c-form-control" style="width:9rem" id="nick" placeholder="작업자 이름">
+        <span id="conn" class="pf-v5-c-label pf-m-green pf-m-compact"><span class="pf-v5-c-label__content">연결됨</span></span>
+      </div>
+    </div>
+  </header>
+  <div class="pf-v5-c-page__sidebar" id="sidebar">
+    <div class="pf-v5-c-page__sidebar-body">
+      <nav class="pf-v5-c-nav"><ul class="pf-v5-c-nav__list" id="nav" role="list"></ul></nav>
+    </div>
+  </div>
+  <main class="pf-v5-c-page__main">
+    <section class="pf-v5-c-page__main-section pf-m-light pf-m-no-padding" style="padding:8px 16px">
+      <div class="pf-v5-c-toolbar"><div class="pf-v5-c-toolbar__content" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <select class="pf-v5-c-form-control" style="width:auto" id="filter">
+          <option value="all">전체</option><option value="todo">미번역</option>
+          <option value="warn">경고 있음</option><option value="review">검수 대기</option>
+          <option value="done">검수 완료</option>
+        </select>
+        <input class="pf-v5-c-form-control" style="width:16rem" type="search" id="q" placeholder="검색 (원문·번역·식별자)">
+        <span id="grpStat" class="pf-v5-u-color-200" style="font-size:13px"></span>
+        <span style="flex:1"></span>
+        <nav class="pf-v5-c-pagination" style="display:flex;gap:6px;align-items:center">
+          <select class="pf-v5-c-form-control" style="width:auto" id="perPage">
+            <option value="100">100개씩</option><option value="200">200개씩</option><option value="500">500개씩</option>
+          </select>
+          <button class="pf-v5-c-button pf-m-plain" id="pgPrev">‹</button>
+          <span id="pgInfo" class="nowrap" style="font-size:13px"></span>
+          <button class="pf-v5-c-button pf-m-plain" id="pgNext">›</button>
+        </nav>
+      </div></div>
+    </section>
+    <section class="pf-v5-c-page__main-section" style="padding-top:8px">
+      <div id="content"></div>
+    </section>
+  </main>
+</div>
+
+<!-- 수정 이력 모달 -->
+<div class="pf-v5-c-backdrop" id="histModal" hidden>
+  <div class="pf-v5-c-modal-box pf-m-md" style="max-height:80vh;display:flex;flex-direction:column">
+    <header class="pf-v5-c-modal-box__header">
+      <h2 class="pf-v5-c-modal-box__title" id="histTitle">수정 이력</h2>
+    </header>
+    <div class="pf-v5-c-modal-box__body" id="histBody" style="overflow:auto"></div>
+    <footer class="pf-v5-c-modal-box__footer">
+      <button class="pf-v5-c-button pf-m-primary" id="histClose">닫기</button>
+    </footer>
   </div>
 </div>
-<div id="top">
-  <div class="r1">
-    <h1>iM@S2 XMB 번역표</h1>
-    <input id="nick" placeholder="작성자 이름" title="저장 기록에 남는 이름">
-    <span id="who">연결 중…</span>
-    <span id="msg"></span>
-  </div>
-  <div class="r1" style="justify-content:space-between">
-    <div id="tabs" role="tablist"></div>
-    <div id="budget"><span id="bt"></span><span class="bar"><i id="bi"></i></span></div>
-  </div>
-  <div class="r2">
-    <select id="filter">
-      <option value="all">전체</option>
-      <option value="todo">미번역</option>
-      <option value="warn">경고 있음</option>
-      <option value="review">검수 대기</option>
-      <option value="done">검수 완료</option>
-    </select>
-    <input type="search" id="q" placeholder="id·원문·번역 검색">
-    <span style="font-size:12px;color:var(--muted)">
-      한국어 칸을 클릭해 입력, 바깥 클릭으로 저장 · [번역]→[검수] 단계 체크</span>
-  </div>
-</div>
-<main><div id="tbl"></div></main>
 
 <script>
-const DATA = /*__DATA__*/null;
-const MAP = new Set(DATA.mapchars);
-const U16 = s => s.length;                       // JS length = UTF-16 코드유닛 수
-const BYTES = s => 2 * (U16(s) + 1);             // BE UTF-16 + 종단 \0\0
+const CFG = /*__CFG__*/null;
+const META = /*__DATA__*/null;
+const MAP = new Set(META.mapchars);
 const $ = s => document.querySelector(s);
+const esc = s => (s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const U16 = s => s.length;
+const BYTES = s => 2 * (U16(s) + 1);
 
-const CFG = /*__CFG__*/null;   // {url, key} — Supabase 프로젝트 (anon key)
-let sb = null, lastTs = 0;
-const docs = {};          // docid -> {kr, st}
-let cur = null, filter = "all", query = "", nick = "";
-try { cur = localStorage.getItem("tab"); filter = localStorage.getItem("f") || "all";
-      nick = localStorage.getItem("nick") || ""; } catch(e){}
-if (!DATA.files.some(f => f.f === cur)) cur = DATA.files[0].f;
+let sb = null, nick = "", teamCode = "";
+let cat = "xmb", grp = null;          // 현재 선택
+let rows = [];                        // 현재 그룹 행 (메모리)
+let filter = "all", query = "", page = 0, perPage = 100;
+try {
+  nick = localStorage.getItem("nick") || "";
+  perPage = +(localStorage.getItem("pp") || 100);
+} catch (e) {}
 
-const fileOf = f => DATA.files.find(x => x.f === f);
-const docid = (f, k) => f + "__" + k;
-const eff = (f, r) => {
-  const d = docs[docid(f, r.k)];
-  return { kr: d && d.kr !== undefined ? d.kr : r.kr,
-           st: d && d.st !== undefined ? d.st : r.st };
-};
-const isBlank = r => !r.jp && !r.cn;
+/* ---------------- 테마: OS 설정 따라 PF 다크 클래스 ---------------- */
+function applyTheme() {
+  document.documentElement.classList.toggle("pf-v5-theme-dark",
+    matchMedia("(prefers-color-scheme: dark)").matches);
+}
+applyTheme();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme);
 
-function warns(r, kr) {
-  const w = [];
-  if (!isBlank(r)) {
-    if (!kr) w.push(["미번역", "e"]);
-    else {
-      const nj = (r.jp.match(/\n/g) || []).length, nk = (kr.match(/\n/g) || []).length;
-      if (nj !== nk) w.push([`개행 ${nk}/${nj}`, "e"]);
-      if (U16(kr) > U16(r.jp) * 1.6 + 4) w.push([`길이 ${U16(kr)}자(원문 ${U16(r.jp)})`, "w"]);
-      const miss = [...new Set([...kr].filter(c => c >= "가" && c <= "힣" && !MAP.has(c)))];
-      if (miss.length) w.push(["폰트에 없음: " + miss.join(""), "e"]);
-    }
-  }
-  return w;
+/* ---------------- 접속 ---------------- */
+function makeClient(code) {
+  return window.supabase.createClient(CFG.url, CFG.key,
+    { global: { headers: { "x-team-code": code } }, auth: { persistSession: false } });
+}
+async function connect(code) {
+  const cand = makeClient(code);
+  const { data, error } = await cand.rpc("team_ok");
+  if (error || data !== true) return false;
+  sb = cand; teamCode = code;
+  try { localStorage.setItem("pw", code); } catch (e) {}
+  return true;
 }
 
-function stats(fi) {
+/* ---------------- 네비게이션 ---------------- */
+function renderNav() {
+  const ul = $("#nav"); ul.innerHTML = "";
+  for (const sec of META.nav) {
+    const li = document.createElement("li");
+    const open = sec.cat === cat;
+    li.className = "pf-v5-c-nav__item pf-m-expandable" + (open ? " pf-m-expanded" : "");
+    li.innerHTML = `
+      <button class="pf-v5-c-nav__link" data-sec="${sec.cat}">
+        ${esc(sec.label)}
+        <span class="pf-v5-c-nav__toggle"><i class="pf-v5-c-nav__toggle-icon">${open ? "▾" : "▸"}</i></span>
+      </button>
+      <section class="pf-v5-c-nav__subnav" ${open ? "" : "hidden"}>
+        <ul class="pf-v5-c-nav__list" role="list">
+          ${sec.groups.map(g => `
+            <li class="pf-v5-c-nav__item">
+              <a class="pf-v5-c-nav__link${sec.cat === cat && g.g === grp ? " pf-m-current" : ""}"
+                 data-cat="${sec.cat}" data-grp="${g.g}">${esc(g.label)}</a>
+            </li>`).join("")}
+        </ul>
+      </section>`;
+    ul.appendChild(li);
+  }
+  const li = document.createElement("li");
+  li.className = "pf-v5-c-nav__item";
+  li.innerHTML = `<a class="pf-v5-c-nav__link${cat === "activity" ? " pf-m-current" : ""}" data-cat="activity">수정 이력</a>`;
+  ul.appendChild(li);
+  ul.onclick = ev => {
+    const a = ev.target.closest("[data-grp],[data-sec],[data-cat='activity']");
+    if (!a) return;
+    if (a.dataset.sec) {
+      const item = a.closest(".pf-v5-c-nav__item");
+      const sub = item.querySelector(".pf-v5-c-nav__subnav");
+      sub.hidden = !sub.hidden;
+      item.classList.toggle("pf-m-expanded", !sub.hidden);
+      a.querySelector(".pf-v5-c-nav__toggle-icon").textContent = sub.hidden ? "▸" : "▾";
+      return;
+    }
+    if (a.dataset.cat === "activity") { showActivity(); return; }
+    openGroup(a.dataset.cat, a.dataset.grp);
+  };
+}
+
+function navMeta(c, g) {
+  const sec = META.nav.find(s => s.cat === c);
+  return { sec, grp: sec && sec.groups.find(x => x.g === g) };
+}
+
+/* ---------------- 데이터 로드 ---------------- */
+async function fetchAll(c, g) {
+  const out = [];
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await sb.from("rows").select("*")
+      .eq("cat", c).eq("grp", g).order("seq").range(from, from + 999);
+    if (error) { toast("불러오기 실패: " + error.message); break; }
+    out.push(...data);
+    if (data.length < 1000) break;
+  }
+  return out;
+}
+
+async function openGroup(c, g) {
+  cat = c; grp = g; page = 0; filter = "all"; query = "";
+  $("#filter").value = "all"; $("#q").value = "";
+  renderNav();
+  const { sec, grp: gm } = navMeta(c, g);
+  $("#crumb").textContent = `${sec.label} › ${gm.label}`;
+  $("#content").innerHTML = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content">불러오는 중…</div></div>`;
+  rows = await fetchAll(c, g);
+  render();
+}
+
+/* ---------------- 경고/통계 ---------------- */
+function warns(r) {
+  const w = [];
+  if (r.cat === "image") {
+    if (!r.kr) w.push(["문구 미정", "red"]);
+    else {
+      const miss = [...new Set([...r.kr].filter(ch => ch >= "가" && ch <= "힣" && !MAP.has(ch)))];
+      if (miss.length) w.push(["폰트에 없음: " + miss.join(""), "red"]);
+    }
+    return w;
+  }
+  if (!r.jp) return w;
+  if (!r.kr) { w.push(["미번역", "red"]); return w; }
+  const nj = (r.jp.match(/\n/g) || []).length, nk = (r.kr.match(/\n/g) || []).length;
+  if (nj !== nk) w.push([`개행 ${nk}/${nj}`, "red"]);
+  if (U16(r.kr) > U16(r.jp) * 1.6 + 4) w.push([`길이 ${U16(r.kr)}/${U16(r.jp)}`, "orange"]);
+  const miss = [...new Set([...r.kr].filter(ch => ch >= "가" && ch <= "힣" && !MAP.has(ch)))];
+  if (miss.length) w.push(["폰트에 없음: " + miss.join(""), "red"]);
+  return w;
+}
+const isBlank = r => r.cat !== "image" && !r.jp;
+
+function grpStats() {
   let tgt = 0, tr = 0, rv = 0, bytes = 0;
-  for (const r of fi.rows) {
-    const e = eff(fi.f, r);
-    bytes += BYTES(e.kr || r.jp);
+  for (const r of rows) {
+    if (cat === "xmb") bytes += BYTES(r.kr || r.jp);
     if (isBlank(r)) continue;
     tgt++;
-    if (e.kr) { tr++; if (e.st >= 2) rv++; }
+    if (r.kr) { tr++; if (r.st >= 2) rv++; }
   }
   return { tgt, tr, rv, bytes };
 }
 
-function renderTabs() {
-  const el = $("#tabs"); el.innerHTML = "";
-  for (const fi of DATA.files) {
-    const s = stats(fi);
-    const b = document.createElement("button");
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", fi.f === cur);
-    b.innerHTML = `${fi.label}<span class="n">${s.tr}/${s.tgt} · 검수 ${s.rv}</span>`;
-    b.onclick = () => { cur = fi.f; try{localStorage.setItem("tab",cur)}catch(e){}; renderAll(); };
-    el.appendChild(b);
-  }
-  const fi = fileOf(cur), s = stats(fi);
-  const pct = Math.min(100, Math.round(100 * s.bytes / fi.avail));
-  $("#bt").textContent = `용량 ${s.bytes.toLocaleString()} / ${fi.avail.toLocaleString()}B`;
-  $("#bi").style.width = pct + "%";
-  $("#budget").classList.toggle("over", s.bytes > fi.avail);
-}
-
+/* ---------------- 렌더 ---------------- */
 function markMissing(kr) {
-  const frag = document.createDocumentFragment();
-  let buf = "";
-  const flush = () => { if (buf) { frag.appendChild(document.createTextNode(buf)); buf = ""; } };
-  for (const c of kr) {
-    if (c >= "가" && c <= "힣" && !MAP.has(c)) {
-      flush();
-      const s = document.createElement("span"); s.className = "miss"; s.textContent = c;
-      frag.appendChild(s);
-    } else buf += c;
-  }
-  flush();
-  return frag;
+  return esc(kr).replace(/[가-힣]/g, ch => MAP.has(ch) ? ch : `<span class="kr-miss">${ch}</span>`);
 }
 
-function renderTable() {
-  const fi = fileOf(cur);
-  const host = $("#tbl"); host.innerHTML = "";
-  const t = document.createElement("table");
-  t.innerHTML = `<colgroup><col class="c-id"><col><col><col><col class="c-w"><col class="c-st"></colgroup>
-  <thead><tr><th>id</th><th>원문 (JP)</th><th>중국어역 (CN)</th><th>한국어 (KR)</th><th>경고</th><th>상태</th></tr></thead>`;
-  const tb = document.createElement("tbody");
-  let shown = 0;
-  for (const r of fi.rows) {
-    const e = eff(fi.f, r);
-    const w = warns(r, e.kr);
-    const match = !query || [r.id, r.jp, r.cn, e.kr].some(s => (s||"").toLowerCase().includes(query));
-    const pass = filter === "all" ? true :
-      filter === "todo" ? (!isBlank(r) && !e.kr) :
-      filter === "warn" ? w.length > 0 :
-      filter === "review" ? (e.kr && e.st < 2 && !isBlank(r)) :
-      (e.st >= 2 && !isBlank(r));
-    if (!match || !pass) continue;
-    shown++;
-    const trr = document.createElement("tr");
-    trr.className = isBlank(r) ? "blank" : (e.st >= 2 ? "done" : "");
-    const tdId = document.createElement("td"); tdId.className = "id"; tdId.textContent = r.id;
-    const tdJp = document.createElement("td"); tdJp.className = "jp"; tdJp.textContent = r.jp;
-    const tdCn = document.createElement("td"); tdCn.className = "cn"; tdCn.textContent = r.cn;
-    const tdKr = document.createElement("td"); tdKr.className = "kr" + (e.kr ? "" : " empty");
-    tdKr.appendChild(markMissing(e.kr));
-    if (!isBlank(r)) tdKr.onclick = () => edit(fi, r, tdKr);
-    const tdW = document.createElement("td");
-    const bd = document.createElement("div"); bd.className = "badges";
-    for (const [txt, cls] of w) {
-      const s = document.createElement("span"); s.className = "b " + cls; s.textContent = txt;
-      bd.appendChild(s);
+function visibleRows() {
+  const q = query.toLowerCase();
+  return rows.filter(r => {
+    if (q && ![r.key, r.jp, r.kr, (r.meta || {}).sp || ""].some(s => (s || "").toLowerCase().includes(q))) return false;
+    const w = warns(r);
+    switch (filter) {
+      case "todo": return !isBlank(r) && !r.kr;
+      case "warn": return w.length > 0;
+      case "review": return !isBlank(r) && r.kr && r.st < 2;
+      case "done": return !isBlank(r) && r.st >= 2;
+      default: return true;
     }
-    if (isBlank(r)) { const s = document.createElement("span"); s.className="b m"; s.textContent="빈 행"; bd.appendChild(s); }
-    tdW.appendChild(bd);
-    const tdSt = document.createElement("td"); tdSt.className = "st";
-    if (!isBlank(r)) {
-      const c1 = document.createElement("span");
-      c1.className = "chk" + (e.st >= 1 && e.kr ? " on1" : ""); c1.textContent = "번역";
-      c1.onclick = () => setSt(fi, r, e.st >= 1 ? 0 : 1);
-      const c2 = document.createElement("span");
-      c2.className = "chk" + (e.st >= 2 ? " on2" : ""); c2.textContent = "검수";
-      c2.onclick = () => setSt(fi, r, e.st >= 2 ? 1 : 2);
-      const dot = document.createElement("span"); dot.className = "dot"; dot.dataset.d = docid(fi.f, r.k);
-      tdSt.append(c1, c2, dot);
-    }
-    trr.append(tdId, tdJp, tdCn, tdKr, tdW, tdSt);
-    tb.appendChild(trr);
-  }
-  t.appendChild(tb);
-  host.appendChild(t);
-  if (!shown) { const d = document.createElement("div"); d.id = "empty"; d.textContent = "조건에 맞는 행이 없습니다"; host.appendChild(d); }
+  });
 }
 
-function renderAll(){ renderTabs(); renderTable(); }
+function stLabel(r) {
+  return `
+    <button class="pf-v5-c-button pf-m-compact ${r.st >= 1 && r.kr ? "pf-m-primary" : "pf-m-control"}" data-act="st1">번역</button>
+    <button class="pf-v5-c-button pf-m-compact ${r.st >= 2 ? "pf-m-primary" : "pf-m-control"}" data-act="st2">검수</button>
+    <button class="pf-v5-c-button pf-m-compact pf-m-plain" data-act="hist" title="수정 이력">🕘</button>`;
+}
 
-function edit(fi, r, td) {
+function render() {
+  renderStats();
+  const vis = visibleRows();
+  const maxPage = Math.max(0, Math.ceil(vis.length / perPage) - 1);
+  if (page > maxPage) page = maxPage;
+  const slice = vis.slice(page * perPage, (page + 1) * perPage);
+  $("#pgInfo").textContent = vis.length ? `${page * perPage + 1}–${page * perPage + slice.length} / ${vis.length}` : "0 / 0";
+
+  const heads = cat === "image"
+    ? ["원본 (JP | CN 참고)", "정보", "한국어 라벨", "경고", "상태"]
+    : cat === "script"
+      ? ["화자", "원문", "한국어", "경고", "상태"]
+      : ["id", "원문", "한국어", "경고", "상태"];
+  let h = `<table class="pf-v5-c-table pf-m-compact pf-m-grid-md" role="grid"><thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">`
+    + heads.map(x => `<th class="pf-v5-c-table__th">${x}</th>`).join("") + `</tr></thead><tbody class="pf-v5-c-table__tbody">`;
+  for (const r of slice) {
+    const w = warns(r);
+    const dim = isBlank(r) || r.st >= 2 ? " row-dim" : "";
+    let first, second;
+    if (cat === "image") {
+      const m = r.meta || {};
+      first = `<div class="thumb"><img loading="lazy" src="${CFG.texbase}/jp/${r.key}.png" alt=""></div>
+               <div class="thumb"><img loading="lazy" src="${CFG.texbase}/cn/${r.key}.png" alt=""></div>`;
+      second = `<span class="nowrap">${m.w}×${m.h} ${esc(m.fmt || "")}</span><br>
+                <span class="pf-v5-u-color-200" style="font-size:12px">${esc((m.locs || [])[0] || "")}${(m.locs || []).length > 1 ? ` 외 ${m.locs.length - 1}곳` : ""}</span>`;
+    } else if (cat === "script") {
+      const m = r.meta || {};
+      first = `<span class="nowrap">${esc(m.sp || "")}</span><br><span class="pf-v5-u-color-200" style="font-size:11px">${esc(m.file || "")}</span>`;
+      second = `<div class="jp-cell">${esc(r.jp)}</div>`;
+    } else {
+      first = `<code style="font-size:12px">${esc(r.key)}</code>`;
+      second = `<div class="jp-cell">${esc(r.jp)}</div>`;
+    }
+    h += `<tr class="pf-v5-c-table__tr${dim}" data-id="${esc(r.id)}">
+      <td class="pf-v5-c-table__td v-mid">${first}</td>
+      ${cat === "image" ? `<td class="pf-v5-c-table__td v-mid">${second}</td>` : `<td class="pf-v5-c-table__td" style="max-width:26rem">${second}</td>`}
+      <td class="pf-v5-c-table__td kr-cell${r.kr ? "" : " is-empty"}" data-act="edit">${r.kr ? markMissing(r.kr) : (isBlank(r) ? "—" : "클릭해서 입력")}</td>
+      <td class="pf-v5-c-table__td" style="max-width:10rem">${w.map(([t, c]) =>
+        `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}</td>
+      <td class="pf-v5-c-table__td nowrap v-mid">${isBlank(r) ? "" : stLabel(r)}</td>
+    </tr>`;
+  }
+  h += "</tbody></table>";
+  if (!slice.length) h = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content"><h2 class="pf-v5-c-title pf-m-lg">조건에 맞는 행이 없습니다</h2></div></div>`;
+  $("#content").innerHTML = h;
+}
+
+function renderStats() {
+  const s = grpStats();
+  $("#grpStat").textContent = `번역 ${s.tr}/${s.tgt} · 검수 ${s.rv}`;
+  const bud = META.xmb_budgets[grp];
+  if (cat === "xmb" && bud) {
+    $("#budget").hidden = false;
+    const pct = Math.min(100, Math.round(100 * s.bytes / bud));
+    $("#budgetLbl").textContent = `용량 ${s.bytes.toLocaleString()} / ${bud.toLocaleString()}B`;
+    $("#budgetBar").style.width = pct + "%";
+    $("#budgetBar").style.background = s.bytes > bud ? "var(--pf-v5-global--danger-color--100)" : "";
+  } else $("#budget").hidden = true;
+}
+
+/* ---------------- 편집/저장 ---------------- */
+function rowById(id) { return rows.find(r => r.id === id); }
+
+$("#content").addEventListener("click", ev => {
+  const tr = ev.target.closest("tr[data-id]");
+  if (!tr) return;
+  const r = rowById(tr.dataset.id);
+  if (!r) return;
+  const act = ev.target.closest("[data-act]");
+  if (!act) return;
+  if (act.dataset.act === "edit" && !isBlank(r)) startEdit(r, act);
+  else if (act.dataset.act === "st1") setSt(r, r.st >= 1 ? 0 : 1);
+  else if (act.dataset.act === "st2") setSt(r, r.st >= 2 ? 1 : 2);
+  else if (act.dataset.act === "hist") showHist(r);
+});
+
+function startEdit(r, td) {
   if (td.querySelector("textarea")) return;
-  const e = eff(fi.f, r);
   const ta = document.createElement("textarea");
-  ta.value = e.kr;
-  ta.rows = Math.max(2, (r.jp.match(/\n/g) || []).length + 1);
+  ta.className = "pf-v5-c-form-control";
+  ta.value = r.kr;
   td.textContent = ""; td.appendChild(ta); ta.focus();
   ta.onblur = () => {
     const v = ta.value.replace(/\r\n/g, "\n").replace(/\s+$/, "");
-    if (v !== e.kr) save(fi, r, { kr: v, st: v ? Math.max(1, e.st) : 0 });
-    renderAll();
+    if (v !== r.kr) save(r, v, v ? Math.max(1, r.st) : 0);
+    else render();
   };
 }
 
-function setSt(fi, r, st) {
-  const e = eff(fi.f, r);
-  if (st >= 1 && !e.kr) { note("번역문이 비어 있어 완료로 표시할 수 없습니다"); return; }
-  save(fi, r, { kr: e.kr, st });
-  renderAll();
+function setSt(r, st) {
+  if (st >= 1 && !r.kr) { toast("번역문이 비어 있습니다"); return; }
+  save(r, r.kr, st);
 }
 
-let noteTimer;
-function note(s){ $("#msg").textContent = s; clearTimeout(noteTimer);
-  noteTimer = setTimeout(() => $("#msg").textContent = "", 5000); }
-
-async function save(fi, r, val) {
-  const id = docid(fi.f, r.k);
-  docs[id] = val;
-  if (!sb) { note("연결돼 있지 않아 이 기기에서만 보입니다"); return; }
-  const dot = document.querySelector(`.dot[data-d="${id}"]`);
-  if (dot) dot.className = "dot saving";
-  const row = Object.assign({ id, f: fi.f, k: r.k, ts: Date.now(), by: nick }, val);
-  const { error } = await sb.from("tr").upsert(row);
+async function save(r, kr, st) {
+  const prev = { kr: r.kr, st: r.st };
+  r.kr = kr; r.st = st; r.ts = Date.now(); r.by = nick;
+  render();
+  const { error } = await sb.from("rows").upsert({
+    id: r.id, cat: r.cat, grp: r.grp, seq: r.seq, key: r.key,
+    jp: r.jp, kr, st, ts: r.ts, by: nick, meta: r.meta || {} });
   if (error) {
-    if (dot) dot.className = "dot fail";
-    note("저장 실패: " + (error.code === "42501" ? "암호가 맞지 않습니다 — 새로고침 후 다시 입장"
-                                                 : error.message));
-  } else {
-    lastTs = Math.max(lastTs, row.ts);
-    if (dot) dot.className = "dot";
+    r.kr = prev.kr; r.st = prev.st; render();
+    toast("저장 실패: " + error.message);
+    return;
   }
+  sb.from("hist").insert({ row_id: r.id, cat: r.cat, grp: r.grp, key: r.key,
+    ts: r.ts, by: nick, kr, st }).then(() => {});
 }
 
-$("#filter").value = filter;
-$("#filter").onchange = ev => { filter = ev.target.value;
-  try{localStorage.setItem("f",filter)}catch(e){}; renderTable(); };
-let qTimer;
-$("#q").oninput = ev => { clearTimeout(qTimer);
-  qTimer = setTimeout(() => { query = ev.target.value.trim().toLowerCase(); renderTable(); }, 200); };
-
-function measureHeader(){
-  document.documentElement.style.setProperty("--thdr", $("#top").offsetHeight + "px");
+/* ---------------- 수정 이력 ---------------- */
+function fmtTs(ts) {
+  const d = new Date(ts);
+  const p = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
-addEventListener("resize", measureHeader);
+async function showHist(r) {
+  $("#histTitle").textContent = `수정 이력 — ${r.key}`;
+  $("#histBody").innerHTML = "불러오는 중…";
+  $("#histModal").hidden = false;
+  const { data, error } = await sb.from("hist").select("*")
+    .eq("row_id", r.id).order("n", { ascending: false }).limit(100);
+  if (error) { $("#histBody").textContent = "실패: " + error.message; return; }
+  if (!data.length) { $("#histBody").textContent = "이력이 없습니다."; return; }
+  $("#histBody").innerHTML = `<table class="pf-v5-c-table pf-m-compact"><thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">
+    <th class="pf-v5-c-table__th">일시</th><th class="pf-v5-c-table__th">작업자</th><th class="pf-v5-c-table__th">내용</th><th class="pf-v5-c-table__th">상태</th></tr></thead>
+    <tbody class="pf-v5-c-table__tbody">${data.map(hh => `<tr class="pf-v5-c-table__tr">
+      <td class="pf-v5-c-table__td nowrap">${fmtTs(hh.ts)}</td>
+      <td class="pf-v5-c-table__td nowrap">${esc(hh.by || "—")}</td>
+      <td class="pf-v5-c-table__td" style="white-space:pre-wrap">${esc(hh.kr)}</td>
+      <td class="pf-v5-c-table__td nowrap">${["미번역", "번역", "검수"][hh.st] || hh.st}</td></tr>`).join("")}</tbody></table>`;
+}
+$("#histClose").onclick = () => $("#histModal").hidden = true;
+$("#histModal").addEventListener("click", ev => { if (ev.target === $("#histModal")) $("#histModal").hidden = true; });
 
-renderAll(); measureHeader();
+/* ---------------- 활동(전체 이력) 뷰 ---------------- */
+async function showActivity() {
+  cat = "activity"; grp = null; renderNav();
+  $("#crumb").textContent = "수정 이력";
+  $("#budget").hidden = true; $("#grpStat").textContent = "";
+  $("#content").innerHTML = `
+    <div class="pf-v5-c-toolbar"><div class="pf-v5-c-toolbar__content" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <input class="pf-v5-c-form-control" style="width:10rem" id="actBy" placeholder="작업자 필터">
+      <input class="pf-v5-c-form-control" style="width:auto" type="date" id="actDate">
+      <button class="pf-v5-c-button pf-m-secondary" id="actGo">조회</button>
+    </div></div><div id="actList">불러오는 중…</div>`;
+  const run = async () => {
+    let q = sb.from("hist").select("*").order("n", { ascending: false }).limit(300);
+    const by = $("#actBy").value.trim();
+    if (by) q = q.eq("by", by);
+    const d = $("#actDate").value;
+    if (d) {
+      const t0 = new Date(d + "T00:00:00").getTime();
+      q = q.gte("ts", t0).lt("ts", t0 + 86400000);
+    }
+    const { data, error } = await q;
+    if (error) { $("#actList").textContent = "실패: " + error.message; return; }
+    $("#actList").innerHTML = `<table class="pf-v5-c-table pf-m-compact"><thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">
+      <th class="pf-v5-c-table__th">일시</th><th class="pf-v5-c-table__th">작업자</th><th class="pf-v5-c-table__th">위치</th>
+      <th class="pf-v5-c-table__th">내용</th><th class="pf-v5-c-table__th">상태</th></tr></thead>
+      <tbody class="pf-v5-c-table__tbody">${data.map(hh => `<tr class="pf-v5-c-table__tr">
+        <td class="pf-v5-c-table__td nowrap">${fmtTs(hh.ts)}</td>
+        <td class="pf-v5-c-table__td nowrap">${esc(hh.by || "—")}</td>
+        <td class="pf-v5-c-table__td nowrap"><code style="font-size:12px">${esc(hh.grp)} · ${esc(hh.key)}</code></td>
+        <td class="pf-v5-c-table__td" style="white-space:pre-wrap;max-width:30rem">${esc(hh.kr)}</td>
+        <td class="pf-v5-c-table__td nowrap">${["미번역", "번역", "검수"][hh.st] || hh.st}</td></tr>`).join("")}</tbody></table>`
+      + (data.length >= 300 ? '<p class="pf-v5-u-color-200">최근 300건까지 표시</p>' : "");
+  };
+  $("#actGo").onclick = run;
+  run();
+}
 
-$("#nick").value = nick;
+/* ---------------- 잡동사니 ---------------- */
+let toastTimer;
+function toast(msg) {
+  let el = $("#toast");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "toast";
+    el.className = "pf-v5-c-alert pf-m-danger pf-m-inline";
+    el.style.cssText = "position:fixed;bottom:16px;right:16px;z-index:99;max-width:24rem";
+    document.body.appendChild(el);
+  }
+  el.innerHTML = `<div class="pf-v5-c-alert__title">${esc(msg)}</div>`;
+  el.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.hidden = true, 6000);
+}
+
+$("#filter").onchange = ev => { filter = ev.target.value; page = 0; render(); };
+let qt; $("#q").oninput = ev => { clearTimeout(qt); qt = setTimeout(() => { query = ev.target.value.trim(); page = 0; render(); }, 250); };
+$("#perPage").value = String(perPage);
+$("#perPage").onchange = ev => { perPage = +ev.target.value; page = 0;
+  try { localStorage.setItem("pp", String(perPage)); } catch (e) {} render(); };
+$("#pgPrev").onclick = () => { if (page > 0) { page--; render(); } };
+$("#pgNext").onclick = () => { page++; render(); };
+$("#navToggle").onclick = () => $("#sidebar").classList.toggle("pf-m-collapsed");
 $("#nick").onchange = ev => { nick = ev.target.value.trim();
-  try{localStorage.setItem("nick", nick)}catch(e){} };
+  try { localStorage.setItem("nick", nick); } catch (e) {} };
 
-function mergeRows(rows) {
-  for (const v of rows) {
-    docs[v.id] = { kr: v.kr !== undefined && v.kr !== null ? v.kr : "", st: v.st || 0 };
-    if (v.ts > lastTs) lastTs = v.ts;
-  }
-  if (!document.querySelector("#tbl textarea")) renderAll();
-  else renderTabs();
+/* ---------------- 부팅 ---------------- */
+async function boot() {
+  $("#gatewrap").hidden = true;
+  $("#app").hidden = false;
+  $("#nick").value = nick;
+  renderNav();
+  const first = META.nav[0];
+  openGroup(first.cat, first.groups[0].g);
 }
-
-async function pull(initial) {
-  if (!sb) return false;
-  let q = sb.from("tr").select("*").limit(5000);
-  if (!initial) q = q.gt("ts", lastTs);
-  const { data, error } = await q;
-  if (error) return false;
-  mergeRows(data || []);
-  return true;
-}
-
-function makeClient(pw) {
-  return window.supabase.createClient(CFG.url, CFG.key,
-    { global: { headers: { "x-team-code": pw } }, auth: { persistSession: false } });
-}
-
-async function connect(pw) {
-  const cand = makeClient(pw);
-  // RLS의 select 거부는 '빈 결과'라 오류가 안 남 → 전용 RPC로 암호 검증
-  const { data, error } = await cand.rpc("team_ok");
-  if (error || data !== true) return false;
-  sb = cand;
-  try { localStorage.setItem("pw", pw); } catch (e) {}
-  await pull(true);
-  $("#who").textContent = "연결됨 — 자동 저장";
-  setInterval(() => pull(false), 15000);
-  addEventListener("focus", () => pull(false));
-  return true;
-}
-
 (async () => {
-  if (!CFG || !window.supabase) { $("#who").textContent = "오프라인 미리보기 (저장 안 됨)"; return; }
+  if (!CFG || !window.supabase) { $("#gateMsg").textContent = "오프라인 빌드 — 접속 불가"; return; }
   let pw = "";
   try { pw = localStorage.getItem("pw") || ""; } catch (e) {}
-  if (pw && await connect(pw)) return;
-  const gate = $("#gate");
-  gate.hidden = false;
-  $("#pw").focus();
+  if (pw && await connect(pw)) { boot(); return; }
+  $("#gnick").value = nick;
   const go = async () => {
     $("#gateMsg").textContent = "";
     const v = $("#pw").value;
     if (!v) return;
     $("#pwGo").disabled = true;
-    if (await connect(v)) gate.hidden = true;
+    nick = $("#gnick").value.trim() || nick;
+    try { localStorage.setItem("nick", nick); } catch (e) {}
+    if (await connect(v)) boot();
     else $("#gateMsg").textContent = "암호가 맞지 않습니다";
     $("#pwGo").disabled = false;
   };
@@ -391,3 +506,5 @@ async function connect(pw) {
   $("#pw").addEventListener("keydown", ev => { if (ev.key === "Enter") go(); });
 })();
 </script>
+</body>
+</html>

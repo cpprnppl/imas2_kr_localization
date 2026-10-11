@@ -1,21 +1,7 @@
--- iM@S2 XMB 번역표 — Supabase 설정 (SQL Editor에서 1회 실행)
--- __TEAM_CODE__ 를 디스코드에 공지할 팀 암호로 바꾼 뒤 실행할 것.
--- 접근 통제: 모든 읽기/쓰기는 요청 헤더 x-team-code 가 팀 암호와 일치할 때만 허용.
--- (anon key는 페이지에 공개되지만, 암호 없이는 RLS가 전부 거부한다)
-
-create table if not exists public.tr (
-  id text primary key,          -- "<파일>__<행키>" (예: install__farea_000)
-  f  text not null,             -- install | ranker | exep_init
-  k  text not null,             -- 행 키 (xmb id)
-  kr text not null default '',  -- 한국어 번역
-  st smallint not null default 0, -- 0 미번역 / 1 번역완료 / 2 검수완료
-  ts bigint not null default 0,   -- 마지막 수정 (ms epoch) — 증분 동기화용
-  by text not null default ''     -- 작성자 이름 (자율 입력)
-);
-
-create index if not exists tr_ts on public.tr (ts);
-
-alter table public.tr enable row level security;
+-- iM@S2 KOR 번역 플랫폼 — Supabase 설정 v2 (SQL Editor에서 1회 실행)
+-- __TEAM_CODE__ 를 팀 암호로 바꾼 뒤 전체 실행.
+-- 접근 통제: 요청 헤더 x-team-code = 팀 암호일 때만 읽기/쓰기 허용 (RLS).
+-- v1의 tr 테이블은 rows로 대체 (사용 전이면 drop해도 무방).
 
 create or replace function public.team_ok()
 returns boolean language sql stable as $$
@@ -24,13 +10,54 @@ returns boolean language sql stable as $$
   ) = '__TEAM_CODE__'
 $$;
 
-drop policy if exists team_select on public.tr;
-drop policy if exists team_insert on public.tr;
-drop policy if exists team_update on public.tr;
-create policy team_select on public.tr for select using (public.team_ok());
-create policy team_insert on public.tr for insert with check (public.team_ok());
-create policy team_update on public.tr for update
-  using (public.team_ok()) with check (public.team_ok());
--- delete 정책 없음 = 삭제 불가 (실수 방지)
+-- ---------- 번역 행 (xmb / script / image 공용)
+create table if not exists public.rows (
+  id   text primary key,          -- "<cat>:<grp>:<key>"
+  cat  text not null,             -- xmb | script | image
+  grp  text not null,             -- 소분류 (install / all / chi / scene …)
+  seq  int  not null default 0,   -- 원본 순서
+  key  text not null,             -- 원본 식별자 (xmb id / 파일:오프셋 / md5)
+  jp   text not null default '',
+  kr   text not null default '',
+  st   smallint not null default 0,  -- 0 미번역 / 1 번역완료 / 2 검수완료
+  ts   bigint not null default 0,    -- 마지막 수정 ms
+  by   text not null default '',
+  meta jsonb not null default '{}'   -- script: 화자/파일/오프셋, image: 치수/위치
+);
+create index if not exists rows_cat_grp_seq on public.rows (cat, grp, seq);
+create index if not exists rows_ts on public.rows (ts);
 
--- 암호 변경: team_ok() 함수만 다시 만들면 됨 (테이블/정책 그대로)
+alter table public.rows enable row level security;
+drop policy if exists rows_select on public.rows;
+drop policy if exists rows_insert on public.rows;
+drop policy if exists rows_update on public.rows;
+create policy rows_select on public.rows for select using (public.team_ok());
+create policy rows_insert on public.rows for insert with check (public.team_ok());
+create policy rows_update on public.rows for update
+  using (public.team_ok()) with check (public.team_ok());
+-- delete 정책 없음 = 삭제 불가
+
+-- ---------- 수정 이력 (append-only)
+create table if not exists public.hist (
+  n      bigint generated always as identity primary key,
+  row_id text not null,
+  cat    text not null,
+  grp    text not null,
+  key    text not null,
+  ts     bigint not null,
+  by     text not null default '',
+  kr     text not null default '',
+  st     smallint not null default 0
+);
+create index if not exists hist_row on public.hist (row_id, n desc);
+create index if not exists hist_ts on public.hist (ts desc);
+create index if not exists hist_by on public.hist (by);
+
+alter table public.hist enable row level security;
+drop policy if exists hist_select on public.hist;
+drop policy if exists hist_insert on public.hist;
+create policy hist_select on public.hist for select using (public.team_ok());
+create policy hist_insert on public.hist for insert with check (public.team_ok());
+-- update/delete 정책 없음 = 이력 불변
+
+-- 암호 변경: team_ok() 함수만 새 암호로 다시 실행
