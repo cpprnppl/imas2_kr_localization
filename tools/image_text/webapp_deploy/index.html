@@ -384,7 +384,12 @@ function passFilter(r, f) {
 function visibleRows() {
   const q = query.toLowerCase();
   return rows.filter(r => {
-    if (q && ![r.key, r.jp, r.kr, (r.meta || {}).sp || ""].some(s => (s || "").toLowerCase().includes(q))) return false;
+    if (q) {
+      const m = r.meta || {};
+      const hay = [r.key, r.jp, r.kr, m.sp, m.file,
+                   (m.locs || []).join(" ")];
+      if (!hay.some(s => (s || "").toLowerCase().includes(q))) return false;
+    }
     return passFilter(r, filter);
   });
 }
