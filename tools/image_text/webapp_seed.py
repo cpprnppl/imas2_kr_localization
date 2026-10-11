@@ -179,9 +179,8 @@ def upload_thumbs(service_key):
                                os.path.dirname(g["rel0"]), g["png"])
             if not os.path.exists(src):
                 continue
+            # 원본 해상도 그대로 업로드 (뷰어 확대용 — 축소본은 분간 불가 문제)
             im = Image.open(src)
-            if im.width > 480:
-                im = im.resize((480, max(1, im.height * 480 // im.width)))
             buf = io.BytesIO()
             im.save(buf, "PNG", optimize=True)
             h = dict(auth)
