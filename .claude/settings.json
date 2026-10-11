@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -X utf8 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect_backup.py\"",
+            "timeout": 15,
+            "statusMessage": "순정 백업 보호 검사"
+          }
+        ]
+      }
+    ]
+  }
+}
