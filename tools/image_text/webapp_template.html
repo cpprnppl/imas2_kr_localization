@@ -1,0 +1,318 @@
+<title>iM@S2 XMB 번역표</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* 레이아웃: 고정 상단바(탭·필터·예산) + 전폭 테이블, 스프레드시트 밀도 */
+:root{
+  --bg:#f4f4f2; --surface:#ffffff; --fg:#1c1d1f; --muted:#6e7075;
+  --line:#d8d8d4; --accent:#31557d; --accent-fg:#ffffff;
+  --ok:#2f7d4f; --warn:#9a6700; --err:#b3362b; --hl:#fdf6e3;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#17181a; --surface:#1f2023; --fg:#e8e8e6; --muted:#9a9ca1;
+  --line:#3a3b3e; --accent:#7da4cc; --accent-fg:#14161a;
+  --ok:#5fb982; --warn:#d7a53f; --err:#e07b70; --hl:#2a2618;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#17181a; --surface:#1f2023; --fg:#e8e8e6; --muted:#9a9ca1;
+  --line:#3a3b3e; --accent:#7da4cc; --accent-fg:#14161a;
+  --ok:#5fb982; --warn:#d7a53f; --err:#e07b70; --hl:#2a2618;
+  color-scheme:dark }
+body{background:var(--bg);color:var(--fg);
+  font:13px/1.55 "Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+  margin:0;padding-block:0 32px}
+#top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+  background:var(--bg);border-bottom:1px solid var(--line);
+  padding:8px 16px 0;display:flex;flex-direction:column;gap:6px}
+#top .r1{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+h1{font-size:15px;font-weight:700;margin:0}
+#who{color:var(--muted);font-size:12px}
+#tabs{display:flex;gap:2px}
+#tabs button{border:1px solid var(--line);border-bottom:none;background:var(--surface);
+  color:var(--fg);padding:5px 12px;font:inherit;cursor:pointer}
+#tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-fg);
+  border-color:var(--accent);font-weight:500}
+#tabs .n{color:inherit;opacity:.75;font-size:11px;margin-left:6px;font-variant-numeric:tabular-nums}
+.r2{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding-bottom:8px}
+.r2 select,.r2 input[type=search]{font:inherit;color:var(--fg);background:var(--surface);
+  border:1px solid var(--line);padding:4px 8px}
+.r2 input[type=search]{width:220px;max-width:45vw}
+#budget{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);
+  font-variant-numeric:tabular-nums}
+#budget .bar{width:140px;height:8px;border:1px solid var(--line);background:var(--surface)}
+#budget .bar i{display:block;height:100%;background:var(--ok)}
+#budget.over .bar i{background:var(--err)}
+#budget.over{color:var(--err);font-weight:500}
+#msg{font-size:12px;color:var(--err)}
+main{padding:0 16px}
+table{border-collapse:collapse;width:100%;table-layout:fixed}
+th{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--thdr,96px));
+  background:var(--bg);z-index:4;text-align:left;font-size:11px;font-weight:500;
+  color:var(--muted);border-bottom:1px solid var(--line);padding:4px 8px}
+td{border-bottom:1px solid var(--line);padding:5px 8px;vertical-align:top;
+  overflow-wrap:break-word}
+col.c-id{width:118px}col.c-st{width:72px}col.c-w{width:92px}
+td.id{font-family:var(--mono);font-size:11px;color:var(--muted)}
+td.jp,td.cn{white-space:pre-wrap;color:var(--fg)}
+td.cn{color:var(--muted)}
+td.kr{white-space:pre-wrap;cursor:text}
+td.kr:hover{background:var(--hl)}
+td.kr.empty::before{content:"—";color:var(--muted)}
+td.kr textarea{width:100%;box-sizing:border-box;font:inherit;color:var(--fg);
+  background:var(--surface);border:1px solid var(--accent);padding:4px 6px;
+  resize:vertical;min-height:3.2em}
+td.kr .miss{color:var(--err);font-weight:700;text-decoration:underline}
+.badges{display:flex;flex-wrap:wrap;gap:3px}
+.b{font-size:10px;padding:0 5px;border:1px solid currentColor}
+.b.w{color:var(--warn)} .b.e{color:var(--err)} .b.m{color:var(--muted)}
+td.st{white-space:nowrap}
+.chk{display:inline-block;border:1px solid var(--line);background:var(--surface);
+  color:var(--muted);font-size:11px;padding:1px 7px;cursor:pointer;user-select:none}
+.chk+.chk{margin-left:3px}
+.chk.on1{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.chk.on2{background:var(--ok);border-color:var(--ok);color:#fff}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:5px;
+  vertical-align:middle}
+.dot.saving{background:var(--warn)} .dot.fail{background:var(--err)}
+tr.done td{opacity:.62}
+tr.blank td{opacity:.4}
+#empty{color:var(--muted);padding:40px 0;text-align:center}
+@media (max-width:700px){ col.c-id{width:84px} .r2 input[type=search]{width:130px} }
+</style>
+
+<div id="top">
+  <div class="r1">
+    <h1>iM@S2 XMB 번역표</h1>
+    <span id="who">불러오는 중…</span>
+    <span id="msg"></span>
+  </div>
+  <div class="r1" style="justify-content:space-between">
+    <div id="tabs" role="tablist"></div>
+    <div id="budget"><span id="bt"></span><span class="bar"><i id="bi"></i></span></div>
+  </div>
+  <div class="r2">
+    <select id="filter">
+      <option value="all">전체</option>
+      <option value="todo">미번역</option>
+      <option value="warn">경고 있음</option>
+      <option value="review">검수 대기</option>
+      <option value="done">검수 완료</option>
+    </select>
+    <input type="search" id="q" placeholder="id·원문·번역 검색">
+    <span style="font-size:12px;color:var(--muted)">
+      한국어 칸을 클릭해 입력, 바깥 클릭으로 저장 · [번역]→[검수] 단계 체크</span>
+  </div>
+</div>
+<main><div id="tbl"></div></main>
+
+<script>
+const DATA = /*__DATA__*/null;
+const MAP = new Set(DATA.mapchars);
+const U16 = s => s.length;                       // JS length = UTF-16 코드유닛 수
+const BYTES = s => 2 * (U16(s) + 1);             // BE UTF-16 + 종단 \0\0
+const $ = s => document.querySelector(s);
+
+let db = null, me = null, canWrite = false;
+const docs = {};          // docid -> {kr, st}
+let cur = null, filter = "all", query = "";
+try { cur = localStorage.getItem("tab"); filter = localStorage.getItem("f") || "all"; } catch(e){}
+if (!DATA.files.some(f => f.f === cur)) cur = DATA.files[0].f;
+
+const fileOf = f => DATA.files.find(x => x.f === f);
+const docid = (f, k) => f + "__" + k;
+const eff = (f, r) => {
+  const d = docs[docid(f, r.k)];
+  return { kr: d && d.kr !== undefined ? d.kr : r.kr,
+           st: d && d.st !== undefined ? d.st : r.st };
+};
+const isBlank = r => !r.jp && !r.cn;
+
+function warns(r, kr) {
+  const w = [];
+  if (!isBlank(r)) {
+    if (!kr) w.push(["미번역", "e"]);
+    else {
+      const nj = (r.jp.match(/\n/g) || []).length, nk = (kr.match(/\n/g) || []).length;
+      if (nj !== nk) w.push([`개행 ${nk}/${nj}`, "e"]);
+      if (U16(kr) > U16(r.jp) * 1.6 + 4) w.push([`길이 ${U16(kr)}자(원문 ${U16(r.jp)})`, "w"]);
+      const miss = [...new Set([...kr].filter(c => c >= "가" && c <= "힣" && !MAP.has(c)))];
+      if (miss.length) w.push(["폰트에 없음: " + miss.join(""), "e"]);
+    }
+  }
+  return w;
+}
+
+function stats(fi) {
+  let tgt = 0, tr = 0, rv = 0, bytes = 0;
+  for (const r of fi.rows) {
+    const e = eff(fi.f, r);
+    bytes += BYTES(e.kr || r.jp);
+    if (isBlank(r)) continue;
+    tgt++;
+    if (e.kr) { tr++; if (e.st >= 2) rv++; }
+  }
+  return { tgt, tr, rv, bytes };
+}
+
+function renderTabs() {
+  const el = $("#tabs"); el.innerHTML = "";
+  for (const fi of DATA.files) {
+    const s = stats(fi);
+    const b = document.createElement("button");
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", fi.f === cur);
+    b.innerHTML = `${fi.label}<span class="n">${s.tr}/${s.tgt} · 검수 ${s.rv}</span>`;
+    b.onclick = () => { cur = fi.f; try{localStorage.setItem("tab",cur)}catch(e){}; renderAll(); };
+    el.appendChild(b);
+  }
+  const fi = fileOf(cur), s = stats(fi);
+  const pct = Math.min(100, Math.round(100 * s.bytes / fi.avail));
+  $("#bt").textContent = `용량 ${s.bytes.toLocaleString()} / ${fi.avail.toLocaleString()}B`;
+  $("#bi").style.width = pct + "%";
+  $("#budget").classList.toggle("over", s.bytes > fi.avail);
+}
+
+function markMissing(kr) {
+  const frag = document.createDocumentFragment();
+  let buf = "";
+  const flush = () => { if (buf) { frag.appendChild(document.createTextNode(buf)); buf = ""; } };
+  for (const c of kr) {
+    if (c >= "가" && c <= "힣" && !MAP.has(c)) {
+      flush();
+      const s = document.createElement("span"); s.className = "miss"; s.textContent = c;
+      frag.appendChild(s);
+    } else buf += c;
+  }
+  flush();
+  return frag;
+}
+
+function renderTable() {
+  const fi = fileOf(cur);
+  const host = $("#tbl"); host.innerHTML = "";
+  const t = document.createElement("table");
+  t.innerHTML = `<colgroup><col class="c-id"><col><col><col><col class="c-w"><col class="c-st"></colgroup>
+  <thead><tr><th>id</th><th>원문 (JP)</th><th>중국어역 (CN)</th><th>한국어 (KR)</th><th>경고</th><th>상태</th></tr></thead>`;
+  const tb = document.createElement("tbody");
+  let shown = 0;
+  for (const r of fi.rows) {
+    const e = eff(fi.f, r);
+    const w = warns(r, e.kr);
+    const match = !query || [r.id, r.jp, r.cn, e.kr].some(s => (s||"").toLowerCase().includes(query));
+    const pass = filter === "all" ? true :
+      filter === "todo" ? (!isBlank(r) && !e.kr) :
+      filter === "warn" ? w.length > 0 :
+      filter === "review" ? (e.kr && e.st < 2 && !isBlank(r)) :
+      (e.st >= 2 && !isBlank(r));
+    if (!match || !pass) continue;
+    shown++;
+    const trr = document.createElement("tr");
+    trr.className = isBlank(r) ? "blank" : (e.st >= 2 ? "done" : "");
+    const tdId = document.createElement("td"); tdId.className = "id"; tdId.textContent = r.id;
+    const tdJp = document.createElement("td"); tdJp.className = "jp"; tdJp.textContent = r.jp;
+    const tdCn = document.createElement("td"); tdCn.className = "cn"; tdCn.textContent = r.cn;
+    const tdKr = document.createElement("td"); tdKr.className = "kr" + (e.kr ? "" : " empty");
+    tdKr.appendChild(markMissing(e.kr));
+    if (!isBlank(r)) tdKr.onclick = () => edit(fi, r, tdKr);
+    const tdW = document.createElement("td");
+    const bd = document.createElement("div"); bd.className = "badges";
+    for (const [txt, cls] of w) {
+      const s = document.createElement("span"); s.className = "b " + cls; s.textContent = txt;
+      bd.appendChild(s);
+    }
+    if (isBlank(r)) { const s = document.createElement("span"); s.className="b m"; s.textContent="빈 행"; bd.appendChild(s); }
+    tdW.appendChild(bd);
+    const tdSt = document.createElement("td"); tdSt.className = "st";
+    if (!isBlank(r)) {
+      const c1 = document.createElement("span");
+      c1.className = "chk" + (e.st >= 1 && e.kr ? " on1" : ""); c1.textContent = "번역";
+      c1.onclick = () => setSt(fi, r, e.st >= 1 ? 0 : 1);
+      const c2 = document.createElement("span");
+      c2.className = "chk" + (e.st >= 2 ? " on2" : ""); c2.textContent = "검수";
+      c2.onclick = () => setSt(fi, r, e.st >= 2 ? 1 : 2);
+      const dot = document.createElement("span"); dot.className = "dot"; dot.dataset.d = docid(fi.f, r.k);
+      tdSt.append(c1, c2, dot);
+    }
+    trr.append(tdId, tdJp, tdCn, tdKr, tdW, tdSt);
+    tb.appendChild(trr);
+  }
+  t.appendChild(tb);
+  host.appendChild(t);
+  if (!shown) { const d = document.createElement("div"); d.id = "empty"; d.textContent = "조건에 맞는 행이 없습니다"; host.appendChild(d); }
+}
+
+function renderAll(){ renderTabs(); renderTable(); }
+
+function edit(fi, r, td) {
+  if (td.querySelector("textarea")) return;
+  const e = eff(fi.f, r);
+  const ta = document.createElement("textarea");
+  ta.value = e.kr;
+  ta.rows = Math.max(2, (r.jp.match(/\n/g) || []).length + 1);
+  td.textContent = ""; td.appendChild(ta); ta.focus();
+  ta.onblur = () => {
+    const v = ta.value.replace(/\r\n/g, "\n").replace(/\s+$/, "");
+    if (v !== e.kr) save(fi, r, { kr: v, st: v ? Math.max(1, e.st) : 0 });
+    renderAll();
+  };
+}
+
+function setSt(fi, r, st) {
+  const e = eff(fi.f, r);
+  if (st >= 1 && !e.kr) { note("번역문이 비어 있어 완료로 표시할 수 없습니다"); return; }
+  save(fi, r, { kr: e.kr, st });
+  renderAll();
+}
+
+let noteTimer;
+function note(s){ $("#msg").textContent = s; clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => $("#msg").textContent = "", 5000); }
+
+async function save(fi, r, val) {
+  const id = docid(fi.f, r.k);
+  docs[id] = val;
+  if (!db) { note("로그인 상태가 아니어서 이 기기에서만 보입니다"); return; }
+  const dot = document.querySelector(`.dot[data-d="${id}"]`);
+  if (dot) dot.className = "dot saving";
+  try {
+    await db.collection("tr").doc(id).set(
+      Object.assign({ f: fi.f, k: r.k, ts: Date.now(), by: me || "" }, val));
+    if (dot) dot.className = "dot";
+  } catch (err) {
+    if (dot) dot.className = "dot fail";
+    note("저장 실패: 편집 권한이 없을 수 있습니다 (공유 설정 확인)");
+  }
+}
+
+$("#filter").value = filter;
+$("#filter").onchange = ev => { filter = ev.target.value;
+  try{localStorage.setItem("f",filter)}catch(e){}; renderTable(); };
+let qTimer;
+$("#q").oninput = ev => { clearTimeout(qTimer);
+  qTimer = setTimeout(() => { query = ev.target.value.trim().toLowerCase(); renderTable(); }, 200); };
+
+function measureHeader(){
+  document.documentElement.style.setProperty("--thdr", $("#top").offsetHeight + "px");
+}
+addEventListener("resize", measureHeader);
+
+renderAll(); measureHeader();
+
+(async () => {
+  db = await claude.use("db");
+  const user = await claude.use("user");
+  if (user) { try { me = await user.id(); } catch (e) {}
+    canWrite = (user.can && await user.can("data.write")) !== false; }
+  if (!db) { $("#who").textContent = "읽기 전용 — claude.ai 로그인 후 편집 가능"; return; }
+  $("#who").textContent = canWrite ? "편집 가능" : "권한 확인 중 — 저장이 거부되면 공유 설정에서 편집 권한이 필요합니다";
+  db.collection("tr").onSnapshot(snap => {
+    for (const d of snap.docs) {
+      const v = d.data();
+      if (!v) continue;
+      docs[d.id] = { kr: v.kr !== undefined ? v.kr : "", st: v.st || 0 };
+    }
+    if (!document.querySelector("#tbl textarea")) renderAll();
+    else renderTabs();
+  });
+})();
+</script>

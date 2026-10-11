@@ -13,9 +13,13 @@ python tools/image_text/inject_image_text.py --selftest    # CN 텍스처 505장
 python tools/image_text/inject_image_text.py               # <out>/kr/의 한글 PNG 주입
 
 python tools/image_text/xmb_text.py dump                   # XMB 3종 텍스트 덤프
-python tools/image_text/xmb_text.py export-xlsx            # 번역팀용 엑셀 (게임 tools/)
+python tools/image_text/xmb_text.py export-xlsx            # 번역 엑셀 스냅샷 (게임 tools/)
 python tools/image_text/xmb_text.py import-xlsx            # 엑셀 KR 열 → translations.json
 python tools/image_text/xmb_text.py build                  # xmb_translations.json → patched/
+
+python tools/image_text/label_tool.py                      # 라벨 한글화 UI (127.0.0.1:8765)
+python tools/image_text/label_tool.py --export             # UI 없이 스펙 전체 렌더 → kr/
+python tools/image_text/webapp_build.py <out.html>         # 번역 협업 웹앱 HTML 재생성
 ```
 
 산출물: `C:\Users\jackfilm\Desktop\imas2_image_text\` (`--out`으로 변경 가능)
@@ -74,8 +78,27 @@ index.md / index.json             파일별 결과 + 재주입 주의점 / 오�
   초과 시 오류), 재파싱 검증 내장. 기본으로 **한글→한자 슬롯 폰트 매핑 인코딩**
   적용(`--no-font-mapping`으로 끔) — CN 패치도 매핑 한자로 저장돼 있어 XMB
   텍스트가 게임 폰트로 렌더됨을 확인함.
-- 번역 워크플로: `export-xlsx` → 게임 tools 폴더 `xmb_translation_1.xlsx`
-  (시트 3개 1,030행, 기존 kr 제안은 노란 행) → 번역팀이 '한국어(KR)' 열 작성 →
-  `import-xlsx` → `build`. 기존 파일이 있으면 덮지 않고 중단(--path로 새 이름).
+- **번역 협업은 웹앱이 1차 경로**: https://claude.ai/artifact/Y4sPGWzDHu4JfGigo8Bwc5
+  (아티팩트, 1,030행 내장 + 공유 DB). 팀원이 행별로 한국어 입력, [번역]→[검수]
+  체크, 미번역/개행 불일치/길이/폰트 매핑 미보유 경고와 파일별 용량 미터 제공.
+  편집은 claude.ai 로그인 + 공유에서 편집 권한 필요. 회수는 Claude가 아티팩트
+  DB를 읽어 xmb_translations.json에 반영(수정분은 DB가 원본, 페이지 내장값은
+  초기 제안). HTML 재생성은 `webapp_build.py` + webapp_template.html.
+- `export-xlsx`/`import-xlsx`는 스냅샷·백업 경로로 유지 (게임 tools
+  `xmb_translation_1.xlsx`, 기존 파일은 덮지 않음).
 - 고유명사 표기는 통용(나무위키/SideM) 기준: 아마가세 토우마·미타라이 쇼타·
   **이쥬인 호쿠토**·주피터. install 22건·ranker 4건 제안 기입 완료.
+
+## 라벨 한글화 — label_tool.py
+
+CN 수정 텍스처를 **md5 그룹(중복 제거, 333개)** 단위로 다루는 로컬 웹 UI.
+텍스트·폰트·크기·채움/외곽선/글로우·자간·정렬을 지정하면 JP/CN/KR 미리보기에
+즉시 반영되고, 스타일은 프리셋으로 여러 텍스처에 공유한다. '자동 맞춤'이
+도도부현처럼 좁은 칸에서 글자 크기를 칸에 맞게 줄인다. 미리보기와 내보내기가
+같은 PIL 렌더러라 **보이는 그대로 PNG가 나온다**.
+
+- 스펙: `label_specs.json` (레포 커밋 대상 — 작업 진행 상태의 원본)
+- 내보내기: 그룹당 1회 렌더 → 같은 md5의 **모든 위치**에 PNG 복제(kr/) →
+  `inject_image_text.py`가 게이트 검증 후 patched/ 생성
+- 전면 안내판(튜토리얼 카드, 스케줄 안내판 등) 등 합성이 필요한 텍스처는
+  모드를 '수동(포토샵)'으로 표시하고 kr/에 직접 PNG를 넣는다.

@@ -1,0 +1,28 @@
+{
+ "presets": {
+  "기본": {
+   "font": "malgunbd.ttf",
+   "size": 24,
+   "fit": true,
+   "margin": 2,
+   "fill": "#ffffff",
+   "stroke_w": 2,
+   "stroke": "#1a1a1a",
+   "glow_r": 0,
+   "glow": "#000000",
+   "glow_a": 160,
+   "spacing": 0,
+   "dy": 0,
+   "line_h": 1.1,
+   "align": "center"
+  }
+ },
+ "items": {
+  "aa9a9911088ad8040acf5857eb0830cf": {
+   "text": "도쿄",
+   "mode": "text",
+   "preset": "기본",
+   "over": {}
+  }
+ }
+}
