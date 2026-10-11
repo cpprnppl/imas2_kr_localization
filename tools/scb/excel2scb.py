@@ -92,6 +92,109 @@ def apply_font_mapping(text: str, mapping: dict) -> str:
 
 
 # -------------------------
+# 재줄바꿈 (게임 대사창 폭 맞춤)
+# -------------------------
+# 원본 일본어 전수 측정 결과: 대사는 전부 1~2줄, 줄당 최대 25~26전각.
+# 번역문의 \n이 이 폭을 넘기면 게임이 중간에 강제개행을 추가해
+# "아이/돌들은" 같은 어절 쪼개짐·뒷글자 잘림이 생긴다.
+WRAP_WIDTH = 26.0   # 전각 기준 폭
+WRAP_WARN_LINES = 3  # 이 줄 수 초과 시 경고(수동 축약 대상)
+
+def _char_width(ch: str) -> float:
+    o = ord(ch)
+    if o < 0x2E80:               # ASCII/반각
+        return 0.5
+    if 0xE000 <= o <= 0xF8FF:    # PUA 플레이스홀더(유닛명 등, 런타임 확장) — 여유폭
+        return 6.0
+    return 1.0                   # 한글/한자/가나/전각
+
+def _text_width(s: str) -> float:
+    return sum(_char_width(c) for c in s)
+
+def _is_hangul(c: str) -> bool:
+    return '가' <= c <= '힣'
+
+# 뒷줄 첫 어절이 이 중 하나(단독)면 앞말의 조사/어미 연속으로 보고 붙여 쓴다
+_PARTICLE_FRAGS = {"다", "로", "야", "요", "라", "은", "는", "을", "를", "가"}
+
+def _join_sep(prev: str, nxt: str) -> str:
+    """\n으로 나뉘었던 두 조각을 합칠 때 사이에 넣을 구분자.
+    번역기가 일본어 개행 위치를 흉내 내 어절 중간에서 끊은 경우가 많아
+    (전수 샘플링 기반 휴리스틱) 그 경우엔 공백 없이 붙인다."""
+    if not prev or not nxt:
+        return ""
+    b, a = prev[-1], nxt[0]
+    if b == " " or a == " ":
+        return ""
+    if not (_is_hangul(b) and _is_hangul(a)):
+        # 문장부호 경계: 여는 괄호 뒤·닫는 부호 앞엔 공백 없이
+        if b in "「『（([" or a in ",.!?…、。」』！？）)]":
+            return ""
+        return " "
+    # 한글⏎한글: 앞말이 '이'로 끝나면 서술격 조사 분리(활동이⏎다, 아이⏎돌들은)
+    if b == "이":
+        return ""
+    # 뒷줄 첫 한글 어절이 단음절 조사/어미면 붙임 (속도⏎로)
+    frag = ""
+    for c in nxt:
+        if _is_hangul(c):
+            frag += c
+        else:
+            break
+    if frag in _PARTICLE_FRAGS:
+        return ""
+    return " "
+
+import re as _re
+_GARBAGE_RE = _re.compile(
+    r"THOUGHT:|The user|I need|I will|-> |translat|Here is|japanese text", _re.I)
+
+def is_garbage_translation(t: str) -> bool:
+    """LLM 사고과정 유출/미번역 영문 행 감지 (전수 스캔에서 15행 확인).
+    이런 행은 패치하지 않고 일본어 원문을 유지한다."""
+    if _GARBAGE_RE.search(t):
+        return True
+    has_hangul = any('가' <= c <= '힣' for c in t)
+    ascii_letters = sum(c.isascii() and c.isalpha() for c in t)
+    return (not has_hangul) and ascii_letters >= 5
+
+
+def rewrap(text: str) -> str:
+    """기존 \n을 풀고 공백 기준으로 WRAP_WIDTH 이하로 다시 감싼다.
+    한글이 없는(미번역/일본어) 문자열은 건드리지 않는다."""
+    if not any('가' <= c <= '힣' for c in text):
+        return text
+    parts = [p.strip() for p in text.split("\n")]
+    flat = parts[0]
+    for p in parts[1:]:
+        flat = flat + _join_sep(flat, p) + p
+    flat = " ".join(flat.split())  # 다중 공백 정리
+    if _text_width(flat) <= WRAP_WIDTH:
+        return flat
+    lines = []
+    cur = ""
+    for word in flat.split(" "):
+        cand = word if not cur else cur + " " + word
+        if _text_width(cand) <= WRAP_WIDTH:
+            cur = cand
+            continue
+        if cur:
+            lines.append(cur)
+            cur = ""
+        # 단어 하나가 폭을 넘으면 글자 단위로 쪼갬
+        while _text_width(word) > WRAP_WIDTH:
+            w = ""
+            while word and _text_width(w + word[0]) <= WRAP_WIDTH:
+                w += word[0]
+                word = word[1:]
+            lines.append(w)
+        cur = word
+    if cur:
+        lines.append(cur)
+    return "\n".join(lines)
+
+
+# -------------------------
 # Excel load (abs_offset-based)
 # -------------------------
 def choose_excel_path():
@@ -365,7 +468,11 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
     new_by_idx = {}
     misses = 0
     text_recovered = 0
+    garbage_skipped = 0
     for abs_off, (orig, tr) in abs_to_tr.items():
+        if is_garbage_translation(tr):
+            garbage_skipped += 1
+            continue
         idx = abs_to_index.get(abs_off)
         if idx is None:
             # 원문 텍스트로 유일 매칭 시도
@@ -377,7 +484,7 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
             else:
                 misses += 1
                 continue
-        new_by_idx[idx] = tr
+        new_by_idx[idx] = rewrap(tr)
 
     # rebuild MSG block
     new_msg = build_msg_block(parsed, new_by_idx, font_map, msg_size)
@@ -398,6 +505,13 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
         warns.append(f"원문 텍스트 매칭으로 구제 {text_recovered}개")
     if misses:
         warns.append(f"abs_offset 매칭 실패 {misses}개(해당 줄은 미패치)")
+    if garbage_skipped:
+        warns.append(f"⚠ LLM 쓰레기 번역 {garbage_skipped}개 스킵(원문 유지, 재번역 필요)")
+    too_long = [(i, t) for i, t in new_by_idx.items() if t.count("\n") + 1 > WRAP_WARN_LINES]
+    for i, t in too_long[:5]:
+        warns.append(f"⚠ {WRAP_WARN_LINES}줄 초과(축약 필요) entry[{i}]: {t.splitlines()[0][:20]}…")
+    if len(too_long) > 5:
+        warns.append(f"⚠ 그 외 {len(too_long)-5}개 더 {WRAP_WARN_LINES}줄 초과")
     return True, warns
 
 
