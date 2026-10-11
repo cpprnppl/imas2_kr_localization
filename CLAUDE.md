@@ -23,6 +23,10 @@ python deploy.py                     # 검증 통과 시에만 게임 폴더 배
 4. **MSG 크기가 변하면 pac 헤더 4필드도 갱신** (+0x08, +0x88, rec0 size, rec1 ofs) — excel2scb가 처리함. 새 도구를 만들 때도 동일 규칙.
 5. 기존 번역 Excel을 덮어쓰지 않는다. 새 산출물은 새 파일명으로.
 
+## 의존성
+- Python 패키지: `pycryptodome`, `openpyxl`, `kiwipiepy`(띄어쓰기 교정 — 없어도 동작하나 품질 저하)
+- 파이썬이 2개 설치돼 있음: `python` = AppData\Local\Python(작업용, 패키지 여기 설치), `pip` 단독 실행 시 C:\Python314로 갈 수 있으니 **`python -m pip`** 사용
+
 ## 자주 틀리는 부분
 - MSG 본문 base는 `msg_abs+0x30+count*8+pad16`. 고정 `+0x60` 아님 (구버전 스트림 파서의 오류).
 - dec 파일은 `pac` 컨테이너 (SCB + 컷씬 pac). SCB만 있다고 가정하지 말 것.

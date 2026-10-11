@@ -159,39 +159,126 @@ def is_garbage_translation(t: str) -> bool:
     return (not has_hangul) and ascii_letters >= 5
 
 
+# Kiwi(한국어 형태소 분석기) 띄어쓰기 교정 — 어절 중간 \n 복원 후 누락 공백 복구
+# ("확신이들었다" → "확신이 들었다"; 설치 안 돼 있으면 휴리스틱만 사용)
+_KIWI = None
+_KIWI_TRIED = False
+
+def _kiwi_space(s: str, junctions=None) -> str:
+    """Kiwi로 띄어쓰기를 교정하되, '공백 추가'만, 그것도 junctions
+    (공백 없이 이어붙인 \n 접합 지점, 공백 제외 문자 인덱스)에서만 수용한다.
+    Kiwi의 스타일성 교정('담당해줬으면'→'담당해 줬으면')이나 공백 삭제는 거부."""
+    global _KIWI, _KIWI_TRIED
+    if not _KIWI_TRIED:
+        _KIWI_TRIED = True
+        try:
+            from kiwipiepy import Kiwi
+            _KIWI = Kiwi()
+            print("Kiwi 띄어쓰기 교정: 사용")
+        except Exception:
+            print("⚠ kiwipiepy 없음 — 띄어쓰기 교정 생략 (pip install kiwipiepy 권장)")
+    if _KIWI is None or not junctions:
+        return s
+    try:
+        spaced = _KIWI.space(s, reset_whitespace=False)
+    except Exception:
+        return s
+    if [c for c in s if c != " "] != [c for c in spaced if c != " "]:
+        return s  # 공백 외 변형이 생기면 원문 유지(안전)
+    junctions = set(junctions)
+    out = []
+    i = j = 0
+    emitted = 0  # 지금까지 출력한 비공백 문자 수 = 현재 gap 인덱스
+    while i < len(s) or j < len(spaced):
+        ci = s[i] if i < len(s) else None
+        cj = spaced[j] if j < len(spaced) else None
+        if ci == " ":
+            out.append(" ")
+            i += 1
+            if cj == " ":
+                j += 1
+        elif cj == " ":
+            # Kiwi가 추가한 공백: 접합 지점에서만 수용
+            if emitted in junctions:
+                out.append(" ")
+            j += 1
+        else:
+            out.append(ci)
+            i += 1
+            j += 1
+            emitted += 1
+    return "".join(out)
+
+# 개행 지점으로 선호하는 문장부호 (이 뒤에서 끊으면 자연스러움)
+_BREAK_PUNCT = "、。，．,.!?！？…」』～♪"
+
+def _wrap_balanced(flat: str) -> list:
+    """공백 단위로 WRAP_WIDTH 이하 줄로 감싼다.
+    2줄로 들어가면 문장부호 뒤 > 중앙 근접 순으로 자연스러운 지점을 고른다."""
+    if _text_width(flat) <= WRAP_WIDTH:
+        return [flat]
+    words = flat.split(" ")
+    # 단어 하나가 폭을 넘는 극단 케이스는 글자 단위로 사전 분할
+    fixed = []
+    for w in words:
+        while _text_width(w) > WRAP_WIDTH:
+            seg = ""
+            while w and _text_width(seg + w[0]) <= WRAP_WIDTH:
+                seg += w[0]
+                w = w[1:]
+            fixed.append(seg)
+        if w:
+            fixed.append(w)
+    words = fixed
+
+    # 2줄 균형 분할 시도
+    n = len(words)
+    best = None  # (우선순위, 불균형, k)
+    for k in range(1, n):
+        l1 = " ".join(words[:k])
+        l2 = " ".join(words[k:])
+        w1, w2 = _text_width(l1), _text_width(l2)
+        if w1 > WRAP_WIDTH or w2 > WRAP_WIDTH:
+            continue
+        punct = 0 if (l1 and l1[-1] in _BREAK_PUNCT) else 1
+        score = (punct, abs(w1 - w2))
+        if best is None or score < best[0]:
+            best = (score, k)
+    if best is not None:
+        k = best[1]
+        return [" ".join(words[:k]), " ".join(words[k:])]
+
+    # 2줄 불가 → 탐욕적 다줄
+    lines, cur = [], ""
+    for w in words:
+        cand = w if not cur else cur + " " + w
+        if _text_width(cand) <= WRAP_WIDTH:
+            cur = cand
+        else:
+            if cur:
+                lines.append(cur)
+            cur = w
+    if cur:
+        lines.append(cur)
+    return lines
+
 def rewrap(text: str) -> str:
-    """기존 \n을 풀고 공백 기준으로 WRAP_WIDTH 이하로 다시 감싼다.
+    """기존 \n을 풀고(어절 중간 분리 복원) 띄어쓰기를 교정한 뒤
+    대사창 폭에 맞게 자연스러운 지점에서 다시 감싼다.
     한글이 없는(미번역/일본어) 문자열은 건드리지 않는다."""
     if not any('가' <= c <= '힣' for c in text):
         return text
     parts = [p.strip() for p in text.split("\n")]
     flat = parts[0]
+    junctions = []  # 공백 없이 이어붙인 지점(공백 제외 문자 인덱스)
     for p in parts[1:]:
-        flat = flat + _join_sep(flat, p) + p
+        sep = _join_sep(flat, p)
+        if sep == "" and flat and p and _is_hangul(flat[-1]) and _is_hangul(p[0]):
+            junctions.append(sum(1 for c in flat if c != " "))
+        flat = flat + sep + p
     flat = " ".join(flat.split())  # 다중 공백 정리
-    if _text_width(flat) <= WRAP_WIDTH:
-        return flat
-    lines = []
-    cur = ""
-    for word in flat.split(" "):
-        cand = word if not cur else cur + " " + word
-        if _text_width(cand) <= WRAP_WIDTH:
-            cur = cand
-            continue
-        if cur:
-            lines.append(cur)
-            cur = ""
-        # 단어 하나가 폭을 넘으면 글자 단위로 쪼갬
-        while _text_width(word) > WRAP_WIDTH:
-            w = ""
-            while word and _text_width(w + word[0]) <= WRAP_WIDTH:
-                w += word[0]
-                word = word[1:]
-            lines.append(w)
-        cur = word
-    if cur:
-        lines.append(cur)
-    return "\n".join(lines)
+    flat = _kiwi_space(flat, junctions)
+    return "\n".join(_wrap_balanced(flat))
 
 
 # -------------------------
