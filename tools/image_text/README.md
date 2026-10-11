@@ -19,8 +19,27 @@ python tools/image_text/xmb_text.py build                  # xmb_translations.js
 
 python tools/image_text/label_tool.py                      # 라벨 한글화 UI (127.0.0.1:8765)
 python tools/image_text/label_tool.py --export             # UI 없이 스펙 전체 렌더 → kr/
-python tools/image_text/webapp_build.py <out.html>         # 번역 협업 웹앱 HTML 재생성
+
+python tools/image_text/webapp_build.py                    # iM@S2 KOR 웹앱 빌드 → webapp_deploy/
+python tools/image_text/webapp_seed.py --code <암호>       # Supabase rows 시딩 (기존 행 보호)
+python tools/image_text/webapp_seed.py --thumbs --service-key <sb_secret>  # 썸네일 업로드
+python tools/image_text/webapp_pull.py xmb|script|image --code <암호>      # 번역 회수
 ```
+
+## iM@S2 KOR 번역 플랫폼 (imas2.buyeo.uk)
+
+팀 협업 웹앱. PatternFly UI, 정적 페이지(Vercel) + Supabase(rows/hist, RLS 팀 암호).
+
+- 대분류 3단: **XMB 텍스트**(1,030행) / **게임 스크립트**(translation_2.xlsx 52,240행,
+  시트별 소분류) / **이미지 텍스트**(md5 그룹 333건, JP/CN 썸네일 보며 문구 입력)
+- 행별 [번역]→[검수] 체크, 미번역·개행·길이·**폰트 매핑 미보유 글자** 경고,
+  XMB 용량 미터. 모든 저장은 hist(append-only)에 기록 — 행별 🕘 이력,
+  "수정 이력" 메뉴에서 작업자/날짜별 조회.
+- 접근: 참여 암호(디스코드 공지) — Supabase RLS가 헤더로 검증, 페이지엔 암호 없음.
+- 배포: GitHub push → Vercel 자동 재배포 (Root = tools/image_text/webapp_deploy).
+  데이터 흐름: `webapp_seed.py`(시딩, ignore-duplicates) → 팀 작업 →
+  `webapp_pull.py`(xmb→translations.json / script→새 xlsx 스냅샷 / image→label_specs).
+- 스키마/암호: `supabase_setup.sql` (암호 변경 = team_ok 함수 재실행).
 
 산출물: `C:\Users\jackfilm\Desktop\imas2_image_text\` (`--out`으로 변경 가능)
 
