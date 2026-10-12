@@ -25,6 +25,10 @@ td textarea{width:100%;min-height:4rem;font:inherit}
 .dash-table .c-num{width:8.5rem}
 .dash-table .c-bar{width:13rem}
 .num-td{text-align:right!important;font-variant-numeric:tabular-nums;white-space:nowrap}
+.nl{color:var(--pf-v5-global--primary-color--100);opacity:.65;font-size:11px;
+  user-select:none;margin:0 1px}
+.nl-hint{font-size:11px;color:var(--pf-v5-global--Color--200);margin-top:2px}
+.nl-hint.bad{color:var(--pf-v5-global--danger-color--100)}
 .fr-del{background:rgba(214,54,40,.22);text-decoration:line-through;border-radius:2px}
 .fr-add{background:rgba(62,163,90,.28);font-weight:600;border-radius:2px}
 #frInfo td{white-space:pre-wrap}
@@ -371,7 +375,7 @@ function warns(r) {
   if (!r.jp) return w;
   if (!r.kr) { w.push(["미번역", "red"]); return w; }
   const nj = (r.jp.match(/\n/g) || []).length, nk = (r.kr.match(/\n/g) || []).length;
-  if (nj !== nk) w.push([`개행 ${nk}/${nj}`, "red"]);
+  if (nj !== nk) w.push([`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);
   if (U16(r.kr) > U16(r.jp) * 1.6 + 4) w.push([`길이 ${U16(r.kr)}/${U16(r.jp)}`, "orange"]);
   const miss = [...new Set([...r.kr].filter(ch => ch >= "가" && ch <= "힣" && !MAP.has(ch)))];
   if (miss.length) w.push(["폰트에 없음: " + miss.join(""), "red"]);
@@ -393,8 +397,10 @@ function grpStats() {
 }
 
 /* ---------------- 렌더 ---------------- */
+const nlMark = html => html.replace(/\n/g, '<span class="nl">↵</span>\n');
 function markMissing(kr) {
-  return esc(kr).replace(/[가-힣]/g, ch => MAP.has(ch) ? ch : `<span class="kr-miss">${ch}</span>`);
+  return nlMark(esc(kr).replace(/[가-힣]/g,
+    ch => MAP.has(ch) ? ch : `<span class="kr-miss">${ch}</span>`));
 }
 
 function passFilter(r, f) {
@@ -472,10 +478,10 @@ function render() {
     } else if (cat === "script") {
       const m = r.meta || {};
       first = `<span class="nowrap">${esc(m.sp || "")}</span><br><span class="pf-v5-u-color-200" style="font-size:11px">${esc(m.file || "")}</span>`;
-      second = `<div class="jp-cell">${esc(r.jp)}</div>`;
+      second = `<div class="jp-cell">${nlMark(esc(r.jp))}</div>`;
     } else {
       first = `<code style="font-size:12px">${esc(r.key)}</code>`;
-      second = `<div class="jp-cell">${esc(r.jp)}</div>`;
+      second = `<div class="jp-cell">${nlMark(esc(r.jp))}</div>`;
     }
     h += `<tr class="pf-v5-c-table__tr${dim}" data-id="${esc(r.id)}">
       <td class="pf-v5-c-table__td v-mid">${first}</td>
@@ -763,7 +769,17 @@ function startEdit(r, td) {
   const ta = document.createElement("textarea");
   ta.className = "pf-v5-c-form-control";
   ta.value = r.kr;
-  td.textContent = ""; td.appendChild(ta); ta.focus();
+  const hint = document.createElement("div");
+  hint.className = "nl-hint";
+  const nj = (r.jp.match(/\n/g) || []).length;
+  const updHint = () => {
+    const nk = (ta.value.match(/\n/g) || []).length;
+    hint.textContent = `개행 ${nk}/${nj}` + (nk === nj ? "" : " — 원문과 맞추세요 (Shift+Enter = 줄바꿈)");
+    hint.classList.toggle("bad", nk !== nj);
+  };
+  td.textContent = ""; td.appendChild(ta);
+  if (r.cat !== "image") { td.appendChild(hint); updHint(); ta.addEventListener("input", updHint); }
+  ta.focus();
   let moved = null;   // Enter/Tab = 저장 후 다음 행, Alt+↑↓ = 이동, Esc = 취소
   ta.onkeydown = ev => {
     if (ev.key === "Enter" && !ev.shiftKey) { ev.preventDefault(); moved = 1; ta.blur(); }
