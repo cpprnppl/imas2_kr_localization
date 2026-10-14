@@ -113,7 +113,9 @@ def apply_font_mapping(text: str, mapping: dict) -> str:
 # 원본 일본어 전수 측정 결과: 대사는 전부 1~2줄, 줄당 최대 25~26전각.
 # 번역문의 \n이 이 폭을 넘기면 게임이 중간에 강제개행을 추가해
 # "아이/돌들은" 같은 어절 쪼개짐·뒷글자 잘림이 생긴다.
-WRAP_WIDTH = 26.0   # 전각 기준 폭
+# 줄폭은 픽셀 기준 (2026-10-15 폰트 세션 실측: 대사창 가용 702px,
+# 한글 advance 26px 균일, 일어 전각 27px → 한글 27자/줄 = 702px 정확히)
+WRAP_WIDTH = 702.0   # px
 WRAP_WARN_LINES = 3  # 이 줄 수 초과 시 경고(수동 축약 대상)
 
 # 게임 엔진의 대사 버퍼 하드 캡 (2026-10-15 확정):
@@ -125,12 +127,15 @@ MAX_TEXT_UNITS = (MAX_ENTRY_BYTES - 2) // 2   # = 57 코드유닛 (\n 포함)
 MAX_CHAR_RUN = 6                          # 반복 문자 런 압축 한도 (비명 대사 등)
 
 def _char_width(ch: str) -> float:
+    """글자 폭(px). 폰트 세션 실측 advance 기준."""
     o = ord(ch)
     if o < 0x2E80:               # ASCII/반각
-        return 0.5
+        return 13.5
     if 0xE000 <= o <= 0xF8FF:    # PUA 플레이스홀더(유닛명 등, 런타임 확장) — 여유폭
-        return 6.0
-    return 1.0                   # 한글/한자/가나/전각
+        return 162.0
+    if 0xAC00 <= o <= 0xD7A3:    # 한글 (Noto 직접 등록, advance 26px 균일)
+        return 26.0
+    return 27.0                  # 한자/가나/전각 (원본 Rodin 27px)
 
 def _text_width(s: str) -> float:
     return sum(_char_width(c) for c in s)
