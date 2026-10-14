@@ -886,3 +886,17 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
   PS3 전용 ryu W01 계열 등 제외), 원본 _backup_kr_orig 백업 + SHA-256 매니페스트.
 - 폰트는 폰트 세션이 PC 포트 주입 담당(역할 분담 합의 — SCB는 메인 세션 전담).
 - ⚠ PS3 dec ≡ 360 dec 내용 동일성은 가정 — 인게임 검증으로 확정 예정.
+
+## 27. 곡 가사 추출 + 번역툴 '곡 가사' 탭 (2026-10-14, 사용자 지시)
+
+- 가사 위치: `resource\songinfo\<곡>\lyrics_<곡>.xmb` — 22곡, 단독 암호화 XMB,
+  기존 XMB 파서로 그대로 파싱됨(id = LYR_001~). 중국 패치에는 songinfo가 없어
+  CN 참고역 없음.
+- xmb_text.py 확장: dump/build가 가사 22종 자동 포함(캐시 없으면 즉석 복호화),
+  번역 틀 병합은 기존 kr 보존. **재주입(build)도 동일 경로** — 파일 크기 불변
+  제약이라 한국어가 일본어보다 길면 파일별 오류로 알려줌.
+- 웹앱(imas2.buyeo.uk): '곡 가사 (22곡)' 탭 추가, 키 = 곡코드/LYR_nnn,
+  Supabase rows에 612행 시딩(기존 행 불변). 푸시 → Vercel 자동 배포 확인.
+  팀이 한국어 열을 채우면 `webapp_pull.py` → `xmb_text.py build --no-font-mapping`
+  → patched\songinfo\ 산출(직접 등록 체제 기준).
+- 참고: 실제 팀 암호는 반각 w@ldo (전각 ＠는 HTTP 헤더 불가).
