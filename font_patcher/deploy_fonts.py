@@ -10,6 +10,11 @@
    - initialFix.mpc 안의 NFH 2개(헤더 폰트명으로 font/font_l 식별) 교체
    - initialTemp.mpc 안의 NTP3 중 크기가 일치하는 font/font_l NUT 교체
 4. 매핑 동기화: font_mapping_v2.json → tools\\font_mapping.json, resource\\im2_font_mapping.json
+
+`--direct`: 한글 코드포인트 직접 등록판 배포 (워크로그 §23, 360 실기 검증 2026-10-14).
+  NFH는 output_direct/(nfh_convert_direct.py 산출·자가 검증 게이트), NUT은 동일.
+  이 모드의 폰트는 "원시 한글" SCB 전용 — excel2scb가 매핑을 끈 산출물과 함께
+  배포해야 하며(scb-excel/메인 세션 관할), 매핑 json 동기화는 건너뛴다.
 """
 import os
 import sys
@@ -37,13 +42,24 @@ def find_all(data, sig):
 
 
 def main():
-    # 게이트: 검증 통과 필수
+    direct = "--direct" in sys.argv
+
+    # 게이트: 검증 통과 필수 (아틀라스/NUT·치환 NFH 검증. --direct는 추가로
+    # nfh_convert_direct.py를 새로 돌려 자가 검증 포함 최신 NFH를 쓴다)
     r = subprocess.run([sys.executable, os.path.join(SCRIPT_DIR, "validate_fonts.py")])
     if r.returncode != 0:
         print("[중단] validate_fonts.py FAIL — 배포하지 않음")
         sys.exit(1)
+    src_dir = OUT_DIR
+    if direct:
+        r = subprocess.run([sys.executable, os.path.join(SCRIPT_DIR, "nfh_convert_direct.py")])
+        if r.returncode != 0:
+            print("[중단] nfh_convert_direct.py FAIL — 배포하지 않음")
+            sys.exit(1)
+        src_dir = os.path.join(SCRIPT_DIR, "output_direct")
+        print("※ 직접 등록판 배포 — 원시 한글 SCB(매핑 미적용)와 함께 배포할 것")
 
-    new = {n: open(os.path.join(OUT_DIR, n), "rb").read()
+    new = {n: open(os.path.join(src_dir, n), "rb").read()
            for n in ("im2_font.nut", "im2_font.nfh", "im2_font_l.nut", "im2_font_l.nfh")}
     mapping_v2 = open(os.path.join(OUT_DIR, "font_mapping_v2.json"), "rb").read()
 
@@ -110,13 +126,15 @@ def main():
     open(tmp, "wb").write(data)
     os.replace(tmp, p)
 
-    # 매핑 동기화
-    for dst in (os.path.join(TOOLS, "font_mapping.json"),
-                os.path.join(RES, "im2_font_mapping.json")):
-        tmp = dst + ".tmp"
-        open(tmp, "wb").write(mapping_v2)
-        os.replace(tmp, dst)
-        print(f"매핑 갱신: {dst}")
+    # 매핑 동기화 (--direct에서는 치환이 더 이상 유효하지 않으므로 건너뜀 —
+    # excel2scb 전환은 scb-excel/메인 세션 관할)
+    if not direct:
+        for dst in (os.path.join(TOOLS, "font_mapping.json"),
+                    os.path.join(RES, "im2_font_mapping.json")):
+            tmp = dst + ".tmp"
+            open(tmp, "wb").write(mapping_v2)
+            os.replace(tmp, dst)
+            print(f"매핑 갱신: {dst}")
 
     print("\n배포 완료. RPCS3에서 인게임 확인 후 문제 시 백업 폴더로 복원:")
     print(f"  {bdir}")

@@ -72,7 +72,11 @@ NEW_CHARS = {"큿": "睆", "큥": "睇", "햣": "睚", "쌰": "睛", "겍": "睜
 # Rodin by4/h6 vs Noto by7/h9) 혼용 시 아랫선이 어긋나 보인다 → 이 문장부호는
 # "자기 슬롯에"(코드 유지, 매핑·SCB 무관) Noto로 재렌더해 한글과 같은 메트릭으로
 # 통일한다. 미번역 일본어 줄도 같은 글리프를 쓰지만 모양 차이는 미미.
-PUNCT_RERENDER = "、。，．！？…‥「」『』～ー・：；（）"
+# 전각 영숫자(０-９Ａ-Ｚ)도 한글 문장에 자주 섞여(ＴＶ, Ｓ４Ｕ…) 같이 재렌더
+# (2026-10-14 사용자 승인).
+PUNCT_RERENDER = ("、。，．！？…‥「」『』～ー・：；（）"
+                  + "".join(chr(c) for c in range(0xFF10, 0xFF1A))    # ０-９
+                  + "".join(chr(c) for c in range(0xFF21, 0xFF3B)))   # Ａ-Ｚ
 
 NFH_RB, NFH_RS = 0x474, 32
 
@@ -191,12 +195,14 @@ class GlyphRenderer:
                 if g["w"] and g["h"]:
                     cell[y0:y0 + g["h"], x0:x0 + g["w"]] = g["bitmap"]
                 return cell, g["adv"] if size == self.size else ADV_FALLBACK, size
-            # 세로로 넘치면 베이스라인을 살짝 내려 재시도 (어센더 초과분)
-            if y0 < 0 and g["h"] <= CELL_H and x0 + g["w"] <= CELL_W:
+            # 세로로 넘치면 셀 안으로 밀어 넣어 재시도: 어센더 초과는 위에 붙이고,
+            # 디센더 초과(Ｑ 꼬리 등)는 아래에 붙인다 — 글리프 자체가 셀보다 작을 때만.
+            if g["h"] <= CELL_H and x0 + g["w"] <= CELL_W:
+                y0c = min(max(y0, 0), CELL_H - g["h"])
                 cell = np.zeros((CELL_H, CELL_W), np.uint8)
-                cell[0:g["h"], x0:x0 + g["w"]] = g["bitmap"]
+                cell[y0c:y0c + g["h"], x0:x0 + g["w"]] = g["bitmap"]
                 return cell, g["adv"] if size == self.size else ADV_FALLBACK, size
-        raise ValueError(f"glyph too large even at size 16: {ch!r}")
+        raise ValueError(f"glyph too large even at size 16: U+{ord(ch):04X} {ch!r}")
 
 
 # ---------------------------------------------------------------- patch one font
