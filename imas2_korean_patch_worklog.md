@@ -900,3 +900,12 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
   팀이 한국어 열을 채우면 `webapp_pull.py` → `xmb_text.py build --no-font-mapping`
   → patched\songinfo\ 산출(직접 등록 체제 기준).
 - 참고: 실제 팀 암호는 반각 w@ldo (전각 ＠는 HTTP 헤더 불가).
+
+## 27. PC 포트 인게임 한글 검증 성공 + 타깃 전환 (2026-10-14)
+
+- PC 포트(build_imas2_o2) 인게임 검증 성공: 평문 한글 SCB(1,097) + 직접 등록 폰트로
+  미키 프롤로그 전체 한국어 출력, GERR 0, 크래시 없음 (스크린샷 imas2pc\ctrl_shots\kor2).
+- 폰트 세션의 전일 크래시는 PS3 "AES 재암호화본"을 복사한 것이 원인으로 확정 —
+  평문(dec)은 양 플랫폼 호환. "360 베이스 리빌드" 권고는 철회됨.
+- **사용자 방침: 이후 작업은 PC 포트 우선** (PS3 배포물은 유지하되 추가 작업 1순위는
+  build_imas2_o2\game\resource). twi 가사도 포트에 반영됨(별도 세션 경로).
