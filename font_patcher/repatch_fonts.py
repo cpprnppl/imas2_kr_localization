@@ -51,19 +51,30 @@ PRISTINE = {
         "nfh": os.path.join(USR, r"_backup\im2_font_20260223_023134.nfh"),
         "md5_nut": "f5451c353daf35d1867bfd16cdd2cc8f",
         "md5_nfh": "da99834ce4a0846f9bdd22b4e584bfee",
+        # 2048×4096 단일 시트 — 공간 여유가 있어 대형 셀 사용 (대사창 폰트)
+        "params": {"size": 28, "cell": (26, 27), "baseline": 24},
     },
     "im2_font_l": {
         "nut": os.path.join(USR, r"_backup\im2_font_l_20260223_022937.nut"),
         "nfh": os.path.join(USR, r"_backup\im2_font_l_20260223_022937.nfh"),
         "md5_nut": "e94c9af9db807530e69101542f7139a2",
         "md5_nfh": "d772158afc8fe74a7aa7e12e071fada5",
+        # 512×512 ×29 시트 — 밀도가 높아 26×27 셀은 수백 슬롯이 재배치 불가(실측),
+        # 1px 할로도 공간 부족. 구 규격+무할로 유지(종전 검증 통과 상태 그대로.
+        # 대사는 im2_font 사용이라 시각 영향 없음)
+        "params": {"size": 26, "cell": (25, 25), "baseline": 22, "halo": False},
     },
 }
 
-FONT_SIZE = 26
-CELL_W, CELL_H = 25, 25
-CELL_BASELINE = 22          # 셀 상단에서 베이스라인까지 (원본 한자 bearingY와 동일 레벨)
-ADV_FALLBACK = 26
+# 2026-10-15 사용자 리포트로 상향: Noto 26px 잉크가 Rodin보다 ~10% 작아 자간이
+# 넓어 보임 → size 28(한글 asc≤24/desc≤3/우측≤25 실측, '뺐' 1자만 축소),
+# 셀 26×27, 베이스라인 24(잉크 하단선은 한자와 동일 유지), advance 26px 균일.
+# 대사창 가용 폭 = 일어 전각 26자×27px = 702px → 한글 27자(27×26=702).
+FONT_SIZE = 28
+CELL_W, CELL_H = 26, 27
+CELL_BASELINE = 24          # 셀 상단에서 베이스라인까지
+ADV_PX = 26                 # 균일 전진폭(px) — excel2scb WRAP 재보정의 기준값
+ADV_FALLBACK = ADV_PX
 
 # 매핑에 없어 인게임 공백이던 한글 6자 → 추가 희생 슬롯 (희생 풀에서 기존 2353 바로 앞 6개)
 NEW_CHARS = {"큿": "睆", "큥": "睇", "햣": "睚", "쌰": "睛", "겍": "睜", "츗": "睟"}
@@ -154,11 +165,14 @@ def nfh_records(nfh: bytes):
 # ---------------------------------------------------------------- rendering
 
 class GlyphRenderer:
-    def __init__(self, font_path, size):
+    def __init__(self, font_path, size, cell_w=None, cell_h=None, baseline=None):
         import freetype
         self.ft = freetype
         self.face = freetype.Face(font_path)
         self.size = size
+        self.cw = cell_w or CELL_W
+        self.ch = cell_h or CELL_H
+        self.bl = baseline or CELL_BASELINE
         self.face.set_pixel_sizes(0, size)
 
     def render(self, ch, size=None):
@@ -183,25 +197,22 @@ class GlyphRenderer:
         }
 
     def render_cell(self, ch):
-        """CELL_W×CELL_H 셀 비트맵으로 렌더. 셀에 안 들어가면 단계적으로 축소."""
+        """cw×ch 셀 비트맵으로 렌더. 셀에 안 들어가면 단계적으로 축소."""
         for size in range(self.size, 15, -1):
             g = self.render(ch, size)
-            x0 = g["bx"]
-            y0 = CELL_BASELINE - g["by"]
-            if x0 < 0:
-                x0 = 0
-            if (x0 + g["w"] <= CELL_W) and (0 <= y0) and (y0 + g["h"] <= CELL_H):
-                cell = np.zeros((CELL_H, CELL_W), np.uint8)
+            x0 = max(0, g["bx"])
+            y0 = self.bl - g["by"]
+            if (x0 + g["w"] <= self.cw) and (0 <= y0) and (y0 + g["h"] <= self.ch):
+                cell = np.zeros((self.ch, self.cw), np.uint8)
                 if g["w"] and g["h"]:
                     cell[y0:y0 + g["h"], x0:x0 + g["w"]] = g["bitmap"]
-                return cell, g["adv"] if size == self.size else ADV_FALLBACK, size
-            # 세로로 넘치면 셀 안으로 밀어 넣어 재시도: 어센더 초과는 위에 붙이고,
-            # 디센더 초과(Ｑ 꼬리 등)는 아래에 붙인다 — 글리프 자체가 셀보다 작을 때만.
-            if g["h"] <= CELL_H and x0 + g["w"] <= CELL_W:
-                y0c = min(max(y0, 0), CELL_H - g["h"])
-                cell = np.zeros((CELL_H, CELL_W), np.uint8)
+                return cell, ADV_PX, size
+            # 세로로 넘치면 셀 안으로 밀어 넣어 재시도 (어센더는 위, 디센더는 아래)
+            if g["h"] <= self.ch and x0 + g["w"] <= self.cw:
+                y0c = min(max(y0, 0), self.ch - g["h"])
+                cell = np.zeros((self.ch, self.cw), np.uint8)
                 cell[y0c:y0c + g["h"], x0:x0 + g["w"]] = g["bitmap"]
-                return cell, g["adv"] if size == self.size else ADV_FALLBACK, size
+                return cell, ADV_PX, size
         raise ValueError(f"glyph too large even at size 16: U+{ord(ch):04X} {ch!r}")
 
 
@@ -212,6 +223,8 @@ def md5(path):
 
 
 def patch_font(name, cfg, mapping, renderer, log):
+    CW, CH, BL = renderer.cw, renderer.ch, renderer.bl
+    HALO = cfg.get("params", {}).get("halo", True)
     assert md5(cfg["nut"]) == cfg["md5_nut"], f"{name}: 순정 NUT 해시 불일치 — 중단"
     assert md5(cfg["nfh"]) == cfg["md5_nfh"], f"{name}: 순정 NFH 해시 불일치 — 중단"
 
@@ -260,9 +273,13 @@ def patch_font(name, cfg, mapping, renderer, log):
         hangul, r = targets[idx]
         s = sheets[r["gidx"]]
         x, y = r["x"], r["y"]
-        if (x + CELL_W <= s["w"] and y + CELL_H <= s["h"]
-                and not s["occ"][y:y + CELL_H, x:x + CELL_W].any()):
-            s["occ"][y:y + CELL_H, x:x + CELL_W] = True
+        # HALO: 이웃 rect와 최소 1px 간격(바이리니어 번짐 방지). 공간이 빽빽한
+        # font_l은 끌 수 있다(종전 로직 — 겹침 없음은 그대로 보장, 간격만 0 허용).
+        lo = 1 if HALO else 0
+        if (x + CW + lo <= s["w"] and y + CH + lo <= s["h"]
+                and not s["occ"][max(0, y - lo):y + CH + lo,
+                                 max(0, x - lo):x + CW + lo].any()):
+            s["occ"][y:y + CH, x:x + CW] = True
             placed.append((hangul, r, r["gidx"], x, y))
         else:
             pending.append((hangul, r))
@@ -274,9 +291,10 @@ def patch_font(name, cfg, mapping, renderer, log):
         order = [r["gidx"]] + [g for g in sheets if g != r["gidx"]]
         for g in order:
             s = sheets[g]
-            for y in range(2, s["h"] - CELL_H - 1, 27):
-                for x in range(2, s["w"] - CELL_W - 1, 27):
-                    if not s["occ"][y:y + CELL_H + 1, x:x + CELL_W + 1].any():
+            for y in range(2, s["h"] - CH - 1, 27):
+                for x in range(2, s["w"] - CW - 1, 27):
+                    if not s["occ"][y - (1 if HALO else 0):y + CH + 1,
+                                    x - (1 if HALO else 0):x + CW + 1].any():
                         spot = (g, x, y)
                         break
                 if spot:
@@ -287,7 +305,7 @@ def patch_font(name, cfg, mapping, renderer, log):
             log(f"  [경고] {name}: {hangul} 재배치 공간 없음 → 제자리 유지(이웃 겹침 감수)")
             spot = (r["gidx"], r["x"], r["y"])
         g, x, y = spot
-        sheets[g]["occ"][y:y + CELL_H, x:x + CELL_W] = True
+        sheets[g]["occ"][y:y + CH, x:x + CW] = True
         placed.append((hangul, r, g, x, y))
         relocated.append((hangul, r["gidx"], r["x"], r["y"], g, x, y))
 
@@ -305,23 +323,23 @@ def patch_font(name, cfg, mapping, renderer, log):
     for hangul, r, g, x, y in placed:
         # 새 셀 영역은 샘플링 대상이므로 무조건 비운다 (비타깃 rect와는 이미 비겹침,
         # 이웃의 rect 밖 AA 잔픽셀만 제거됨)
-        sheets[g]["alpha"][y:y + CELL_H, x:x + CELL_W] = 0
+        sheets[g]["alpha"][y:y + CH, x:x + CW] = 0
     for hangul, r, g, x, y in placed:
         s = sheets[g]
         cell, adv, used_size = renderer.render_cell(hangul)
         if used_size != renderer.size:
             shrunk.append((hangul, used_size))
-        region = s["alpha"][y:y + CELL_H, x:x + CELL_W]
+        region = s["alpha"][y:y + CH, x:x + CW]
         np.maximum(region, cell, out=region)
 
         off = r["off"]
         struct.pack_into(">HH", nfh, off, x, y)                      # x, y
         struct.pack_into(">H", nfh, off + 4, 0)                      # bearingX = 0
-        struct.pack_into(">H", nfh, off + 6, CELL_BASELINE * 64)     # bearingY = 22
+        struct.pack_into(">H", nfh, off + 6, BL * 64)     # bearingY = 22
         struct.pack_into(">H", nfh, off + 8, adv * 64)               # advance
-        struct.pack_into(">h", nfh, off + 10, -((CELL_W + 1) // 2) * 64)
+        struct.pack_into(">h", nfh, off + 10, -((CW + 1) // 2) * 64)
         struct.pack_into(">H", nfh, off + 12, 0)
-        struct.pack_into(">H", nfh, off + 16, (CELL_W << 8) | CELL_H)
+        struct.pack_into(">H", nfh, off + 16, (CW << 8) | CH)
         struct.pack_into(">I", nfh, off + 28, g)                     # gidx
 
     # 시트 재인코딩 (컬러 블록은 원본 유지)
@@ -366,10 +384,10 @@ def main():
         render_map[p] = p
     log(f"문장부호 재렌더 {len(PUNCT_RERENDER)}자 포함 → 렌더 대상 {len(render_map)}자")
 
-    renderer = GlyphRenderer(args.font, FONT_SIZE)
-
     for name, cfg in PRISTINE.items():
-        log(f"▶ {name}")
+        pr = cfg["params"]
+        renderer = GlyphRenderer(args.font, pr["size"], pr["cell"][0], pr["cell"][1], pr["baseline"])
+        log(f"▶ {name} (size {pr['size']}, cell {pr['cell'][0]}x{pr['cell'][1]}, baseline {pr['baseline']})")
         patch_font(name, cfg, render_map, renderer, log)
 
     os.makedirs(OUT_DIR, exist_ok=True)

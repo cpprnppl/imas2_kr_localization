@@ -967,3 +967,20 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
 - 다음 단계(build): rebuild_xmb(allow_grow)+dance_lyrics.rebuild_pac로 XMB
   엔트리 교체·pac 재조립 → PC 포트 배포(.orig_kor 백업+md5), 내장 SCB는
   patch_attract 패턴. 번역 채우기는 재번역 배치와 함께.
+
+## 29. 폰트 크기 상향 + 번짐 할로 (2026-10-15, 사용자 인게임 리포트 3건)
+
+- 리포트: ① 한글이 일어보다 작아 자간이 넓어 보임 ② '차' 등 우측에 인접 셀
+  세로선 번짐 ③ 확정 advance·대사창 폭을 excel2scb WRAP 재보정용으로 전달 요청.
+- 측정: Noto 28px에서 한글 asc≤24·desc≤3·잉크우측≤25('뺐' 1자만 26) — Rodin
+  잉크(24~26)와 동급. 26px 잉크는 ~10% 작았음.
+- **im2_font 신규 규격: size 28, 셀 26×27, 베이스라인 24, advance 26px 균일,
+  배치 1px 할로**(이웃 rect와 최소 1px 간격 — 바이리니어 번짐(②) 해소).
+  재배치 226자/축소 7자, 검증 PASS. 잉크 하단선(베이스라인+desc)은 한자와 동일.
+- im2_font_l: 512²×29 시트가 빽빽해 26×27 셀·할로 모두 공간 부족(수백 자 실패
+  실측) → **구 규격(26px/25×25/무할로) 유지** — 폰트별 params/halo 옵션화.
+  대사는 im2_font라 시각 영향 없음.
+- PC 포트 폰트 재배포 완료(직접 등록판). 전후 비교: output/qa_before_after.png.
+- **WRAP 재보정 기준값(→ scb-excel)**: 한글 advance = 26px, 대사창 가용 폭 =
+  일어 전각 26자 × 27px = 702px → **한글 27자/줄**(27×26=702). MSG 116B 캡과도
+  정합: 27자×2줄=54자=108B+개행 ≤ 116B.
