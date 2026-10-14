@@ -943,3 +943,27 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
 - 남은 21곡은 팀 번역 입력 후 `dance_lyrics.py build && deploy` 두 줄로 반영.
   PS3 쪽은 사용자 방침(PC 포트 집중)에 따라 보류(필요 시 encrypt_to_scb 계열
   재암호화 또는 평문 수용 여부 별도 확인).
+
+---
+
+## 29. 인게임 메일 텍스트 덤프 + 번역 경로 (2026-10-15, 메일 1단계)
+
+- 대상: resource\mail\mail_produce.mpc / mail_viewer.mpc (PC 포트본은 암호화 —
+  사본 복호화, dance_lyrics.decrypt_cached 재사용). pac 레이아웃은 dance pac과
+  동일(+0x20 count, 0x40 테이블 32B, MSG 파일명 매니페스트, 데이터 연속).
+- 텍스트 소재 확정 (도구: tools/image_text/mail_text.py dump):
+  - sya_mail_01.xmb 69행(아이돌 메일 sub/body/atc, 최장 본문 1,728B UTF-16)
+  - sys_mail_01.xmb 42행(샵·시스템 메일) — produce 전용
+  - key_help.xmb 60행(키 도움말), jou XMB 5행(기자명) — viewer 전용
+  - produce/viewer의 sya·key_help는 텍스트 완전 동일(md5 일치) → 1회 번역,
+    두 파일 주입. **번역 유니크 합계 176행.**
+- 메일 수신 연출 대사 = 내장 all_getmail_01.scb(dec 래퍼: SCB 1,472B+컷씬 pac
+  64B) 3행 — 이미 gscript 번역 체계(script/all)에 존재. 내장 사본 리빌드는
+  patch_attract 패턴(§20) 적용 대상 = build 단계 몫. MSG 116B 캡(§28)도
+  그 경로가 처리. **메일 본문(XMB)은 가사와 같은 XMB 경로라 116B 캡 비적용**
+  (원본 최장 1,728B 실측).
+- 산출: mail_texts.json(위치·오프셋 포함), xmb_translations.json에 mail/* 틀
+  176행 합류, 게임 tools에 mail_translation_1.xlsx(4시트) 생성.
+- 다음 단계(build): rebuild_xmb(allow_grow)+dance_lyrics.rebuild_pac로 XMB
+  엔트리 교체·pac 재조립 → PC 포트 배포(.orig_kor 백업+md5), 내장 SCB는
+  patch_attract 패턴. 번역 채우기는 재번역 배치와 함께.
