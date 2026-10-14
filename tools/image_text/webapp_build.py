@@ -23,8 +23,9 @@ XLSX_PATH = os.path.join(JP_ROOT, "gscript", "tools", "translation_2.xlsx")
 
 XMB_GROUPS = [("install", "설치/트로피 메시지", "text/install.xmb"),
               ("ranker", "NPC 유닛명", "ranker/ranker_npc.xmb"),
-              ("exep_init", "EXTRA NPC 명단", "scene/exep_init.mpc")]
-REL2GRP = {rel: g for g, _l, rel in XMB_GROUPS}
+              ("exep_init", "EXTRA NPC 명단", "scene/exep_init.mpc"),
+              ("lyrics", "곡 가사 (22곡)", None)]   # songinfo/<곡>/lyrics_*.xmb, 키 = 곡코드/LYR_nnn
+REL2GRP = {rel: g for g, _l, rel in XMB_GROUPS if rel}
 
 IMAGE_GROUP_LABELS = {
     "bg2d": "배경 (bg2d)", "game": "레슨·ALF·앨범 (game)", "iface": "선택 화면 (iface)",
@@ -35,6 +36,8 @@ IMAGE_GROUP_LABELS = {
 def xmb_budgets():
     out = {}
     for grp, _label, rel in XMB_GROUPS:
+        if rel is None:   # lyrics: 파일별 용량이 달라 그룹 미터는 생략(빌드 시 파일별 검증)
+            continue
         rel_w = rel.replace("/", "\\")
         data = load_file("jp", rel_w)
         base = find_xmb(data)

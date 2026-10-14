@@ -45,6 +45,14 @@ MAPPING_PATH = os.path.join(
 TARGETS = ["text\\install.xmb", "ranker\\ranker_npc.xmb", "scene\\exep_init.mpc"]
 
 
+def lyrics_rels():
+    """곡 가사 XMB 22종: resource\\songinfo\\<곡>\\lyrics_<곡>.xmb (단독 XMB, 암호화).
+    CN 패치에는 없음(중국판은 가사 미번역) → dump에서 cn은 빈 값."""
+    import glob as _glob
+    return [os.path.relpath(p, JP_ROOT) for p in
+            sorted(_glob.glob(os.path.join(JP_ROOT, "songinfo", "*", "lyrics_*.xmb")))]
+
+
 # ---------------------------------------------------------------- parse
 
 def find_xmb(data: bytes) -> int:
@@ -134,21 +142,30 @@ def collect_texts(parsed):
 # ---------------------------------------------------------------- dump
 
 def load_file(root, rel):
-    """추출 캐시(복호화본)를 사용한다. extract_image_text.py 선실행 필요."""
+    """추출 캐시(복호화본)를 사용한다. songinfo 가사는 캐시가 없으면 즉석에서
+    원본을 스테이징(사본 복호화)한다. 그 외는 extract_image_text.py 선실행 필요."""
     p = os.path.join(OUT_DEFAULT, "_cache", root, rel)
     if not os.path.exists(p):
+        if root == "jp" and rel.replace("/", "\\").startswith("songinfo\\"):
+            from extract_image_text import stage_file
+            src = os.path.join(JP_ROOT, rel)
+            stage_file(src, p, lambda *a: None)
+            return open(p, "rb").read()
         raise FileNotFoundError(f"{p} — 먼저 extract_image_text.py를 실행하세요")
     return open(p, "rb").read()
 
 
 def cmd_dump(_args):
     table = {}
-    for rel in TARGETS:
+    for rel in TARGETS + lyrics_rels():
         jp = load_file("jp", rel)
-        cn = load_file("cn", rel)
         pj = parse_xmb(jp, find_xmb(jp))
-        pc = parse_xmb(cn, find_xmb(cn))
-        tj, tc = collect_texts(pj), collect_texts(pc)
+        tj = collect_texts(pj)
+        try:
+            cn = load_file("cn", rel)
+            tc = collect_texts(parse_xmb(cn, find_xmb(cn)))
+        except FileNotFoundError:   # 가사 등 CN 패치에 없는 파일
+            tc = []
         rows = []
         cn_by_i = {i: t for i, t in enumerate(tc)}
         for i, t in enumerate(tj):
@@ -160,15 +177,19 @@ def cmd_dump(_args):
     with open(out, "w", encoding="utf-8") as f:
         json.dump(table, f, ensure_ascii=False, indent=1)
     print(f"저장: {out}")
-    # 번역 틀(없으면 생성 — 기존 파일은 보존)
+    # 번역 틀: 없으면 생성, 있으면 새 파일/새 id만 추가(기존 kr 보존)
     tr_path = os.path.join(HERE, "xmb_translations.json")
-    if not os.path.exists(tr_path):
-        tr = {rel: {r["id"]: {"jp": r["jp"], "cn": r["cn"], "kr": ""}
-                    for r in rows_}
-              for rel, rows_ in table.items()}
-        with open(tr_path, "w", encoding="utf-8") as f:
-            json.dump(tr, f, ensure_ascii=False, indent=1)
-        print(f"번역 틀 생성: {tr_path} (kr 채운 뒤 build)")
+    tr = json.load(open(tr_path, encoding="utf-8")) if os.path.exists(tr_path) else {}
+    added = 0
+    for rel, rows_ in table.items():
+        dst = tr.setdefault(rel, {})
+        for r in rows_:
+            if r["id"] not in dst:
+                dst[r["id"]] = {"jp": r["jp"], "cn": r["cn"], "kr": ""}
+                added += 1
+    with open(tr_path, "w", encoding="utf-8") as f:
+        json.dump(tr, f, ensure_ascii=False, indent=1)
+    print(f"번역 틀 갱신: {tr_path} (신규 {added}개 id, 기존 kr 보존)")
 
 
 # ---------------------------------------------------------------- build
@@ -238,7 +259,7 @@ def cmd_build(args):
         print(f"폰트 매핑 {len(mapping)}자 적용 (한글→한자 슬롯)")
     missing = set()
     dst_dir = os.path.join(OUT_DEFAULT, "patched")
-    for rel in TARGETS:
+    for rel in TARGETS + lyrics_rels():
         key = rel.replace("\\", "/")
         kr = {i: v["kr"] for i, v in (tr.get(key) or {}).items() if v.get("kr")}
         if not kr:

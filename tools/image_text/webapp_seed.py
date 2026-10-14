@@ -38,6 +38,13 @@ XMB_REL2GRP = {"text/install.xmb": "install",
                "scene/exep_init.mpc": "exep_init"}
 
 
+def xmb_grp_key(rel, tid):
+    """가사(songinfo/<곡>/lyrics_*.xmb)는 단일 'lyrics' 그룹에 곡코드 접두 키로."""
+    if rel.startswith("songinfo/"):
+        return "lyrics", f"{rel.split('/')[1]}/{tid}"
+    return XMB_REL2GRP[rel], tid
+
+
 def req(method, path, body=None, headers=None, ctype="application/json"):
     h = {"apikey": CFG["anon_key"], "Authorization": f"Bearer {CFG['anon_key']}"}
     h.update(headers or {})
@@ -59,14 +66,13 @@ def rows_xmb():
     tr = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
     out = []
     for rel, rows in texts.items():
-        grp = XMB_REL2GRP[rel]
         seen = {}
         for i, r in enumerate(rows):
-            tid = r["id"]
+            grp, tid = xmb_grp_key(rel, r["id"])
             k = seen.get(tid, 0)
             seen[tid] = k + 1
             key = tid if k == 0 else f"{tid}#{k}"
-            kr = (tr.get(rel, {}).get(tid) or {}).get("kr", "")
+            kr = (tr.get(rel, {}).get(r["id"]) or {}).get("kr", "")
             out.append({"id": f"xmb:{grp}:{key}", "cat": "xmb", "grp": grp,
                         "seq": i, "key": key, "jp": r["jp"], "kr": kr,
                         "st": 1 if kr else 0, "ts": 0, "by": "", "meta": {}})
