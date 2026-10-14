@@ -194,8 +194,12 @@ def cmd_dump(_args):
 
 # ---------------------------------------------------------------- build
 
-def rebuild_xmb(data: bytes, base: int, repl: dict, log) -> bytes:
-    """repl: {attr_index: 새 텍스트}. _text 값 섹션 재배치, 전체 크기 불변."""
+def rebuild_xmb(data: bytes, base: int, repl: dict, log, allow_grow: bool = False) -> bytes:
+    """repl: {attr_index: 새 텍스트}. _text 값 섹션 재배치.
+    기본은 전체 크기 불변(pac 내장 XMB는 바깥 오프셋 때문에 필수).
+    allow_grow=True(단독 XMB 전용): 값 섹션이 파일 끝이므로 파일 확장 허용 —
+    내부 오프셋은 전부 섹션 상대라 깨지지 않음. 가사처럼 한국어가 일어보다
+    긴 경우에 사용(2026-10-14, twi 988B > 700B)."""
     p = parse_xmb(data, base)
     o_attr, o_val = p["o_attr"], p["o_val"]
     end = len(data)  # 단독 XMB: 파일 끝까지가 값 섹션
@@ -215,8 +219,13 @@ def rebuild_xmb(data: bytes, base: int, repl: dict, log) -> bytes:
         buf += s.encode("utf-16-be") + b"\x00\x00"
     avail = end - o_val
     if len(buf) > avail:
-        raise ValueError(f"값 섹션 초과: {len(buf)} > {avail}B — 문구를 줄이세요")
-    buf += b"\x00" * (avail - len(buf))
+        if not (allow_grow and base == 0):
+            raise ValueError(f"값 섹션 초과: {len(buf)} > {avail}B — 문구를 줄이세요")
+        while len(buf) % 16:        # 원본과 같은 16바이트 정렬 꼬리
+            buf.append(0)
+        avail = len(buf)
+    else:
+        buf += b"\x00" * (avail - len(buf))
 
     out = bytearray(data)
     out[o_val:end] = buf
@@ -229,7 +238,7 @@ def rebuild_xmb(data: bytes, base: int, repl: dict, log) -> bytes:
         want = repl.get(ai, t["text"])
         assert t2[ai]["text"] == want, f"재파싱 불일치 attr{ai}"
         assert t2[ai]["id"] == t["id"], f"id 변동 attr{ai}"
-    assert len(out) == len(data)
+    assert len(out) == base + (o_val - base) + avail
     used = max(new_vofs.values()) if new_vofs else 0
     log(f"    _text {len(repl)}/{len(texts)}개 교체, 값 섹션 사용 {used}B / 여유 {avail}B")
     return bytes(out)
@@ -297,7 +306,8 @@ def cmd_build(args):
             out = data[:base] + rebuilt + data[end:]
             assert len(out) == len(data)
         else:
-            out = rebuild_xmb(data, 0, repl, print)
+            grow = rel.replace("\\", "/").startswith("songinfo/")
+            out = rebuild_xmb(data, 0, repl, print, allow_grow=grow)
         dst = os.path.join(dst_dir, rel)
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         open(dst, "wb").write(out)

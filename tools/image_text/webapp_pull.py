@@ -58,10 +58,15 @@ def pull_xmb(rows, reviewed_only):
     for r in rows:
         if not want(r, reviewed_only):
             continue
-        rel = GRP2REL.get(r["grp"])
+        if r["grp"] == "lyrics":            # key = 곡코드/LYR_nnn
+            song, _, tid = r["key"].partition("/")
+            rel = f"songinfo/{song}/lyrics_{song}.xmb"
+        else:
+            rel = GRP2REL.get(r["grp"])
+            tid = r["key"]
         if not rel:
             continue
-        tid = r["key"].split("#")[0]
+        tid = tid.split("#")[0]
         ent = tr.setdefault(rel, {}).setdefault(tid, {"jp": "", "cn": "", "kr": ""})
         if ent.get("kr") != r["kr"]:
             ent["kr"] = r["kr"]
