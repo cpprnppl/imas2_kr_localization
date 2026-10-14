@@ -923,3 +923,22 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
   미발현이었을 뿐).
 - **재검증 통과 (2026-10-15)**: 캡 적용 배포로 라이브 시작 정지 소멸 (한글 5/5 정지
   → 0/1, 예전 정지 지점 프레임 ~11,690을 지나 14,610+ 정상 진행) — 원인 확정 종결.
+
+## 28. 라이브 가사의 진짜 소스 = dance pac — 한글 가사 인게임 성공 (2026-10-15, PC 포트)
+
+- songinfo\<곡>\lyrics_*.xmb 평문 교체로는 라이브 가사가 일본어 그대로(실측,
+  vulkan 세션 덤프 확인) → **라이브 가사는 `dance\dan_<곡>_{1,3,5}.mpc` 내장
+  XMB**에서 읽음(내용은 songinfo판과 동일 25줄, 3종 모두에 존재).
+- `tools/image_text/dance_lyrics.py`: dance pac 리사이저 — 가사 XMB를
+  allow_grow로 재작성 후 pac 재조립(뒤 엔트리 시프트, 테이블 +8/+12와 헤더
+  +0x08=크기합 갱신, 비가사 엔트리 바이트 불변·가사 kr 반영 전수 검증).
+  pac 상세: 헤더 0x40, 엔트리 32B(+8 size/+12 ofs), 데이터 16정렬 연속,
+  data_start는 가사 XMB 위치로 역산(dan_twi_1 = 0x340).
+- twi 3종 PC 포트 배포(평문, .orig_kor 백업) → week02 체크포인트 +
+  `IMAS2PC_SCENE_OVERRIDE=schedule=stage_viewer` + dance_drive --stage로
+  5인 카니발 라이브 진입, **가사 자막 한국어 출력 확인**("능력들을 합쳐서
+  빛을 목표하자" 등, ctrl_shots\lyr\). pac 크기 변화(+304B)도 게임이 수용.
+- songinfo판은 다른 용도(곡 선택 가사 보기?) 추정 — 배포 유지, 해 없음.
+- 남은 21곡은 팀 번역 입력 후 `dance_lyrics.py build && deploy` 두 줄로 반영.
+  PS3 쪽은 사용자 방침(PC 포트 집중)에 따라 보류(필요 시 encrypt_to_scb 계열
+  재암호화 또는 평문 수용 여부 별도 확인).
