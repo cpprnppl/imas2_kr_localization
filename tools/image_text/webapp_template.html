@@ -535,7 +535,8 @@ function renderLyrics() {
       <div class="pf-v5-c-card__body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px">
         <div style="font-size:13px;line-height:1.75">${jpHtml}</div>
         <div><textarea class="lyr-ta" rows="${rs.length + 1}" spellcheck="false" wrap="off"
-            style="width:100%;font-size:13px;line-height:1.75" placeholder="한국어 가사 — 일어와 같은 줄 수로 (아직 없는 줄은 빈 줄)">${esc(krText)}</textarea>
+            style="width:100%;font-size:13px;line-height:1.75" placeholder="한국어 가사 — 일어와 같은 줄 수로 (아직 없는 줄은 빈 줄)">
+${esc(krText)}</textarea><!-- textarea 직후의 개행 1개는 HTML 파서가 삼키므로 위 줄바꿈이 내용 보호용 -->
           <div style="display:flex;gap:8px;align-items:center;margin-top:4px">
             <span class="lyr-cnt" style="font-size:12px"></span>
             <button class="pf-v5-c-button pf-m-primary pf-m-compact" data-act="lyrsave" style="margin-left:auto">저장</button>
