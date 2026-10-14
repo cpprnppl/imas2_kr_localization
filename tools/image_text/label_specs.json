@@ -23,6 +23,24 @@
    "mode": "text",
    "preset": "기본",
    "over": {}
+  },
+  "7e206894defd274d094d26dccb755a89": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "랭킹"
+  },
+  "5adb0dc763c5ae561050efd158a45016": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "귀엽게"
+  },
+  "01811e8b093b526a0e333c01c69cbc69": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아이치"
   }
  }
 }

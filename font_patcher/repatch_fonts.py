@@ -68,6 +68,12 @@ ADV_FALLBACK = 26
 # 매핑에 없어 인게임 공백이던 한글 6자 → 추가 희생 슬롯 (희생 풀에서 기존 2353 바로 앞 6개)
 NEW_CHARS = {"큿": "睆", "큥": "睇", "햣": "睚", "쌰": "睛", "겍": "睜", "츗": "睟"}
 
+# 한글(Noto)과 원본 Rodin 문장부호의 글리프 디자인 위치가 2~5px 달라(예: 、
+# Rodin by4/h6 vs Noto by7/h9) 혼용 시 아랫선이 어긋나 보인다 → 이 문장부호는
+# "자기 슬롯에"(코드 유지, 매핑·SCB 무관) Noto로 재렌더해 한글과 같은 메트릭으로
+# 통일한다. 미번역 일본어 줄도 같은 글리프를 쓰지만 모양 차이는 미미.
+PUNCT_RERENDER = "、。，．！？…‥「」『』～ー・：；（）"
+
 NFH_RB, NFH_RS = 0x474, 32
 
 
@@ -347,11 +353,18 @@ def main():
             mapping[h] = k
     log(f"신규 6자 추가 → 총 {len(mapping)}자")
 
+    # 렌더 대상 = 매핑(한글→한자 슬롯) + 문장부호(자기 슬롯에 Noto 재렌더).
+    # 문장부호는 font_mapping_v2.json에는 넣지 않는다 (SCB 치환 대상이 아님).
+    render_map = dict(mapping)
+    for p in PUNCT_RERENDER:
+        render_map[p] = p
+    log(f"문장부호 재렌더 {len(PUNCT_RERENDER)}자 포함 → 렌더 대상 {len(render_map)}자")
+
     renderer = GlyphRenderer(args.font, FONT_SIZE)
 
     for name, cfg in PRISTINE.items():
         log(f"▶ {name}")
-        patch_font(name, cfg, mapping, renderer, log)
+        patch_font(name, cfg, render_map, renderer, log)
 
     os.makedirs(OUT_DIR, exist_ok=True)
     map_out = os.path.join(OUT_DIR, "font_mapping_v2.json")

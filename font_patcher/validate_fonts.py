@@ -20,7 +20,7 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR = os.path.join(SCRIPT_DIR, "output")
 sys.path.insert(0, SCRIPT_DIR)
-from repatch_fonts import (PRISTINE, NFH_RB, NFH_RS, dxt3_alpha_decode,
+from repatch_fonts import (PRISTINE, NFH_RB, NFH_RS, PUNCT_RERENDER, dxt3_alpha_decode,
                            nut_textures, nfh_records, md5)  # noqa: E402
 
 ok = True
@@ -38,7 +38,7 @@ def q(a):
 
 def main():
     mapping = json.load(open(os.path.join(OUT_DIR, "font_mapping_v2.json"), encoding="utf-8"))
-    kanji_codes = {ord(v) for v in mapping.values()}
+    kanji_codes = {ord(v) for v in mapping.values()} | {ord(p) for p in PUNCT_RERENDER}
 
     for name, cfg in PRISTINE.items():
         print(f"▶ {name}")
