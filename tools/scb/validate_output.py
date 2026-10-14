@@ -46,6 +46,8 @@ def validate_one(path, rel):
         if of != prev_end:
             issues.append(f"entry{i} ofs {of} != {prev_end}")
         raw = dec[base + of: base + of + ln]
+        if ln > 116:
+            issues.append(f"entry{i} {ln}B > 116B (게임 버퍼 초과 — 힙 손상 유발)")
         if ln < 2 or raw[-2:] != b"\x00\x00":
             issues.append(f"entry{i} 널 종단 없음")
         body = raw[:-2]

@@ -116,6 +116,14 @@ def apply_font_mapping(text: str, mapping: dict) -> str:
 WRAP_WIDTH = 26.0   # 전각 기준 폭
 WRAP_WARN_LINES = 3  # 이 줄 수 초과 시 경고(수동 축약 대상)
 
+# 게임 엔진의 대사 버퍼 하드 캡 (2026-10-15 확정):
+#   원본 전 파일의 MSG 엔트리 최대가 116바이트(널 포함)로 딱 잘려 있고,
+#   이를 넘는 문자열을 넣으면 힙 손상 → 라이브 시작 등 대형 할당 시점에
+#   무한 루프 정지 (PC 포트 A/B 5/5 vs 3/3으로 검증). PS3도 동일 엔진 계열이라 적용.
+MAX_ENTRY_BYTES = 116                     # UTF-16BE + 널(2B) 포함
+MAX_TEXT_UNITS = (MAX_ENTRY_BYTES - 2) // 2   # = 57 코드유닛 (\n 포함)
+MAX_CHAR_RUN = 6                          # 반복 문자 런 압축 한도 (비명 대사 등)
+
 def _char_width(ch: str) -> float:
     o = ord(ch)
     if o < 0x2E80:               # ASCII/반각
@@ -294,7 +302,20 @@ def rewrap(text: str) -> str:
         flat = flat + sep + p
     flat = " ".join(flat.split())  # 다중 공백 정리
     flat = _kiwi_space(flat, junctions)
-    return "\n".join(_wrap_balanced(flat))
+    # 하드 캡 1단계: 반복 문자 런 압축 (비명 '아아아…' 등 — 원본도 같은 식으로 짧음)
+    if len(flat) > MAX_TEXT_UNITS:
+        out = []
+        for c in flat:
+            if len(out) >= MAX_CHAR_RUN and all(x == c for x in out[-MAX_CHAR_RUN:]):
+                continue
+            out.append(c)
+        flat = "".join(out)
+    # 하드 캡 2단계: 줄바꿈 포함 총 길이가 캡을 넘으면 경계 절단 (게임 버퍼 보호)
+    result = "\n".join(_wrap_balanced(flat))
+    while len(result) > MAX_TEXT_UNITS and flat:
+        flat = flat[: max(0, len(flat) - 2)].rstrip()
+        result = "\n".join(_wrap_balanced(flat))
+    return result
 
 
 # -------------------------
@@ -433,6 +454,10 @@ def build_msg_block(parsed, new_texts_by_index: dict, font_map: dict, old_msg_si
 
         raw = txt.encode("utf-16-be", errors="replace") + b"\x00\x00"
         ln = len(raw)
+        if i in new_texts_by_index and ln > MAX_ENTRY_BYTES:
+            raise ValueError(
+                f"entry[{i}] {ln}B > {MAX_ENTRY_BYTES}B — 게임 버퍼 초과(힙 손상 유발). "
+                f"rewrap 캡이 적용되지 않은 경로가 있음: {txt[:30]!r}")
         bodies.append(raw)
         offsets.append((ln, ofs))
         ofs += ln
