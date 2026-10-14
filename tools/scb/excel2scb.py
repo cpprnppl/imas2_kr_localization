@@ -46,6 +46,11 @@ EXCEL_PATH_FALLBACK   = os.path.join(TOOLS_DIR, "translation_1.xlsx")
 FONT_MAPPING_JSON     = os.path.join(TOOLS_DIR, "font_mapping.json")
 OUTPUT_DIR            = os.path.join(TOOLS_DIR, "output")
 
+# PC 포트(360 리컴파일)용 평문 이중 출력: 360 엔진은 평문 pac을 그대로 수용하므로
+# 재암호화 전 dec 바이트를 그대로 내보낸다 (deploy_pcport.py가 배포 담당).
+PCPORT_OUTPUT         = True
+OUTPUT_DIR_PCPORT     = os.path.join(TOOLS_DIR, "output_pcport")
+
 
 # -------------------------
 # Drag & Drop filter
@@ -599,6 +604,12 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "wb") as f:
         f.write(new_scb)
+
+    if PCPORT_OUTPUT:
+        pc_path = os.path.join(OUTPUT_DIR_PCPORT, rel_path)
+        os.makedirs(os.path.dirname(pc_path), exist_ok=True)
+        with open(pc_path, "wb") as f:
+            f.write(new_dec)
 
     warns = []
     if text_recovered:

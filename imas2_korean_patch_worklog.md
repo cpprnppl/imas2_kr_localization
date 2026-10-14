@@ -876,3 +876,13 @@ PUNCT_RERENDER에 ０-９Ａ-Ｚ 36자 추가 → 렌더 대상 2,414자, 검증
 롤백: 폰트 = `resource\_backup_fontfix_20261014_153131\` 복원,
 SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
 효과: 매핑 테이블 유지보수 소멸, 원본 한자↔한글 글리프 충돌 해소. 인게임 확인 대기.
+
+## 26. PC 포트(360 리컴파일) 배포 대상 추가 (2026-10-14)
+
+사용자 방침("PS3 패치를 PC 리컴프에 적용")에 따라 배포 파이프라인 확장:
+- excel2scb `PCPORT_OUTPUT=True`: 재암호화 전 평문 dec를 output_pcport/에 이중 출력
+  (360 엔진은 평문 pac 수용 — imas2pc 세션 실기 검증).
+- `deploy_pcport.py`: build_imas2_o2\game\resource\gscript에 존재 파일만 교체(1,118개 배포,
+  PS3 전용 ryu W01 계열 등 제외), 원본 _backup_kr_orig 백업 + SHA-256 매니페스트.
+- 폰트는 폰트 세션이 PC 포트 주입 담당(역할 분담 합의 — SCB는 메인 세션 전담).
+- ⚠ PS3 dec ≡ 360 dec 내용 동일성은 가정 — 인게임 검증으로 확정 예정.
