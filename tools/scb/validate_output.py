@@ -8,10 +8,12 @@ validate_output.py — excel2scb 산출물(output/) 전수 구조 검증 게이�
   3. MSG 테이블/본문 정합 (오프셋 연속, 널 종단, 내부 널 없음)
   4. MSG 크기 필드 (+36 u4 = 대사 총 바이트, +0x08 delta 일관성)
   5. 섹션 경계/겹침
-  6. 매핑 안 된 생(raw) 한글 검출 (경고 — 해당 글자는 게임에서 빈 글리프)
+  6. 한글 검출 — excel2scb.DIRECT_HANGUL 모드와 일치 검증:
+     직접 등록 모드면 원시 한글이 정상(미검출 시 경고 없음),
+     매핑 모드면 원시 한글 = 빈 글리프 경고
 
 사용: 게임 tools 폴더에서  python validate_output.py
-종료코드: 0 = 통과(한글 경고 허용), 1 = 구조 오류 존재
+종료코드: 0 = 통과(경고 허용), 1 = 구조 오류 존재
 """
 import os, sys, glob, struct
 
@@ -117,12 +119,20 @@ def main():
             struct_bad.append((rel, issues[:4]))
         if hangul:
             hangul_warn.append((rel, hangul[:3]))
+    try:
+        import excel2scb as _e2s
+        direct = getattr(_e2s, "DIRECT_HANGUL", False)
+    except Exception:
+        direct = False
     print(f"구조 오류: {len(struct_bad)}개 파일")
     for rel, iss in struct_bad[:30]:
         print("  ", rel, iss)
-    print(f"미매핑 한글 경고: {len(hangul_warn)}개 파일 (빈 글리프로 표시됨)")
-    for rel, hs in hangul_warn[:10]:
-        print("  ", rel, hs)
+    if direct:
+        print(f"한글 포함: {len(hangul_warn)}개 파일 (직접 등록 모드 — 정상. 직접 등록 폰트와 함께 배포할 것)")
+    else:
+        print(f"미매핑 한글 경고: {len(hangul_warn)}개 파일 (빈 글리프로 표시됨)")
+        for rel, hs in hangul_warn[:10]:
+            print("  ", rel, hs)
     if struct_bad:
         print("\n❌ 구조 오류 — 배포 금지")
         sys.exit(1)

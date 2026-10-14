@@ -73,7 +73,17 @@ def build_target_set(argv_paths):
 # -------------------------
 # Font mapping
 # -------------------------
+# 한글 직접 등록 모드 (2026-10-14 전환, 워크로그 §24~25):
+#   NFH에 한글 코드포인트가 직접 등록된 폰트(deploy_fonts.py --direct)와 짝.
+#   True면 SCB에 원시 한글(UTF-16BE)을 그대로 쓰고 한자 슬롯 치환을 하지 않는다.
+#   ※ 구 매핑 폰트와 직접 등록 SCB는 서로 비호환 — 폰트와 SCB를 같이 배포할 것.
+#   롤백: False로 되돌리고 재생성 + 구 폰트 배포.
+DIRECT_HANGUL = True
+
 def load_font_mapping():
+    if DIRECT_HANGUL:
+        print("한글 직접 등록 모드: 폰트 매핑 미적용 (원시 한글로 기록)")
+        return {}
     if not os.path.exists(FONT_MAPPING_JSON):
         print(f"⚠ 폰트 매핑 JSON 없음: {FONT_MAPPING_JSON}")
         return {}
