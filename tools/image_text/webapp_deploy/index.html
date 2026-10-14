@@ -40,6 +40,11 @@ td textarea{width:100%;min-height:4rem;font:inherit}
 .v-mid{vertical-align:middle!important}
 .pf-v5-c-page__sidebar .pf-v5-c-nav__link{cursor:pointer}
 .nowrap{white-space:nowrap}
+.lyr-jp-line { white-space: pre-wrap; }
+.lyr-jp-line .lyr-no { display: inline-block; min-width: 2em; color: var(--pf-v5-global--Color--200);
+  font-size: 11px; user-select: none; }
+.lyr-ta { resize: vertical; background: var(--pf-v5-global--BackgroundColor--100);
+  color: inherit; border: 1px solid var(--pf-v5-global--BorderColor--100); border-radius: 4px; padding: 6px 8px; }
 </style>
 </head>
 <body>
@@ -445,6 +450,7 @@ function stLabel(r) {
 }
 
 function render() {
+  if (cat === "xmb" && grp === "lyrics") return renderLyrics();
   renderStats();
   const vis = visibleRows();
   const maxPage = Math.max(0, Math.ceil(vis.length / perPage) - 1);
@@ -499,6 +505,84 @@ function render() {
   document.querySelectorAll("img.krimg-slot").forEach(im => loadKrThumb(im.dataset.md5, im));
 }
 
+/* ---------------- 곡 가사: 곡 단위 편집 ----------------
+   저장은 줄 단위(LYR_nnn = 가라오케 타이밍 1줄)지만, 번역은 곡 전체 맥락이
+   필요하므로 화면은 곡 카드: 왼쪽 일어 전문, 오른쪽 한국어 전체 텍스트박스
+   (일어와 같은 줄 수, 빈 줄 = 미번역). 저장 시 줄별 행으로 분배. */
+function songOf(r) { return r.key.split("/")[0]; }
+function songRows(song) {
+  return rows.filter(r => songOf(r) === song)
+             .sort((a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0);
+}
+function renderLyrics() {
+  renderStats();
+  const visIds = new Set(visibleRows().map(r => r.id));
+  const songs = [...new Set(rows.map(songOf))].sort();
+  let h = "", shown = 0;
+  for (const song of songs) {
+    const rs = songRows(song);
+    if (!rs.some(r => visIds.has(r.id))) continue;
+    shown++;
+    const done = rs.filter(r => r.kr).length, rv = rs.filter(r => r.st >= 2).length;
+    const jpHtml = rs.map((r, i) =>
+      `<div class="lyr-jp-line"><span class="lyr-no">${i + 1}</span>${esc(r.jp)}</div>`).join("");
+    const krText = rs.map(r => r.kr || "").join("\n");
+    h += `<div class="pf-v5-c-card pf-m-compact lyr-card" data-song="${esc(song)}" style="margin-bottom:12px">
+      <div class="pf-v5-c-card__title" style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
+        <b>${esc(song)}</b>
+        <span class="pf-v5-u-color-200" style="font-weight:400;font-size:13px">${esc(rs[0].jp.slice(0, 26))}</span>
+        <span style="margin-left:auto;font-size:12px" class="pf-v5-u-color-200">번역 ${done}/${rs.length} · 검수 ${rv}</span></div>
+      <div class="pf-v5-c-card__body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px">
+        <div style="font-size:13px;line-height:1.75">${jpHtml}</div>
+        <div><textarea class="lyr-ta" rows="${rs.length + 1}" spellcheck="false" wrap="off"
+            style="width:100%;font-size:13px;line-height:1.75" placeholder="한국어 가사 — 일어와 같은 줄 수로 (아직 없는 줄은 빈 줄)">${esc(krText)}</textarea>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:4px">
+            <span class="lyr-cnt" style="font-size:12px"></span>
+            <button class="pf-v5-c-button pf-m-primary pf-m-compact" data-act="lyrsave" style="margin-left:auto">저장</button>
+            <button class="pf-v5-c-button pf-m-control pf-m-compact" data-act="lyrreview" title="전 줄을 검수 완료로 저장">검수 완료</button>
+          </div></div></div></div>`;
+  }
+  $("#pgInfo").textContent = `${shown} / ${songs.length}곡`;
+  $("#content").innerHTML = h ||
+    `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content"><h2 class="pf-v5-c-title pf-m-lg">조건에 맞는 곡이 없습니다</h2></div></div>`;
+  renderFilter();
+  document.querySelectorAll(".lyr-card").forEach(card => {
+    const ta = card.querySelector(".lyr-ta");
+    const jpN = card.querySelectorAll(".lyr-jp-line").length;
+    const upd = () => {
+      const krN = ta.value.replace(/\r/g, "").split("\n").length;
+      const c = card.querySelector(".lyr-cnt");
+      c.textContent = `줄 ${krN}/${jpN}` + (krN === jpN ? "" : " — 일어와 줄 수를 맞춰 주세요");
+      c.style.color = krN === jpN ? "" : "var(--pf-v5-global--danger-color--100)";
+    };
+    ta.addEventListener("input", upd);
+    upd();
+  });
+}
+async function lyricsSave(card, review) {
+  if (needNick()) return;
+  const song = card.dataset.song;
+  const rs = songRows(song);
+  const lines = card.querySelector(".lyr-ta").value.replace(/\r/g, "").split("\n");
+  if (lines.length !== rs.length) {
+    toast(`줄 수가 다릅니다 — 한국어 ${lines.length}줄 / 일어 ${rs.length}줄`); return;
+  }
+  if (review && lines.some(s => !s.trim())) { toast("빈 줄이 있어 검수 완료로 저장할 수 없습니다"); return; }
+  const btn = card.querySelector('[data-act="lyrsave"]');
+  btn.disabled = true;
+  let n = 0;
+  for (let i = 0; i < rs.length; i++) {
+    const kr = lines[i].trim() ? lines[i] : "";
+    const st = review ? 2 : (kr ? (rs[i].kr === kr && rs[i].st >= 1 ? rs[i].st : 1) : 0);
+    if (rs[i].kr === kr && rs[i].st === st) continue;
+    await save(rs[i], kr, st, true);
+    n++;
+  }
+  btn.disabled = false;
+  toast(`${song}: ${n}줄 저장${review ? " (검수 완료)" : ""}`);
+  render();
+}
+
 async function krimgUrl(md5) {
   const meta = KRIMG[md5];
   if (!meta) return null;
@@ -536,6 +620,11 @@ function renderStats() {
 function rowById(id) { return rows.find(r => r.id === id); }
 
 $("#content").addEventListener("click", ev => {
+  const lyrAct = ev.target.closest("[data-act=lyrsave],[data-act=lyrreview]");
+  if (lyrAct) {
+    const card = lyrAct.closest(".lyr-card");
+    if (card) { lyricsSave(card, lyrAct.dataset.act === "lyrreview"); return; }
+  }
   const tr = ev.target.closest("tr[data-id]");
   if (!tr) return;
   const r = rowById(tr.dataset.id);
