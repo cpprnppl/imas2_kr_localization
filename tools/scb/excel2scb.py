@@ -286,12 +286,24 @@ def _wrap_balanced(flat: str) -> list:
         lines.append(cur)
     return lines
 
+def _cap_units(text: str) -> str:
+    """하드 캡만 적용 (재배치 없이): 런 압축 후 초과분 경계 절단."""
+    if len(text) <= MAX_TEXT_UNITS:
+        return text
+    out = []
+    for c in text:
+        if c != "\n" and len(out) >= MAX_CHAR_RUN and all(x == c for x in out[-MAX_CHAR_RUN:]):
+            continue
+        out.append(c)
+    s = "".join(out)
+    return s[:MAX_TEXT_UNITS].rstrip() if len(s) > MAX_TEXT_UNITS else s
+
 def rewrap(text: str) -> str:
     """기존 \n을 풀고(어절 중간 분리 복원) 띄어쓰기를 교정한 뒤
     대사창 폭에 맞게 자연스러운 지점에서 다시 감싼다.
-    한글이 없는(미번역/일본어) 문자열은 건드리지 않는다."""
+    한글이 없는(미번역/일본어) 문자열은 재배치하지 않되, 116B 캡은 항상 적용."""
     if not any('가' <= c <= '힣' for c in text):
-        return text
+        return _cap_units(text)
     parts = [p.strip() for p in text.split("\n")]
     flat = parts[0]
     junctions = []  # 공백 없이 이어붙인 지점(공백 제외 문자 인덱스)
