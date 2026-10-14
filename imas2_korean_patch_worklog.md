@@ -862,3 +862,17 @@ PUNCT_RERENDER에 ０-９Ａ-Ｚ 36자 추가 → 렌더 대상 2,414자, 검증
    낮지만(동일 NFH 포맷·버킷 공식 PS3 파일 검증) 이 단계에서 최종 판명
 4. 전환 후: 미번역 일어 줄의 희생 한자는 공백(기존엔 한글 글리프) — 고지된 트레이드오프
 - 폰트 교체(Noto→다른 폰트) 대비: repatch_fonts.py `--font <경로>` 인자로 교체 가능
+
+## 25. 한글 직접 등록 전환 배포 (2026-10-14)
+
+인게임 실험 성공(§24) 후 전환 핸드셰이크 완료:
+1. SCB 측: excel2scb `DIRECT_HANGUL=True` — 매핑 치환 제거, 원시 UTF-16BE 한글 기록.
+   gscript 1,121파일 + attract.mpc 재생성·검증 통과. XMB는 --no-font-mapping 재빌드만
+   (라이브 순정이라 배포 대상 아님).
+2. 폰트 측: `deploy_fonts.py --direct` — loose 4종 + initialFix(NFH×2) + initialTemp(NUT×2)
+   직접 등록판 교체. bucket[0xAC]=7222 확인.
+3. SCB(deploy.py) + attract(--deploy) 배포 완료.
+
+롤백: 폰트 = `resource\_backup_fontfix_20261014_153131\` 복원,
+SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
+효과: 매핑 테이블 유지보수 소멸, 원본 한자↔한글 글리프 충돌 해소. 인게임 확인 대기.
