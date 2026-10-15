@@ -1003,3 +1003,17 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
   PC포트 빌드(deploy_pcport --font-only; initialFix be239d29…, initialTemp
   35a61125…) + 2070S(imas2_fonts_v2.zip, sha256 0ec253be…) — 사용자 육안 확인
   대기.
+## 30-2. font_l rect 축소판 — 폰트 v3 (2026-10-16, 가사 조각선 잔존 대응)
+
+- §30(폰트 v2) 후에도 라이브 가사 하단 조각선 잔존(720p 업스케일 전 입력에서 확인
+  — 글리프 쪽 확정). uitrace로 가사 폰트 식별 실패(화면 복사 텍스처만 잡힘).
+  im2_font는 v2에서 전 셀 1px 간격+링 클리어 보장이라 조각선 불가 구조 → 가사는
+  im2_font_l로 추정, 실증 투입.
+- **im2_font_l 신규 규격: size 25, baseline 21, 잉크 pad 1px, 샘플 rect를 셀보다
+  1px 안쪽 23×23으로 축소(rect_inset — NFH x/y+1, bearingY-1, +10/+16 재계산).**
+  이웃 rect 0px 간격에서도 rect 경계 바이리니어가 자기 빈 테두리만 읽음. 축소 20자.
+- repatch_fonts.py: params rect_inset 추가, NFH 필드 기록을 inset 기준으로.
+  validate/qa PASS. im2_font는 v2 그대로.
+- 배포: RPCS3(_backup_fontfix_20261016_051133) + PC포트 빌드(initialFix 8cd8e85e…,
+  initialTemp b3949936…) + 2070S(imas2_fonts_v3.zip, sha256 50e8e293…).
+  판정: 가사 조각선 소멸 → 가사=font_l 확정. 잔존 → uitrace 개선으로 재식별.

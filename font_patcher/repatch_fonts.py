@@ -59,10 +59,13 @@ PRISTINE = {
         "nfh": os.path.join(USR, r"_backup\im2_font_l_20260223_022937.nfh"),
         "md5_nut": "e94c9af9db807530e69101542f7139a2",
         "md5_nfh": "d772158afc8fe74a7aa7e12e071fada5",
-        # 512×512 ×29 시트 — 밀도가 높아 26×27 셀은 수백 슬롯이 재배치 불가(실측),
-        # 1px 할로도 공간 부족. 구 규격+무할로 유지(종전 검증 통과 상태 그대로.
-        # 대사는 im2_font 사용이라 시각 영향 없음)
-        "params": {"size": 26, "cell": (25, 25), "baseline": 22, "halo": False},
+        # 512×512 ×29 시트 — 밀도가 높아 26×27 셀·할로는 공간 부족(실측). 셀 25×25
+        # 유지하되, 2026-10-16 가사 하단 조각선 리포트(폰트 v2 후에도 잔존 — 가사가
+        # 이 폰트로 추정) 대응: 잉크 pad 1px + 샘플 rect를 셀보다 1px 안쪽 23×23으로
+        # 축소(rect_inset). 이웃 rect가 0px 간격으로 붙어도 rect 경계 바이리니어가
+        # 자기 빈 테두리만 읽게 된다. 크기 26→25(pad 수용), 베이스라인 22→21.
+        "params": {"size": 25, "cell": (25, 25), "baseline": 21, "halo": False,
+                   "pad": 1, "rect_inset": 1},
     },
 }
 
@@ -228,6 +231,10 @@ def md5(path):
 def patch_font(name, cfg, mapping, renderer, log):
     CW, CH, BL = renderer.cw, renderer.ch, renderer.bl
     HALO = cfg.get("params", {}).get("halo", True)
+    # 샘플 rect를 셀보다 INS px 안쪽으로 줄인다(잉크는 pad로 그 안에 들어 있음).
+    # rect 경계의 바이리니어가 항상 자기 셀의 빈 테두리를 읽게 되어, 이웃 rect가
+    # 0px 간격으로 붙은 시트(font_l)에서도 번짐이 없다.
+    INS = cfg.get("params", {}).get("rect_inset", 0)
     assert md5(cfg["nut"]) == cfg["md5_nut"], f"{name}: 순정 NUT 해시 불일치 — 중단"
     assert md5(cfg["nfh"]) == cfg["md5_nfh"], f"{name}: 순정 NFH 해시 불일치 — 중단"
 
@@ -342,13 +349,14 @@ def patch_font(name, cfg, mapping, renderer, log):
         np.maximum(region, cell, out=region)
 
         off = r["off"]
-        struct.pack_into(">HH", nfh, off, x, y)                      # x, y
+        rw, rh = CW - 2 * INS, CH - 2 * INS
+        struct.pack_into(">HH", nfh, off, x + INS, y + INS)          # rect x, y
         struct.pack_into(">H", nfh, off + 4, 0)                      # bearingX = 0
-        struct.pack_into(">H", nfh, off + 6, BL * 64)     # bearingY = 22
+        struct.pack_into(">H", nfh, off + 6, (BL - INS) * 64)        # bearingY (rect 기준)
         struct.pack_into(">H", nfh, off + 8, adv * 64)               # advance
-        struct.pack_into(">h", nfh, off + 10, -((CW + 1) // 2) * 64)
+        struct.pack_into(">h", nfh, off + 10, -((rw + 1) // 2) * 64)
         struct.pack_into(">H", nfh, off + 12, 0)
-        struct.pack_into(">H", nfh, off + 16, (CW << 8) | CH)
+        struct.pack_into(">H", nfh, off + 16, (rw << 8) | rh)
         struct.pack_into(">I", nfh, off + 28, g)                     # gidx
 
     # 시트 재인코딩 (컬러 블록은 원본 유지)
