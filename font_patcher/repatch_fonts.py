@@ -52,7 +52,7 @@ PRISTINE = {
         "md5_nut": "f5451c353daf35d1867bfd16cdd2cc8f",
         "md5_nfh": "da99834ce4a0846f9bdd22b4e584bfee",
         # 2048×4096 단일 시트 — 공간 여유가 있어 대형 셀 사용 (대사창 폰트)
-        "params": {"size": 28, "cell": (26, 27), "baseline": 24},
+        "params": {"size": 27, "cell": (26, 27), "baseline": 23, "pad": 1},
     },
     "im2_font_l": {
         "nut": os.path.join(USR, r"_backup\im2_font_l_20260223_022937.nut"),
@@ -66,13 +66,14 @@ PRISTINE = {
     },
 }
 
-# 2026-10-15 사용자 리포트로 상향: Noto 26px 잉크가 Rodin보다 ~10% 작아 자간이
-# 넓어 보임 → size 28(한글 asc≤24/desc≤3/우측≤25 실측, '뺐' 1자만 축소),
-# 셀 26×27, 베이스라인 24(잉크 하단선은 한자와 동일 유지), advance 26px 균일.
-# 대사창 가용 폭 = 일어 전각 26자×27px = 702px → 한글 27자(27×26=702).
-FONT_SIZE = 28
+# 2026-10-15 상향(26→28) 후 2026-10-16 사용자 리포트로 1px 하향(28→27):
+# 28px는 잉크가 셀 경계에 닿아 글자 옆 점선 줄(이웃/잔여 픽셀 블리딩)이 보이고
+# 커뮤에서 baseline이 낮아 보임 → size 27 + 셀 내부 pad 1px(잉크 ≤24×25) +
+# 베이스라인 23(1px 상향) + 배치 시 셀 둘레 1px 링 클리어.
+# 셀 26×27, advance 26px 균일은 유지 → excel2scb WRAP(702px, 한글 27자/줄) 불변.
+FONT_SIZE = 27
 CELL_W, CELL_H = 26, 27
-CELL_BASELINE = 24          # 셀 상단에서 베이스라인까지
+CELL_BASELINE = 23          # 셀 상단에서 베이스라인까지
 ADV_PX = 26                 # 균일 전진폭(px) — excel2scb WRAP 재보정의 기준값
 ADV_FALLBACK = ADV_PX
 
@@ -165,7 +166,7 @@ def nfh_records(nfh: bytes):
 # ---------------------------------------------------------------- rendering
 
 class GlyphRenderer:
-    def __init__(self, font_path, size, cell_w=None, cell_h=None, baseline=None):
+    def __init__(self, font_path, size, cell_w=None, cell_h=None, baseline=None, pad=0):
         import freetype
         self.ft = freetype
         self.face = freetype.Face(font_path)
@@ -173,6 +174,7 @@ class GlyphRenderer:
         self.cw = cell_w or CELL_W
         self.ch = cell_h or CELL_H
         self.bl = baseline or CELL_BASELINE
+        self.pad = pad          # 셀 내부 잉크 금지 테두리(px) — 블리딩 방지
         self.face.set_pixel_sizes(0, size)
 
     def render(self, ch, size=None):
@@ -197,19 +199,20 @@ class GlyphRenderer:
         }
 
     def render_cell(self, ch):
-        """cw×ch 셀 비트맵으로 렌더. 셀에 안 들어가면 단계적으로 축소."""
+        """cw×ch 셀 비트맵으로 렌더. pad 테두리 안에 안 들어가면 단계적으로 축소."""
+        p = self.pad
         for size in range(self.size, 15, -1):
             g = self.render(ch, size)
-            x0 = max(0, g["bx"])
+            x0 = max(p, g["bx"])
             y0 = self.bl - g["by"]
-            if (x0 + g["w"] <= self.cw) and (0 <= y0) and (y0 + g["h"] <= self.ch):
+            if (x0 + g["w"] <= self.cw - p) and (p <= y0) and (y0 + g["h"] <= self.ch - p):
                 cell = np.zeros((self.ch, self.cw), np.uint8)
                 if g["w"] and g["h"]:
                     cell[y0:y0 + g["h"], x0:x0 + g["w"]] = g["bitmap"]
                 return cell, ADV_PX, size
             # 세로로 넘치면 셀 안으로 밀어 넣어 재시도 (어센더는 위, 디센더는 아래)
-            if g["h"] <= self.ch and x0 + g["w"] <= self.cw:
-                y0c = min(max(y0, 0), self.ch - g["h"])
+            if g["h"] <= self.ch - 2 * p and x0 + g["w"] <= self.cw - p:
+                y0c = min(max(y0, p), self.ch - p - g["h"])
                 cell = np.zeros((self.ch, self.cw), np.uint8)
                 cell[y0c:y0c + g["h"], x0:x0 + g["w"]] = g["bitmap"]
                 return cell, ADV_PX, size
@@ -321,9 +324,15 @@ def patch_font(name, cfg, mapping, renderer, log):
         keep = s_old["protect"][y0:y1, x0:x1]
         region[~keep] = 0
     for hangul, r, g, x, y in placed:
-        # 새 셀 영역은 샘플링 대상이므로 무조건 비운다 (비타깃 rect와는 이미 비겹침,
-        # 이웃의 rect 밖 AA 잔픽셀만 제거됨)
-        sheets[g]["alpha"][y:y + CH, x:x + CW] = 0
+        # 새 셀 영역은 샘플링 대상이므로 무조건 비우고, 둘레 1px 링(바이리니어가
+        # 넘겨 보는 구간)의 잔여 픽셀도 지운다 — 링에서는 비타깃 글리프 픽셀만 보존.
+        # (2026-10-16: 글자 옆 점선 세로줄 = 링에 남아 있던 잔여 AA 픽셀로 추정)
+        s = sheets[g]
+        ry0, ry1 = max(0, y - 1), min(s["h"], y + CH + 1)
+        rx0, rx1 = max(0, x - 1), min(s["w"], x + CW + 1)
+        ring = s["alpha"][ry0:ry1, rx0:rx1]
+        ring[~s["protect"][ry0:ry1, rx0:rx1]] = 0
+        s["alpha"][y:y + CH, x:x + CW] = 0
     for hangul, r, g, x, y in placed:
         s = sheets[g]
         cell, adv, used_size = renderer.render_cell(hangul)
@@ -386,8 +395,10 @@ def main():
 
     for name, cfg in PRISTINE.items():
         pr = cfg["params"]
-        renderer = GlyphRenderer(args.font, pr["size"], pr["cell"][0], pr["cell"][1], pr["baseline"])
-        log(f"▶ {name} (size {pr['size']}, cell {pr['cell'][0]}x{pr['cell'][1]}, baseline {pr['baseline']})")
+        renderer = GlyphRenderer(args.font, pr["size"], pr["cell"][0], pr["cell"][1],
+                                 pr["baseline"], pr.get("pad", 0))
+        log(f"▶ {name} (size {pr['size']}, cell {pr['cell'][0]}x{pr['cell'][1]}, "
+            f"baseline {pr['baseline']}, pad {pr.get('pad', 0)})")
         patch_font(name, cfg, render_map, renderer, log)
 
     os.makedirs(OUT_DIR, exist_ok=True)

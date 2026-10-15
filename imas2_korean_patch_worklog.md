@@ -984,3 +984,22 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
 - **WRAP 재보정 기준값(→ scb-excel)**: 한글 advance = 26px, 대사창 가용 폭 =
   일어 전각 26자 × 27px = 702px → **한글 27자/줄**(27×26=702). MSG 116B 캡과도
   정합: 27자×2줄=54자=108B+개행 ≤ 116B.
+
+## 30. 폰트 1px 하향 + 블리딩 제거 (2026-10-16, 사용자 리포트 — 글리프 줄/baseline)
+
+- 리포트(2070S 플레이 중): 커뮤 검정 대사에 간혹 세로 점선 줄, 라이브 가사(흰+외곽선)
+  에서 더 도드라짐("가/자 사이 세로 1px 선", "으 아래 가로 조각"), 커뮤 baseline 낮아
+  보임. 사용자 지시 "그냥 폰트를 좀 줄이는게 나을 것 같아".
+- 원인 분석: §29-2의 28px는 잉크가 26×27 셀 경계에 닿음(asc≤24→y0=0, 우측≤25) +
+  셀 둘레 1px 할로 간격에 원본 아틀라스 잔여 AA 픽셀이 남아 바이리니어가 섭취 →
+  점선 줄. baseline 24는 한자 하단선 맞춤이었으나 커뮤에서 낮아 보인다는 체감.
+- **im2_font 신규 규격: size 27(안 들어가는 복잡 글자만 자동 축소 — 26×715, 25×9,
+  24×1), 셀 26×27 유지, 셀 내부 pad 1px(잉크 ≤24×25), baseline 23(1px 상향),
+  배치 시 셀 둘레 1px 링의 비보호 픽셀 클리어.** advance 26 유지 → WRAP(702px,
+  27자/줄)·excel2scb 불변. im2_font_l은 구규격 유지(pad 0).
+- repatch_fonts.py: params에 pad 추가, render_cell 경계를 pad 기준으로, 링 클리어
+  추가. validate/nfh_convert/qa_render PASS.
+- 배포: RPCS3(deploy_fonts --direct, 백업 _backup_fontfix_20261016_043732) +
+  PC포트 빌드(deploy_pcport --font-only; initialFix be239d29…, initialTemp
+  35a61125…) + 2070S(imas2_fonts_v2.zip, sha256 0ec253be…) — 사용자 육안 확인
+  대기.
