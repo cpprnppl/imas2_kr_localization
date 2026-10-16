@@ -1029,3 +1029,22 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
   (전면 재배치+큰 간격 vs rect 축소).
 - 병행 확정: A/V 420ms 정지 = 게임 측 CPU 작업(게스트 체인 확보, GPU 유휴 — 셰이더
   컴파일 아님). FSR2 유화 질감 주원인 = RCAS(sharpness 0 권장, -21%), reactive 4~8.
+## 30-4. 폰트 v4 — 가사 외곽선 셰이더 오버리치 대응 재배치 (2026-10-16)
+
+- 글리프 덤프 분석(리컴파일 세션, v13_glyph): 가사 = VS …D1722355 / PS …4C9A614A
+  (stride 16) 외곽선 셰이더. 셀 rect 기준 탭 좌표가 우/하로 +2m(m=27/32 텍셀 =
+  화면 1px) → **rect 밖 2번째 텍셀까지 bilinear로 읽음**(1번째 0.23, 2번째 0.77).
+  좌/상은 K·m(K = VS c255.y, 미확정). 밉맵 미사용. 다른 텍스트(stride 12)는 오버리치 없음.
+  → rect 축소로는 안 됨(오버리치가 rect 끝 기준). 재배치로 셀 간격 확보가 해법.
+- **repatch_fonts.py 배치 규칙 재설계**: 이웃 종류별 간격 — 보존 글리프 잉크와는
+  셀에서 CLR px, 보존 rect·다른 한글 셀과는 CLR-PAD px(양쪽 잉크가 PAD만큼 안쪽).
+  재배치는 27px 격자 → 누적합 테이블 기반 픽셀 단위 최상좌 탐색. 공간 부족 시 중단
+  (종전: 경고 후 겹침 감수 — 폐기).
+- im2_font clearance 2(3은 픽셀 패킹으로도 공간 부족 — 실측). 재배치 1,397자.
+  **전 2,414자 rect 밖 2px 링 잉크 0** 검증(3px 링은 이웃 셀 잉크가 3번째 텍셀부터
+  시작 — K=3이면 좌/상 문제, v14 glyphdump로 K 확인 예정). validate/qa PASS.
+- 배포: RPCS3(_backup_fontfix_20261016_160636) + PC 포트 빌드(initialFix 6572d715…,
+  initialTemp 836e5d9b…). 2070S 철수로 2070S 배포는 없음.
+- 같은 날 결정(사용자): 2070S 테스트 머신 철수, 이후 테스트는 감독 PC에서 FSR1만.
+  그래픽 잠정 방향 = FSR1 또는 내부 해상도 2배(FSR2·DLSS 제외). A/V는 vblank 60Hz
+  교정 후 clamp 유무 모두 싱크 정상(블라인드 판정) → 기본 noclamp 유지.

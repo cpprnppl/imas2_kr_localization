@@ -52,7 +52,11 @@ PRISTINE = {
         "md5_nut": "f5451c353daf35d1867bfd16cdd2cc8f",
         "md5_nfh": "da99834ce4a0846f9bdd22b4e584bfee",
         # 2048×4096 단일 시트 — 공간 여유가 있어 대형 셀 사용 (대사창 폰트)
-        "params": {"size": 27, "cell": (26, 27), "baseline": 23, "pad": 1},
+        # clearance 2 (2026-10-16 v4): 가사 외곽선 셰이더가 rect 밖 우/하 2번째
+        # 텍셀까지 bilinear로 읽는 것이 글리프 덤프로 확정됨(좌/상은 K·1텍셀, K=2
+        # 가정 — v14 glyphdump로 확인 예정). 3px은 시트 공간 부족(실측).
+        "params": {"size": 27, "cell": (26, 27), "baseline": 23, "pad": 1,
+                   "clearance": 2},
     },
     "im2_font_l": {
         "nut": os.path.join(USR, r"_backup\im2_font_l_20260223_022937.nut"),
@@ -231,6 +235,8 @@ def md5(path):
 def patch_font(name, cfg, mapping, renderer, log):
     CW, CH, BL = renderer.cw, renderer.ch, renderer.bl
     HALO = cfg.get("params", {}).get("halo", True)
+    # 셀 사방 잉크 금지 폭(px). 배치 허용 검사와 링 클리어에 같이 쓴다.
+    CLR = cfg.get("params", {}).get("clearance", 1 if HALO else 0)
     # 샘플 rect를 셀보다 INS px 안쪽으로 줄인다(잉크는 pad로 그 안에 들어 있음).
     # rect 경계의 바이리니어가 항상 자기 셀의 빈 테두리를 읽게 되어, 이웃 rect가
     # 0px 간격으로 붙은 시트(font_l)에서도 번짐이 없다.
@@ -277,45 +283,83 @@ def patch_font(name, cfg, mapping, renderer, log):
     for s in sheets.values():
         s["protect"] = s["occ"].copy()
 
+    # 배치 허용 조건 (셀 = 좌상단 (x,y), CW×CH). 이웃 종류별로 필요한 간격이 다르다:
+    #  - 보존 글리프 잉크: 잉크가 rect 끝까지 차 있으므로 셀에서 CLR px 이내 금지
+    #    (가사 외곽선 셰이더가 rect 밖을 읽는 범위).
+    #  - 보존 글리프 rect: 그 글리프도 같은 셰이더로 rect 밖을 읽으므로, 우리 잉크
+    #    (셀 안쪽 PAD)까지 CLR이 되도록 rect와 셀 간격 CLR-PAD 이상.
+    #  - 다른 한글 셀: 양쪽 잉크가 PAD만큼 들어가 있으므로 셀 간격 CLR-PAD 이상.
+    # (font_l: CLR=0 → 겹침만 금지하는 종전 규칙과 같다)
+    PAD = renderer.pad
+    m_rect = max(CLR - PAD, 0)
+    m_ink = CLR
+    m_tgt = max(CLR - PAD, 0)
+    M = max(m_rect, m_ink, m_tgt)
+
+    def sat(mask):
+        S = np.zeros((mask.shape[0] + 1, mask.shape[1] + 1), np.int32)
+        S[1:, 1:] = mask.astype(np.int32).cumsum(0).cumsum(1)
+        return S
+
+    def zero_window(S, m, Y0, Y1, X0, X1):
+        t, b = slice(Y0 - m, Y1 - m), slice(Y0 + CH + m, Y1 + CH + m)
+        l, rr = slice(X0 - m, X1 - m), slice(X0 + CW + m, X1 + CW + m)
+        return (S[b, rr] - S[t, rr] - S[b, l] + S[t, l]) == 0
+
+    for s in sheets.values():
+        H, W = s["h"], s["w"]
+        prot = s["protect"]
+        # 보존 글리프 잉크 = rect 1px 둘레까지의 실제 잉크 (rect 밖 AA 잔픽셀 포함)
+        near = np.zeros_like(prot)
+        near[:, :] = prot
+        near[1:, :] |= prot[:-1, :]; near[:-1, :] |= prot[1:, :]
+        near[:, 1:] |= prot[:, :-1]; near[:, :-1] |= prot[:, 1:]
+        prot_ink = near & (s["alpha"] > 0)
+        Y0, Y1 = M, H - CH - M + 1
+        X0, X1 = M, W - CW - M + 1
+        s["pos"] = (Y0, Y1, X0, X1)
+        s["valid"] = (zero_window(sat(prot), m_rect, Y0, Y1, X0, X1)
+                      & zero_window(sat(prot_ink), m_ink, Y0, Y1, X0, X1))
+
+    def can_place(s, x, y):
+        Y0, Y1, X0, X1 = s["pos"]
+        return Y0 <= y < Y1 and X0 <= x < X1 and s["valid"][y - Y0, x - X0]
+
+    def occupy(s, x, y):
+        # 이 셀과 m_tgt 이내로 붙는 모든 좌상단 위치를 막는다
+        Y0, Y1, X0, X1 = s["pos"]
+        ya, yb = max(y - CH - m_tgt + 1 - Y0, 0), max(y + CH + m_tgt - Y0, 0)
+        xa, xb = max(x - CW - m_tgt + 1 - X0, 0), max(x + CW + m_tgt - X0, 0)
+        s["valid"][ya:yb, xa:xb] = False
+
     # 1차: 제자리 배치 시도
     placed, pending = [], []
     for idx in sorted(targets):
         hangul, r = targets[idx]
         s = sheets[r["gidx"]]
         x, y = r["x"], r["y"]
-        # HALO: 이웃 rect와 최소 1px 간격(바이리니어 번짐 방지). 공간이 빽빽한
-        # font_l은 끌 수 있다(종전 로직 — 겹침 없음은 그대로 보장, 간격만 0 허용).
-        lo = 1 if HALO else 0
-        if (x + CW + lo <= s["w"] and y + CH + lo <= s["h"]
-                and not s["occ"][max(0, y - lo):y + CH + lo,
-                                 max(0, x - lo):x + CW + lo].any()):
-            s["occ"][y:y + CH, x:x + CW] = True
+        if can_place(s, x, y):
+            occupy(s, x, y)
             placed.append((hangul, r, r["gidx"], x, y))
         else:
             pending.append((hangul, r))
 
-    # 2차: 겹치는 슬롯은 빈 영역으로 재배치 (27px 그리드 탐색)
+    # 2차: 나머지는 빈 영역 중 가장 위·왼쪽 허용 위치로 재배치 (픽셀 단위 탐색)
     relocated = []
     for hangul, r in pending:
         spot = None
-        order = [r["gidx"]] + [g for g in sheets if g != r["gidx"]]
-        for g in order:
+        for g in [r["gidx"]] + [g for g in sheets if g != r["gidx"]]:
             s = sheets[g]
-            for y in range(2, s["h"] - CH - 1, 27):
-                for x in range(2, s["w"] - CW - 1, 27):
-                    if not s["occ"][y - (1 if HALO else 0):y + CH + 1,
-                                    x - (1 if HALO else 0):x + CW + 1].any():
-                        spot = (g, x, y)
-                        break
-                if spot:
-                    break
-            if spot:
+            v = s["valid"]
+            if v.any():
+                iy, ix = np.unravel_index(np.argmax(v), v.shape)
+                Y0, _, X0, _ = s["pos"]
+                spot = (g, int(ix) + X0, int(iy) + Y0)
                 break
         if spot is None:
-            log(f"  [경고] {name}: {hangul} 재배치 공간 없음 → 제자리 유지(이웃 겹침 감수)")
-            spot = (r["gidx"], r["x"], r["y"])
+            raise RuntimeError(f"{name}: {hangul} 재배치 공간 없음 (clearance {CLR}) — 중단")
         g, x, y = spot
-        sheets[g]["occ"][y:y + CH, x:x + CW] = True
+        occupy(sheets[g], x, y)
         placed.append((hangul, r, g, x, y))
         relocated.append((hangul, r["gidx"], r["x"], r["y"], g, x, y))
 
@@ -331,12 +375,13 @@ def patch_font(name, cfg, mapping, renderer, log):
         keep = s_old["protect"][y0:y1, x0:x1]
         region[~keep] = 0
     for hangul, r, g, x, y in placed:
-        # 새 셀 영역은 샘플링 대상이므로 무조건 비우고, 둘레 1px 링(바이리니어가
-        # 넘겨 보는 구간)의 잔여 픽셀도 지운다 — 링에서는 비타깃 글리프 픽셀만 보존.
-        # (2026-10-16: 글자 옆 점선 세로줄 = 링에 남아 있던 잔여 AA 픽셀로 추정)
+        # 새 셀 영역은 무조건 비우고, 둘레 링(가사 외곽선 셰이더가 rect 밖 최대
+        # ~2텍셀을 bilinear로 읽음 → CLR px)의 잔여 픽셀도 지운다 — 링에서는
+        # 비타깃 글리프 픽셀만 보존.
         s = sheets[g]
-        ry0, ry1 = max(0, y - 1), min(s["h"], y + CH + 1)
-        rx0, rx1 = max(0, x - 1), min(s["w"], x + CW + 1)
+        ring_w = max(CLR, 1)
+        ry0, ry1 = max(0, y - ring_w), min(s["h"], y + CH + ring_w)
+        rx0, rx1 = max(0, x - ring_w), min(s["w"], x + CW + ring_w)
         ring = s["alpha"][ry0:ry1, rx0:rx1]
         ring[~s["protect"][ry0:ry1, rx0:rx1]] = 0
         s["alpha"][y:y + CH, x:x + CW] = 0
