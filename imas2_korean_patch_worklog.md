@@ -1047,4 +1047,6 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
   initialTemp 836e5d9b…). 2070S 철수로 2070S 배포는 없음.
 - 같은 날 결정(사용자): 2070S 테스트 머신 철수, 이후 테스트는 감독 PC에서 FSR1만.
   그래픽 잠정 방향 = FSR1 또는 내부 해상도 2배(FSR2·DLSS 제외). A/V는 vblank 60Hz
-  교정 후 clamp 유무 모두 싱크 정상(블라인드 판정) → 기본 noclamp 유지.
+  교정 후 clamp 유무 모두 싱크 정상(블라인드 판정) → 기본 noclamp 유지.- **(추가) 인게임 확인 완료**: 감독 PC(FSR1) 런에서 가사 셰이더 c255 = (1, 2, −1, 0) → **K=2 확정**
+  (좌/상도 2번째 텍셀까지 — clearance 2로 충분). 가사 드로우 순간 720p 프레임 3장(서로 다른
+  가사 줄) 확대 결과 조각선 없음. 증거: Desktop\imas2pc\_incoming\v15_lyrics_check\.
