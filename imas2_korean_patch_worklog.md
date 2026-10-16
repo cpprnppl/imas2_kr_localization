@@ -1017,3 +1017,15 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
 - 배포: RPCS3(_backup_fontfix_20261016_051133) + PC포트 빌드(initialFix 8cd8e85e…,
   initialTemp b3949936…) + 2070S(imas2_fonts_v3.zip, sha256 50e8e293…).
   판정: 가사 조각선 소멸 → 가사=font_l 확정. 잔존 → uitrace 개선으로 재식별.
+## 30-3. 가사 조각선 원인 확정 — 가사 렌더러의 rect 밖 오버샘플링 (2026-10-16)
+
+- drawdump(§6e, 2070S)로 **가사 = im2_font 직접 그리기** 확정(최종 2D 패스가
+  2048×4096 DXT2_3 시트 샘플링). font_l 아님 → 폰트 v3는 가사와 무관.
+- 아틀라스 재구성 검증(scratchpad sim_lyric.py): 게임에서 조각이 보인 글자(손·을·
+  잡·하)의 **셀 밖 정확히 2px**에 이웃 원본 한자 가장자리 잉크(max 255) 존재.
+  1px 할로 간격은 깨끗(링 클리어 작동) → **가사 렌더러가 NFH rect 밖 ≥2px 오버샘플링**.
+  대사창 렌더러와 쿼드/UV 구성이 다른 것. 순정 컬러 파트는 전면 백색(프리멀티 기각).
+- 다음: 리컴파일 세션이 가사 쿼드 UV 추출(오버리치 정확 수치) → 폰트 v4 마진 설계
+  (전면 재배치+큰 간격 vs rect 축소).
+- 병행 확정: A/V 420ms 정지 = 게임 측 CPU 작업(게스트 체인 확보, GPU 유휴 — 셰이더
+  컴파일 아님). FSR2 유화 질감 주원인 = RCAS(sharpness 0 권장, -21%), reactive 4~8.
