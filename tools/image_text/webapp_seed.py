@@ -157,6 +157,8 @@ def seed_rows(code, only, force):
         batches.append(("dlc", rows_dlc()))
     if only in (None, "dlcimg"):
         batches.append(("dlcimg", rows_dlc_images()))
+    if only in (None, "gamedata"):
+        batches.append(("gamedata", rows_gamedata()))
     prefer = "resolution=merge-duplicates,return=minimal" if force else \
         "resolution=ignore-duplicates,return=minimal"
     for name, rows in batches:
@@ -224,6 +226,18 @@ def rows_dlc():
 DLC_TEX = os.path.join(OUT_DEFAULT, "dlc_tex")
 
 
+def rows_gamedata():
+    """game_xmb.py extract 산출(gamedata_texts.json) → rows."""
+    p = os.path.join(HERE, "gamedata_texts.json")
+    if not os.path.exists(p):
+        print("  gamedata: gamedata_texts.json 없음 — 먼저 python game_xmb.py extract")
+        return []
+    d = json.load(open(p, encoding="utf-8"))
+    return [{"id": rid, "cat": "gamedata", "grp": v["grp"], "seq": v["seq"],
+             "key": v["key"], "jp": v["jp"], "kr": v.get("kr", ""), "st": v.get("st", 0),
+             "ts": 0, "by": "", "meta": v.get("meta", {})} for rid, v in d.items()]
+
+
 def dlc_image_groups():
     p = os.path.join(DLC_TEX, "index.json")
     if not os.path.exists(p):
@@ -266,7 +280,7 @@ def upload_dlc_thumbs(service_key):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--code", help="팀 암호 (rows 시딩)")
-    ap.add_argument("--only", choices=["xmb", "script", "image", "dlc", "dlcimg"])
+    ap.add_argument("--only", choices=["xmb", "script", "image", "dlc", "dlcimg", "gamedata"])
     ap.add_argument("--dlc-thumbs", action="store_true", help="DLC 텍스처 업로드")
     ap.add_argument("--force-merge", action="store_true",
                     help="기존 행 덮어쓰기 (팀 수정 소실 주의)")

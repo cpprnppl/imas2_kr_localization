@@ -1096,3 +1096,22 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
   - 웹앱 이미지 텍스트 > "DLC" 그룹으로 업로드·시딩(--dlc-thumbs / --only dlcimg).
     회수 시 작업본은 kr_dlc/<패키지6>/ 로 분리(360 주입 시 ARGB1555/4444
     재인코딩 + swap16 규칙 필요 — 재주입 도구는 별도 과제).
+
+## 31. 본편 XMB 텍스트 전수 추출 — 누락분 4,140행 (2026-10-22, 사용자 지적)
+
+- 사용자 지적: 의상·악세서리·곡·업무 설명, 오디션 심사위원/라이브 청중 코멘트가
+  웹앱에 없음. 원인: 지금까지 범위를 "중국팀 수정 파일 + 개별 요청"으로만 잡고
+  리소스 트리 전체를 텍스트 기준으로 훑은 적이 없었음.
+- tools/image_text/game_xmb.py: 평문 .mpc 내장 XMB + interface/game/iface/scene/
+  s4u/mail/text의 암호화 .tsk(사본 복호화) 전수. 내용 동일 XMB는 1벌(meta.locs에
+  전 위치). 기존 커버(가사·NPC 명단·install·ranker) 제외.
+  - 162개 소스, 유니크 XMB 37 → **4,140행**, 웹앱 대분류 "게임 데이터 텍스트" 15그룹:
+    업무·스케줄 781 / 스태프롤 746 / 팬레터 722 / 메뉴·도움말·시스템 566 /
+    악세서리 330 / 스킬·부적 173 / 고유명사 163 / 의상 152 / 오디션 심사위원 132 /
+    캐릭터 프로필 127 / 스테이지 72 / 본편 메일 64 / 곡 정보 50 / 결과 코멘트 40 /
+    라이브 청중 22.
+  - 게임 DB(initialFix.mpc)는 요소 구조(costume/accessory/song/skill_info/charm/
+    stage_info/character)라 부모 노드 단위로 이름+설명 카드(meta.card/part).
+- 시딩 완료(ignore-duplicates). 재주입 도구(내장 XMB 교체+pac 재조립)는
+  dance_lyrics.rebuild_pac 일반화로 다음 단계 — 특히 initialFix.mpc는 폰트
+  주입 대상이기도 해 순서 조율 필요.

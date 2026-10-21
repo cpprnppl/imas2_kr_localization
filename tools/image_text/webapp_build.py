@@ -77,6 +77,16 @@ def script_groups():
     return out
 
 
+def gamedata_groups():
+    """game_xmb.py의 GROUPS 순서대로, 행이 있는 그룹만."""
+    p = os.path.join(HERE, "gamedata_texts.json")
+    if not os.path.exists(p):
+        return []
+    from game_xmb import GROUPS
+    have = {v["grp"] for v in json.load(open(p, encoding="utf-8")).values()}
+    return [{"g": g, "label": l} for g, l, _f in GROUPS if g in have]
+
+
 def image_groups():
     idx = json.load(open(os.path.join(OUT_DEFAULT, "index.json"), encoding="utf-8"))
     tops = []
@@ -114,6 +124,7 @@ def main():
              "groups": [{"g": g, "label": l} for g, l, _r in XMB_GROUPS]},
             {"cat": "script", "label": "게임 스크립트", "groups": script_groups()},
             {"cat": "image", "label": "이미지 텍스트", "groups": image_groups()},
+            {"cat": "gamedata", "label": "게임 데이터 텍스트", "groups": gamedata_groups()},
             {"cat": "dlc", "label": "DLC",
              "groups": [{"g": g, "label": l} for g, l in DLC_GROUPS]},
         ],

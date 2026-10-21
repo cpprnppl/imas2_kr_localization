@@ -456,6 +456,7 @@ function render() {
   if ((cat === "xmb" && grp === "lyrics") || (cat === "dlc" && grp === "songinfo"))
     return renderLyrics();
   if (cat === "dlc" && (grp === "mail" || grp === "catalog")) return renderCards();
+  if (cat === "gamedata" && rows.some(r => (r.meta || {}).card)) return renderCards();
   renderStats();
   const vis = visibleRows();
   const maxPage = Math.max(0, Math.ceil(vis.length / perPage) - 1);
@@ -603,8 +604,15 @@ const CHAR_NAMES = {
   yuk: "萩原雪歩 · 유키호", azu: "三浦あずさ · 아즈사", ior: "水瀬伊織 · 이오리",
   rit: "秋月律子 · 리츠코", sya: "社長 · 사장", sys: "システム · 시스템", all: "共通 · 공통"};
 function stemOf(r) { return r.key.split(":")[0]; }
+const OWNER_LABEL = { skill_info: "스킬", charm: "부적", character: "캐릭터", agency: "사무소",
+  costume: "의상", accessory: "악세서리", song: "곡", stage_info: "스테이지" };
 function subKey(r) {
   if (r.cat === "image" && r.grp === "dlc") return (r.meta || {}).kind || null;
+  if (r.cat === "gamedata") {
+    const m = r.meta || {};
+    return m.card ? (OWNER_LABEL[m.chain.split("/")[0]] || m.chain.split("/")[0])
+                  : r.key.split(":")[0];
+  }
   if (r.cat !== "dlc") return null;
   if (r.grp === "mail") return stemOf(r).split("_")[0];
   if (r.grp === "catalog" || r.grp === "package") return stemOf(r);
@@ -612,6 +620,7 @@ function subKey(r) {
 }
 function subLabel(k) {
   if (cat === "dlc" && grp === "mail") return CHAR_NAMES[k] || k;
+  if (cat === "gamedata") return k.replace(/^(resource_)?/, "").replace(/_x(\d+)$/, " #$1");
   return k.replace(/^(catalog|package)_/, "패키지 ");
 }
 let subSel = "";
@@ -621,7 +630,8 @@ function renderSubFilter() {
   if (keys.length < 2) { el.hidden = true; subSel = ""; return; }
   const cnt = {};
   rows.forEach(r => { const k = subKey(r); if (k) cnt[k] = (cnt[k] || 0) + 1; });
-  const head = grp === "mail" ? "전체 캐릭터" : cat === "image" ? "전체 종류" : "전체 패키지";
+  const head = grp === "mail" && cat === "dlc" ? "전체 캐릭터"
+    : cat === "image" || cat === "gamedata" ? "전체 종류" : "전체 패키지";
   el.innerHTML = `<option value="">${head}</option>` +
     keys.map(k => `<option value="${esc(k)}">${esc(subLabel(k))} · ${cnt[k]}</option>`).join("");
   if (!keys.includes(subSel)) subSel = "";
@@ -631,6 +641,9 @@ function renderSubFilter() {
 $("#subFilter").onchange = ev => { subSel = ev.target.value; page = 0; render(); };
 
 function cardOf(r) {
+  const m = r.meta || {};
+  if (m.card) return { gid: m.card, part: m.part, n: "" };
+  if (r.cat === "gamedata") return { gid: r.id, part: "text", n: "" };
   const [stem, id] = [stemOf(r), r.key.split(":").slice(1).join(":")];
   if (r.grp === "mail") {
     const m = id.match(/^(.*)_(sub|body|atc)(\.\d+)?$/);
@@ -640,8 +653,14 @@ function cardOf(r) {
   const base = id.replace(/\.\d+$/, "");
   return { gid: `${stem}:${base}`, part: id === base ? "name" : "desc", n: base };
 }
-const PART_LABEL = { sub: "제목", body: "본문", atc: "첨부", name: "아이템명", desc: "설명" };
-const PART_SORT = { sub: 0, body: 1, atc: 2, name: 0, desc: 1 };
+const PART_LABEL = { sub: "제목", body: "본문", atc: "첨부", name: "이름", desc: "설명",
+  caption: "설명", text: "설명", sname: "이름", stext: "설명", author: "작가",
+  fullname: "이름", fullname_h: "이름(읽기)", familyname: "성", firstname: "이름(名)",
+  familyname_h: "성(읽기)", firstname_h: "이름(읽기)", pcallname: "호칭",
+  profiletext: "프로필", longname: "정식 명칭" };
+const PART_SORT = { sub: 0, body: 1, atc: 2, name: 0, sname: 0, fullname: 0, longname: 0,
+  fullname_h: 1, familyname: 2, familyname_h: 3, firstname: 4, firstname_h: 5, pcallname: 6,
+  author: 7, desc: 8, caption: 8, text: 8, stext: 8, profiletext: 9 };
 function renderCards() {
   renderStats();
   const visIds = new Set(visibleRows().map(r => r.id));
@@ -652,10 +671,13 @@ function renderCards() {
     groups.get(c.gid).parts.push({ r, part: c.part });
   }
   const numKey = s => { const d = parseInt(String(s).replace(/^\D+/, ""), 10); return isNaN(d) ? 1e9 : d; };
+  const ps = p => (p in PART_SORT ? PART_SORT[p] : 5);
+  const minSeq = g => Math.min.apply(null, g.parts.map(p => p.r.seq || 0));
   const all = [...groups.values()]
     .filter(g => g.parts.some(p => visIds.has(p.r.id)))
-    .sort((a, b) => a.stem < b.stem ? -1 : a.stem > b.stem ? 1 : numKey(a.n) - numKey(b.n));
-  all.forEach(g => g.parts.sort((a, b) => PART_SORT[a.part] - PART_SORT[b.part]));
+    .sort(cat === "gamedata" ? (a, b) => minSeq(a) - minSeq(b)
+      : (a, b) => a.stem < b.stem ? -1 : a.stem > b.stem ? 1 : numKey(a.n) - numKey(b.n));
+  all.forEach(g => g.parts.sort((a, b) => ps(a.part) - ps(b.part)));
   const size = Math.min(perPage, 50);
   const maxPage = Math.max(0, Math.ceil(all.length / size) - 1);
   if (page > maxPage) page = maxPage;
@@ -665,11 +687,14 @@ function renderCards() {
   let h = "";
   for (const g of slice) {
     const done = g.parts.filter(p => p.r.kr).length, rv = g.parts.filter(p => p.r.st >= 2).length;
-    const who = grp === "mail" ? (CHAR_NAMES[g.stem.split("_")[0]] || g.stem) : subLabel(g.stem);
-    const subj = (g.parts.find(p => p.part === "sub" || p.part === "name") || g.parts[0]).r.jp;
+    const m0 = g.parts[0].r.meta || {};
+    const who = cat === "gamedata" ? (m0.card ? (OWNER_LABEL[m0.chain.split("/")[0]] || "") : "")
+      : grp === "mail" ? (CHAR_NAMES[g.stem.split("_")[0]] || g.stem) : subLabel(g.stem);
+    const subj = (g.parts.find(p => ["sub", "name", "sname", "fullname", "longname"].includes(p.part))
+                  || g.parts[0]).r.jp;
     h += `<div class="pf-v5-c-card pf-m-compact mc-card" data-gid="${esc(g.gid)}" style="margin-bottom:12px">
       <div class="pf-v5-c-card__title" style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
-        <b>${esc(who)}</b><span class="pf-v5-u-color-200" style="font-size:12px">#${esc(g.n)}</span>
+        <b>${esc(who)}</b>${g.n ? `<span class="pf-v5-u-color-200" style="font-size:12px">#${esc(g.n)}</span>` : ""}
         <span style="font-weight:400;font-size:13px">${esc(subj.split("\n")[0].slice(0, 40))}</span>
         <span style="margin-left:auto;font-size:12px" class="pf-v5-u-color-200">번역 ${done}/${g.parts.length} · 검수 ${rv}</span></div>
       <div class="pf-v5-c-card__body" style="display:flex;flex-direction:column;gap:10px">`;
@@ -677,15 +702,16 @@ function renderCards() {
       const jpN = (r.jp.match(/\n/g) || []).length;
       const w = warns(r).filter(([t]) => t !== "미번역");
       h += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
-        <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px">${PART_LABEL[part]} (JP)</div>
+        <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px">${PART_LABEL[part] || part} (JP)</div>
           <div class="jp-cell" style="font-size:13px;line-height:1.7">${nlMark(esc(r.jp))}</div></div>
-        <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px;display:flex;gap:6px;align-items:center">${PART_LABEL[part]} (KR)
+        <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px;display:flex;gap:6px;align-items:center">${PART_LABEL[part] || part} (KR)
             ${w.map(([t, c]) => `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}
             <button class="pf-v5-c-button pf-m-plain pf-m-compact" data-act="mchist" data-id="${esc(r.id)}" title="수정 이력" style="margin-left:auto">🕘</button></div>
           <textarea class="pf-v5-c-form-control mc-ta" data-id="${esc(r.id)}" data-jpn="${jpN}" rows="${jpN + 1}"
             spellcheck="false" style="width:100%;font-size:13px;line-height:1.7">
 ${esc(r.kr)}</textarea>
-          ${part !== "sub" && part !== "name" ? `<div class="nl-hint mc-cnt"></div>` : ""}</div></div>`;
+          ${r.jp.includes("\n") || ["body", "desc", "caption", "text", "stext", "profiletext"].includes(part)
+            ? `<div class="nl-hint mc-cnt"></div>` : ""}</div></div>`;
     }
     h += `<div style="display:flex;gap:8px;justify-content:flex-end">
         <button class="pf-v5-c-button pf-m-primary pf-m-compact" data-act="mcsave">저장</button>
