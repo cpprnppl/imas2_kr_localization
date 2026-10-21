@@ -155,6 +155,8 @@ def seed_rows(code, only, force):
         batches.append(("image", rows_image()))
     if only in (None, "dlc"):
         batches.append(("dlc", rows_dlc()))
+    if only in (None, "dlcimg"):
+        batches.append(("dlcimg", rows_dlc_images()))
     prefer = "resolution=merge-duplicates,return=minimal" if force else \
         "resolution=ignore-duplicates,return=minimal"
     for name, rows in batches:
@@ -219,10 +221,53 @@ def rows_dlc():
     return out
 
 
+DLC_TEX = os.path.join(OUT_DEFAULT, "dlc_tex")
+
+
+def dlc_image_groups():
+    p = os.path.join(DLC_TEX, "index.json")
+    if not os.path.exists(p):
+        return []
+    g = json.load(open(p, encoding="utf-8"))["groups"]
+    return sorted((v for v in g.values() if v.get("text")),
+                  key=lambda v: (v["text"], v["png"]))
+
+
+def rows_dlc_images():
+    """360 DLC 텍스처 중 텍스트 있는 것(dlc_images.py extract) → image/dlc 행."""
+    out = []
+    for i, g in enumerate(dlc_image_groups()):
+        locs = [f"360:{L['pkg'][:6]}/{L['rel']}#{L['n']:03d}" for L in g["locs"]]
+        out.append({"id": f"image:dlc:{g['md5']}", "cat": "image", "grp": "dlc",
+                    "seq": i, "key": g["md5"], "jp": "", "kr": "", "st": 0,
+                    "ts": 0, "by": "",
+                    "meta": {"w": g["w"], "h": g["h"], "fmt": g["fmt"],
+                             "locs": locs, "kind": g["text"], "mode": ""}})
+    return out
+
+
+def upload_dlc_thumbs(service_key):
+    auth = {"apikey": service_key, "Authorization": f"Bearer {service_key}"}
+    n = 0
+    for g in dlc_image_groups():
+        data = open(os.path.join(DLC_TEX, g["png"]), "rb").read()
+        h = dict(auth)
+        h["x-upsert"] = "true"
+        st, body = req("POST", f"/storage/v1/object/tex/jp/{g['md5']}.png",
+                       data, h, ctype="image/png")
+        if st not in (200, 201):
+            print(f"[실패] {g['md5']}: HTTP {st} {body[:200]}")
+            return False
+        n += 1
+    print(f"  DLC 텍스처 {n}장 업로드 완료")
+    return True
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--code", help="팀 암호 (rows 시딩)")
-    ap.add_argument("--only", choices=["xmb", "script", "image", "dlc"])
+    ap.add_argument("--only", choices=["xmb", "script", "image", "dlc", "dlcimg"])
+    ap.add_argument("--dlc-thumbs", action="store_true", help="DLC 텍스처 업로드")
     ap.add_argument("--force-merge", action="store_true",
                     help="기존 행 덮어쓰기 (팀 수정 소실 주의)")
     ap.add_argument("--thumbs", action="store_true", help="썸네일 업로드")
@@ -234,9 +279,14 @@ def main():
         if not key:
             sys.exit("--service-key 또는 IMAS2_SB_SERVICE 필요")
         ok = upload_thumbs(key) and ok
+    if args.dlc_thumbs:
+        key = args.service_key or os.environ.get("IMAS2_SB_SERVICE")
+        if not key:
+            sys.exit("--service-key 또는 IMAS2_SB_SERVICE 필요")
+        ok = upload_dlc_thumbs(key) and ok
     if args.code:
         ok = seed_rows(args.code, args.only, args.force_merge) and ok
-    if not (args.thumbs or args.code):
+    if not (args.thumbs or args.dlc_thumbs or args.code):
         print("아무 작업도 지정 안 됨 — --code 또는 --thumbs")
     sys.exit(0 if ok else 1)
 

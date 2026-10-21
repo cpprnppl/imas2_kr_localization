@@ -148,6 +148,15 @@ def pull_image(rows, reviewed_only, code=None):
         png = base64.b64decode(im["data"])
         for loc in (r.get("meta") or {}).get("locs", []):
             rel, nn = loc.rsplit("#", 1)
+            if loc.startswith("360:"):   # DLC: kr_dlc/<패키지6>/<상대경로>_<n>.png
+                pkg, path = rel[4:].split("/", 1)
+                stem = path.replace("/", "_").rsplit(".", 1)[0]
+                dst = os.path.join(OUT_DEFAULT, "kr_dlc", pkg, f"{stem}_{nn}.png")
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                with open(dst, "wb") as f:
+                    f.write(png)
+                m += 1
+                continue
             rel = rel.replace("/", "\\")
             stem = os.path.splitext(os.path.basename(rel))[0]
             dst = os.path.join(OUT_DEFAULT, "kr", os.path.dirname(rel),

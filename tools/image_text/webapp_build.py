@@ -86,7 +86,10 @@ def image_groups():
         top = rel.split("\\")[0].split("/")[0]
         if top not in tops:
             tops.append(top)
-    return [{"g": t, "label": IMAGE_GROUP_LABELS.get(t, t)} for t in sorted(tops)]
+    out = [{"g": t, "label": IMAGE_GROUP_LABELS.get(t, t)} for t in sorted(tops)]
+    if os.path.exists(os.path.join(OUT_DEFAULT, "dlc_tex", "index.json")):
+        out.append({"g": "dlc", "label": "DLC (카탈로그·곡 로고·재킷)"})
+    return out
 
 
 def main():

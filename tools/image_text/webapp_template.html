@@ -484,7 +484,7 @@ function render() {
           <div class="pf-v5-u-color-200" style="font-size:10px">작업본 · ${esc(img.by || "")}</div></div>` : ""}
         <button class="pf-v5-c-button pf-m-control pf-m-compact" data-act="upload">${img ? "교체" : "작업본 업로드"}</button>
       </div>`;
-      second = `<span class="nowrap">${m.w}×${m.h} ${esc(m.fmt || "")}</span><br>
+      second = `<span class="nowrap">${m.kind ? `<b>${esc(m.kind)}</b> · ` : ""}${m.w}×${m.h} ${esc(m.fmt || "")}</span><br>
                 <span class="pf-v5-u-color-200" style="font-size:12px">${esc((m.locs || [])[0] || "")}${(m.locs || []).length > 1 ? ` 외 ${m.locs.length - 1}곳` : ""}</span>`;
     } else if (cat === "script") {
       const m = r.meta || {};
@@ -604,6 +604,7 @@ const CHAR_NAMES = {
   rit: "秋月律子 · 리츠코", sya: "社長 · 사장", sys: "システム · 시스템", all: "共通 · 공통"};
 function stemOf(r) { return r.key.split(":")[0]; }
 function subKey(r) {
+  if (r.cat === "image" && r.grp === "dlc") return (r.meta || {}).kind || null;
   if (r.cat !== "dlc") return null;
   if (r.grp === "mail") return stemOf(r).split("_")[0];
   if (r.grp === "catalog" || r.grp === "package") return stemOf(r);
@@ -620,7 +621,7 @@ function renderSubFilter() {
   if (keys.length < 2) { el.hidden = true; subSel = ""; return; }
   const cnt = {};
   rows.forEach(r => { const k = subKey(r); if (k) cnt[k] = (cnt[k] || 0) + 1; });
-  const head = grp === "mail" ? "전체 캐릭터" : "전체 패키지";
+  const head = grp === "mail" ? "전체 캐릭터" : cat === "image" ? "전체 종류" : "전체 패키지";
   el.innerHTML = `<option value="">${head}</option>` +
     keys.map(k => `<option value="${esc(k)}">${esc(subLabel(k))} · ${cnt[k]}</option>`).join("");
   if (!keys.includes(subSel)) subSel = "";
