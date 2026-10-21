@@ -91,6 +91,7 @@ td textarea{width:100%;min-height:4rem;font:inherit}
     <section class="pf-v5-c-page__main-section pf-m-light pf-m-no-padding" style="padding:8px 16px">
       <div class="pf-v5-c-toolbar"><div class="pf-v5-c-toolbar__content" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <select class="pf-v5-c-form-control" style="width:auto" id="filter"></select>
+        <select class="pf-v5-c-form-control" style="width:auto" id="subFilter" hidden></select>
         <input class="pf-v5-c-form-control" style="width:16rem" type="search" id="q" placeholder="검색 (원문·번역·식별자)">
         <button class="pf-v5-c-button pf-m-secondary" id="frOpen">바꾸기</button>
         <button class="pf-v5-c-button pf-m-secondary" id="bulkOpen" hidden>일괄 다운로드·업로드</button>
@@ -346,7 +347,7 @@ function renderFilter() {
 
 async function openGroup(c, g) {
   closeNavIfNarrow();
-  cat = c; grp = g; page = 0; filter = "all"; query = "";
+  cat = c; grp = g; page = 0; filter = "all"; query = ""; subSel = "";
   $("#q").value = "";
   renderNav();
   const { sec, grp: gm } = navMeta(c, g);
@@ -432,6 +433,7 @@ function passFilter(r, f) {
 function visibleRows() {
   const q = query.toLowerCase();
   return rows.filter(r => {
+    if (subSel && subKey(r) !== subSel) return false;
     if (q) {
       const m = r.meta || {};
       const hay = [r.key, r.jp, r.kr, m.sp, m.file,
@@ -450,7 +452,10 @@ function stLabel(r) {
 }
 
 function render() {
-  if (cat === "xmb" && grp === "lyrics") return renderLyrics();
+  renderSubFilter();
+  if ((cat === "xmb" && grp === "lyrics") || (cat === "dlc" && grp === "songinfo"))
+    return renderLyrics();
+  if (cat === "dlc" && (grp === "mail" || grp === "catalog")) return renderCards();
   renderStats();
   const vis = visibleRows();
   const maxPage = Math.max(0, Math.ceil(vis.length / perPage) - 1);
@@ -509,7 +514,11 @@ function render() {
    저장은 줄 단위(LYR_nnn = 가라오케 타이밍 1줄)지만, 번역은 곡 전체 맥락이
    필요하므로 화면은 곡 카드: 왼쪽 일어 전문, 오른쪽 한국어 전체 텍스트박스
    (일어와 같은 줄 수, 빈 줄 = 미번역). 저장 시 줄별 행으로 분배. */
-function songOf(r) { return r.key.split("/")[0]; }
+// 본편 키 "곡/LYR_nnn", DLC 키 "lyrics_곡:LYR_nnn"
+function songOf(r) {
+  return r.key.includes(":") ? r.key.split(":")[0].replace(/^lyrics_/, "")
+                             : r.key.split("/")[0];
+}
 function songRows(song) {
   return rows.filter(r => songOf(r) === song)
              .sort((a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0);
@@ -584,6 +593,138 @@ async function lyricsSave(card, review) {
   render();
 }
 
+/* ---------------- DLC 메일·카탈로그: 1건 = 카드 1장 ----------------
+   메일은 제목(sub)/본문(body)/첨부(atc), 카탈로그는 아이템명/설명이 같은 카드.
+   저장은 기존처럼 파트별 행 단위(이력 그대로). */
+const CHAR_NAMES = {
+  chi: "如月千早 · 치하야", har: "天海春香 · 하루카", hib: "我那覇響 · 히비키",
+  mak: "菊地真 · 마코토", mam: "双海真美 · 마미", ami: "双海亜美 · 아미",
+  mik: "星井美希 · 미키", tak: "四条貴音 · 타카네", yay: "高槻やよい · 야요이",
+  yuk: "萩原雪歩 · 유키호", azu: "三浦あずさ · 아즈사", ior: "水瀬伊織 · 이오리",
+  rit: "秋月律子 · 리츠코", sya: "社長 · 사장", sys: "システム · 시스템", all: "共通 · 공통"};
+function stemOf(r) { return r.key.split(":")[0]; }
+function subKey(r) {
+  if (r.cat !== "dlc") return null;
+  if (r.grp === "mail") return stemOf(r).split("_")[0];
+  if (r.grp === "catalog" || r.grp === "package") return stemOf(r);
+  return null;
+}
+function subLabel(k) {
+  if (cat === "dlc" && grp === "mail") return CHAR_NAMES[k] || k;
+  return k.replace(/^(catalog|package)_/, "패키지 ");
+}
+let subSel = "";
+function renderSubFilter() {
+  const el = $("#subFilter");
+  const keys = [...new Set(rows.map(subKey).filter(Boolean))].sort();
+  if (keys.length < 2) { el.hidden = true; subSel = ""; return; }
+  const cnt = {};
+  rows.forEach(r => { const k = subKey(r); if (k) cnt[k] = (cnt[k] || 0) + 1; });
+  const head = grp === "mail" ? "전체 캐릭터" : "전체 패키지";
+  el.innerHTML = `<option value="">${head}</option>` +
+    keys.map(k => `<option value="${esc(k)}">${esc(subLabel(k))} · ${cnt[k]}</option>`).join("");
+  if (!keys.includes(subSel)) subSel = "";
+  el.value = subSel;
+  el.hidden = false;
+}
+$("#subFilter").onchange = ev => { subSel = ev.target.value; page = 0; render(); };
+
+function cardOf(r) {
+  const [stem, id] = [stemOf(r), r.key.split(":").slice(1).join(":")];
+  if (r.grp === "mail") {
+    const m = id.match(/^(.*)_(sub|body|atc)(\.\d+)?$/);
+    if (m) return { gid: `${stem}:${m[1]}`, part: m[2], n: m[1] };
+    return { gid: `${stem}:${id}`, part: "body", n: id };
+  }
+  const base = id.replace(/\.\d+$/, "");
+  return { gid: `${stem}:${base}`, part: id === base ? "name" : "desc", n: base };
+}
+const PART_LABEL = { sub: "제목", body: "본문", atc: "첨부", name: "아이템명", desc: "설명" };
+const PART_SORT = { sub: 0, body: 1, atc: 2, name: 0, desc: 1 };
+function renderCards() {
+  renderStats();
+  const visIds = new Set(visibleRows().map(r => r.id));
+  const groups = new Map();
+  for (const r of rows) {
+    const c = cardOf(r);
+    if (!groups.has(c.gid)) groups.set(c.gid, { gid: c.gid, n: c.n, stem: stemOf(r), parts: [] });
+    groups.get(c.gid).parts.push({ r, part: c.part });
+  }
+  const numKey = s => { const d = parseInt(String(s).replace(/^\D+/, ""), 10); return isNaN(d) ? 1e9 : d; };
+  const all = [...groups.values()]
+    .filter(g => g.parts.some(p => visIds.has(p.r.id)))
+    .sort((a, b) => a.stem < b.stem ? -1 : a.stem > b.stem ? 1 : numKey(a.n) - numKey(b.n));
+  all.forEach(g => g.parts.sort((a, b) => PART_SORT[a.part] - PART_SORT[b.part]));
+  const size = Math.min(perPage, 50);
+  const maxPage = Math.max(0, Math.ceil(all.length / size) - 1);
+  if (page > maxPage) page = maxPage;
+  const slice = all.slice(page * size, (page + 1) * size);
+  $("#pgInfo").textContent = all.length
+    ? `${page * size + 1}–${page * size + slice.length} / ${all.length}${grp === "mail" ? "통" : "건"}` : "0 / 0";
+  let h = "";
+  for (const g of slice) {
+    const done = g.parts.filter(p => p.r.kr).length, rv = g.parts.filter(p => p.r.st >= 2).length;
+    const who = grp === "mail" ? (CHAR_NAMES[g.stem.split("_")[0]] || g.stem) : subLabel(g.stem);
+    const subj = (g.parts.find(p => p.part === "sub" || p.part === "name") || g.parts[0]).r.jp;
+    h += `<div class="pf-v5-c-card pf-m-compact mc-card" data-gid="${esc(g.gid)}" style="margin-bottom:12px">
+      <div class="pf-v5-c-card__title" style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
+        <b>${esc(who)}</b><span class="pf-v5-u-color-200" style="font-size:12px">#${esc(g.n)}</span>
+        <span style="font-weight:400;font-size:13px">${esc(subj.split("\n")[0].slice(0, 40))}</span>
+        <span style="margin-left:auto;font-size:12px" class="pf-v5-u-color-200">번역 ${done}/${g.parts.length} · 검수 ${rv}</span></div>
+      <div class="pf-v5-c-card__body" style="display:flex;flex-direction:column;gap:10px">`;
+    for (const { r, part } of g.parts) {
+      const jpN = (r.jp.match(/\n/g) || []).length;
+      const w = warns(r).filter(([t]) => t !== "미번역");
+      h += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
+        <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px">${PART_LABEL[part]} (JP)</div>
+          <div class="jp-cell" style="font-size:13px;line-height:1.7">${nlMark(esc(r.jp))}</div></div>
+        <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px;display:flex;gap:6px;align-items:center">${PART_LABEL[part]} (KR)
+            ${w.map(([t, c]) => `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}
+            <button class="pf-v5-c-button pf-m-plain pf-m-compact" data-act="mchist" data-id="${esc(r.id)}" title="수정 이력" style="margin-left:auto">🕘</button></div>
+          <textarea class="pf-v5-c-form-control mc-ta" data-id="${esc(r.id)}" data-jpn="${jpN}" rows="${jpN + 1}"
+            spellcheck="false" style="width:100%;font-size:13px;line-height:1.7">
+${esc(r.kr)}</textarea>
+          ${part !== "sub" && part !== "name" ? `<div class="nl-hint mc-cnt"></div>` : ""}</div></div>`;
+    }
+    h += `<div style="display:flex;gap:8px;justify-content:flex-end">
+        <button class="pf-v5-c-button pf-m-primary pf-m-compact" data-act="mcsave">저장</button>
+        <button class="pf-v5-c-button pf-m-control pf-m-compact" data-act="mcreview">검수 완료</button></div>
+      </div></div>`;
+  }
+  $("#content").innerHTML = h ||
+    `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content"><h2 class="pf-v5-c-title pf-m-lg">조건에 맞는 항목이 없습니다</h2></div></div>`;
+  renderFilter();
+  document.querySelectorAll(".mc-ta").forEach(ta => {
+    const cntEl = ta.parentElement.querySelector(".mc-cnt");
+    if (!cntEl) return;
+    const jpN = +ta.dataset.jpn;
+    const upd = () => {
+      const n = (ta.value.match(/\n/g) || []).length;
+      cntEl.textContent = `개행 ${n}/${jpN}` + (n === jpN ? "" : " — 원문과 맞추세요");
+      cntEl.classList.toggle("bad", n !== jpN);
+    };
+    ta.addEventListener("input", upd);
+    upd();
+  });
+}
+async function cardSave(card, review) {
+  if (needNick()) return;
+  const tas = [...card.querySelectorAll(".mc-ta")];
+  const items = tas.map(ta => ({ r: rowById(ta.dataset.id),
+    kr: ta.value.replace(/\r\n/g, "\n").replace(/\s+$/, "") }));
+  if (review && items.some(it => !it.kr)) { toast("빈 칸이 있어 검수 완료로 저장할 수 없습니다"); return; }
+  let n = 0;
+  for (const { r, kr } of items) {
+    if (!r) continue;
+    const st = review ? 2 : (kr ? (r.kr === kr && r.st >= 1 ? r.st : 1) : 0);
+    if (r.kr === kr && r.st === st) continue;
+    await save(r, kr, st, true);
+    n++;
+  }
+  toast(`${n}칸 저장${review ? " (검수 완료)" : ""}`, "success");
+  render();
+}
+
 async function krimgUrl(md5) {
   const meta = KRIMG[md5];
   if (!meta) return null;
@@ -625,6 +766,12 @@ $("#content").addEventListener("click", ev => {
   if (lyrAct) {
     const card = lyrAct.closest(".lyr-card");
     if (card) { lyricsSave(card, lyrAct.dataset.act === "lyrreview"); return; }
+  }
+  const mcAct = ev.target.closest("[data-act=mcsave],[data-act=mcreview],[data-act=mchist]");
+  if (mcAct) {
+    if (mcAct.dataset.act === "mchist") { const r = rowById(mcAct.dataset.id); if (r) showHist(r); return; }
+    const card = mcAct.closest(".mc-card");
+    if (card) { cardSave(card, mcAct.dataset.act === "mcreview"); return; }
   }
   const tr = ev.target.closest("tr[data-id]");
   if (!tr) return;
@@ -953,7 +1100,7 @@ async function showDash(force) {
   cat = "dash"; grp = null; renderNav();
   $("#crumb").textContent = "진행 현황";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
-  $("#bulkOpen").hidden = true;
+  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true;
   if (!DASH || force) {
     $("#content").innerHTML = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content">집계 중…</div></div>`;
     const out = [];
@@ -1011,7 +1158,7 @@ async function showActivity() {
   cat = "activity"; grp = null; renderNav();
   $("#crumb").textContent = "수정 이력";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
-  $("#bulkOpen").hidden = true;
+  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true;
   $("#content").innerHTML = `
     <div class="pf-v5-c-toolbar"><div class="pf-v5-c-toolbar__content" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
       <input class="pf-v5-c-form-control" style="width:10rem" id="actBy" placeholder="작업자 필터">
