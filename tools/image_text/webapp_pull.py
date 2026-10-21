@@ -160,9 +160,42 @@ def pull_image(rows, reviewed_only, code=None):
     print("다음: python label_tool.py --export (라벨 렌더) → python inject_image_text.py")
 
 
+def pull_dlc(rows, reviewed_only):
+    """dlc 행 회수 → dlc_translations.json (grp/key→kr, meta.src 포함).
+    songinfo 그룹은 xmb_translations.json의 songinfo/<곡> 키에도 병합해
+    dance_lyrics 계열 빌드가 재사용할 수 있게 한다 (DLC dance pac 주입은 별도)."""
+    out = {}
+    n = 0
+    for r in rows:
+        if not want(r, reviewed_only):
+            continue
+        out[f"{r['grp']}/{r['key']}"] = {"jp": r["jp"], "kr": r["kr"],
+                                         "meta": r.get("meta", {})}
+        n += 1
+    p = os.path.join(HERE, "dlc_translations.json")
+    json.dump(out, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"dlc_translations.json {n}건")
+    # songinfo → xmb_translations 병합 (lyrics_<곡>:LYR_nnn → songinfo/<곡>)
+    tr_path = os.path.join(HERE, "xmb_translations.json")
+    tr = json.load(open(tr_path, encoding="utf-8"))
+    m = 0
+    for r in rows:
+        if r["grp"] != "songinfo" or not want(r, reviewed_only):
+            continue
+        stem, tid = r["key"].split(":", 1)
+        song = stem.replace("lyrics_", "")
+        ent = tr.setdefault(f"songinfo/{song}/lyrics_{song}.xmb", {}) \
+            .setdefault(tid, {"jp": r["jp"], "cn": "", "kr": ""})
+        if ent.get("kr") != r["kr"]:
+            ent["kr"] = r["kr"]
+            m += 1
+    json.dump(tr, open(tr_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"xmb_translations.json songinfo 병합 {m}건 (DLC 신곡 가사)")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cat", choices=["xmb", "script", "image"])
+    ap.add_argument("cat", choices=["xmb", "script", "image", "dlc"])
     ap.add_argument("--code", required=True)
     ap.add_argument("--reviewed-only", action="store_true")
     args = ap.parse_args()
@@ -170,7 +203,8 @@ def main():
     if args.cat == "image":
         pull_image(rows, args.reviewed_only, code=args.code)
     else:
-        {"xmb": pull_xmb, "script": pull_script}[args.cat](rows, args.reviewed_only)
+        {"xmb": pull_xmb, "script": pull_script,
+         "dlc": pull_dlc}[args.cat](rows, args.reviewed_only)
 
 
 if __name__ == "__main__":

@@ -1050,3 +1050,29 @@ SCB = excel2scb DIRECT_HANGUL=False 재생성 + deploy.py.
   교정 후 clamp 유무 모두 싱크 정상(블라인드 판정) → 기본 noclamp 유지.- **(추가) 인게임 확인 완료**: 감독 PC(FSR1) 런에서 가사 셰이더 c255 = (1, 2, −1, 0) → **K=2 확정**
   (좌/상도 2번째 텍셀까지 — clearance 2로 충분). 가사 드로우 순간 720p 프레임 3장(서로 다른
   가사 줄) 확대 결과 조각선 없음. 증거: Desktop\imas2pc\_incoming\v15_lyrics_check\.
+---
+
+## 30. DLC 번역 대상 추출 → 웹앱 dlc 분류 (2026-10-21, 시딩은 사용자 실행 대기)
+
+- 소스: 360 DLC(Desktop\imas2dlc, PC 포트 주입 대상 = 기준 축) + PS3 DLC zip
+  (업로드본, 보조 병합). 원본 불변 — 사본만 imas2dec 복호(_cache\dlc).
+  360 파일은 packageInfo.pac(평문 TSK)만 평문, catalog/mail/lyrics XMB는 암호화.
+- 도구: tools/image_text/dlc_text.py extract — 전 XMB를 parse_xmb로 덤프,
+  파일 내 중복 id(아이템명/설명이 같은 id 상속)는 ".n" 서수,
+  catalog/packageInfo는 컨테이너 내 XMB 서수(xN.) 포함 키. PS3↔360은
+  jp 전문 일치로 1행 병합(meta.src에 양쪽 위치), 불일치만 "#ps3" 분리.
+- 결과 **총 3,242행**: mail 1,657(양플랫폼 1,627) / package 629(병합 282) /
+  catalog 586(360 전용 — 카탈로그는 360에만 XMB) / songinfo 364(DLC 신곡
+  14곡 가사, 360 전용) / ranker 6(PS3 전용). 플랫폼 간 jp 불일치 14행.
+  본편 기번역(jp 전문 일치) 제안 0건 — 전부 신규 텍스트. 폰트 매핑 검사
+  이상 없음(제안 kr 없음; 웹앱이 입력 시 2,359자 기준으로 행별 경고).
+- 웹앱: webapp_seed에 rows_dlc(--only dlc), webapp_build nav에 DLC 대분류
+  (5그룹), webapp_pull dlc(→dlc_translations.json + songinfo는
+  xmb_translations의 songinfo/<곡>으로 병합해 dance_lyrics 빌드 재사용 가능).
+  **원격 시딩·프런트 재배포는 사용자 실행 대기** (명령:
+  `python webapp_seed.py --only dlc --code <팀암호>`, 이후 빌드+푸시=배포).
+- PS3 DLC 무수정 왕복 조사: **불가(현재 도구)** — imas2dec는 복호 전용
+  (PS3/PS3 DLC/G4U/360 지원 표기), scb_common.decrypt_scb(본편 키 테이블)로는
+  DLC가 쓰레기로 풀림 = DLC는 별도 키 체계. 재주입이 필요해지면
+  (a) imas2dec의 DLC 키 테이블 확보해 encrypt_to_scb 확장 또는
+  (b) PS3도 평문 수용인지 실기 확인. PC 포트(1순위)는 평문이라 무관.

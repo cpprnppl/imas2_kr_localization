@@ -153,6 +153,8 @@ def seed_rows(code, only, force):
         batches.append(("script", rows_script()))
     if only in (None, "image"):
         batches.append(("image", rows_image()))
+    if only in (None, "dlc"):
+        batches.append(("dlc", rows_dlc()))
     prefer = "resolution=merge-duplicates,return=minimal" if force else \
         "resolution=ignore-duplicates,return=minimal"
     for name, rows in batches:
@@ -202,10 +204,25 @@ def upload_thumbs(service_key):
     return True
 
 
+def rows_dlc():
+    """dlc_text.py extract 산출(dlc_texts.json) → rows. 그룹: mail/catalog/package/songinfo/ranker."""
+    p = os.path.join(HERE, "dlc_texts.json")
+    if not os.path.exists(p):
+        print("  dlc: dlc_texts.json 없음 — 먼저 python dlc_text.py extract")
+        return []
+    d = json.load(open(p, encoding="utf-8"))
+    out = []
+    for rid, v in d.items():
+        out.append({"id": rid, "cat": "dlc", "grp": v["grp"], "seq": v["seq"],
+                    "key": v["key"], "jp": v["jp"], "kr": v.get("kr", ""),
+                    "st": v.get("st", 0), "ts": 0, "by": "", "meta": v.get("meta", {})})
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--code", help="팀 암호 (rows 시딩)")
-    ap.add_argument("--only", choices=["xmb", "script", "image"])
+    ap.add_argument("--only", choices=["xmb", "script", "image", "dlc"])
     ap.add_argument("--force-merge", action="store_true",
                     help="기존 행 덮어쓰기 (팀 수정 소실 주의)")
     ap.add_argument("--thumbs", action="store_true", help="썸네일 업로드")

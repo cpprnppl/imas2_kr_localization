@@ -27,6 +27,12 @@ XMB_GROUPS = [("install", "설치/트로피 메시지", "text/install.xmb"),
               ("lyrics", "곡 가사 (22곡)", None)]   # songinfo/<곡>/lyrics_*.xmb, 키 = 곡코드/LYR_nnn
 REL2GRP = {rel: g for g, _l, rel in XMB_GROUPS if rel}
 
+DLC_GROUPS = [("mail", "DLC 메일 (캐릭터별)"),
+              ("catalog", "카탈로그 (아이템명·설명)"),
+              ("package", "패키지 정보"),
+              ("songinfo", "DLC 신곡 가사"),
+              ("ranker", "랭커 NPC")]
+
 IMAGE_GROUP_LABELS = {
     "bg2d": "배경 (bg2d)", "game": "레슨·ALF·앨범 (game)", "iface": "선택 화면 (iface)",
     "interface": "인터페이스 (interface)", "mail": "메일 (mail)",
@@ -105,6 +111,8 @@ def main():
              "groups": [{"g": g, "label": l} for g, l, _r in XMB_GROUPS]},
             {"cat": "script", "label": "게임 스크립트", "groups": script_groups()},
             {"cat": "image", "label": "이미지 텍스트", "groups": image_groups()},
+            {"cat": "dlc", "label": "DLC",
+             "groups": [{"g": g, "label": l} for g, l in DLC_GROUPS]},
         ],
     }
     tpl = open(os.path.join(HERE, "webapp_template.html"), encoding="utf-8").read()
