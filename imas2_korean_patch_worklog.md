@@ -1469,5 +1469,12 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   구조 오류 0, 쓰인 한글 983자 전부 폰트에 있음. 배포는 사용자 승인 대기(권한 분류기가 공유 리소스 변경으로 차단).
   PS3 resource를 원본으로 읽는 도구(game_xmb·extract_image_text·coverage_scan·emoji_assets·xmb_text 스테이징)는
   extract_image_text.ps3_src(rel)로 순정 사본 우선 — 배포 뒤 게임 폴더 재추출 오염 방지.
+- game_kor 배포(05:56~57, 잠금 해제 후 정상 경로): pcport_apply 71파일(NPC 명단 원문 일치 수정) + gamedata_apply 23파일(내장 SCB 포함).
+  1배 확인(game_kor, 부팅→유닛 선택→새 유닛→멤버 선택→1주차 일정, GERR 0): 확인창·유닛 선택·아이돌 선택 카드·지도 대사 한글.
+  **멤버 선택 카드 큰 이름 = profile fullname**(위 작은 줄 = fullname_h), 나이 '(16)'은 고정 위치 — 추정 195.5px
+  (키사라기 치하야·아키즈키 리츠코·타카츠키 야요이·하기와라 유키호)만 겹치고 169.5px(아마미 하루카)는 여유. 공백 제거 시 182px.
+  남은 일본어: はい/いいえ·메인 메뉴 라벨(그림), 실행 파일 문자열(全国ファン人数·エリア 라벨·小鳥 이름표 — 주입 경로 없음),
+  선택지 説明をきく/断る(웹 미번역). NPC 이름(주말 랭킹)·소개 대사(Y)·dress_select는 이번 런에서 못 봄. 세이브 kor_0558_before 복원.
+  웹앱: 짧은 칸(이름·유닛명 등, 12자 이하 단일 행, 가사 제외) 폭 초과 경고 — meta.wpx로 실측 칸 폭 지정 가능.
 - 360 내장 SCB 시험 빌드: member_select 45/45, ScheduleSelect 107/121, dress_select 36/41, attract 10/12, mail_produce 3/3
   한국어(나머지는 같은 원문의 게임 스크립트 번역이 없음).
