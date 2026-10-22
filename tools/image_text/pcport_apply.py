@@ -1,0 +1,398 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+웹앱 회수분 → PC 포트(360 리소스) 적용: 이미지 작업본 + 내장/단독 XMB 번역
+
+360 파일은 PS3와 다르다(텍스처 'NTXR' 바이트스왑·360 전용 포맷 코드) → PS3
+patched/ 산출물을 복사하면 안 됨(§26: PS3 산출물 복사 = 크래시 전례).
+이 도구는 PC 포트 원본(암호화)의 **사본을 복호화**해서 직접 주입한다.
+
+텍스처: PS3 jp/<rel>_<n>.png(원본 덤프)와 360 원 페이로드를 후보 디코더로 풀어
+가장 일치하는 방식(바이트스왑/포맷)을 텍스처마다 자동 판별(원본 일치 PSNR≥30
+필수) → 같은 방식의 역변환으로 kr/ 작업본 인코드 → 재디코드 게이트(≥33dB,
+inject_image_text.PSNR_OVERRIDES 예외 공유). 크기·치수 불변, 제자리 덮기.
+XMB: xmb_translations.json의 키(text/install.xmb, ranker/ranker_npc.xmb,
+scene/exep_init.mpc=NPC 명단 — 360에선 여러 pac에 같은 표가 복제)를 원시 한글
+(직접 등록 체제, 매핑 미적용)로. 내장 XMB가 커지면 pac 재조립(엔트리 시프트,
+테이블·헤더 크기합 갱신, 비대상 엔트리 바이트 불변 검증).
+가사(dance pac)는 dance_lyrics.py가 따로 담당.
+
+  python pcport_apply.py build     # out_pcport/ 생성 + 검증 (게임 폴더 불변)
+  python pcport_apply.py deploy    # **game_kor 사본에만** 교체 (+patched_dance 가사)
+
+배포 대상 (2026-10-22 리컴파일 감독 합의): build_imas2_o2\\game은 모든 세션의
+회귀 기준선이므로 절대 교체하지 않는다. imas2pc\\game_kor(통째 사본)에만 주입하고
+실행은 IMAS2PC_DISC_ROOT=...\\game_kor 로 한다. 읽기 원본은 공유 game(불변).
+산출물·사본은 git/zip/공유노트에 넣지 않는다(저작권).
+"""
+import os
+import sys
+import json
+import time
+import shutil
+import struct
+import hashlib
+import argparse
+import subprocess
+
+import numpy as np
+from PIL import Image
+
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+from extract_image_text import OUT_DEFAULT, IMAS2DEC, walk_nuts, decode_texture  # noqa: E402
+from inject_image_text import encode_texture, psnr, PSNR_OVERRIDES  # noqa: E402
+from xmb_text import parse_xmb, collect_texts, rebuild_xmb  # noqa: E402
+from dlc_images import swap16  # noqa: E402
+
+PORT = r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game\resource"   # 읽기 전용 원본
+KOR_ROOT = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor"                    # 배포 대상 사본
+KOR_RES = os.path.join(KOR_ROOT, "resource")
+LOCK = r"C:\Users\jackfilm\Desktop\imas2pc\gpu_run.lock"
+PATCHED_DANCE = os.path.join(OUT_DEFAULT, "patched_dance")
+CACHE = os.path.join(OUT_DEFAULT, "_cache", "pcport")
+OUT = os.path.join(OUT_DEFAULT, "out_pcport")
+KR = os.path.join(OUT_DEFAULT, "kr")
+JPD = os.path.join(OUT_DEFAULT, "jp")
+NPC_PREFIX = ("NPCP_", "NPCU_", "NPCS_", "PROD_")
+
+
+def sha(b):
+    return hashlib.sha256(b).hexdigest()
+
+
+def decrypt_port(rel):
+    """PC 포트 원본 사본을 복호화(캐시). 원본 불변."""
+    src = os.path.join(PORT, rel)
+    dst = os.path.join(CACHE, rel.replace("\\", "__"))
+    if not os.path.exists(dst):
+        os.makedirs(CACHE, exist_ok=True)
+        shutil.copy2(src, dst)
+        if open(dst, "rb").read(4) not in (b"pac\x00", b"XMB ", b"TSK ", b"NTXR", b"NTP3"):
+            pr = subprocess.Popen([IMAS2DEC, dst], cwd=CACHE, stdout=subprocess.DEVNULL,
+                                  stderr=subprocess.DEVNULL)
+            for _ in range(1200):
+                if os.path.exists(dst + ".dec") and os.path.getsize(dst + ".dec") > 0:
+                    time.sleep(0.5)
+                    break
+                time.sleep(0.1)
+            try:
+                pr.kill()
+            except OSError:
+                pass
+            if not os.path.exists(dst + ".dec"):
+                raise RuntimeError(f"복호화 실패: {rel}")
+            os.replace(dst + ".dec", dst)
+    return open(dst, "rb").read()
+
+
+# ---------------------------------------------------------------- 텍스처 코덱 후보
+
+def _dec_1555(raw, w, h):
+    v = np.frombuffer(raw[:w * h * 2], ">u2").reshape(h, w).astype(np.uint32)
+    o = np.zeros((h, w, 4), np.uint8)
+    o[..., 0] = ((v >> 10) & 31) * 255 // 31
+    o[..., 1] = ((v >> 5) & 31) * 255 // 31
+    o[..., 2] = (v & 31) * 255 // 31
+    a = np.where(v >> 15, 255, 0)
+    o[..., 3] = a if a.any() else 255
+    return o
+
+
+def _enc_1555(img):
+    f = img.astype(np.float32)
+    r = np.clip(np.round(f[..., 0] * 31 / 255), 0, 31).astype(np.uint16)
+    g = np.clip(np.round(f[..., 1] * 31 / 255), 0, 31).astype(np.uint16)
+    b = np.clip(np.round(f[..., 2] * 31 / 255), 0, 31).astype(np.uint16)
+    a = (img[..., 3] >= 128).astype(np.uint16)
+    return ((a << 15) | (r << 10) | (g << 5) | b).astype(">u2").tobytes()
+
+
+def candidates(fmt):
+    """(이름, dec(raw,w,h), enc(img)) — 360 헤더 fmt 코드별."""
+    out = []
+    ps3 = {0: "DXT1", 1: "DXT3", 2: "DXT5"}
+    if fmt in ps3:
+        nm = ps3[fmt]
+        out.append((f"{nm}+swap16",
+                    lambda r, w, h, f=fmt: decode_texture(f, swap16(r), w, h),
+                    lambda im, nm=nm: swap16(encode_texture(nm, im))))
+        out.append((f"{nm}",
+                    lambda r, w, h, f=fmt: decode_texture(f, r, w, h),
+                    lambda im, nm=nm: encode_texture(nm, im)))
+    if fmt in (14, 17, 19):
+        out.append(("ARGB32", lambda r, w, h: decode_texture(14, r, w, h),
+                    lambda im: encode_texture("ARGB32", im)))
+        out.append(("ARGB32+swap16", lambda r, w, h: decode_texture(14, swap16(r), w, h),
+                    lambda im: swap16(encode_texture("ARGB32", im))))
+        out.append(("BGRA32",
+                    lambda r, w, h: np.frombuffer(r[:w * h * 4], np.uint8)
+                    .reshape(h, w, 4)[..., [2, 1, 0, 3]].copy(),
+                    lambda im: im[..., [2, 1, 0, 3]].tobytes()))
+        out.append(("RGBA32",
+                    lambda r, w, h: np.frombuffer(r[:w * h * 4], np.uint8).reshape(h, w, 4).copy(),
+                    lambda im: im.tobytes()))
+    if fmt in (6, 10):
+        out.append(("ARGB1555", _dec_1555, _enc_1555))
+        out.append(("RGB565", lambda r, w, h: decode_texture(6, r, w, h),
+                    lambda im: encode_texture("RGB565", im)))
+    if fmt in (7, 11):
+        out.append(("ARGB4444", lambda r, w, h: decode_texture(7, r, w, h),
+                    lambda im: encode_texture("ARGB4444", im)))
+    return out
+
+
+def kr_jobs():
+    """kr/<reldir>/<stem>_<nnn>.png → {rel: [(n, path)]} (PS3 상대경로 = 포트 상대경로)."""
+    import re
+    idx = json.load(open(os.path.join(OUT_DEFAULT, "index.json"), encoding="utf-8"))
+    by = {}
+    pat = re.compile(r"^(.+)_(\d{3})\.png$")
+    for dp, _d, fns in os.walk(KR):
+        reldir = os.path.relpath(dp, KR)
+        reldir = "" if reldir == "." else reldir
+        for fn in fns:
+            m = pat.match(fn)
+            if not m:
+                continue
+            hit = next((rel for rel in idx if os.path.dirname(rel) == reldir
+                        and os.path.splitext(os.path.basename(rel))[0] == m.group(1)), None)
+            if hit:
+                by.setdefault(hit, []).append((int(m.group(2)), os.path.join(dp, fn)))
+    return by
+
+
+def apply_textures(rel, data, jobs, log, unmatched):
+    """PS3 텍스처 n ↔ 360 텍스처는 **번호가 아니라 내용으로** 짝짓는다(360판은 텍스처
+    순서·구성이 다른 파일이 있음). 같은 치수의 360 텍스처 전부를 후보 디코더로 풀어
+    PS3 원본 덤프와 가장 닮은 것(≥30dB)을 고른다. 없으면 360판 내용이 다른 것
+    (예: 튜토리얼의 Xbox 버튼 그림) → 적용하지 않고 unmatched에 기록."""
+    data = bytearray(data)
+    t360 = walk_nuts(bytes(data).replace(b"NTXR", b"NTP3"), lambda *a: None)
+    stem = os.path.splitext(os.path.basename(rel))[0]
+    used = set()
+    done = 0
+    for n, png in sorted(jobs):
+        jp_png = os.path.join(JPD, os.path.dirname(rel), f"{stem}_{n:03d}.png")
+        ref = np.asarray(Image.open(jp_png).convert("RGBA"), np.uint8)
+        best = None
+        for k, t in enumerate(t360):
+            if k in used or (t["h"], t["w"]) != ref.shape[:2]:
+                continue
+            raw = bytes(data[t["data_off"]:t["data_off"] + t["data_size"]])
+            for name, dec, enc in candidates(t["fmt"]):
+                try:
+                    p = psnr(dec(raw, t["w"], t["h"]), ref)
+                except Exception:  # noqa: BLE001
+                    continue
+                if best is None or p > best[0]:
+                    best = (p, name, dec, enc, k, t, raw)
+        if best is None or best[0] < 30:
+            why = "같은 치수 텍스처 없음" if best is None else f"최고 일치 {best[0]:.1f}dB"
+            unmatched.append(f"{rel}#{n:03d} ({ref.shape[1]}x{ref.shape[0]}): 360판에 같은 그림 없음 — {why}")
+            log(f"    [미적용] PS3 #{n:03d}: 360판 대응 없음 ({why})")
+            continue
+        _p, name, dec, enc, k, t, raw = best
+        used.add(k)
+        img = np.asarray(Image.open(png).convert("RGBA"), np.uint8)
+        if img.shape[:2] != (t["h"], t["w"]):
+            raise ValueError(f"{rel}#{n}: 작업본 치수 불일치")
+        new = enc(img)
+        if len(new) < t["data_size"]:          # 밉 없는 상위 1장만 — 나머지(밉)는 원본 유지
+            new = new + raw[len(new):]
+        if len(new) != t["data_size"]:
+            raise ValueError(f"{rel}#{n}: 인코드 크기 {len(new)} != {t['data_size']}")
+        q = psnr(dec(new, t["w"], t["h"]), img)
+        ov = PSNR_OVERRIDES.get(f"{rel}#{n:03d}")
+        lim = ov["min"] if ov else 33.0
+        if q < lim:
+            raise ValueError(f"{rel}#{n}: 재디코드 {q:.1f}dB < {lim}")
+        data[t["data_off"]:t["data_off"] + t["data_size"]] = new
+        done += 1
+        log(f"    PS3#{n:03d}→360#{k:03d} fmt{t['fmt']}/{name} 원본일치 {_p:.0f}dB, 작업본 {q:.1f}dB")
+    return bytes(data), done
+
+
+# ---------------------------------------------------------------- XMB
+
+def parse_pac(data):
+    cnt = struct.unpack_from(">H", data, 0x20)[0]
+    ents = []
+    for i in range(cnt):
+        off = 0x40 + i * 32
+        size, ofs = struct.unpack_from(">II", data, off + 8)
+        ents.append({"i": i, "tbl": off, "size": size, "ofs": ofs})
+    last = max(ents, key=lambda e: e["ofs"])
+    ds = len(data) - last["ofs"] - last["size"]
+    return ents, ds
+
+
+def rebuild_pac(data, ents, ds, repl_blobs):
+    parts, tbl, pos = [], [], 0
+    for e in sorted(ents, key=lambda x: x["ofs"]):
+        blob = repl_blobs.get(e["i"], data[ds + e["ofs"]: ds + e["ofs"] + e["size"]])
+        tbl.append((e["tbl"], len(blob), pos))
+        pad = (-len(blob)) % 16
+        parts += [blob, b"\x00" * pad]
+        pos += len(blob) + pad
+    out = bytearray(data[:ds]) + b"".join(parts)
+    lt = max(tbl, key=lambda t: t[2])
+    out = out[:ds + lt[2] + lt[1]]
+    for t, size, ofs in tbl:
+        struct.pack_into(">II", out, t + 8, size, ofs)
+    struct.pack_into(">I", out, 0x08, sum(s for _, s, _ in tbl))
+    return bytes(out)
+
+
+def xmb_repl_for(texts, kr_by_id):
+    repl = {}
+    for t in texts:
+        s = kr_by_id.get(t["id"])
+        if s:
+            repl[t["attr"]] = s
+    return repl
+
+
+def apply_xmb(rel, data, tr, log):
+    """단독 XMB면 그대로, pac이면 NPC 명단 XMB(들)를 교체."""
+    if data[:4] == b"XMB ":
+        key = rel.replace("\\", "/")
+        kr = {k: v["kr"] for k, v in tr.get(key, {}).items() if v.get("kr")}
+        repl = xmb_repl_for(collect_texts(parse_xmb(data, 0)), kr)
+        if not repl:
+            return data, 0
+        return rebuild_xmb(data, 0, repl, lambda *a: None, allow_grow=True), len(repl)
+    if data[:4] != b"pac\x00":
+        return data, 0
+    npc = {k: v["kr"] for k, v in tr.get("scene/exep_init.mpc", {}).items() if v.get("kr")}
+    ents, ds = parse_pac(data)
+    blobs, n = {}, 0
+    for e in ents:
+        seg = data[ds + e["ofs"]: ds + e["ofs"] + e["size"]]
+        if seg[:4] != b"XMB ":
+            continue
+        try:
+            texts = collect_texts(parse_xmb(seg, 0))
+        except Exception:  # noqa: BLE001
+            continue
+        if not any(t["id"].startswith(NPC_PREFIX) for t in texts):
+            continue
+        repl = xmb_repl_for(texts, npc)
+        if repl:
+            blobs[e["i"]] = rebuild_xmb(seg, 0, repl, lambda *a: None, allow_grow=True)
+            n += len(repl)
+    if not blobs:
+        return data, 0
+    out = rebuild_pac(data, ents, ds, blobs)
+    # 검증: 비대상 엔트리 바이트 불변 + 대상 재파싱
+    ents2, ds2 = parse_pac(out)
+    for e, e2 in zip(sorted(ents, key=lambda x: x["i"]), sorted(ents2, key=lambda x: x["i"])):
+        a = data[ds + e["ofs"]: ds + e["ofs"] + e["size"]]
+        b = out[ds2 + e2["ofs"]: ds2 + e2["ofs"] + e2["size"]]
+        if e["i"] in blobs:
+            got = {t["id"]: t["text"] for t in collect_texts(parse_xmb(b, 0))}
+            for tid, s in npc.items():
+                if tid in got:
+                    assert got[tid] == s, f"{rel}: {tid} 불일치"
+        else:
+            assert a == b, f"{rel}: 엔트리 {e['i']} 변형"
+    log(f"    XMB NPC 명단 {len(blobs)}개 표, {n}칸 교체 ({len(data):,}→{len(out):,}B)")
+    return out, n
+
+
+# ---------------------------------------------------------------- build / deploy
+
+def build():
+    tr = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
+    jobs = kr_jobs()
+    targets = set(jobs)
+    targets |= {"text\\install.xmb", "ranker\\ranker_npc.xmb"}
+    # NPC 명단 표가 들어있는 pac (PS3 전수 조사 기준 위치)
+    targets |= {"game\\alf\\alf_common.mpc", "interface\\NationwideRanking.mpc",
+                "interface\\ScheduleSelect.mpc", "scene\\produce_etc.mpc",
+                "scene\\exep_commu.mpc", "scene\\exep_init.mpc"}
+    if os.path.exists(OUT):
+        shutil.rmtree(OUT)
+    report = {"ok": [], "skip": [], "fail": [], "unmatched": []}
+    for rel in sorted(targets):
+        if not os.path.exists(os.path.join(PORT, rel)):
+            report["skip"].append(f"{rel}: PC 포트에 없음(360판 미포함)")
+            continue
+        if rel.lower().endswith(".s2d"):
+            # 360판 s2d는 imas2dec 미지원 형식(선두 0F F5 12 ED — 압축 추정). 별도 과제.
+            report["skip"].append(f"{rel}: 360 s2d 복호화 미지원(별도 조사 필요)")
+            continue
+        print(f"▶ {rel}")
+        try:
+            data = decrypt_port(rel)
+            n_tex = n_x = 0
+            if rel in jobs:
+                data, n_tex = apply_textures(rel, data, jobs[rel], print, report["unmatched"])
+            data, n_x = apply_xmb(rel, data, tr, print)
+            if n_tex + n_x == 0:
+                report["skip"].append(f"{rel}: 적용할 번역 없음")
+                continue
+            dst = os.path.join(OUT, rel)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            open(dst, "wb").write(data)
+            report["ok"].append({"rel": rel, "tex": n_tex, "xmb": n_x, "size": len(data),
+                                 "sha256": sha(data)})
+        except Exception as e:  # noqa: BLE001
+            print(f"    [실패] {e}")
+            report["fail"].append(f"{rel}: {e}")
+    json.dump(report, open(os.path.join(OUT, "_report.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+    print(f"\n성공 {len(report['ok'])} / 스킵 {len(report['skip'])} / 실패 {len(report['fail'])}"
+          f" / 360판 대응 없는 텍스처 {len(report['unmatched'])}")
+    for s in report["unmatched"]:
+        print("  [미적용]", s)
+    for s in report["skip"]:
+        print("  [스킵]", s)
+    for s in report["fail"]:
+        print("  [실패]", s)
+    return report
+
+
+def deploy():
+    if os.path.exists(LOCK):
+        sys.exit(f"[중단] {LOCK} 존재 — 게임 실행 중. 끝난 뒤 다시.")
+    if not os.path.isdir(KOR_RES):
+        sys.exit(f"[중단] 사본 없음: {KOR_RES} — build_imas2_o2\\game을 통째 복사 먼저")
+    rep = json.load(open(os.path.join(OUT, "_report.json"), encoding="utf-8"))
+    if rep["fail"]:
+        sys.exit("[중단] build 실패 항목 있음")
+    items = [dict(it, src=os.path.join(OUT, it["rel"])) for it in rep["ok"]]
+    for p in sorted(os.listdir(PATCHED_DANCE)) if os.path.isdir(PATCHED_DANCE) else []:
+        b = open(os.path.join(PATCHED_DANCE, p), "rb").read()
+        items.append({"rel": os.path.join("dance", p), "sha256": sha(b),
+                      "src": os.path.join(PATCHED_DANCE, p)})
+    stamp = time.strftime("%Y%m%d_%H%M%S")
+    bdir = os.path.join(os.path.dirname(KOR_ROOT), f"game_kor_backup_{stamp}")
+    mani = []
+    for it in items:
+        rel = it["rel"]
+        src = it["src"]
+        dst = os.path.join(KOR_RES, rel)
+        b = os.path.join(bdir, rel)
+        os.makedirs(os.path.dirname(b), exist_ok=True)
+        shutil.copy2(dst, b)
+        orig_sha = sha(open(b, "rb").read())
+        shutil.copy2(src, dst)
+        assert sha(open(dst, "rb").read()) == it["sha256"]
+        mani.append({"rel": rel, "orig_sha256": orig_sha, "new_sha256": it["sha256"]})
+        print(f"배포: {rel}")
+    json.dump(mani, open(os.path.join(bdir, "manifest.json"), "w", encoding="utf-8"), indent=1)
+    print(f"{len(mani)}개 배포 → {KOR_RES}\n백업·매니페스트: {bdir}")
+    print("실행: IMAS2PC_DISC_ROOT=" + KOR_ROOT + " (공유 game은 불변)")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("cmd", choices=["build", "deploy"])
+    a = ap.parse_args()
+    build() if a.cmd == "build" else deploy()
+
+
+if __name__ == "__main__":
+    main()

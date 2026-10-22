@@ -41,6 +41,984 @@
    "over": {},
    "mode": "text",
    "text": "아이치"
+  },
+  "8a0f30d06d5aca0c14c4e55c7c464182": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "타루키정, 라멘"
+  },
+  "67d383702c80e77dcd79ef08fb1c975d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "타루키정, 라멘"
+  },
+  "2d9f8f62e21c4cacc0aac9b1303f7f54": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "자판기"
+  },
+  "7b91f32de4467b5083d403eca8067eaa": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "우유가 들어간! 믹스 프루츠 쥬스 과즙 10%\n옥로가 들어간 녹차 국산잎사용\n다이노소다 두뇌풀회전\n쓴맛 100%\n본고장의 맛! 카페오레 우유30%사용\n초고급 오렌지 쥬스 과즙100%"
+  },
+  "aaecd97c5820985f5bf51a8bad0fb512": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "커피\n홍차\n조금\n많이"
+  },
+  "a935a28122850a756526b8687192d684": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "부적 INFO"
+  },
+  "08a2dfa69031be557ed079c4cbe1b02d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "업무 결과"
+  },
+  "f7087ef3465399e290197577c73bc18a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "유닛 이미지"
+  },
+  "36151c27f743a22a0f56b4a54885be2d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "회장 흥분도"
+  },
+  "58b2e197cf63f4c84534b6c6d88ac2d0": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n오디션 규칙 1"
+  },
+  "5f9db0e93b5701861d39a87129b77b73": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n오디션 규칙 2"
+  },
+  "6ce35f90bcb2acdabd7c984e3bc4af34": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n기본 규칙 1"
+  },
+  "ea336df60ec7bbf20d4e04451d3cc76b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n기본 규칙 2"
+  },
+  "5208a112fd5bbb94512f83e53a95a6e7": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "사진 선택"
+  },
+  "d2805e27764c0b74dfa2268c80fe5771": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "앨범 영상"
+  },
+  "ae64fc085af4cc7aa89a3e36cd95d0f3": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "앨범 사진"
+  },
+  "c5ed033541304bc374bbe390959024ed": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "기쁘게"
+  },
+  "92d8dc36c7249be8918a018dabd1883f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "즐겁게"
+  },
+  "8ae887d691e2ae186e50cf27230a4446": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "애절하게"
+  },
+  "9952e321cd55ed36dac9bf51b81ea20d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "슬프게"
+  },
+  "2052017789d5e804b3dc21b59750d732": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "격렬하게"
+  },
+  "eea6847fe74f68ad7309c6069b65c306": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "가사 패널"
+  },
+  "8918ac9b1e6d5e8ddbb4af28a16bf206": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "기쁘게"
+  },
+  "df8cb66090abd89b8dc0ae3b6e85fe8a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "즐겁게"
+  },
+  "582a941798f03552857e6272e839e220": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "애절하게"
+  },
+  "a63019921f010e2256f7d8b7520ea283": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "귀엽게"
+  },
+  "09645c75f3dd9dc7250e415fb09bc28a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "슬프게"
+  },
+  "622d7cd209d8a857405d1cdb312f3f93": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "격렬하게"
+  },
+  "2a333ee8360956f3947be97d9959d900": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "가사 패널"
+  },
+  "f7ed1fa861c3c128ca5f2543468b55c8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "가사 패널"
+  },
+  "c6c2c84de61c628466eff386d58004b5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "가사 패널"
+  },
+  "46150af271cd8a05e0a22333180ff7ca": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "가사 패널"
+  },
+  "c030ad1251642569ee96ff843116fc01": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "가사 패널"
+  },
+  "c67030366169fa8bb273f559d11b6cfe": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "예시"
+  },
+  "28bcec13837a3daf9ca5306f73245045": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "팬레터"
+  },
+  "81e676d5805124b5f9781b596e63c0ba": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "acfaa8fe2d01904308b33f808ed8c142": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "6dd0886ce98589c9faa56946128ca3a2": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "c45e9be8555ea424b570c165f2abe5e6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "b9d795f155d29b9f909a4ce87af6700a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "fcc78b1f72dbc17e6a968ec77628b37d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "03df4953f8739abf00e53cb07ac1a8af": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "dd0be5a679b53ea44a68b759c4427603": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "feb8d9c501f24fcc4089383aa6fe8cf7": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "bfc32374c727e2101a042190896cf804": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "25083760473f23911265155e1a940257": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "9716167ff75e56e0d4e2f096ac5cee5a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "b407a0b70849cbf22f8236eac776407e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "baaf67492a90b7c0735012f7c74fe358": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "2763acf5846e4a86d29935d035e0145d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765프로덕션 귀중"
+  },
+  "78403b3997998e0100450c28120427ac": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아이돌 선택"
+  },
+  "095521029b65c31cb27fb146334ed8c6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "멤버 선택"
+  },
+  "d78e7f619dda16e0df07b55d3bb9c80b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "게스트 선택"
+  },
+  "6743a61920b739b0913a71ab568f2aa9": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "신곡 선택"
+  },
+  "7fa3cebaabcc6496ceac33f46df2b446": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "곡 선택"
+  },
+  "6c22f05bcc7349526862e1766fa6d139": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "닷톱 TV"
+  },
+  "d4df142773b58e0d469fb0bf05deef4b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "스킵"
+  },
+  "8ce5b4926592c91843b908233e35bde4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "다음"
+  },
+  "c466acc1b2d17d10c181f3344cac7f06": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "종료"
+  },
+  "d42f511db6a434b5fc2afda32d03db0e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주"
+  },
+  "4ab2b8aae819ad84e58e6f7efa265c1e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "활동"
+  },
+  "d6db8045ce271b45ef9fd4f0fd19caf5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "DANKETSU"
+  },
+  "969e1f72fa2afa847dcdddc86a102550": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "전국 팬 수"
+  },
+  "fc6db4299dac6ef03cc4cab09261b4af": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "남은"
+  },
+  "14a15a72dec5e73f0734f7f16b14b5a2": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "활동\n주차 일정"
+  },
+  "4d15ce532530c7f61ead3ae8db98b9d6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "업무 건수"
+  },
+  "96f5cad16732be8ee4efcd63ea8e04e4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "기자"
+  },
+  "19195f0c540f69afe79e6d22eacc6381": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "북동 지역"
+  },
+  "1da00f14b08210d563c58de76fd1af03": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "수도 지역"
+  },
+  "e5bea91376d3bedf09276e3446932099": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "중앙 지역"
+  },
+  "299add00dc36653463d33585822d8293": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "관서 지역"
+  },
+  "9faa085c946b593ee7a51f93fe447eef": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "서부 지역"
+  },
+  "f987e2374173e150fb440516d18c4f90": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "남부 지역"
+  },
+  "2700a2ad950d99cd2cafb39303e35ad5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "비용"
+  },
+  "103fb01dde6f64bb67a08071bcbdc7d5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "업무 내용"
+  },
+  "bc3630c7875eabb85a406aa92cd06e78": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "남부"
+  },
+  "cfa0acf3cd7ebc24d446aa13a0762abd": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "서부"
+  },
+  "dd0667e5564219376d56db1be9fad27a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "관서"
+  },
+  "83febb6396d7015c6bf67f7c8cb2ea62": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "중앙"
+  },
+  "46363dddef37892646a89d44a2799ff2": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "수도"
+  },
+  "65adb6085b423e3bf62390d4821d3457": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "북동"
+  },
+  "9a56001b05cf5eaa335bfce6007d0af7": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "일정 선택\n업무 종류"
+  },
+  "5915c7b619b284a355645705c7e1f7e4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "기자에 따라 실루엣이 달라집니다"
+  },
+  "db7c750d9b959abba936d18ad758a66b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "일정 선택"
+  },
+  "c756eebc4190974ec030087528ec5580": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 최신 정보는 아이돌마스터 공식 홈페이지에서도 확인하실 수 있습니다"
+  },
+  "603dd4fedd5a09c742dc538c12b75142": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "곧바로GET!!"
+  },
+  "3d8da66942798185e9e10fd22fac7e0e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "765 상점 카탈로그"
+  },
+  "9ba1629cab403d6684e8de03af74fb57": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "코디네이트 선택"
+  },
+  "d7e2bbbdebfa32b9636abe7dfd0d2f66": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "보유 수량"
+  },
+  "61b9f7cd309595e66866e046f9ca4b8a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "개"
+  },
+  "84e71d3d73cb308933edfb9ff88c1dfd": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "랭크 외"
+  },
+  "7e5dbf7828af61ad44688fe3922838e7": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "프로듀서 랭크\n승격!!"
+  },
+  "674fff6b4b0a71352d14f80e7438180e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "프로듀서 랭크\n격하…"
+  },
+  "9d3e1d1ccd3f34ce8c004612aee8d8ee": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "프로듀서 랭크\n유지!"
+  },
+  "a0fe13544c69166a7130b77b146bc78b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "그룹 이미지 레벨\n최고 득점\n음반 매상 총액\n최고 차트 순위\n되감기 총합\n아이돌 아카데미\n사장 총평\n종합 평가"
+  },
+  "37bbb55a1dbb07c310448f6441633c62": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "종합 평가"
+  },
+  "0fbbd61c85bbb39354fd230896c5bc03": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "3스테이지 종합 득점\n사장 총평"
+  },
+  "afac4abe2cb24fcbf32b91bc66b7abfa": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "마츠오카 요시츠구"
+  },
+  "2e36264875a2af4f2acab69bd391d4d5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "테라시마 타쿠마"
+  },
+  "cdb61fa1e27f43ad251a79c788b702be": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "와카바야시 나오미"
+  },
+  "d54c925e1134e345343c55cd0c0d0487": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "타카하시 치아키"
+  },
+  "03f490c3dc4f0095825233ef894547bd": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "쿠기미야 리에"
+  },
+  "004925762c76e09fe2b577645c600623": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "캐스팅"
+  },
+  "acfaee38fd8884f5f3f784799073e6d9": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "BANDAI NAMCO Games Inc."
+  },
+  "f5c78c91f107faa5ea921d669d52f3ac": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "의상/액세서리 상점"
+  },
+  "0531f81bd96ce7b4991cab7f73424885": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "AMULET"
+  },
+  "b9a48db28d52162a2b87b8e96aeb7a45": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "포지션 변경"
+  },
+  "f174e43259040e233cd36f5e843ee980": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "PV 신작"
+  },
+  "0397ac286d8aecc6805de7925b0e3b91": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "곡 선택"
+  },
+  "f13f709be76a8a27d61a1a660226c0b5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "곡 점수 랭킹"
+  },
+  "8278638ff807b9fbaef0cccfcf24f638": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "팬 수 랭킹"
+  },
+  "2125e42b188bf11097e5ff1a90a9b12f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "폰트 라이선스"
+  },
+  "4b99d5d70e65578eadc63e82e824018a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "폰트 라이선스"
+  },
+  "51d5ae114b3047b3b199021e31206e19": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "BANDAI NAMCO Games Inc."
+  },
+  "735dd5bc65c8be9e01a5f4b9a1e214c3": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "타키타 쥬리"
+  },
+  "c06aa1e5406133d1a03a33f686cceeb4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "누마쿠라 마나미"
+  },
+  "fb2f3b3c9575244d1306a42340b8bff8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "하라 유미"
+  },
+  "e40879605f0bcf6e6766408611662ab8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아사쿠라 아즈미"
+  },
+  "86fc647ef2484ae0774007843eb9ae06": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "니고 마야코"
+  },
+  "c23ab26b012c6c2b0318198acc20c40d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "하세가와 아키코"
+  },
+  "ff0c67a8c6319cdc6b8debb6fd05b3e8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "나카무라 에리고"
+  },
+  "af03018aae26f69cbc2a6cf102579a77": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "(765프로·아이돌)\n캐릭터 원안\n쿠보오카 토시유키"
+  },
+  "7076983fdb7a27f94957dd25f4fc4639": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "메일"
+  },
+  "da49b6a3794ff945a2785f2284f374a5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "유닛 편집"
+  },
+  "8eecb1af6586b7128d2053c05a9d6bee": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "TIPS"
+  },
+  "d515b9d2b990a9b8562486f7f196f356": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "스테이지 선택"
+  },
+  "1ab4883e5d5e92cbcf9d2006dfdca316": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "곡 선택"
+  },
+  "3cd4acab53af36d939cb0033acf9c805": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "코디네이트 선택"
+  },
+  "a73854732f763e63cd5fbf0eb4145a0b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "무작위"
+  },
+  "e9c94cfabc7a676a061939f34bd35756": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "세트리스트"
+  },
+  "4e270be68ac00a9a3833281e5cf5f054": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "의상 선택"
+  },
+  "6b94c92475e9c07485f34afa3d0f68cd": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "스테이지 포 유!"
+  },
+  "60bea73f473b2b5fa78a29497ae5c0c0": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아이돌마스터"
+  },
+  "ff94d33791365e312a327cc48b133bb2": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주차"
+  },
+  "82df244a3904bc25d5390c183392e4ee": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "활동"
+  },
+  "11e987836f5224348dee0dfe57339b1b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "중앙 지역"
+  },
+  "a55e283be7ed66e0a305ed09f81a7bca": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "돗토리"
+  },
+  "c294f9dea5a454c937924b999820b6f4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "도쿠시마"
+  },
+  "3ab4a74f42000e14ee2dc9a8108dc647": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "수도 지역"
+  },
+  "1f3e3cf8aa37ec597679c2e06b2cc722": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "시즈오카"
+  },
+  "349a4a45105dad4b8118c2d978122303": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "시마네"
+  },
+  "d2107527ed30f13fd624c5c3fe63b6d7": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "시가"
+  },
+  "c3d483a06f585bcf1c95ab126b8db7e1": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "사가"
+  },
+  "8632daf770a42e6a36a14536c09f3ef5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "오키나와"
+  },
+  "01e9a985cd95fb5f28dfede81574d1d0": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "오카야마"
+  },
+  "c0744231dd384ecd0cf0950d04354463": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "서부 지역"
+  },
+  "6835520589cfd18d82c1f5d29f5a6e55": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "나가사키"
+  },
+  "e20cb6cb06797df7f3047c5c13780052": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "나가노"
+  },
+  "49bfa96b9c56de91b40a8e17a7d9e0c4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "미야자키"
+  },
+  "1bb9359d0e766e483a755d292cc2e1a8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "미야기"
+  },
+  "2ff1e8d9ec750d8aa1b8a6f930ff6ef5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "남부 지역"
+  },
+  "addda9485da8385a0eea0c7e30c3b78f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "관서 지역"
+  },
+  "d4dd27c7c1da233b1ada4ddac83c2a20": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "가고시마"
+  },
+  "88785784b3b0c2a8a7ab8be9659332a0": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "효고"
+  },
+  "c998d6064649818bc662d773f5672525": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "북동 지역"
+  },
+  "e104363d2ef3ea740c1d605b6e71c736": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "홋카이도"
+  },
+  "bdb48026ca8bee8d126f16934085857a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "히로시마"
+  },
+  "c3084e0ee4792ceea0d2fcfa76b5e1ee": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "군마"
+  },
+  "ec01d72ff951d09445e2786b3639c4b6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "후쿠시마"
+  },
+  "1c512a2cf24c5dcc18ca5944a2394649": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "후쿠오카"
+  },
+  "a03e387cd7638444bb526d01e489a50d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "에히메"
+  },
+  "f07512e58cc00aaff2d5f394988dc45d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지바"
+  },
+  "ba37c69c1c8d240ca5968cb651bf60ce": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아이돌마스터"
   }
  }
 }

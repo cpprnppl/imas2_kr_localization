@@ -18,7 +18,7 @@ pac 구조(dan_* 실측): 헤더 0x40(+0x08 = 엔트리 크기 합) / 엔트리 
 
 사용:
   python dance_lyrics.py build  [--songs twi,rdy] # kr 있는 곡 전부(기본) patched_dance/ 생성
-  python dance_lyrics.py deploy [--songs ...]     # PC 포트에 배포(.orig_kor 백업)
+  python dance_lyrics.py deploy [--songs ...]     # game_kor 사본에 배포(.orig_kor 백업)
 입력: 게임 트리의 dance pac(암호화여도 사본 복호화), xmb_translations.json의
 songinfo/<곡>/lyrics_<곡>.xmb 항목(kr). 직접 등록 체제 = 원시 한글(매핑 미적용).
 """
@@ -38,7 +38,9 @@ sys.path.insert(0, HERE)
 from extract_image_text import OUT_DEFAULT, IMAS2DEC  # noqa: E402
 from xmb_text import parse_xmb, find_xmb, collect_texts, rebuild_xmb  # noqa: E402
 
-PORT_RES = r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game\resource"
+PORT_RES = r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game\resource"   # 읽기 전용 원본
+# 배포는 사본에만 (2026-10-22 리컴파일 감독 합의: 공유 game = 전 세션 회귀 기준선)
+KOR_RES = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor\resource"
 CACHE = os.path.join(OUT_DEFAULT, "_cache", "dance")
 PATCHED = os.path.join(OUT_DEFAULT, "patched_dance")
 
@@ -196,7 +198,9 @@ def deploy(songs):
         song = name.split("_")[1]
         if songs and song not in songs:
             continue
-        dst = os.path.join(PORT_RES, "dance", name)
+        if not os.path.isdir(KOR_RES):
+            sys.exit(f"[중단] 사본 없음: {KOR_RES} (공유 game에는 배포하지 않음)")
+        dst = os.path.join(KOR_RES, "dance", name)
         bak = dst + ".orig_kor"
         if not os.path.exists(bak):
             shutil.copy2(dst, bak)

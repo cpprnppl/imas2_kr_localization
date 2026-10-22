@@ -1,0 +1,56 @@
+{
+ "ranker/npc_001:rankU_001": {
+  "jp": "初音ミク",
+  "kr": "하츠네 미쿠",
+  "meta": {
+   "src": [
+    "ps3:cp01/ranker/npc_001.xmb"
+   ]
+  }
+ },
+ "ranker/npc_003:rankU_003": {
+  "jp": "日高愛",
+  "kr": "히다카 아이",
+  "meta": {
+   "src": [
+    "ps3:cp03/ranker/npc_003.xmb"
+   ]
+  }
+ },
+ "ranker/npc_004:rankU_004": {
+  "jp": "初音ミク",
+  "kr": "하츠네 미쿠",
+  "meta": {
+   "src": [
+    "ps3:cp04/ranker/npc_004.xmb"
+   ]
+  }
+ },
+ "ranker/npc_005:rankP_005": {
+  "jp": "尾崎",
+  "kr": "오자키",
+  "meta": {
+   "src": [
+    "ps3:cp05/ranker/npc_005.xmb"
+   ]
+  }
+ },
+ "ranker/npc_005:rankU_005": {
+  "jp": "水谷絵理",
+  "kr": "미즈타니 에리",
+  "meta": {
+   "src": [
+    "ps3:cp05/ranker/npc_005.xmb"
+   ]
+  }
+ },
+ "ranker/npc_007:rankU_007": {
+  "jp": "秋月涼",
+  "kr": "아키즈키 료",
+  "meta": {
+   "src": [
+    "ps3:cp07/ranker/npc_007.xmb"
+   ]
+  }
+ }
+}
