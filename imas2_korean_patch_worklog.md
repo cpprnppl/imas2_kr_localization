@@ -1178,3 +1178,13 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   1,179개를 이미 포함 → 공유 폴더를 되돌려도 한글판은 game_kor에 온전. 향후 SCB·폰트
   PC 포트 배포도 대상을 game_kor로(deploy_pcport·deploy_fonts 경로 변경 필요).
   initialFix.mpc(게임 데이터 텍스트)는 game_kor의 폰트 주입본을 바탕으로 할 것.
+- **KOR 결정(2026-10-22)**: 공유 build_imas2_o2\game은 현 한글 상태(10-15 패치판) 그대로
+  유지. 새 번역 배포의 기본 대상은 **game_kor**. 이에 맞춰 배포 도구 변경:
+  - tools/scb/deploy_pcport.py: 기본 대상 game_kor\resource\gscript(매니페스트
+    pcport_kor_deploy_manifest.json), 공유 game은 `--allow-shared`로만. 게임 tools에 동기화.
+  - font_patcher/deploy_pcport.py: `--build-root` → `--game-root`(기본 game_kor),
+    공유 game 경로는 `--allow-shared` 없으면 거부(실행 확인).
+  - pcport_apply.py·dance_lyrics.py deploy: game_kor 전용(공유 경로 없음).
+  - game_kor는 공유 game을 통째 복사해 원본 백업(_backup_kr_orig, _kor_backup)도 포함 →
+    "원본에서 빌드" 로직 그대로 동작.
+  - 게임 데이터 텍스트를 initialFix.mpc에 넣을 때는 **game_kor의 폰트 주입본**을 기준으로.

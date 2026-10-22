@@ -2,7 +2,10 @@
 """
 deploy_pcport.py — PC 포트(360 리컴파일)에 한글 SCB 배포
 
-대상: C:\\Users\\jackfilm\\Desktop\\imas2pc\\build_imas2_o2\\game\\resource\\gscript
+대상(기본): C:\\Users\\jackfilm\\Desktop\\imas2pc\\game_kor\\resource\\gscript
+  2026-10-22 KOR 결정: 새 번역 배포의 기본 대상은 game_kor(한글판 사본, 실행은
+  IMAS2PC_DISC_ROOT). 공유 build_imas2_o2\\game은 10-15 한글판 상태로 동결 —
+  여기에 쓰려면 --allow-shared를 명시해야 한다.
 원칙 (imas2pc 세션과 합의):
   - 원본 디스크 추출본(unpack\\imas2)은 건드리지 않는다. build 트리만 교체.
   - 360 엔진은 평문 pac을 수용 → output_pcport/(재암호화 전 dec)를 그대로 배포.
@@ -11,17 +14,21 @@ deploy_pcport.py — PC 포트(360 리컴파일)에 한글 SCB 배포
   - 배포 후 SHA-256 해시를 pcport_deploy_manifest.json에 기록.
   - ⚠ PS3 dec와 360 dec의 내용 동일성은 미검증 가정 — 인게임 검증은 imas2pc 세션 담당.
 
-사용: python deploy_pcport.py           (배포)
-      python deploy_pcport.py --check   (대상/제외 목록만 출력)
+사용: python deploy_pcport.py                  (game_kor에 배포)
+      python deploy_pcport.py --check          (대상/제외 목록만 출력)
+      python deploy_pcport.py --allow-shared   (공유 build_imas2_o2\\game — 명시적으로만)
 """
 import os, sys, glob, shutil, hashlib, json, datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GAME_TOOLS = r"C:\Users\jackfilm\Desktop\rpcs3-v0.0.39-18811-6bfb3327_win64_msvc\dev_hdd0\game\NPJB00337\USRDIR\resource\gscript\tools"
 SRC = os.path.join(GAME_TOOLS, "output_pcport")
-PCPORT = r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game\resource\gscript"
+PCPORT_KOR = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor\resource\gscript"
+PCPORT_SHARED = r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game\resource\gscript"
+PCPORT = PCPORT_SHARED if "--allow-shared" in sys.argv else PCPORT_KOR
 BACKUP = os.path.join(os.path.dirname(PCPORT), "_backup_kr_orig", "gscript")
-MANIFEST = os.path.join(GAME_TOOLS, "pcport_deploy_manifest.json")
+MANIFEST = os.path.join(GAME_TOOLS, "pcport_deploy_manifest.json" if PCPORT == PCPORT_SHARED
+                        else "pcport_kor_deploy_manifest.json")
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -41,6 +48,7 @@ def main():
     if not os.path.isdir(PCPORT):
         print(f"❌ PC 포트 gscript 없음: {PCPORT}")
         sys.exit(1)
+    print(f"배포 대상: {PCPORT}" + ("  ⚠ 공유 기준선(--allow-shared)" if PCPORT == PCPORT_SHARED else ""))
 
     deployed, skipped = [], []
     manifest = {"deployed_at": datetime.datetime.now().isoformat(), "files": {}}

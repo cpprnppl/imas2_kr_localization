@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
+r"""
 PC 포트(imas2pc, 360판 데이터 사본)에 한글 직접 등록 폰트 + 원시 한글 SCB 배포.
 
-대상: <build_root>\game\resource (기본 build_imas2_o2). 원본 디스크 추출본
+대상: <game_root>\resource (기본 imas2pc\game_kor). 원본 디스크 추출본
 (unpack\imas2)은 절대 건드리지 않는다.
+2026-10-22 KOR 결정: 새 배포의 기본 대상은 game_kor(한글판 사본, 실행은
+IMAS2PC_DISC_ROOT). 공유 build_imas2_o2\game은 10-15 한글판 상태로 동결 —
+쓰려면 --game-root에 그 경로를 주고 --allow-shared까지 명시해야 한다.
 
 360판 포맷 차이 (2026-10-14 역분석, 워크로그 §26):
 - 폰트 NUT: PS3 NTP3과 헤더·레이아웃 동일하되 매직 'NTXR', 텍스처 페이로드만
@@ -21,7 +24,7 @@ PC 포트(imas2pc, 360판 데이터 사본)에 한글 직접 등록 폰트 + 원
 2. 스크래치에서 복호화한 initialFix/initialTemp에 NFH/NUT 주입본 생성
 3. <resource>\_kor_backup\ 에 원본 백업(최초 1회; 이미 있으면 그걸 원본으로 간주)
 4. 교체 + 해시 매니페스트(_kor_backup\manifest.json) 기록
-사용: python deploy_pcport.py [--build-root C:\...\build_imas2_o2] [--scb-only|--font-only]
+사용: python deploy_pcport.py --font-only [--game-root C:\...\game_kor] [--allow-shared]
 """
 import os
 import sys
@@ -42,6 +45,8 @@ DIRECT_DIR = os.path.join(SCRIPT_DIR, "output_direct")
 SCRATCH_X360 = os.path.join(os.environ.get("TEMP", "."), "imas2_x360_fontwork")
 PS3_TOOLS = r"C:\Users\jackfilm\Desktop\rpcs3-v0.0.39-18811-6bfb3327_win64_msvc\dev_hdd0\game\NPJB00337\USRDIR\resource\gscript\tools"
 IMAS2DEC = r"C:\Users\jackfilm\Documents\GitHub\Imas2ToolS\misc\imas2dec\imas2dec.exe"
+GAME_KOR = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor"
+SHARED_GAME = os.path.normcase(r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game")
 
 # 복호화된 initialTemp 내부 오프셋 (pac 데이터 시작 0xA20 기준, 엔트리 테이블 실측)
 TEMP_DATA_START = 0xA20
@@ -109,12 +114,20 @@ def backup_once(res, rel, bdir, manifest):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--build-root", default=r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2")
+    ap.add_argument("--game-root", default=GAME_KOR,
+                    help="게임 디스크 루트 (기본 game_kor). resource\\ 를 포함하는 폴더")
+    ap.add_argument("--allow-shared", action="store_true",
+                    help="공유 build_imas2_o2\\game에 쓰는 것을 명시적으로 허용")
     ap.add_argument("--font-only", action="store_true")
     ap.add_argument("--scb-only", action="store_true")
     a = ap.parse_args()
-    res = os.path.join(a.build_root, "game", "resource")
+    if os.path.normcase(os.path.abspath(a.game_root)) == os.path.normcase(SHARED_GAME) \
+            and not a.allow_shared:
+        sys.exit("[중단] 공유 build_imas2_o2\\game은 동결(10-15 한글판, KOR 결정) — "
+                 "정말 쓰려면 --allow-shared")
+    res = os.path.join(a.game_root, "resource")
     assert os.path.isdir(res), res
+    print(f"배포 대상: {res}")
     bdir = os.path.join(res, "_kor_backup")
     os.makedirs(bdir, exist_ok=True)
     mpath = os.path.join(bdir, "manifest.json")
@@ -160,7 +173,7 @@ def main():
                 n += 1
         print(f"SCB 복사: {n}개 (360에 없어 건너뜀 {skip}개) — PS3 검증 산출물(원시 한글)")
 
-    manifest["_meta"] = {"time": time.strftime("%Y-%m-%d %H:%M:%S"), "build_root": a.build_root,
+    manifest["_meta"] = {"time": time.strftime("%Y-%m-%d %H:%M:%S"), "game_root": a.game_root,
                          "note": "복원 = _kor_backup의 파일을 같은 상대경로로 되돌리기"}
     json.dump(manifest, open(mpath, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"매니페스트: {mpath} ({len(manifest) - 1}개 항목)")
