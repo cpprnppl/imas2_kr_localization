@@ -16,6 +16,7 @@
 .kr-cell.is-empty{color:var(--pf-v5-global--Color--200)}
 .jp-cell{white-space:pre-wrap;color:var(--pf-v5-global--Color--100)}
 .plat-tag{margin-bottom:4px}
+.src-row{margin-top:3px}
 .nav-plat{font-size:10px;color:var(--pf-v5-global--Color--200);margin-left:4px;white-space:nowrap}
 .pair-panel{margin-top:4px;padding:6px 8px;border-left:3px solid var(--pf-v5-global--info-color--100);background:var(--pf-v5-global--BackgroundColor--200);font-size:12px}
 .pair-h{font-size:11px;color:var(--pf-v5-global--Color--200);margin-top:2px}
@@ -118,6 +119,7 @@ textarea{font-family:"imas2emo",var(--pf-v5-global--FontFamily--text,"RedHatText
         <select class="pf-v5-c-form-control" style="width:auto" id="filter"></select>
         <select class="pf-v5-c-form-control" style="width:auto" id="subFilter" hidden></select>
         <select class="pf-v5-c-form-control" style="width:auto" id="platFilter" hidden title="PS3판 / 360판(PC 포트) 구분"></select>
+        <select class="pf-v5-c-form-control" style="width:auto" id="srcFilter" hidden title="번역 출처"></select>
         <input class="pf-v5-c-form-control" style="width:16rem" type="search" id="q" placeholder="검색 (원문·번역·식별자)">
         <button class="pf-v5-c-button pf-m-secondary" id="frOpen">바꾸기</button>
         <button class="pf-v5-c-button pf-m-secondary" id="bulkOpen" hidden>일괄 다운로드·업로드</button>
@@ -424,7 +426,11 @@ function warns(r) {
   if (!r.jp) return w;
   if (!r.kr) { w.push(["미번역", "red"]); return w; }
   const nj = (r.jp.match(/\n/g) || []).length, nk = (r.kr.match(/\n/g) || []).length;
-  if (nj !== nk) w.push([`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);
+  if (nj !== nk) w.push(r.cat === "script"
+    ? [`개행 ${nk}/${nj} (게임에 넣을 때 자동 줄바꿈)`, "grey"]
+    : [`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);
+  const kj = /^「[\s\S]*」$/.test(r.jp.trim()), kk = /^「[\s\S]*」$/.test(r.kr.trim());
+  if (kj !== kk) w.push(["「」 다름", "orange"]);
   if (U16(r.kr) > U16(r.jp) * 1.6 + 4) w.push([`길이 ${U16(r.kr)}/${U16(r.jp)}`, "orange"]);
   const miss = [...new Set([...r.kr].filter(ch => ch >= "가" && ch <= "힣" && !MAP.has(ch)))];
   if (miss.length) w.push(["폰트에 없음: " + miss.join(""), "red"]);
@@ -434,6 +440,8 @@ function warns(r) {
     w.push([nj2 === nk2 ? "이모티콘 종류 다름" : `이모티콘 개수 다름 (KR ${nk2} · JP ${nj2})`, "orange"]);
   }
   if (phSig(r.jp) !== phSig(r.kr)) w.push(["치환 코드 다름", "red"]);
+  const cap = (r.meta || {}).cap;     // 실행 파일 문자열 슬롯(글자 수, 다음 문자열까지 기준 추정)
+  if (r.cat === "exe" && cap && [...r.kr].length > cap) w.push([`슬롯 초과 ${[...r.kr].length}/${cap}자`, "red"]);
   return w;
 }
 const isBlank = r => r.cat !== "image" && !r.jp;
@@ -510,7 +518,7 @@ function markMissing(kr) {
 
 function passFilter(r, f) {
   if (f === "all") return true;
-  if (f === "warn") return warns(r).length > 0;
+  if (f === "warn") return warns(r).some(([, c]) => c !== "grey");
   if (isBlank(r)) return false;
   if (r.cat === "image") {
     const img = KRIMG[r.key];
@@ -534,6 +542,7 @@ function visibleRows() {
   return rows.filter(r => {
     if (subSel && subKey(r) !== subSel) return false;
     if (platSel && platOf(r) !== platSel) return false;
+    if (srcSel && srcOf(r) !== srcSel) return false;
     if (q) {
       const m = r.meta || {};
       const hay = [r.key, r.jp, r.kr, m.sp, m.file,
@@ -554,6 +563,7 @@ function stLabel(r) {
 function render() {
   renderSubFilter();
   renderPlatFilter();
+  renderSrcFilter();
   if ((cat === "xmb" && grp === "lyrics") || (cat === "dlc" && grp === "songinfo"))
     return renderLyrics();
   if (cat === "dlc" && (grp === "mail" || grp === "catalog")) return renderCards();
@@ -610,7 +620,7 @@ function render() {
     } else if (cat === "script") {
       const m = r.meta || {};
       first = `<span class="nowrap">${esc(m.sp || "")}</span><br><span class="pf-v5-u-color-200" style="font-size:11px">${esc(m.file || "")}</span>`;
-      second = `<div class="jp-cell">${fmtText(r.jp)}</div>` + pairToggleHtml(r) + (m.suggest ? `<div class="sugg" title="PS3판의 비슷한 대사 번역 (유사도 ${Math.round(m.suggest.ratio * 100)}%) — 참고용">참고 · ${Math.round(m.suggest.ratio * 100)}%: ${fmtText(m.suggest.kr)}</div>` : "");
+      second = `<div class="jp-cell">${fmtText(r.jp)}</div>` + pairToggleHtml(r) + altHtml(r) + (m.suggest ? `<div class="sugg" title="PS3판의 비슷한 대사 번역 (유사도 ${Math.round(m.suggest.ratio * 100)}%) — 참고용">참고 · ${Math.round(m.suggest.ratio * 100)}%: ${fmtText(m.suggest.kr)}</div>` : "");
     } else {
       first = `<code style="font-size:12px">${esc(r.key)}</code>`;
       second = `<div class="jp-cell">${fmtText(r.jp)}</div>` + pairToggleHtml(r);
@@ -618,7 +628,7 @@ function render() {
     h += `<tr class="pf-v5-c-table__tr${dim}" data-id="${esc(r.id)}">
       <td class="pf-v5-c-table__td v-mid">${first}</td>
       ${cat === "image" ? `<td class="pf-v5-c-table__td v-mid">${second}</td>` : `<td class="pf-v5-c-table__td" style="max-width:26rem">${second}</td>`}
-      <td class="pf-v5-c-table__td kr-cell${r.kr ? "" : " is-empty"}" data-act="edit">${r.kr ? markMissing(r.kr) : (isBlank(r) ? "—" : "클릭해서 입력")}</td>
+      <td class="pf-v5-c-table__td kr-cell${r.kr ? "" : " is-empty"}" data-act="edit">${r.kr ? markMissing(r.kr) : (isBlank(r) ? "—" : "클릭해서 입력")}${srcBadge(r) ? `<div class="src-row">${srcBadge(r)}</div>` : ""}</td>
       <td class="pf-v5-c-table__td" style="max-width:10rem">${w.map(([t, c]) =>
         `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}</td>
       <td class="pf-v5-c-table__td nowrap v-mid">${platBadge(r) ? `<div class="plat-tag">${platBadge(r)}</div>` : ""}${isBlank(r) ? "" : stLabel(r)}</td>
@@ -760,8 +770,43 @@ function platBadgeGroup(rs) {
   for (const r of rs) { const p = platOf(r); if (PLAT[p] && !seen.has(p)) { seen.add(p); out.push(platBadge(r)); } }
   return out.join(" ");
 }
+/* 번역 출처 meta.src_tr (sheet_merge.py sync · 시딩 태그) */
+const SRC = { human_sheet: ["시트 사람", "purple", "구글 시트에서 사람이 번역"], team: ["웹 작업자", "", "웹에서 팀원이 입력·수정"],
+  machine_init: ["기계번역", "", "초기 기계번역(Gemini API, 웹 시딩) — 검수 필요"], gemini_sheet: ["Gemini 초벌", "gold", "구글 시트의 Gemini 초벌"],
+  claude: ["Claude 초벌", "", "Claude 초벌 번역 — 검수 필요"], seed: ["기존 번역", "", "웹 시딩 때 들어온 기존 번역"] };
+function srcOf(r) { return r.kr ? ((r.meta || {}).src_tr || "") : ""; }
+function srcBadge(r) {
+  const m = r.meta || {}, s = SRC[srcOf(r)];
+  if (!s) return "";
+  const tip = s[2] + (m.merge_note ? " · " + m.merge_note : "") + (r.by && srcOf(r) === "team" ? ` · ${r.by}` : "");
+  return `<span class="pf-v5-c-label pf-m-compact${s[1] ? " pf-m-" + s[1] : ""} src-badge" title="${esc(tip)}"><span class="pf-v5-c-label__content">${s[0]}</span></span>`;
+}
+let srcSel = "";
+function renderSrcFilter() {
+  const el = $("#srcFilter");
+  const cnt = {};
+  rows.forEach(r => { const k = srcOf(r); if (k) cnt[k] = (cnt[k] || 0) + 1; });
+  const keys = Object.keys(SRC).filter(k => cnt[k]);
+  if (keys.length < 2) { el.hidden = true; srcSel = ""; return; }
+  el.innerHTML = `<option value="">출처: 전체</option>` + keys.map(k => `<option value="${k}">${SRC[k][0]} · ${cnt[k]}</option>`).join("");
+  if (srcSel && !cnt[srcSel]) srcSel = "";
+  el.value = srcSel;
+  el.hidden = false;
+}
+/* 대안 번역(meta.alt — 시트 Gemini 초벌): 보기 + 가져오기 */
+const openAlts = new Set();
+function altHtml(r) {
+  const a = (r.meta || {}).alt;
+  if (!a || !a.kr || a.kr === r.kr) return "";
+  const open = openAlts.has(r.id);
+  return `<div><button class="pf-v5-c-button pf-m-link pf-m-inline pf-m-small" data-act="alttog" data-id="${esc(r.id)}">${open ? "대안 닫기" : "Gemini 대안 보기"}</button></div>` +
+    (open ? `<div class="pair-panel"><div class="pair-h">Gemini 초벌(시트)</div><div>${fmtText(a.kr)}</div>
+      <button class="pf-v5-c-button pf-m-secondary pf-m-compact" data-act="alttake" data-id="${esc(r.id)}" style="margin-top:4px">이 번역 가져오기</button></div>` : "");
+}
+
 /* 적용 범위 안내 */
 function scopeText(r) {
+  if (r.cat === "exe") return "이 번역이 들어가는 곳: PC 포트(360) 실행 파일 — " + ((r.meta || {}).inject || "주입 경로 준비 중");
   const p = platOf(r);
   return "이 번역이 들어가는 곳: " + (p === "ps3" ? "PS3 한글 패치" : p === "x360" ? "PC 포트(360)" : "PS3 한글 패치 · PC 포트(360)");
 }
@@ -829,6 +874,7 @@ function renderSubFilter() {
 }
 $("#subFilter").onchange = ev => { subSel = ev.target.value; page = 0; render(); };
 $("#platFilter").onchange = ev => { platSel = ev.target.value; page = 0; render(); };
+$("#srcFilter").onchange = ev => { srcSel = ev.target.value; page = 0; render(); };
 
 function cardOf(r) {
   const m = r.meta || {};
@@ -894,7 +940,7 @@ function renderCards() {
       h += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
         <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px">${PART_LABEL[part] || part} (JP)</div>
           <div class="jp-cell" style="font-size:13px;line-height:1.7">${fmtText(r.jp)}</div>${pairToggleHtml(r)}</div>
-        <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px;display:flex;gap:6px;align-items:center">${PART_LABEL[part] || part} (KR)
+        <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px;display:flex;gap:6px;align-items:center">${PART_LABEL[part] || part} (KR) ${srcBadge(r)}
             ${w.map(([t, c]) => `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}
             <button class="pf-v5-c-button pf-m-plain pf-m-compact" data-act="mchist" data-id="${esc(r.id)}" title="수정 이력" style="margin-left:auto">🕘</button></div>
           <textarea class="pf-v5-c-form-control mc-ta" data-id="${esc(r.id)}" data-jpn="${jpN}" rows="${jpN + 1}"
@@ -991,6 +1037,15 @@ $("#content").addEventListener("click", ev => {
     const card = mcAct.closest(".mc-card");
     if (card) { cardSave(card, mcAct.dataset.act === "mcreview"); return; }
   }
+  const aAct = ev.target.closest("[data-act=alttog],[data-act=alttake]");
+  if (aAct) {
+    const r = rowById(aAct.dataset.id);
+    if (!r) return;
+    if (aAct.dataset.act === "alttog") { openAlts.has(r.id) ? openAlts.delete(r.id) : openAlts.add(r.id); render(); return; }
+    if (needNick()) return;
+    save(r, r.meta.alt.kr, Math.max(1, r.st)).then(() => toast("대안 번역을 가져와 저장했습니다", "success"));
+    return;
+  }
   const pAct = ev.target.closest("[data-act=pairtog],[data-act=pairtake],[data-act=copykr]");
   if (pAct) { pairAction(pAct.dataset.act, rowById(pAct.dataset.id)); return; }
   const tr = ev.target.closest("tr[data-id]");
@@ -1014,7 +1069,7 @@ function showSearch() {
   cat = "search"; grp = null; renderNav();
   $("#crumb").textContent = "전체 검색";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
-  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true;
+  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true; $("#srcFilter").hidden = true;
   const cats = [["", "모든 분류"], ...META.nav.map(s => [s.cat, s.label])];
   $("#content").innerHTML = `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
       <input id="gq" class="pf-v5-c-form-control" style="max-width:420px" placeholder="원문·번역 전체에서 찾기 (2글자 이상, Enter)" value="${esc(gSearch.q)}">
@@ -1378,6 +1433,7 @@ function setSt(r, st) {
 
 async function save(r, kr, st, quiet) {
   const prev = { kr: r.kr, st: r.st };
+  if (kr !== r.kr) r.meta = Object.assign({}, r.meta || {}, { src_tr: "team" });   // 웹 작업자 편집 = 시트 동기화가 덮지 않음
   r.kr = kr; r.st = st; r.ts = Date.now(); r.by = nick;
   if (!quiet) render();
   const { error } = await sb.from("rows").upsert({
@@ -1431,7 +1487,7 @@ async function showDash(force) {
   cat = "dash"; grp = null; renderNav();
   $("#crumb").textContent = "진행 현황";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
-  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true;
+  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true; $("#srcFilter").hidden = true;
   if (!DASH || force) {
     $("#content").innerHTML = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content">집계 중…</div></div>`;
     const out = [];
@@ -1489,7 +1545,7 @@ async function showActivity() {
   cat = "activity"; grp = null; renderNav();
   $("#crumb").textContent = "수정 이력";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
-  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true;
+  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true; $("#srcFilter").hidden = true;
   $("#content").innerHTML = `
     <div class="pf-v5-c-toolbar"><div class="pf-v5-c-toolbar__content" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
       <input class="pf-v5-c-form-control" style="width:10rem" id="actBy" placeholder="작업자 필터">

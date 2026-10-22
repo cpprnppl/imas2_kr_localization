@@ -1416,3 +1416,18 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
 - 교체 후보 중 「」 빠짐 607, 개행 빠짐 1,768. excel2scb rewrap이 개행을 풀고 다시 감싸므로 개행은 빌드에 무해,
   「」는 자동 보정 안 됨. 시트 화자 라벨 '○○達' 666행(사람 번역 107).
 - 시트 공개 내보내기(export?format=xlsx) 로그인 없이 받아짐 → 단방향 정기 가져오기 가능. 보고서 Desktop\imas2_image_text\sheet_merge\dryrun.json.
+- **실행 반영(03:38, KOR 전달 사용자 승인 "암튼 ㅇㅇ")**: sheet_merge.py sync — 기계→사람 교체 3,309(「」 자동 보정 607,
+  meta.merge_note), 이전 kr은 meta.prev_kr + hist(by "기계번역(교체 전)") 3,309줄로 보존, 새 kr hist(by "구글시트") 3,309줄.
+  Gemini 대안 29,211행 meta.alt(kr 불변), 문장부호·개행만 다른 5,306행은 웹 유지, 충돌 1(팀 편집)·못 찾음 572·재매칭 419는
+  Desktop\imas2_image_text\sheet_merge\conflicts.json / unmatched_manual.json / realigned.json. 재실행 드라이런 = 변경 0(멱등).
+  출처 meta.src_tr: script 전 행(human_sheet / machine_init 42,809 / team) + 다른 분류(team / claude 711 / seed).
+  sync는 공유 링크 xlsx를 직접 받아 같은 규칙으로 증분 반영(스케줄러는 미설정 — 시트 계속 사용 여부 미정).
+- 웹 UI(로컬 커밋, 배포는 사용자 OK 후): 출처 배지·필터, Gemini 대안 보기·가져오기, script '개행' 경고를 회색 안내로
+  (빌드 rewrap), '「」 다름' 경고, 웹 편집 시 src_tr=team. platform_audit.fetch_rows는 분류별 읽기(meta 커진 뒤 전체 order=id 500).
+
+## 39. 실행 파일 하드코딩 문구 → 웹앱 'exe' 분류 (2026-10-23, KOR·사용자 "社長 이름표 검색이 힘들었다")
+- tools/image_text/xex_text.py: 360 default_unpacked.xex 0xB8000~0xD0000의 UTF-16BE 문자열(Shift-JIS 1수준 한자 필터,
+  1자는 이웃 문자열이 있을 때만, U+8000·반각 가나 쓰레기 제외) 201개 → exe_texts.json → 웹 행(cat exe, grp xex360,
+  meta offset·slot·cap·plat x360, "주입 경로 준비 중(실행 파일 패치 필요)"). 화자 이름표 0xB924C~0xB9388(審査員…社長·小鳥·Ｐ…春香),
+  이름 입력·저장·일시정지·どっとっぷTV·S4U 설정 저장·지역명 등. 개발용 더미 문구(だみーゆにっと 등)도 포함.
+- 웹: 사이드바 '실행 파일 문구', 슬롯 초과 경고(cap = 다음 문자열까지 바이트 기준 추정), 전체 검색에 포함('社長' → exe 행 검색됨).

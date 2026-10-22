@@ -192,13 +192,155 @@ def cmd_dryrun(a):
     print(f"→ {os.path.join(OUT, 'dryrun.json')}")
 
 
+# ---------------------------------------------------------------- 반영 (sync, 멱등)
+# 출처 meta.src_tr: human_sheet(구글시트 사람) / gemini_sheet(Gemini 초벌·시트) /
+#                   machine_init(초기 기계번역 Gemini API, 웹 시딩) / claude(Claude 초벌) / team(웹 작업자)
+BY_SHEET = "구글시트"
+BY_GEM = "Gemini 초벌(시트)"
+SYSTEM_BY = ("", BY_SHEET, BY_GEM, "Claude 초벌")
+SHEET_URL = "https://docs.google.com/spreadsheets/d/1DDqH0g7Afpxf4hLVSBaWsaTnXiMd_v0baVaa5CEIpuk/export?format=xlsx"
+
+
+def fix_kagi(jp, kr):
+    """원문이 「…」인데 번역에 「」가 없으면 감싼다. (새 문자열, 보정했는지)"""
+    j, k = norm_jp(jp), kr.strip()
+    if j.startswith("「") and j.endswith("」") and not k.startswith("「") and not k.endswith("」"):
+        return f"「{k}」", True
+    return kr, False
+
+
+def _req(method, path, body=None, prefer=None):
+    h = {"apikey": CFG["anon_key"], "Authorization": f"Bearer {CFG['anon_key']}",
+         "x-team-code": "w@ldo", "Content-Type": "application/json"}
+    if prefer:
+        h["Prefer"] = prefer
+    data = json.dumps(body, ensure_ascii=False).encode("utf-8") if body is not None else None
+    with urllib.request.urlopen(urllib.request.Request(CFG["url"] + path, data=data, method=method,
+                                                       headers=h)) as r:
+        t = r.read().decode("utf-8")
+        return json.loads(t) if t else None
+
+
+def cmd_sync(a):
+    """시트 → 웹 1회 이관 겸 증분 동기화. 다시 돌려도 같은 결과(이미 반영된 행은 same).
+    웹 작업자 편집 행(hist/by에 사람 이름)은 절대 덮지 않고 충돌 목록으로."""
+    import time
+    import urllib.parse
+    src = a.xlsx
+    if not src:
+        src = os.path.join(OUT, "sheet_latest.xlsx")
+        os.makedirs(OUT, exist_ok=True)
+        open(src, "wb").write(urllib.request.urlopen(urllib.request.Request(
+            SHEET_URL, headers={"User-Agent": "Mozilla/5.0"}), timeout=120).read())
+    sheet = read_sheet(src)
+    web = fetch("rows?select=id,cat,grp,seq,key,jp,kr,st,by,ts,meta&cat=eq.script&order=id")
+    hist = fetch("hist?select=row_id,by&cat=eq.script&order=row_id")
+    team = {h["row_id"] for h in hist if h.get("by") not in SYSTEM_BY and "초벌" not in (h.get("by") or "")
+            and "기계번역" not in (h.get("by") or "")} | \
+           {r["id"] for r in web if r.get("by") not in SYSTEM_BY}
+    pairs, how = match(sheet, web)
+    cls = classify(sheet, pairs, team)
+    by_id = {r["id"]: r for r in web}
+    sheet_of = {w["id"]: s for i, s in enumerate(sheet) if (w := pairs.get(i))}
+
+    # 1) 메타: 출처·대안 (kr 열은 보내지 않음)
+    meta_upd = []
+    for r in web:
+        m = dict(r.get("meta") or {})
+        s = sheet_of.get(r["id"])
+        if r["id"] in team:
+            m["src_tr"] = "team"
+        elif r.get("by") == BY_SHEET:
+            m["src_tr"] = "human_sheet"
+        elif r.get("by") == BY_GEM:
+            m["src_tr"] = "gemini_sheet"
+        elif r.get("by") == "Claude 초벌":
+            m["src_tr"] = "claude"
+        elif r["kr"]:
+            m["src_tr"] = "machine_init"
+        else:
+            m.pop("src_tr", None)
+        if s and s["gem"] and not s["hu"] and r["kr"] and loose(s["gem"]) != loose(r["kr"]):
+            m["alt"] = {"kr": s["gem"], "src": "gemini_sheet"}
+        if m != (r.get("meta") or {}):
+            meta_upd.append({k: r[k] for k in ("id", "cat", "grp", "seq", "key", "jp")} | {"meta": m})
+            r["meta"] = m
+    print(f"메타(출처·대안) 갱신 {len(meta_upd)}행" + (" (드라이런)" if a.dry_run else ""))
+    if not a.dry_run:
+        for i in range(0, len(meta_upd), 500):
+            _req("POST", "/rest/v1/rows?on_conflict=id", meta_upd[i:i + 500],
+                 "resolution=merge-duplicates,return=minimal")
+
+    # 2) kr 반영: 사람 번역(교체·채움), Gemini는 빈칸만
+    jobs = []
+    for kind in ("overwrite", "fill_human", "fill_gemini"):
+        for s, w in cls.get(kind, []):
+            if kind == "fill_gemini":
+                new, fixed, by, srct = s["gem"], False, BY_GEM, "gemini_sheet"
+            else:
+                new, fixed = fix_kagi(s["jp"], s["hu"])
+                by, srct = BY_SHEET, "human_sheet"
+            jobs.append((kind, w, new, fixed, by, srct))
+    done = collections.Counter()
+    hist_rows = []
+    for kind, w, new, fixed, by, srct in jobs:
+        r = by_id[w["id"]]
+        m = dict(r.get("meta") or {})
+        m["src_tr"] = srct
+        if r["kr"] and "prev_kr" not in m:
+            m["prev_kr"] = r["kr"]
+            m["prev_src"] = "machine_init"
+        if fixed:
+            m["merge_note"] = "「」 자동 보정(시트 번역에 없음)"
+        done[kind] += 1
+        done["kagi"] += fixed
+        if a.dry_run:
+            continue
+        ts = int(time.time() * 1000)
+        q = f"/rest/v1/rows?id=eq.{urllib.parse.quote(r['id'], safe='')}&kr=eq.{urllib.parse.quote(r['kr'] or '', safe='')}"
+        res = _req("PATCH", q, {"kr": new, "st": max(1, r["st"]), "ts": ts, "by": by, "meta": m},
+                   "return=representation")
+        if not res:
+            done["skipped_race"] += 1
+            continue
+        if r["kr"]:
+            hist_rows.append({"row_id": r["id"], "cat": "script", "grp": r["grp"], "key": r["key"],
+                              "ts": ts - 1, "by": "기계번역(교체 전)", "kr": r["kr"], "st": r["st"]})
+        hist_rows.append({"row_id": r["id"], "cat": "script", "grp": r["grp"], "key": r["key"],
+                          "ts": ts, "by": by, "kr": new, "st": max(1, r["st"])})
+        print(f"  kr 반영 {sum(done[k] for k in ('overwrite', 'fill_human', 'fill_gemini'))}/{len(jobs)}", end="\r")
+    for i in range(0, len(hist_rows), 200):
+        _req("POST", "/rest/v1/hist", hist_rows[i:i + 200], "return=minimal")
+
+    # 3) 목록 파일
+    os.makedirs(OUT, exist_ok=True)
+    conf = [{"id": w["id"], "jp": w["jp"], "web_kr": w["kr"], "web_by": w.get("by"), "sheet_human": s["hu"]}
+            for s, w in cls.get("conflict", [])]
+    unm = [{"grp": s["grp"], "file": s["file"], "off": s["off"], "jp": s["jp"], "sheet_human": s["hu"],
+            "sheet_gemini": s["gem"]} for s, _w in cls.get("unmatched", [])]
+    realign = [{"id": pairs[i]["id"], "sheet_key": f"{sheet[i]['file']}:{sheet[i]['off']}", "jp": sheet[i]["jp"]}
+               for i, h in how.items() if h == "realign"]
+    for fn, data in (("conflicts.json", conf), ("unmatched_manual.json", unm), ("realigned.json", realign)):
+        json.dump(data, open(os.path.join(OUT, fn), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    rep = {"at": time.strftime("%Y-%m-%d %H:%M"), "dry_run": a.dry_run, "overwrite": done["overwrite"],
+           "fill_human": done["fill_human"], "fill_gemini": done["fill_gemini"], "kagi_fixed": done["kagi"],
+           "skipped_race": done["skipped_race"], "alt": sum(1 for r in web if (r.get("meta") or {}).get("alt")),
+           "same": len(cls.get("same", [])), "conflict": len(conf), "unmatched": len(unm), "realigned": len(realign),
+           "hist": len(hist_rows)}
+    json.dump(rep, open(os.path.join(OUT, "sync_report.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("\n" + json.dumps(rep, ensure_ascii=False))
+
+
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     d = sub.add_parser("dryrun")
     d.add_argument("xlsx")
+    s = sub.add_parser("sync", help="시트 → 웹 반영(멱등). xlsx 생략 시 공유 링크에서 내려받음")
+    s.add_argument("xlsx", nargs="?")
+    s.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
-    {"dryrun": cmd_dryrun}[a.cmd](a)
+    {"dryrun": cmd_dryrun, "sync": cmd_sync}[a.cmd](a)
 
 
 if __name__ == "__main__":

@@ -22,6 +22,7 @@ import hashlib
 import argparse
 import collections
 import urllib.request
+import urllib.error
 
 import numpy as np
 from Crypto.Cipher import AES
@@ -82,18 +83,30 @@ def dec_any(raw, plat):
     return None
 
 
-def fetch_rows():
-    rows, off = [], 0
-    while True:
-        r = urllib.request.Request(
-            f"{CFG['url']}/rest/v1/rows?select=*&order=id&limit=1000&offset={off}",
-            headers={"apikey": CFG["anon_key"], "Authorization": f"Bearer {CFG['anon_key']}",
-                     "x-team-code": "w@ldo"})
-        ch = json.load(urllib.request.urlopen(r))
-        rows += ch
-        if len(ch) < 1000:
-            return rows
-        off += 1000
+def fetch_rows(cats=("script", "xmb", "gamedata", "image", "dlc", "exe")):
+    """분류별로 나눠 읽는다(전체 order=id 한 번은 meta가 커진 뒤 문장 시간 제한으로 500)."""
+    rows = []
+    for c in cats:
+        off = 0
+        while True:
+            r = urllib.request.Request(
+                f"{CFG['url']}/rest/v1/rows?select=*&cat=eq.{c}&order=id&limit=1000&offset={off}",
+                headers={"apikey": CFG["anon_key"], "Authorization": f"Bearer {CFG['anon_key']}",
+                         "x-team-code": "w@ldo"})
+            for attempt in range(3):
+                try:
+                    ch = json.load(urllib.request.urlopen(r))
+                    break
+                except urllib.error.HTTPError:
+                    if attempt == 2:
+                        raise
+                    import time
+                    time.sleep(3)
+            rows += ch
+            if len(ch) < 1000:
+                break
+            off += 1000
+    return rows
 
 
 # ---------------------------------------------------------------- 360 XMB 텍스트

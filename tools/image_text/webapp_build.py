@@ -128,6 +128,8 @@ def main():
             {"cat": "gamedata", "label": "게임 데이터 텍스트", "groups": gamedata_groups()},
             {"cat": "dlc", "label": "DLC",
              "groups": [{"g": g, "label": l} for g, l in DLC_GROUPS]},
+            {"cat": "exe", "label": "실행 파일 문구",
+             "groups": [{"g": "xex360", "label": "360 실행 파일 (이름표·메뉴·확인 문구)"}]},
         ],
     }
     pc = os.path.join(HERE, "platform_counts.json")     # platform_audit.py counts

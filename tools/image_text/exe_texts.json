@@ -1,0 +1,3419 @@
+{
+ "exe:xex360:0x0B8208": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 0,
+  "key": "0x0B8208",
+  "jp": "[DLCコイン名]",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 754184,
+   "slot": 20,
+   "cap": 9,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B821C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 1,
+  "key": "0x0B821C",
+  "jp": "[DLCコイン価格]",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 754204,
+   "slot": 4144,
+   "cap": 2071,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B924C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 2,
+  "key": "0x0B924C",
+  "jp": "審査員",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758348,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9254": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 3,
+  "key": "0x0B9254",
+  "jp": "店員",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758356,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B925C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 4,
+  "key": "0x0B925C",
+  "jp": "ヨド子",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758364,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9264": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 5,
+  "key": "0x0B9264",
+  "jp": "ＢＫ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758372,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B926C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 6,
+  "key": "0x0B926C",
+  "jp": "ヤスコ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758380,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9274": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 7,
+  "key": "0x0B9274",
+  "jp": "山原記者",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758388,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9280": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 8,
+  "key": "0x0B9280",
+  "jp": "金丸記者",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758400,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B928C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 9,
+  "key": "0x0B928C",
+  "jp": "小柴記者",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758412,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9298": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 10,
+  "key": "0x0B9298",
+  "jp": "有明記者",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758424,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B92A4": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 11,
+  "key": "0x0B92A4",
+  "jp": "安宅記者",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758436,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B92B0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 12,
+  "key": "0x0B92B0",
+  "jp": "カメラマン",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758448,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B92BC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 13,
+  "key": "0x0B92BC",
+  "jp": "スタッフ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758460,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B92C8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 14,
+  "key": "0x0B92C8",
+  "jp": "ディレクター",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758472,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B92D8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 15,
+  "key": "0x0B92D8",
+  "jp": "老医師",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758488,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B92E0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 16,
+  "key": "0x0B92E0",
+  "jp": "司会者",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758496,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B92E8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 17,
+  "key": "0x0B92E8",
+  "jp": "大富",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758504,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B92F0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 18,
+  "key": "0x0B92F0",
+  "jp": "会長",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758512,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B92F8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 19,
+  "key": "0x0B92F8",
+  "jp": "黒井社長",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758520,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9304": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 20,
+  "key": "0x0B9304",
+  "jp": "社長",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758532,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B930C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 21,
+  "key": "0x0B930C",
+  "jp": "小鳥",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758540,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9314": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 22,
+  "key": "0x0B9314",
+  "jp": "Ｐ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758548,
+   "slot": 4,
+   "cap": 1,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9318": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 23,
+  "key": "0x0B9318",
+  "jp": "北斗",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758552,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9328": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 24,
+  "key": "0x0B9328",
+  "jp": "冬馬",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758568,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9330": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 25,
+  "key": "0x0B9330",
+  "jp": "律子",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758576,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9338": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 26,
+  "key": "0x0B9338",
+  "jp": "あずさ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758584,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9340": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 27,
+  "key": "0x0B9340",
+  "jp": "亜美",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758592,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9348": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 28,
+  "key": "0x0B9348",
+  "jp": "伊織",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758600,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9350": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 29,
+  "key": "0x0B9350",
+  "jp": "響",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758608,
+   "slot": 4,
+   "cap": 1,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9354": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 30,
+  "key": "0x0B9354",
+  "jp": "貴音",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758612,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B935C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 31,
+  "key": "0x0B935C",
+  "jp": "真美",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758620,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9364": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 32,
+  "key": "0x0B9364",
+  "jp": "真",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758628,
+   "slot": 4,
+   "cap": 1,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9368": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 33,
+  "key": "0x0B9368",
+  "jp": "雪歩",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758632,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9370": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 34,
+  "key": "0x0B9370",
+  "jp": "やよい",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758640,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9378": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 35,
+  "key": "0x0B9378",
+  "jp": "千早",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758648,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9380": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 36,
+  "key": "0x0B9380",
+  "jp": "美希",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758656,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0B9388": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 37,
+  "key": "0x0B9388",
+  "jp": "春香",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 758664,
+   "slot": 9760,
+   "cap": 4879,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BB9A8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 38,
+  "key": "0x0BB9A8",
+  "jp": "ルーム",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768424,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BB9B0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 39,
+  "key": "0x0BB9B0",
+  "jp": "ナムコエンジェル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768432,
+   "slot": 20,
+   "cap": 9,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BB9C4": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 40,
+  "key": "0x0BB9C4",
+  "jp": "アイマス",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768452,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BB9D0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 41,
+  "key": "0x0BB9D0",
+  "jp": "\nその名前は使用できません。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768464,
+   "slot": 32,
+   "cap": 15,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BB9F0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 42,
+  "key": "0x0BB9F0",
+  "jp": " プロデューサー\nその名前は使用できません。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768496,
+   "slot": 48,
+   "cap": 23,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BBA20": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 43,
+  "key": "0x0BBA20",
+  "jp": "\n　\nこれでよろしいですか？",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768544,
+   "slot": 32,
+   "cap": 15,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BBA40": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 44,
+  "key": "0x0BBA40",
+  "jp": " プロデューサー\n　\nこれでよろしいですか？",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768576,
+   "slot": 48,
+   "cap": 23,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BBA70": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 45,
+  "key": "0x0BBA70",
+  "jp": "ルーム名を入力して下さい。(10文字以内)",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768624,
+   "slot": 44,
+   "cap": 21,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BBA9C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 46,
+  "key": "0x0BBA9C",
+  "jp": "ユニット名を入力して下さい。(10文字以内)",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768668,
+   "slot": 48,
+   "cap": 23,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BBACC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 47,
+  "key": "0x0BBACC",
+  "jp": "プロデューサー名を入力して下さい。(6文字以内)",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768716,
+   "slot": 52,
+   "cap": 25,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BBB00": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 48,
+  "key": "0x0BBB00",
+  "jp": "ルーム名入力",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768768,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BBB10": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 49,
+  "key": "0x0BBB10",
+  "jp": "ユニット名入力",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768784,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BBB20": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 50,
+  "key": "0x0BBB20",
+  "jp": "プロデューサー名入力",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 768800,
+   "slot": 764,
+   "cap": 381,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BBE1C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 51,
+  "key": "0x0BBE1C",
+  "jp": "創刊",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 769564,
+   "slot": 792,
+   "cap": 395,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BC134": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 52,
+  "key": "0x0BC134",
+  "jp": "「コイン名なし」",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 770356,
+   "slot": 1052,
+   "cap": 525,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BC550": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 53,
+  "key": "0x0BC550",
+  "jp": "アイドルマスター２のフォトデータ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 771408,
+   "slot": 60,
+   "cap": 29,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BC58C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 54,
+  "key": "0x0BC58C",
+  "jp": "アイドルマスター２のセーブデータ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 771468,
+   "slot": 2366,
+   "cap": 1182,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BCECA": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 55,
+  "key": "0x0BCECA",
+  "jp": "慮来",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 773834,
+   "slot": 778,
+   "cap": 388,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BD1D4": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 56,
+  "key": "0x0BD1D4",
+  "jp": "女の子を選択してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 774612,
+   "slot": 28,
+   "cap": 13,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BD1F0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 57,
+  "key": "0x0BD1F0",
+  "jp": "意気込みを語ってもらう女の子を選んでください",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 774640,
+   "slot": 48,
+   "cap": 23,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BD220": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 58,
+  "key": "0x0BD220",
+  "jp": "プロデュースに力を入れる女の子を選んでください",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 774688,
+   "slot": 48,
+   "cap": 23,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BD250": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 59,
+  "key": "0x0BD250",
+  "jp": "じゃんけんをする女の子を選んでください",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 774736,
+   "slot": 40,
+   "cap": 19,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BD278": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 60,
+  "key": "0x0BD278",
+  "jp": "リーダーにする女の子を選んでください",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 774776,
+   "slot": 64,
+   "cap": 31,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BD2B8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 61,
+  "key": "0x0BD2B8",
+  "jp": "をリーダーにします。\nよろしいですか？",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 774840,
+   "slot": 488,
+   "cap": 243,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BD4A0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 62,
+  "key": "0x0BD4A0",
+  "jp": "を選択して下さい",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 775328,
+   "slot": 1808,
+   "cap": 903,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BDBB0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 63,
+  "key": "0x0BDBB0",
+  "jp": "Ａ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 777136,
+   "slot": 4,
+   "cap": 1,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BDBB4": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 64,
+  "key": "0x0BDBB4",
+  "jp": "Ｂ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 777140,
+   "slot": 4,
+   "cap": 1,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BDBB8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 65,
+  "key": "0x0BDBB8",
+  "jp": "Ｏ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 777144,
+   "slot": 4,
+   "cap": 1,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BDBBC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 66,
+  "key": "0x0BDBBC",
+  "jp": "ＡＢ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 777148,
+   "slot": 2132,
+   "cap": 1065,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE410": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 67,
+  "key": "0x0BE410",
+  "jp": "ティンときたどっと！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 779280,
+   "slot": 132,
+   "cap": 65,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE494": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 68,
+  "key": "0x0BE494",
+  "jp": "どっとっぷTVを終了します。\nよろしいですか？",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 779412,
+   "slot": 368,
+   "cap": 183,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE604": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 69,
+  "key": "0x0BE604",
+  "jp": "ミミヨリ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 779780,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE610": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 70,
+  "key": "0x0BE610",
+  "jp": "登場回数",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 779792,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE61C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 71,
+  "key": "0x0BE61C",
+  "jp": "プロデューサー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 779804,
+   "slot": 60,
+   "cap": 29,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE658": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 72,
+  "key": "0x0BE658",
+  "jp": "スキップ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 779864,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE664": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 73,
+  "key": "0x0BE664",
+  "jp": "終了",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 779876,
+   "slot": 664,
+   "cap": 331,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE8FC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 74,
+  "key": "0x0BE8FC",
+  "jp": "捨父",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780540,
+   "slot": 40,
+   "cap": 19,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE924": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 75,
+  "key": "0x0BE924",
+  "jp": "捨爵",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780580,
+   "slot": 40,
+   "cap": 19,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE94C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 76,
+  "key": "0x0BE94C",
+  "jp": "アイドラの視聴を終了します。\nよろしいですか？",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780620,
+   "slot": 52,
+   "cap": 25,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE980": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 77,
+  "key": "0x0BE980",
+  "jp": "タイトルに戻ります。\n保存していないデータは失われますが、\nよろしいですか？",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780672,
+   "slot": 80,
+   "cap": 39,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE9D0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 78,
+  "key": "0x0BE9D0",
+  "jp": "ゲームに戻る",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780752,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE9E0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 79,
+  "key": "0x0BE9E0",
+  "jp": "ユニット情報",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780768,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE9F0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 80,
+  "key": "0x0BE9F0",
+  "jp": "楽曲情報",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780784,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BE9FC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 81,
+  "key": "0x0BE9FC",
+  "jp": "タイトル画面へ戻る",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780796,
+   "slot": 140,
+   "cap": 69,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BEA88": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 82,
+  "key": "0x0BEA88",
+  "jp": "記者",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780936,
+   "slot": 20,
+   "cap": 9,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BEA9C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 83,
+  "key": "0x0BEA9C",
+  "jp": "なし",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780956,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BEAA4": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 84,
+  "key": "0x0BEAA4",
+  "jp": "万",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780964,
+   "slot": 4,
+   "cap": 1,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BEAA8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 85,
+  "key": "0x0BEAA8",
+  "jp": "人",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 780968,
+   "slot": 1636,
+   "cap": 817,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF10C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 86,
+  "key": "0x0BF10C",
+  "jp": "枚",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 782604,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF114": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 87,
+  "key": "0x0BF114",
+  "jp": "位",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 782612,
+   "slot": 4,
+   "cap": 1,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF118": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 88,
+  "key": "0x0BF118",
+  "jp": "ランク外",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 782616,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF124": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 89,
+  "key": "0x0BF124",
+  "jp": "リリース",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 782628,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF130": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 90,
+  "key": "0x0BF130",
+  "jp": "チャート",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 782640,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF13C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 91,
+  "key": "0x0BF13C",
+  "jp": "売上",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 782652,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF144": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 92,
+  "key": "0x0BF144",
+  "jp": "ハイスコア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 782660,
+   "slot": 48,
+   "cap": 23,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF174": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 93,
+  "key": "0x0BF174",
+  "jp": "週目",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 782708,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF17C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 94,
+  "key": "0x0BF17C",
+  "jp": "／最高",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 782716,
+   "slot": 752,
+   "cap": 375,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF46C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 95,
+  "key": "0x0BF46C",
+  "jp": "西エリア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 783468,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF478": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 96,
+  "key": "0x0BF478",
+  "jp": "上方エリア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 783480,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF484": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 97,
+  "key": "0x0BF484",
+  "jp": "中央エリア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 783492,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF490": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 98,
+  "key": "0x0BF490",
+  "jp": "首都エリア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 783504,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF49C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 99,
+  "key": "0x0BF49C",
+  "jp": "北東エリア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 783516,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF4A8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 100,
+  "key": "0x0BF4A8",
+  "jp": "全エリア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 783528,
+   "slot": 690,
+   "cap": 344,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF75A": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 101,
+  "key": "0x0BF75A",
+  "jp": "慮来",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 784218,
+   "slot": 298,
+   "cap": 148,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF884": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 102,
+  "key": "0x0BF884",
+  "jp": "ファン人数",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 784516,
+   "slot": 44,
+   "cap": 21,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF8B0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 103,
+  "key": "0x0BF8B0",
+  "jp": "ギャラ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 784560,
+   "slot": 40,
+   "cap": 19,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BF8D8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 104,
+  "key": "0x0BF8D8",
+  "jp": "全国ファン人数",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 784600,
+   "slot": 1360,
+   "cap": 679,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BFE28": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 105,
+  "key": "0x0BFE28",
+  "jp": "アイマスエンジェル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 785960,
+   "slot": 320,
+   "cap": 159,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0BFF68": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 106,
+  "key": "0x0BFF68",
+  "jp": "設定を保存しますか？\n\n（設定を保存しない場合、タイトル画面に戻り、\nステージフォーユー！ で設定したデータは失われます。）",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 786280,
+   "slot": 1276,
+   "cap": 637,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C0464": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 107,
+  "key": "0x0C0464",
+  "jp": "タッチする場所を指定してください",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 787556,
+   "slot": 5256,
+   "cap": 2627,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C18EC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 108,
+  "key": "0x0C18EC",
+  "jp": "カメラ切替",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 792812,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C18F8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 109,
+  "key": "0x0C18F8",
+  "jp": "アイドル切替",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 792824,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1908": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 110,
+  "key": "0x0C1908",
+  "jp": "カメラ操作",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 792840,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1914": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 111,
+  "key": "0x0C1914",
+  "jp": "カーソル移動",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 792852,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1924": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 112,
+  "key": "0x0C1924",
+  "jp": "バースト",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 792868,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1930": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 113,
+  "key": "0x0C1930",
+  "jp": "アピール",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 792880,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C193C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 114,
+  "key": "0x0C193C",
+  "jp": "表示ON/OFF",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 792892,
+   "slot": 1444,
+   "cap": 721,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1EE0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 115,
+  "key": "0x0C1EE0",
+  "jp": "嘘時嘘分",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 794336,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1EEC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 116,
+  "key": "0x0C1EEC",
+  "jp": "だみーゆにっと",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 794348,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1EFC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 117,
+  "key": "0x0C1EFC",
+  "jp": "撮影場所",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 794364,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1F08": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 118,
+  "key": "0x0C1F08",
+  "jp": "曲名",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 794376,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1F10": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 119,
+  "key": "0x0C1F10",
+  "jp": "スコア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 794384,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1F18": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 120,
+  "key": "0x0C1F18",
+  "jp": "ダミー地点",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 794392,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1F24": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 121,
+  "key": "0x0C1F24",
+  "jp": "たぶんきょくめいの文字数やばい",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 794404,
+   "slot": 108,
+   "cap": 53,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1F90": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 122,
+  "key": "0x0C1F90",
+  "jp": "ダウンロード コンテンツステージ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 794512,
+   "slot": 36,
+   "cap": 17,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1FB4": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 123,
+  "key": "0x0C1FB4",
+  "jp": "ダウンロード コンテンツ曲",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 794548,
+   "slot": 28,
+   "cap": 13,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C1FD0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 124,
+  "key": "0x0C1FD0",
+  "jp": "－－",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 794576,
+   "slot": 568,
+   "cap": 283,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2208": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 125,
+  "key": "0x0C2208",
+  "jp": "サーチ３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795144,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2214": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 126,
+  "key": "0x0C2214",
+  "jp": "サーチ２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795156,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2220": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 127,
+  "key": "0x0C2220",
+  "jp": "サーチ１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795168,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C222C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 128,
+  "key": "0x0C222C",
+  "jp": "サブファン人数",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795180,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C223C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 129,
+  "key": "0x0C223C",
+  "jp": "サブスコア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795196,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2248": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 130,
+  "key": "0x0C2248",
+  "jp": "サブ曲名、衣装名",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795208,
+   "slot": 20,
+   "cap": 9,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C225C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 131,
+  "key": "0x0C225C",
+  "jp": "サブ撮影場所名",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795228,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C226C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 132,
+  "key": "0x0C226C",
+  "jp": "サブファン人数タイトル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795244,
+   "slot": 24,
+   "cap": 11,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2284": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 133,
+  "key": "0x0C2284",
+  "jp": "サブスコアタイトル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795268,
+   "slot": 20,
+   "cap": 9,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2298": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 134,
+  "key": "0x0C2298",
+  "jp": "サブ曲名タイトル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795288,
+   "slot": 20,
+   "cap": 9,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C22AC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 135,
+  "key": "0x0C22AC",
+  "jp": "サブ撮影場所キャプション",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795308,
+   "slot": 28,
+   "cap": 13,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C22C8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 136,
+  "key": "0x0C22C8",
+  "jp": "サブユニット名",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795336,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C22D8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 137,
+  "key": "0x0C22D8",
+  "jp": "サブ時間",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795352,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C22E4": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 138,
+  "key": "0x0C22E4",
+  "jp": "サブ日付",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795364,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C22F0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 139,
+  "key": "0x0C22F0",
+  "jp": "メニュー２－タイトル８",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795376,
+   "slot": 24,
+   "cap": 11,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2308": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 140,
+  "key": "0x0C2308",
+  "jp": "メニュー２－タイトル７",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795400,
+   "slot": 24,
+   "cap": 11,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2320": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 141,
+  "key": "0x0C2320",
+  "jp": "メニュー２－タイトル６",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795424,
+   "slot": 24,
+   "cap": 11,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2338": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 142,
+  "key": "0x0C2338",
+  "jp": "メニュー２－タイトル５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795448,
+   "slot": 24,
+   "cap": 11,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2350": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 143,
+  "key": "0x0C2350",
+  "jp": "メニュー２－タイトル４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795472,
+   "slot": 24,
+   "cap": 11,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2368": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 144,
+  "key": "0x0C2368",
+  "jp": "メニュー２－タイトル３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795496,
+   "slot": 24,
+   "cap": 11,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2380": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 145,
+  "key": "0x0C2380",
+  "jp": "メニュー２－タイトル２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795520,
+   "slot": 24,
+   "cap": 11,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2398": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 146,
+  "key": "0x0C2398",
+  "jp": "メニュー２－タイトル１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795544,
+   "slot": 24,
+   "cap": 11,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C23B0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 147,
+  "key": "0x0C23B0",
+  "jp": "メニュー２－８",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795568,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C23C0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 148,
+  "key": "0x0C23C0",
+  "jp": "メニュー２－７",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795584,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C23D0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 149,
+  "key": "0x0C23D0",
+  "jp": "メニュー２－６",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795600,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C23E0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 150,
+  "key": "0x0C23E0",
+  "jp": "メニュー２－５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795616,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C23F0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 151,
+  "key": "0x0C23F0",
+  "jp": "メニュー２－４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795632,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2400": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 152,
+  "key": "0x0C2400",
+  "jp": "メニュー２－３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795648,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2410": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 153,
+  "key": "0x0C2410",
+  "jp": "メニュー２－２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795664,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2420": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 154,
+  "key": "0x0C2420",
+  "jp": "メニュー２－１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795680,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2430": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 155,
+  "key": "0x0C2430",
+  "jp": "メニュー１－４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795696,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2440": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 156,
+  "key": "0x0C2440",
+  "jp": "メニュー１－３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795712,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2450": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 157,
+  "key": "0x0C2450",
+  "jp": "メニュー１－２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795728,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2460": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 158,
+  "key": "0x0C2460",
+  "jp": "メニュー１－１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795744,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2470": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 159,
+  "key": "0x0C2470",
+  "jp": "保存画面タイトル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795760,
+   "slot": 152,
+   "cap": 75,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2508": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 160,
+  "key": "0x0C2508",
+  "jp": "サインインしてからもう一度選択してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795912,
+   "slot": 78,
+   "cap": 38,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2556": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 161,
+  "key": "0x0C2556",
+  "jp": "　選択した項目にアップロードできません。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 795990,
+   "slot": 42,
+   "cap": 20,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2580": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 162,
+  "key": "0x0C2580",
+  "jp": "ランキングにアップロードできません。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 796032,
+   "slot": 408,
+   "cap": 203,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2718": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 163,
+  "key": "0x0C2718",
+  "jp": "並び替え",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 796440,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2724": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 164,
+  "key": "0x0C2724",
+  "jp": "削除",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 796452,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C272C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 165,
+  "key": "0x0C272C",
+  "jp": "ストレージ選択",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 796460,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C273C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 166,
+  "key": "0x0C273C",
+  "jp": "フォトアルバムへ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 796476,
+   "slot": 260,
+   "cap": 129,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2840": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 167,
+  "key": "0x0C2840",
+  "jp": "日付",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 796736,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2848": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 168,
+  "key": "0x0C2848",
+  "jp": "楽曲スコアランキング",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 796744,
+   "slot": 24,
+   "cap": 11,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2860": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 169,
+  "key": "0x0C2860",
+  "jp": "ＰＶ新着",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 796768,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C286C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 170,
+  "key": "0x0C286C",
+  "jp": "ファン人数ランキング",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 796780,
+   "slot": 616,
+   "cap": 307,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2AD4": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 171,
+  "key": "0x0C2AD4",
+  "jp": "ユニット名表示場所",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 797396,
+   "slot": 108,
+   "cap": 53,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2B40": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 172,
+  "key": "0x0C2B40",
+  "jp": "ダミーネーム",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 797504,
+   "slot": 600,
+   "cap": 299,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2D98": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 173,
+  "key": "0x0C2D98",
+  "jp": "メールフォルダ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 798104,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2DA8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 174,
+  "key": "0x0C2DA8",
+  "jp": "受信ボックス",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 798120,
+   "slot": 96,
+   "cap": 47,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C2E08": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 175,
+  "key": "0x0C2E08",
+  "jp": "受信メールはありません",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 798216,
+   "slot": 2776,
+   "cap": 1387,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C38E0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 176,
+  "key": "0x0C38E0",
+  "jp": "メーターが最大になるタイミングに合わせてＡボタンを押してください",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 800992,
+   "slot": 2488,
+   "cap": 1243,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C4298": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 177,
+  "key": "0x0C4298",
+  "jp": "北東",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 803480,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C42A0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 178,
+  "key": "0x0C42A0",
+  "jp": "首都",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 803488,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C42A8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 179,
+  "key": "0x0C42A8",
+  "jp": "中央",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 803496,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C42B0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 180,
+  "key": "0x0C42B0",
+  "jp": "上方",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 803504,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C42B8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 181,
+  "key": "0x0C42B8",
+  "jp": "西",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 803512,
+   "slot": 4,
+   "cap": 1,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C42BC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 182,
+  "key": "0x0C42BC",
+  "jp": "南",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 803516,
+   "slot": 1748,
+   "cap": 873,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C4990": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 183,
+  "key": "0x0C4990",
+  "jp": "呉低",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 805264,
+   "slot": 1350,
+   "cap": 674,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C4ED6": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 184,
+  "key": "0x0C4ED6",
+  "jp": "慮来",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 806614,
+   "slot": 2454,
+   "cap": 1226,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C586C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 185,
+  "key": "0x0C586C",
+  "jp": "スピードを落とせ！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 809068,
+   "slot": 456,
+   "cap": 227,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C5A34": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 186,
+  "key": "0x0C5A34",
+  "jp": "呉低",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 809524,
+   "slot": 6236,
+   "cap": 3117,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C7290": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 187,
+  "key": "0x0C7290",
+  "jp": "竜宮小町",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 815760,
+   "slot": 5102,
+   "cap": 2550,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C867E": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 188,
+  "key": "0x0C867E",
+  "jp": "摩湧",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 820862,
+   "slot": 3886,
+   "cap": 1942,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C95AC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 189,
+  "key": "0x0C95AC",
+  "jp": "ゲーマータグ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 824748,
+   "slot": 16,
+   "cap": 7,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C95BC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 190,
+  "key": "0x0C95BC",
+  "jp": "詳細不明",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 824764,
+   "slot": 236,
+   "cap": 117,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C96A8": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 191,
+  "key": "0x0C96A8",
+  "jp": "決定",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 825000,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C96B0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 192,
+  "key": "0x0C96B0",
+  "jp": "ゲーマー カード",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 825008,
+   "slot": 36,
+   "cap": 17,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C96D4": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 193,
+  "key": "0x0C96D4",
+  "jp": "楽曲選択へ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 825044,
+   "slot": 28,
+   "cap": 13,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C96F0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 194,
+  "key": "0x0C96F0",
+  "jp": "自分の順位へ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 825072,
+   "slot": 32,
+   "cap": 15,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C9710": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 195,
+  "key": "0x0C9710",
+  "jp": "PV再生",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 825104,
+   "slot": 28,
+   "cap": 13,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C972C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 196,
+  "key": "0x0C972C",
+  "jp": "次ランキングへ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 825132,
+   "slot": 32,
+   "cap": 15,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C974C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 197,
+  "key": "0x0C974C",
+  "jp": "前ランキングへ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 825164,
+   "slot": 32,
+   "cap": 15,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C976C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 198,
+  "key": "0x0C976C",
+  "jp": "次100位へ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 825196,
+   "slot": 32,
+   "cap": 15,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C978C": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 199,
+  "key": "0x0C978C",
+  "jp": "前100位へ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 825228,
+   "slot": 64,
+   "cap": 31,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C97CC": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 200,
+  "key": "0x0C97CC",
+  "jp": "卯杯",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 825292,
+   "slot": 6,
+   "cap": 2,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ }
+}
