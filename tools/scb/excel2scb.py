@@ -291,6 +291,34 @@ def _wrap_balanced(flat: str) -> list:
         lines.append(cur)
     return lines
 
+# 선택지 상자(xb_choice) 한 줄 폭 — 게임이 상자 폭에서 **글자 단위로** 자른다(Mac 1023e: '아니요, 괜찮습니다'가
+# '…괜찮습니 / 다'). 실측: '아니요, 괜찮습니'(추정 209)는 들어가고 '다'(235)가 넘침 → 209 이하로 어절 경계에서 미리 끊는다.
+# 선택지엔 표시가 없어 「」·（） 없는 한 줄 문자열 전부에 적용(대사창 평문 효과음 등은 2줄이 될 뿐 무해, 2026-10-23).
+CHOICE_WIDTH = 209.0
+_OPEN_BRACKETS = "「『（(【〈《“\""
+
+
+def _wrap_choice(flat: str):
+    """괄호 없는 한 줄이 선택지 폭을 넘으면 공백에서 2줄로(문장부호 뒤 > 균형). 못 나누면 None."""
+    if not flat or flat[0] in _OPEN_BRACKETS or not (CHOICE_WIDTH < _text_width(flat) <= WRAP_WIDTH):
+        return None
+    words = flat.split(" ")
+    best = None
+    for k in range(1, len(words)):
+        l1, l2 = " ".join(words[:k]), " ".join(words[k:])
+        w1, w2 = _text_width(l1), _text_width(l2)
+        if w1 > CHOICE_WIDTH:
+            break
+        fits = w2 <= CHOICE_WIDTH
+        score = (0 if fits else 1, 0 if l1[-1] in _BREAK_PUNCT else 1, abs(w1 - w2))
+        if best is None or score < best[0]:
+            best = (score, k)
+    if best is None:
+        return None
+    k = best[1]
+    return [" ".join(words[:k]), " ".join(words[k:])]
+
+
 def _cap_units(text: str) -> str:
     """하드 캡만 적용 (재배치 없이): 런 압축 후 초과분 경계 절단."""
     if len(text) <= MAX_TEXT_UNITS:
@@ -328,6 +356,9 @@ def rewrap(text: str) -> str:
             out.append(c)
         flat = "".join(out)
     # 하드 캡 2단계: 줄바꿈 포함 총 길이가 캡을 넘으면 경계 절단 (게임 버퍼 보호)
+    choice = _wrap_choice(flat)
+    if choice and len("\n".join(choice)) <= MAX_TEXT_UNITS:
+        return "\n".join(choice)
     result = "\n".join(_wrap_balanced(flat))
     while len(result) > MAX_TEXT_UNITS and flat:
         flat = flat[: max(0, len(flat) - 2)].rstrip()

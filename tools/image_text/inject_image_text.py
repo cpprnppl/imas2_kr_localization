@@ -28,6 +28,7 @@ import os
 import re
 import sys
 import json
+import hashlib
 import argparse
 
 import numpy as np
@@ -370,6 +371,8 @@ def main():
     ap.add_argument("--src", default=None, help="주입 PNG 폴더 (기본 <out>/kr)")
     ap.add_argument("--only", help="상대경로 부분 일치 필터")
     ap.add_argument("--min-psnr", type=float, default=33.0)
+    ap.add_argument("--exclude-src", choices=["claude"],
+                    help="claude = Claude 초벌 그림(웹앱 '이미지 텍스트' 빈 라벨 자동 렌더)을 빼고 주입(배포판용). 기본은 전부")
     ap.add_argument("--selftest", action="store_true",
                     help="cn_ref/의 CN 수정 텍스처를 주입해 파이프라인 검증")
     args = ap.parse_args()
@@ -411,6 +414,24 @@ def main():
     if args.only:
         jobs_by_rel = {k: v for k, v in jobs_by_rel.items()
                        if args.only.lower() in k.lower()}
+    # Claude 초벌 그림(kr_claude/manifest.json — 팀이 kr/ 파일을 바꿨으면 sha가 달라 초벌로 안 셈)
+    man_p = os.path.join(args.out, "kr_claude", "manifest.json")
+    claude = {}
+    if os.path.exists(man_p) and not args.selftest:
+        for v in json.load(open(man_p, encoding="utf-8")).values():
+            for f in v["kr_files"]:
+                claude[os.path.normcase(os.path.join(src_root, f))] = v["sha256"]
+
+    def is_claude(png):
+        h = claude.get(os.path.normcase(png))
+        return bool(h) and hashlib.sha256(open(png, "rb").read()).hexdigest() == h
+    n_cl = sum(1 for v in jobs_by_rel.values() for _n, p in v if is_claude(p))
+    if args.exclude_src == "claude":
+        jobs_by_rel = {k: [(n, p) for n, p in v if not is_claude(p)] for k, v in jobs_by_rel.items()}
+        jobs_by_rel = {k: v for k, v in jobs_by_rel.items() if v}
+        log(f"Claude 초벌 그림 {n_cl}장 제외(--exclude-src claude)")
+    else:
+        log(f"Claude 초벌 그림 {n_cl}장 포함 (배포판에서 빼려면 --exclude-src claude)")
     if not jobs_by_rel:
         log("주입할 PNG가 없습니다. <out>/kr/ 에 jp/와 같은 이름 규칙으로 넣으세요.")
         return 1
