@@ -1171,3 +1171,10 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   (patched/에 게이트 통과본은 있음) — 사용자 방침(PC 집중)상 보류.
 - 게임 데이터 텍스트 주입 도구(내장 XMB 일반화) — 번역 시작 전까지 보류.
 - 360 DLC 사본 적용(가사 5곡 포함), 360 전용 텍스처 18장, 360 s2d 형식 조사.
+- 추가(리컴파일 감독 전수 해시 비교): 공유 build_imas2_o2\game에는 dan_twi뿐 아니라
+  10-15 01:04~01:48 배포분 **한글 1,179개**(gscript 1,173·initialFix/initialTemp
+  폰트·dan_twi 3·lyrics_twi)가 남아 있음(백업 _backup_kr_orig, *.orig_kor). 복원 여부는
+  KOR 결정 대기, 그때까지 공유 폴더 동결. game_kor는 이 상태를 통째 복사했으므로
+  1,179개를 이미 포함 → 공유 폴더를 되돌려도 한글판은 game_kor에 온전. 향후 SCB·폰트
+  PC 포트 배포도 대상을 game_kor로(deploy_pcport·deploy_fonts 경로 변경 필요).
+  initialFix.mpc(게임 데이터 텍스트)는 game_kor의 폰트 주입본을 바탕으로 할 것.
