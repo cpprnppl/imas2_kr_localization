@@ -1300,3 +1300,41 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   360 전용 311 + translation_2 미번역 5,332.
 - 미확인: 레슨 튜토리얼 all_les_tu01(스케줄 확정 입력을 못 찾아 진입 못 함), 음성 커뮤 all_kur_01.
 - deploy_pcport --src360: 현재 game_kor의 PS3 dec 배포본을 `_backup_ps3dec\gscript`로 보존(최초 1회) 후 교체 — 롤백용.
+
+### 34-3. game_kor에 --src360 배포 (2026-10-23 02:0x, 사용자 승인)
+- KOR 승인 후 이 세션 권한 검사에서 한 번 거부 → 사용자 직접 승인("KOR에서 온 명령은 내가 한 명령과 같아")으로 실행.
+- game_kor SCB 1,097개 = output_pcport360(해시 일치). 이전 PS3 dec 배포본 1,097개 → `game_kor\resource\_backup_ps3dec\gscript`
+  (이전 산출물과 동일). 매니페스트 게임 tools `pcport_kor360_deploy_manifest.json`. 포팅 세션에 game_kor.manifest 재생성 요청.
+- 배포 시각 GPU는 포팅 런(공유 build_imas2_o2\game 사용) 중이었음 — game_kor와 무관.
+
+## 35. 웹앱 PS3 / 360 플랫폼 전수 점검·태그 (2026-10-23, 사용자·KOR)
+- 도구 `tools/image_text/platform_audit.py` (scan → platform_audit.json, apply). 360 원본은 메모리 복호화
+  (table360·풋터32), PS3 DLC는 table 오프셋 0/384/768 시도.
+- 태그 meta.plat = common | ps3 | x360 (+ plat_note). apply는 id·cat·grp·seq·key·jp·meta만 보내는 merge 업서트
+  → kr/st/ts/by(팀 번역·상태) 불변. 새 행은 ignore-duplicates.
+- 분류별 결과(62,634행, 태그 없는 행 0):
+  | 분류 | 공통 | PS3 전용 | 360 전용 |
+  |---|---|---|---|
+  | 게임 스크립트 | 49,201 | 3,039 | 313 |
+  | XMB | 557 | 1,085 | 0 |
+  | 게임 데이터 텍스트 | 3,594 | 546 | 183 |
+  | 이미지 | 327 | 59 | 98 |
+  | DLC | 2,189 | 664 | 779 |
+  - 스크립트 PS3 전용 = 竜宮小町 엑스트라(ryu) 2,920 + ami/azu/ior/rit_w01_03 20 + 360판에 없는 대사 99. 공통 중 문구가
+    다른 103줄은 plat_note에 360 문구(번역은 PS3 행 하나를 360 빌드가 이식하므로 행 분리 안 함).
+  - XMB PS3 전용 = exep_init(竜宮 NPC) 1,002, install 23, ranker 5, READY!!(rdy) 34·七彩ボタン(nan) 21. hon·ilh·lmg 가사는
+    공통(360은 DLC로 수록) 표시.
+  - 게임 데이터: PS3에서 뽑은 4,140행 중 546행이 360에 없음(PS3 확장 표). 360 전용 183행 추가(앨범 저장·Xbox 저장장치
+    메시지 68, initialFix 61(Xbox LIVE 안내 등), initialTemp 22, mainmenu 13, staff_roll 10 등) — 키 `x360:...`.
+  - 이미지: PS3 텍스처를 360 같은 파일과 내용 대조(pcport_apply 코덱 후보, ≥30dB). 360 미대응 텍스처 108개를 눈검수해
+    일본어 글자 있는 14개(튜토리얼 카드 7, お守りGET 2(같은 그림), アップロード·システム設定·服装設定, S4U 가 재킷 2)만
+    360 전용 행 13개로 추가(loc `x360:<rel>#nnn`, 회수 시 kr_x360/). 나머지는 버튼 그림·스태프롤 모델 텍스처·영문.
+  - DLC: PS3 cp01~18 가사 병합(dlc_text가 빠뜨렸던 것) — 기존 280행에 PS3 위치 추가, 새 390행(PS3 전용 15곡 + iwt 문구 다름 8),
+    PS3 전용 곡 재킷·제목 로고 30개 이미지 행. 360 DLC 이미지 108행 태그(카탈로그 등 360 전용 85, PS3에도 있는 곡 23).
+- 웹앱: "360 전용" 배지를 일반화(PS3 전용 주황·360 전용 청록·판 차이 회색, 툴팁 plat_note), 판 필터(판: 모두 / 공통 /
+  PS3 전용 / 360 전용), 카드·가사 묶음은 판 혼합 표시. script 그룹명 ryu는 시트명 오기(Jupiter) → "竜宮小町 엑스트라 (PS3 전용)".
+- 남은 것: 360 .s2d 배경 5장(bg2d_0003·0006·0155·0156·0157) 복호화 미지원 → PS3 행은 "대응 미확인" 메모.
+  PS3에만 있는 파일(exep_result·exep_staff_roll·exep_commu·exep_init·boot·logo·install·ranker_npc)은 360 없음.
+  360 전용 이미지·게임 데이터 텍스트의 PC 포트 주입 경로(kr_x360 → pcport_apply, gamedata 주입 도구) 미구현.
+  PS3 DLC game/cosinfo/exte 텍스처와 jacket_*_s(작은 재킷)는 360 기준과 같이 제외. 시딩 스크립트로 재시딩하면 plat이
+  빠지므로 재시딩 뒤에는 `platform_audit.py scan && apply` 재실행.

@@ -73,7 +73,8 @@ def script_groups():
         if "(" not in t:        # 목차 등
             continue
         short, label = t.split("(", 1)
-        out.append({"g": short, "label": f"{short} · {label.rstrip(')')}"})
+        label = {"ryu": "竜宮小町 엑스트라 (PS3 전용)"}.get(short, label.rstrip(")"))  # 시트명 'ryu(Jupiter)'는 오기
+        out.append({"g": short, "label": f"{short} · {label}"})
     return out
 
 

@@ -106,6 +106,7 @@ textarea{font-family:"imas2emo",var(--pf-v5-global--FontFamily--text,"RedHatText
       <div class="pf-v5-c-toolbar"><div class="pf-v5-c-toolbar__content" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <select class="pf-v5-c-form-control" style="width:auto" id="filter"></select>
         <select class="pf-v5-c-form-control" style="width:auto" id="subFilter" hidden></select>
+        <select class="pf-v5-c-form-control" style="width:auto" id="platFilter" hidden title="PS3판 / 360판(PC 포트) 구분"></select>
         <input class="pf-v5-c-form-control" style="width:16rem" type="search" id="q" placeholder="검색 (원문·번역·식별자)">
         <button class="pf-v5-c-button pf-m-secondary" id="frOpen">바꾸기</button>
         <button class="pf-v5-c-button pf-m-secondary" id="bulkOpen" hidden>일괄 다운로드·업로드</button>
@@ -355,7 +356,6 @@ function renderFilter() {
        ["edited", "식질됨 (검수 대기)"], ["done", "검수 완료"], ["warn", "경고 있음"]]
     : [["all", "전체"], ["todo", "미번역"], ["review", "번역됨 (검수 대기)"],
        ["done", "검수 완료"], ["warn", "경고 있음"]];
-  if (rows.some(r => (r.meta || {}).x360)) opts.push(["x360", "360 전용 (PC판)"]);
   const counts = {};
   for (const [v] of opts) counts[v] = 0;
   for (const r of rows) {
@@ -489,7 +489,6 @@ function markMissing(kr) {
 function passFilter(r, f) {
   if (f === "all") return true;
   if (f === "warn") return warns(r).length > 0;
-  if (f === "x360") return !!(r.meta || {}).x360;
   if (isBlank(r)) return false;
   if (r.cat === "image") {
     const img = KRIMG[r.key];
@@ -512,6 +511,7 @@ function visibleRows() {
   const q = query.toLowerCase();
   return rows.filter(r => {
     if (subSel && subKey(r) !== subSel) return false;
+    if (platSel && platOf(r) !== platSel) return false;
     if (q) {
       const m = r.meta || {};
       const hay = [r.key, r.jp, r.kr, m.sp, m.file,
@@ -531,6 +531,7 @@ function stLabel(r) {
 
 function render() {
   renderSubFilter();
+  renderPlatFilter();
   if ((cat === "xmb" && grp === "lyrics") || (cat === "dlc" && grp === "songinfo"))
     return renderLyrics();
   if (cat === "dlc" && (grp === "mail" || grp === "catalog")) return renderCards();
@@ -563,14 +564,14 @@ function render() {
           <div class="pf-v5-u-color-200" style="font-size:10px">작업본 · ${esc(img.by || "")}</div></div>` : ""}
         <button class="pf-v5-c-button pf-m-control pf-m-compact" data-act="upload">${img ? "교체" : "작업본 업로드"}</button>
       </div>`;
-      second = `<span class="nowrap">${m.kind ? `<b>${esc(m.kind)}</b> · ` : ""}${m.w}×${m.h} ${esc(m.fmt || "")}</span><br>
+      second = `<span class="nowrap">${m.kind ? `<b>${esc(m.kind)}</b> · ` : ""}${m.w}×${m.h} ${esc(m.fmt || "")}</span>${platBadge(r)}<br>
                 <span class="pf-v5-u-color-200" style="font-size:12px">${esc((m.locs || [])[0] || "")}${(m.locs || []).length > 1 ? ` 외 ${m.locs.length - 1}곳` : ""}</span>`;
     } else if (cat === "script") {
       const m = r.meta || {};
-      first = `<span class="nowrap">${esc(m.sp || "")}</span>${m.x360 ? ` <span class="pf-v5-c-label pf-m-cyan pf-m-compact" title="360판(PC 포트)에만 있는 대사 — PS3판에는 없음"><span class="pf-v5-c-label__content">360 전용</span></span>` : ""}<br><span class="pf-v5-u-color-200" style="font-size:11px">${esc(m.file || "")}</span>`;
+      first = `<span class="nowrap">${esc(m.sp || "")}</span>${platBadge(r)}<br><span class="pf-v5-u-color-200" style="font-size:11px">${esc(m.file || "")}</span>`;
       second = `<div class="jp-cell">${fmtText(r.jp)}</div>` + (m.suggest ? `<div class="sugg" title="PS3판의 비슷한 대사 번역 (유사도 ${Math.round(m.suggest.ratio * 100)}%) — 참고용">참고 · ${Math.round(m.suggest.ratio * 100)}%: ${fmtText(m.suggest.kr)}</div>` : "");
     } else {
-      first = `<code style="font-size:12px">${esc(r.key)}</code>`;
+      first = `<code style="font-size:12px">${esc(r.key)}</code>${platBadge(r)}`;
       second = `<div class="jp-cell">${fmtText(r.jp)}</div>`;
     }
     h += `<tr class="pf-v5-c-table__tr${dim}" data-id="${esc(r.id)}">
@@ -617,7 +618,7 @@ function renderLyrics() {
     const krText = rs.map(r => r.kr || "").join("\n");
     h += `<div class="pf-v5-c-card pf-m-compact lyr-card" data-song="${esc(song)}" style="margin-bottom:12px">
       <div class="pf-v5-c-card__title" style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
-        <b>${esc(song)}</b>
+        <b>${esc(song)}</b>${platBadgeGroup(rs)}
         <span class="pf-v5-u-color-200" style="font-weight:400;font-size:13px">${esc(rs[0].jp.slice(0, 26))}</span>
         <span style="margin-left:auto;font-size:12px" class="pf-v5-u-color-200">번역 ${done}/${rs.length} · 검수 ${rv}</span></div>
       <div class="pf-v5-c-card__body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px">
@@ -702,6 +703,31 @@ function subLabel(k) {
   return k.replace(/^(catalog|package)_/, "패키지 ");
 }
 let subSel = "";
+/* 플랫폼 태그 meta.plat: common | ps3 | x360 (platform_audit.py). plat_note = 판 차이 설명 */
+const PLAT = { ps3: ["PS3 전용", "orange"], x360: ["360 전용", "cyan"] };
+const PLAT_OPT = [["", "판: 모두"], ["common", "공통 (두 판 모두)"], ["ps3", "PS3 전용"], ["x360", "360 전용 (PC판)"]];
+function platOf(r) { const m = r.meta || {}; return m.plat || (m.x360 ? "x360" : "common"); }
+function platBadge(r) {
+  const m = r.meta || {}, p = platOf(r);
+  if (PLAT[p]) return ` <span class="pf-v5-c-label pf-m-${PLAT[p][1]} pf-m-compact" title="${esc(m.plat_note || "")}"><span class="pf-v5-c-label__content">${PLAT[p][0]}</span></span>`;
+  if (m.plat_note) return ` <span class="pf-v5-c-label pf-m-compact" title="${esc(m.plat_note)}"><span class="pf-v5-c-label__content">판 차이</span></span>`;
+  return "";
+}
+function platBadgeGroup(rs) {
+  return new Set(rs.map(platOf)).size === 1 ? platBadge(rs[0])
+    : ` <span class="pf-v5-c-label pf-m-compact" title="PS3·360 전용 줄이 섞여 있음"><span class="pf-v5-c-label__content">판 혼합</span></span>`;
+}
+let platSel = "";
+function renderPlatFilter() {
+  const el = $("#platFilter");
+  const cnt = { "": rows.length };
+  rows.forEach(r => { const p = platOf(r); cnt[p] = (cnt[p] || 0) + 1; });
+  if (!cnt.ps3 && !cnt.x360) { el.hidden = true; platSel = ""; return; }
+  el.innerHTML = PLAT_OPT.filter(([v]) => cnt[v]).map(([v, l]) => `<option value="${v}">${l} · ${cnt[v]}</option>`).join("");
+  if (!cnt[platSel]) platSel = "";
+  el.value = platSel;
+  el.hidden = false;
+}
 function renderSubFilter() {
   const el = $("#subFilter");
   const keys = [...new Set(rows.map(subKey).filter(Boolean))].sort();
@@ -717,6 +743,7 @@ function renderSubFilter() {
   el.hidden = false;
 }
 $("#subFilter").onchange = ev => { subSel = ev.target.value; page = 0; render(); };
+$("#platFilter").onchange = ev => { platSel = ev.target.value; page = 0; render(); };
 
 function cardOf(r) {
   const m = r.meta || {};
@@ -772,7 +799,7 @@ function renderCards() {
                   || g.parts[0]).r.jp;
     h += `<div class="pf-v5-c-card pf-m-compact mc-card" data-gid="${esc(g.gid)}" style="margin-bottom:12px">
       <div class="pf-v5-c-card__title" style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
-        <b>${esc(who)}</b>${g.n ? `<span class="pf-v5-u-color-200" style="font-size:12px">#${esc(g.n)}</span>` : ""}
+        <b>${esc(who)}</b>${platBadgeGroup(g.parts.map(p => p.r))}${g.n ? `<span class="pf-v5-u-color-200" style="font-size:12px">#${esc(g.n)}</span>` : ""}
         <span style="font-weight:400;font-size:13px">${esc(subj.split("\n")[0].slice(0, 40))}</span>
         <span style="margin-left:auto;font-size:12px" class="pf-v5-u-color-200">번역 ${done}/${g.parts.length} · 검수 ${rv}</span></div>
       <div class="pf-v5-c-card__body" style="display:flex;flex-direction:column;gap:10px">`;
