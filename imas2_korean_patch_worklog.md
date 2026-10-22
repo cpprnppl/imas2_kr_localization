@@ -1388,3 +1388,21 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   catalog 그룹에 없는 고유 원문 295개를 행으로 추가(키 catalog_cpNN:x0.<id>, meta.src 해당 원문이 나오는 cp 위치 전부,
   plat ps3). 같은 원문은 한 행(주입기의 원문 일치 적용으로 전 칸 커버). dlc_texts.json 295 + DB 신규 104(191은 앞 단계에서
   먼저 추가, ignore-duplicates). coverage 재확인: PS3 catalog 916/916(100%), 전 플랫폼·그룹 원문 100%.
+
+## 37. 웹앱 번역 회수 → game_kor 반영 + 게임 데이터 텍스트 주입기 (2026-10-23 03:0x~03:23, 사용자 지시)
+- 회수: script(translation_webapp_20261023_0311.xlsx, translation_2 대비 1셀 변경, 360 전용 번역 0), xmb(변경 0),
+  image(작업본 167개 → PNG 321장), gamedata(웹앱에서 직접, 번역 2,251행 — 시스템 메시지 초벌 711행 포함).
+- 스크립트: pcport360 build `--excel` 옵션 추가 → 회수본으로 1,097개 빌드 → deploy_pcport --src360(게이트 통과) → game_kor.
+- 이미지·NPC XMB·가사: pcport_apply build/deploy 71개 → game_kor(백업 game_kor_backup_20261023_031600).
+- **게임 데이터 텍스트 주입기 tools/image_text/gamedata_apply.py** (새):
+  - 기준 = game_kor 현재 파일(폰트 주입 initialFix·이미지 보존), 칸 결정 = 360 원본의 같은 구조 위치.
+    번역 있으면 한국어, 없으면 원본 일본어 → 반복 실행해도 같은 결과. NPC·가사 id 접두는 제외(다른 도구 담당).
+  - 컨테이너 재귀: pac → TSK(dlc_inject.tsk_parse/tsk_build) → XMB(rebuild_xmb). alf_audi·PauseMenu·initialTemp 등은
+    XMB가 TSK 안에 있음.
+  - 무수정 왕복 19/19 파일 바이트 동일 → 빌드 한국어 2,658칸(일본어 유지: staff_roll 674·fan_letter 722 등 미번역) →
+    검증(비대상 항목·칸·attr 구조 불변) 통과, 폰트 매핑 밖 한글 0 → game_kor 배포(백업 game_kor_backup_gamedata_20261023_032308).
+  - initialFix 10,602,976→10,604,016B(+1,040B) — 부팅 로드 영향은 인게임 확인 필요.
+- **pcport_apply.parse_pac 버그 수정**: 데이터 시작을 (파일 길이 − 마지막 항목 끝)으로 구해, 꼬리 패딩(4~28B)이 있는
+  360 pac 53개(전 155개 중)에서 어긋났음 → 헤더 +0x38 사용. rebuild_pac은 원본 꼬리 바이트 보존. (이전 배포의 NPC 표 파일은
+  꼬리 0이라 영향 없었음 — 당시 비대상 항목 불변 검증 통과.)
+- 순서 규칙: pcport_apply deploy는 같은 파일을 원본에서 다시 만들므로, 그 뒤에는 gamedata_apply를 다시 돌린다(deploy 끝에 안내 출력).

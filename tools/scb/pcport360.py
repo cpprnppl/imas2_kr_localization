@@ -23,7 +23,7 @@ pcport360.py — PC 포트(360 리컴파일)용 한글 SCB: **360 원본 dec에 
 
 사용 (게임 tools 폴더에서):
   python pcport360.py classify
-  python pcport360.py build [rel ...]
+  python pcport360.py build [rel ...] [--excel <웹앱 회수본.xlsx>]
   python pcport360.py validate        # 종료코드 0 = 통과, 1 = 구조 오류
   python pcport360.py stage [dest]    # 인게임 확인용: game_kor 사본(기본 imas2pc\game_kor360_test)에만 배치
 배포: python deploy_pcport.py --src360   (validate 통과 시에만, game_kor 전용 — 인게임 확인 뒤)
@@ -296,7 +296,7 @@ def build_one(rel, abs_map, font_map, x360_tr=None):
 def cmd_build(a):
     xr = scb_rels(X360_ORIG)
     font_map = e2s.load_font_mapping()
-    xl = excel_path()
+    xl = a.excel or excel_path()
     print(f"번역 엑셀: {xl}")
     tr = e2s.load_translations(xl)
     xp, x360 = load_x360_translations()
@@ -451,6 +451,7 @@ def main():
     sub.add_parser("classify")
     b = sub.add_parser("build")
     b.add_argument("rels", nargs="*")
+    b.add_argument("--excel", help="번역 엑셀(기본 translation_2.xlsx, 웹앱 회수본 translation_webapp_*.xlsx 지정 가능)")
     sub.add_parser("validate")
     s = sub.add_parser("stage")
     s.add_argument("dest", nargs="?", default=TEST_ROOT)

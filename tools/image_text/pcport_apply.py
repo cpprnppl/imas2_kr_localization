@@ -223,8 +223,9 @@ def parse_pac(data):
         off = 0x40 + i * 32
         size, ofs = struct.unpack_from(">II", data, off + 8)
         ents.append({"i": i, "tbl": off, "size": size, "ofs": ofs})
-    last = max(ents, key=lambda e: e["ofs"])
-    ds = len(data) - last["ofs"] - last["size"]
+    # 데이터 시작은 헤더 +0x38. (파일 길이 - 마지막 항목 끝)으로 구하면 꼬리 패딩(4~28B)이 있는
+    # 파일에서 어긋난다 — 360 원본 pac 155개 중 53개(2026-10-23 확인).
+    ds = struct.unpack_from(">I", data, 0x38)[0]
     return ents, ds
 
 
@@ -238,7 +239,8 @@ def rebuild_pac(data, ents, ds, repl_blobs):
         pos += len(blob) + pad
     out = bytearray(data[:ds]) + b"".join(parts)
     lt = max(tbl, key=lambda t: t[2])
-    out = out[:ds + lt[2] + lt[1]]
+    old_end = ds + max(e["ofs"] + e["size"] for e in ents)
+    out = out[:ds + lt[2] + lt[1]] + data[old_end:]      # 원본 꼬리 바이트 보존
     for t, size, ofs in tbl:
         struct.pack_into(">II", out, t + 8, size, ofs)
     struct.pack_into(">I", out, 0x08, sum(s for _, s, _ in tbl))
@@ -385,6 +387,8 @@ def deploy():
     json.dump(mani, open(os.path.join(bdir, "manifest.json"), "w", encoding="utf-8"), indent=1)
     print(f"{len(mani)}개 배포 → {KOR_RES}\n백업·매니페스트: {bdir}")
     print("실행: IMAS2PC_DISC_ROOT=" + KOR_ROOT + " (공유 game은 불변)")
+    print("⚠ 이 도구는 대상 파일을 360 원본에서 다시 만든다 — 게임 데이터 텍스트가 빠질 수 있으니 "
+          "이어서 `python gamedata_apply.py build --code <팀암호>` → validate → deploy를 다시 실행")
 
 
 def main():
