@@ -1031,11 +1031,13 @@ async function runSearch(q, c) {
   gSearch.q = q; gSearch.c = c;
   $("#gres").innerHTML = "찾는 중…";
   const v = '"*' + q.replace(/["\\]/g, m => "\\" + m) + '*"';
-  let qq = sb.from("rows").select("id,cat,grp,key,jp,kr,st,meta").or(`jp.ilike.${v},kr.ilike.${v}`).limit(301);
-  if (c) qq = qq.eq("cat", c);
-  const { data, error } = await qq;
-  if (error) { $("#gres").textContent = "검색 실패: " + error.message; return; }
-  gSearch.res = data;
+  // 6만여 행 전체에 OR ilike 한 번은 문장 시간 제한에 걸림 → 분류별로 나눠 동시에(각 0.2~0.9초)
+  const cats = c ? [c] : META.nav.map(x => x.cat);
+  const parts = await Promise.all(cats.map(cc => sb.from("rows").select("id,cat,grp,key,jp,kr,st,meta")
+    .eq("cat", cc).or(`jp.ilike.${v},kr.ilike.${v}`).limit(301)));
+  const bad = parts.filter(r => r.error);
+  gSearch.res = parts.flatMap(r => r.data || []);
+  gSearch.err = bad.length ? `${bad.length}개 분류 검색 실패: ${bad[0].error.message}` : "";
   drawSearch();
 }
 function hl(text, q) {
@@ -1047,7 +1049,7 @@ function hl(text, q) {
 function drawSearch() {
   const res = gSearch.res, q = gSearch.q;
   const more = res.length > 300;
-  let h = `<div class="pf-v5-u-color-200" style="font-size:12px;margin-bottom:6px">${more ? "300건 넘음 — 앞 300건만 표시, 검색어를 더 구체적으로" : res.length + "건"}</div>
+  let h = `<div class="pf-v5-u-color-200" style="font-size:12px;margin-bottom:6px">${more ? "300건 넘음 — 앞 300건만 표시, 검색어를 더 구체적으로" : res.length + "건"}${gSearch.err ? ` · <span style="color:var(--pf-v5-global--danger-color--100)">${esc(gSearch.err)}</span>` : ""}</div>
     <table class="pf-v5-c-table pf-m-compact pf-m-grid-md"><thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">
     <th class="pf-v5-c-table__th">분류</th><th class="pf-v5-c-table__th">원문</th><th class="pf-v5-c-table__th">한국어</th></tr></thead><tbody class="pf-v5-c-table__tbody">`;
   for (const r of res.slice(0, 300)) {
