@@ -1239,3 +1239,45 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   칸 1.125em로 키움. 컬러 미지원 환경은 실루엣 대체. 캐시 회피 `imas2emo.ttf?v=2`.
 - 팔레트 토글 버튼: 배경 없는 secondary → 채운 primary + 그림자.
 - 엑셀 왕복(openpyxl 저장→읽기)에서 PUA 그대로 유지 확인.
+
+## 34. PC 포트 SCB를 360 원본 기반으로 — 한글 MSG만 이식 (2026-10-23, KOR 지시)
+
+### 배경
+- PS3_VS_360.md §2.3-b: 기존 PC 배포(deploy_pcport ← excel2scb output_pcport)는 **PS3 순정 dec에
+  한글을 넣은 평문**을 360 트리에 넣었다 → 360 엔진에서 PS3 스크립트 로직·PS3식 음성(BNSF flag 0)이 돎.
+
+### 분류 (pcport360.py classify, 공통 1,158 / 배포 대상 1,097)
+| 분류 | 전체 | 배포 대상 |
+|---|---|---|
+| 음성/서브파일만 다름 (SCB 섹션 전부 동일) | 988 | 927 |
+| 로직 다름 (CMD 등) | 113 | 113 |
+| MSG만 다름 (PS3 문구 수정) | 57 | 57 |
+- 로직 113개 섹션 조합: CMD 22, CMD+LBL+RSC 19, CMD+LBL+LBN+MSG 16, CMD+LBL 16, CMD+LBL+LBN 16,
+  CMD+MSG 10, CMD+LBL+LBN+MSG+VCN 5, CMD+RSC 3, CMD+LBL+MSG 3, 기타 3. 이름: arr_11·les_emotion·ni_01 각 10,
+  w01_03·w03_07 각 9, mo_01 7, song_chg01 6, scs_*, aud_01, les_tu01, omi_01 등.
+- 음성 플래그(BNSF+0x14 u16 = sfmt+8): 배포 대상에서 PS3 0 → 360 2가 999개. **360 원본에도 flag 0
+  음성이 있다**(전부 0인 파일 8개, 0·2 혼재 43개) → 360 엔진이 flag 0도 재생할 가능성이 높음(인게임 미확인).
+- 보고서: 게임 tools `pcport360_classify.md/.json`.
+
+### 빌드 경로 (tools/scb/pcport360.py)
+- 360 원본 dec(table360.bin, **풋터 32B**) + excel2scb의 규칙 그대로: `resolve_translations`(abs_offset 매칭·
+  rewrap·116B 캡) → `build_msg_block`(테이블 리빌드, 규칙 3) → `replace_msg_section`(섹션 디렉터리 + pac 헤더
+  4필드, 규칙 4). excel2scb는 매칭 루프를 `resolve_translations`로 분리만 함 — 기존 산출물 1,121개를
+  메모리 재생성해 **바이트 동일 확인**, validate_output 통과.
+- PS3→360 MSG 인덱스: 원문 목록이 같으면 1:1(1,005개), 아니면 difflib 정렬(92개; 같은 길이 replace
+  블록은 유사도 ≥0.5 위치 짝, 길이 다르면 ≥0.6 순서 보존 탐욕 짝).
+- 결과(translation_2.xlsx): 1,097개 생성, 이식 43,411줄, 원문 달라진 짝 89줄(번역 이식), **버린 PS3 번역 77줄**,
+  **360에만 있는 대사 313줄(일본어로 남음)** — 거의 전부 all_omi_01(부적 가게, 360 341줄 vs PS3 138줄로
+  PS3에서 재작성) 269줄과 all_les_tu01(360 버튼 튜토리얼 「B ボタン」 등) 32줄. 보고서 `pcport360_build_report.md/.json`.
+- 1:1 파일 1,005개의 한글 MSG 섹션은 기존 PS3 기반 산출물과 바이트 동일(차이는 로직·음성뿐).
+
+### 게이트·배포 준비
+- `pcport360.py validate`: validate_output.validate_dec(구조, 리팩터로 분리) + 360 원본 대비 MSG 외 섹션·
+  서브파일(컷씬/음성)·SCB 헤더(크기 필드 외) 불변, MSG 개수 불변. 1,097/1,097 통과. 음성 바이트·CMD 바이트·
+  pac 크기 필드를 일부러 깬 사본은 전부 거부(음성 시험).
+- `deploy_pcport.py --src360`: 게이트 통과 시에만, game_kor 전용(공유 game 거부), 매니페스트
+  pcport_kor360_deploy_manifest.json. **아직 배포 안 함**(인게임 확인 뒤).
+- `pcport360.py stage`: 인게임 확인용 별도 루트 `imas2pc\game_kor360_test`(game_kor 전체 사본 + 360 기반
+  SCB 1,097개). game_kor 불변 확인. 실행 `IMAS2PC_DISC_ROOT=...\game_kor360_test`.
+- 남은 것: 인게임 1배 확인(음성 커뮤, 로직 다른 파일 대표: les_tu01·w01_03·w02_* 등) — GPU 순서 대기.
+  360 전용 313줄 번역 필요(웹앱 추가 여부 KOR 결정).

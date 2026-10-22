@@ -17,18 +17,22 @@ deploy_pcport.py — PC 포트(360 리컴파일)에 한글 SCB 배포
 사용: python deploy_pcport.py                  (game_kor에 배포)
       python deploy_pcport.py --check          (대상/제외 목록만 출력)
       python deploy_pcport.py --allow-shared   (공유 build_imas2_o2\\game — 명시적으로만)
+      python deploy_pcport.py --src360         (pcport360.py 산출물: 360 원본 dec + 한글 MSG.
+                                                pcport360 검증 게이트 통과 시에만, game_kor 전용)
 """
 import os, sys, glob, shutil, hashlib, json, datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GAME_TOOLS = r"C:\Users\jackfilm\Desktop\rpcs3-v0.0.39-18811-6bfb3327_win64_msvc\dev_hdd0\game\NPJB00337\USRDIR\resource\gscript\tools"
-SRC = os.path.join(GAME_TOOLS, "output_pcport")
+SRC360 = "--src360" in sys.argv
+SRC = os.path.join(GAME_TOOLS, "output_pcport360" if SRC360 else "output_pcport")
 PCPORT_KOR = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor\resource\gscript"
 PCPORT_SHARED = r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game\resource\gscript"
 PCPORT = PCPORT_SHARED if "--allow-shared" in sys.argv else PCPORT_KOR
 BACKUP = os.path.join(os.path.dirname(PCPORT), "_backup_kr_orig", "gscript")
 MANIFEST = os.path.join(GAME_TOOLS, "pcport_deploy_manifest.json" if PCPORT == PCPORT_SHARED
-                        else "pcport_kor_deploy_manifest.json")
+                        else ("pcport_kor360_deploy_manifest.json" if SRC360
+                              else "pcport_kor_deploy_manifest.json"))
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -43,12 +47,23 @@ def main():
     check = "--check" in sys.argv
     srcs = glob.glob(os.path.join(SRC, "**", "*.scb"), recursive=True)
     if not srcs:
-        print(f"❌ 평문 산출물 없음: {SRC} — excel2scb.py(PCPORT_OUTPUT=True) 먼저 실행")
+        print(f"❌ 평문 산출물 없음: {SRC} — "
+              + ("pcport360.py build" if SRC360 else "excel2scb.py(PCPORT_OUTPUT=True)") + " 먼저 실행")
         sys.exit(1)
     if not os.path.isdir(PCPORT):
         print(f"❌ PC 포트 gscript 없음: {PCPORT}")
         sys.exit(1)
     print(f"배포 대상: {PCPORT}" + ("  ⚠ 공유 기준선(--allow-shared)" if PCPORT == PCPORT_SHARED else ""))
+    if SRC360:
+        if PCPORT == PCPORT_SHARED:
+            print("❌ --src360은 game_kor 전용 (공유 기준선 동결)")
+            sys.exit(1)
+        sys.path.insert(0, HERE)
+        import pcport360
+        print(f"소스: {SRC} (360 원본 기반) — 검증 게이트 실행")
+        if not pcport360.validate_all():
+            print("❌ 360 기준 구조 검증 실패 — 배포 중단")
+            sys.exit(1)
 
     deployed, skipped = [], []
     manifest = {"deployed_at": datetime.datetime.now().isoformat(), "files": {}}

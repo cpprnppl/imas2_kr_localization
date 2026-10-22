@@ -28,8 +28,16 @@ OUT = os.path.join(TOOLS, "output")
 
 
 def validate_one(path, rel):
-    issues, hangul = [], []
     dec = common.decrypt_scb(open(path, "rb").read())
+    orig_p = os.path.join(BACKUP, rel)
+    orig = common.decrypt_scb(open(orig_p, "rb").read()) if os.path.exists(orig_p) else None
+    return validate_dec(dec, orig)
+
+
+def validate_dec(dec, orig=None):
+    """복호화된 산출물 dec의 구조 검증. orig = 같은 파일의 원본 dec(+0x08 delta 비교용).
+    pcport360.py(360 원본 기반 빌드)도 이 함수를 그대로 쓴다."""
+    issues, hangul = [], []
     secs = common.parse_section_dir(dec)
     if "MSG" not in secs:
         return ["MSG 섹션 없음"], hangul
@@ -67,9 +75,8 @@ def validate_one(path, rel):
     if base + total + pad2 != msg_abs + msg_size:
         issues.append("MSG 섹션 끝 불일치")
     # f08: 원본 대비 delta 일관성
-    orig_p = os.path.join(BACKUP, rel)
-    if os.path.exists(orig_p):
-        o = common.decrypt_scb(open(orig_p, "rb").read())
+    if orig is not None:
+        o = orig
         osecs = common.parse_section_dir(o)
         omsg_abs, omsg_size = osecs["MSG"]
         of08 = struct.unpack_from(">I", o, omsg_abs + 8)[0]

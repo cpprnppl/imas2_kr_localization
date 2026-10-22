@@ -602,36 +602,7 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
     msg_abs, msg_size = secs["MSG"]
 
     parsed = parse_msg_table(dec, msg_abs)
-
-    # build abs_offset -> string_index map (from original)
-    abs_to_index = { s["abs_offset"]: s["index"] for s in parsed["strings"] }
-
-    # fallback: 원문 텍스트 -> index (유일한 경우만). 구버전 추출기의 abs_offset 오류 구제용
-    text_to_indices = {}
-    for s in parsed["strings"]:
-        text_to_indices.setdefault(s["text"].strip(), []).append(s["index"])
-
-    # build new_texts_by_index
-    new_by_idx = {}
-    misses = 0
-    text_recovered = 0
-    garbage_skipped = 0
-    for abs_off, (orig, tr) in abs_to_tr.items():
-        if is_garbage_translation(tr):
-            garbage_skipped += 1
-            continue
-        idx = abs_to_index.get(abs_off)
-        if idx is None:
-            # 원문 텍스트로 유일 매칭 시도
-            cand = text_to_indices.get(orig.strip(), [])
-            cand = [c for c in cand if c not in new_by_idx]
-            if len(cand) == 1:
-                idx = cand[0]
-                text_recovered += 1
-            else:
-                misses += 1
-                continue
-        new_by_idx[idx] = rewrap(tr)
+    new_by_idx, text_recovered, misses, garbage_skipped = resolve_translations(parsed, abs_to_tr)
 
     # rebuild MSG block
     new_msg = build_msg_block(parsed, new_by_idx, font_map, msg_size)
@@ -666,6 +637,41 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
     if len(too_long) > 5:
         warns.append(f"⚠ 그 외 {len(too_long)-5}개 더 {WRAP_WARN_LINES}줄 초과")
     return True, warns
+
+
+def resolve_translations(parsed, abs_to_tr: dict):
+    """엑셀 행(원본 abs_offset → (원문, 번역))을 MSG 문자열 인덱스로 매칭해
+    rewrap(줄폭·116B 캡)까지 적용. pcport360.py도 같은 규칙을 쓰려고 분리.
+    Returns (new_by_idx, text_recovered, misses, garbage_skipped)."""
+    abs_to_index = { s["abs_offset"]: s["index"] for s in parsed["strings"] }
+
+    # fallback: 원문 텍스트 -> index (유일한 경우만). 구버전 추출기의 abs_offset 오류 구제용
+    text_to_indices = {}
+    for s in parsed["strings"]:
+        text_to_indices.setdefault(s["text"].strip(), []).append(s["index"])
+
+    # build new_texts_by_index
+    new_by_idx = {}
+    misses = 0
+    text_recovered = 0
+    garbage_skipped = 0
+    for abs_off, (orig, tr) in abs_to_tr.items():
+        if is_garbage_translation(tr):
+            garbage_skipped += 1
+            continue
+        idx = abs_to_index.get(abs_off)
+        if idx is None:
+            # 원문 텍스트로 유일 매칭 시도
+            cand = text_to_indices.get(orig.strip(), [])
+            cand = [c for c in cand if c not in new_by_idx]
+            if len(cand) == 1:
+                idx = cand[0]
+                text_recovered += 1
+            else:
+                misses += 1
+                continue
+        new_by_idx[idx] = rewrap(tr)
+    return new_by_idx, text_recovered, misses, garbage_skipped
 
 
 # -------------------------
