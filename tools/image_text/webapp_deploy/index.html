@@ -439,7 +439,7 @@ function joinSep(prev, nxt) {
   const b = prev[prev.length - 1], a = nxt[0];
   if (b === " " || a === " ") return "";
   if (!(isHan(b) && isHan(a))) return ("「『（([".includes(b) || ",.!?…、。」』！？）)]".includes(a)) ? "" : " ";
-  if (b === "이") return "";
+  // 빌드는 '이'로 끝나면 붙이고 Kiwi가 띄어쓰기를 되살린다 — 미리보기는 Kiwi 결과에 맞춰 조사 조각만 붙임
   let frag = "";
   for (const c of nxt) { if (isHan(c)) frag += c; else break; }
   return P_FRAG.has(frag) ? "" : " ";
