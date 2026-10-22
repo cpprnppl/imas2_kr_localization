@@ -47325,5 +47325,4815 @@
     "360:BD2105/songinfo/vam"
    ]
   }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000100000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 778,
+  "key": "catalog_cp01:x0.0x0000000000100000",
+  "jp": "ミクオリジナル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000100000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 587,
+  "key": "catalog_cp01:x0.0x0000000000100000.2",
+  "jp": "バーチャルアイドル「初音ミク」\r\nのスタイリッシュな衣装です。\r\nＶＯ．イメージがＵＰします。\r\n衣装の他に、初音ミクが楽曲\r\n「ワールドイズマイン」で歌って\r\n踊るステージを、Ｓ４Ｕ！モード\r\nにて鑑賞することができます。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000400000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 780,
+  "key": "catalog_cp01:x0.0x0000000000400000",
+  "jp": "３０００００マニー＃１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000800000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 781,
+  "key": "catalog_cp01:x0.0x0000000000800000",
+  "jp": "６０００００マニー＃１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000800000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 588,
+  "key": "catalog_cp01:x0.0x0000000000800000.2",
+  "jp": "アイドルマスター２のゲーム内の\r\nお金・マニーです。\r\n６０００００マニー分の価値があ\r\nります。\r\nこのアイテムは一度、適用すると\r\n再度使用することはできません。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0",
+    "ps3:cp02/catalog_info.xmb#x0",
+    "ps3:cp03/catalog_info.xmb#x0",
+    "ps3:cp04/catalog_info.xmb#x0",
+    "ps3:cp05/catalog_info.xmb#x0",
+    "ps3:cp06/catalog_info.xmb#x0",
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0",
+    "ps3:cp09/catalog_info.xmb#x0",
+    "ps3:cp10/catalog_info.xmb#x0",
+    "ps3:cp11/catalog_info.xmb#x0",
+    "ps3:cp12/catalog_info.xmb#x0",
+    "ps3:cp13/catalog_info.xmb#x0",
+    "ps3:cp14/catalog_info.xmb#x0",
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000000800.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 589,
+  "key": "catalog_cp01:x0.0x0000000000000800.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、春香からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは全員分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000001000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 590,
+  "key": "catalog_cp01:x0.0x0000000000001000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、美希からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは全員分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000002000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 591,
+  "key": "catalog_cp01:x0.0x0000000000002000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、千早からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは全員分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000004000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 592,
+  "key": "catalog_cp01:x0.0x0000000000004000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、やよいからのメールが届\r\nくようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは全員分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000008000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 593,
+  "key": "catalog_cp01:x0.0x0000000000008000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、雪歩からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは全員分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000010000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 594,
+  "key": "catalog_cp01:x0.0x0000000000010000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、真からのメールが届くよ\r\nうになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは全員分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000020000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 595,
+  "key": "catalog_cp01:x0.0x0000000000020000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、真美からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは全員分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000040000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 596,
+  "key": "catalog_cp01:x0.0x0000000000040000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、貴音からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは全員分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000000080000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 597,
+  "key": "catalog_cp01:x0.0x0000000000080000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、響からのメールが届くよ\r\nうになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは全員分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000020000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 598,
+  "key": "catalog_cp01:x0.0x0000000020000000",
+  "jp": "アバターパック・７６５プ\r\nロアイドル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000020000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 599,
+  "key": "catalog_cp01:x0.0x0000000020000000.2",
+  "jp": "ちょっぴり成長して、より魅力的\r\nになった７６５プロの１３人のア\r\nイドルを、かわいらしいアバター\r\nアイコンにしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000001000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 794,
+  "key": "catalog_cp01:x0.0x0000000001000000",
+  "jp": "羊のツノ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000001000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 600,
+  "key": "catalog_cp01:x0.0x0000000001000000.2",
+  "jp": "今号から４号連続で、羊セットの\r\nアクセサリーを毎号１個づつ無料\r\n配信！\r\n広大な芸能界をさまよう子羊のよ\r\nうなアイドル達…。\r\nそんな彼女達を導くのは、もちろ\r\nんプロデューサーのあなたです！\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000004000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 601,
+  "key": "catalog_cp01:x0.0x0000000004000000",
+  "jp": "ステージ衣装パック＃０１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000004000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 602,
+  "key": "catalog_cp01:x0.0x0000000004000000.2",
+  "jp": "フローラル・ラグジュアリー・\r\nスターリーの３種類のステージ衣\r\n装をまとめたお買い得なパックで\r\nす！\r\n※ステージ衣装は個別にも販売し\r\nています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0",
+    "ps3:cp02/catalog_info.xmb#x0",
+    "ps3:cp03/catalog_info.xmb#x0",
+    "ps3:cp04/catalog_info.xmb#x0",
+    "ps3:cp05/catalog_info.xmb#x0",
+    "ps3:cp06/catalog_info.xmb#x0",
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0",
+    "ps3:cp09/catalog_info.xmb#x0",
+    "ps3:cp10/catalog_info.xmb#x0",
+    "ps3:cp11/catalog_info.xmb#x0",
+    "ps3:cp12/catalog_info.xmb#x0",
+    "ps3:cp13/catalog_info.xmb#x0",
+    "ps3:cp14/catalog_info.xmb#x0",
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000008000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 603,
+  "key": "catalog_cp01:x0.0x0000000008000000",
+  "jp": "アクセサリーパック＃０１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000008000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 604,
+  "key": "catalog_cp01:x0.0x0000000008000000.2",
+  "jp": "４種類のアクセサリーをまとめた\r\nお買い得なパックです！\r\n※アクセサリーは個別にも販売し\r\nています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0",
+    "ps3:cp02/catalog_info.xmb#x0",
+    "ps3:cp03/catalog_info.xmb#x0",
+    "ps3:cp04/catalog_info.xmb#x0",
+    "ps3:cp05/catalog_info.xmb#x0",
+    "ps3:cp06/catalog_info.xmb#x0",
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0",
+    "ps3:cp09/catalog_info.xmb#x0",
+    "ps3:cp10/catalog_info.xmb#x0",
+    "ps3:cp11/catalog_info.xmb#x0",
+    "ps3:cp12/catalog_info.xmb#x0",
+    "ps3:cp13/catalog_info.xmb#x0",
+    "ps3:cp14/catalog_info.xmb#x0",
+    "ps3:cp15/catalog_info.xmb#x0",
+    "ps3:cp16/catalog_info.xmb#x0",
+    "ps3:cp17/catalog_info.xmb#x0",
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000010000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 605,
+  "key": "catalog_cp01:x0.0x0000000010000000",
+  "jp": "メールアドレスパック",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0",
+    "ps3:cp02/catalog_info.xmb#x0",
+    "ps3:cp03/catalog_info.xmb#x0",
+    "ps3:cp04/catalog_info.xmb#x0",
+    "ps3:cp05/catalog_info.xmb#x0",
+    "ps3:cp06/catalog_info.xmb#x0",
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0",
+    "ps3:cp09/catalog_info.xmb#x0",
+    "ps3:cp10/catalog_info.xmb#x0",
+    "ps3:cp11/catalog_info.xmb#x0",
+    "ps3:cp12/catalog_info.xmb#x0",
+    "ps3:cp13/catalog_info.xmb#x0",
+    "ps3:cp14/catalog_info.xmb#x0",
+    "ps3:cp15/catalog_info.xmb#x0",
+    "ps3:cp16/catalog_info.xmb#x0",
+    "ps3:cp17/catalog_info.xmb#x0",
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp01:x0.0x0000000010000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 606,
+  "key": "catalog_cp01:x0.0x0000000010000000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話にメールが届くようになる、\r\nアイドル全員分のメールアドレス\r\nのお買い得なパックです！\r\n※メールはアイドル個別にも販売\r\nしています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp01/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000000800.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 607,
+  "key": "catalog_cp02:x0.0x0000000000000800.2",
+  "jp": "スノーセットの１つです。雪の結\r\n晶をモチーフにしたカチューシャ\r\nタイプの髪飾りをウィンターシー\r\nズンのお洒落にどうぞ。\r\nこのアイテムの購入には、\r\nトロフィー「ベスト２０」の獲得\r\nが必要です。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000001000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 608,
+  "key": "catalog_cp02:x0.0x0000000000001000.2",
+  "jp": "スノーセットの１つ。宝石のよう\r\nな雪の結晶をペンダントトップに\r\nした、この季節のステージを輝か\r\nせるアクセサリーです。\r\nこのアイテムの購入には、\r\nトロフィー「ベスト２０」の獲得\r\nが必要です。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000002000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 609,
+  "key": "catalog_cp02:x0.0x0000000000002000.2",
+  "jp": "スノーセットの１つ。太陽の光を\r\n浴びて、きらめくように舞い降る\r\n雪。このアクセサリーでステージ\r\nをよりきらめかせて。\r\nこのアイテムの購入には、\r\nトロフィー「ベスト２０」の獲得\r\nが必要です。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000004000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 610,
+  "key": "catalog_cp02:x0.0x0000000000004000.2",
+  "jp": "スノーセットの１つ。ステップを\r\n踏むたびに、雪が美しく舞い降る\r\nイメージをステージに演出するガ\r\nーターリングです。\r\nこのアイテムの購入には、\r\nトロフィー「ベスト２０」の獲得\r\nが必要です。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000040000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 806,
+  "key": "catalog_cp02:x0.0x0000000000040000",
+  "jp": "スウィートクリスマス",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000040000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 611,
+  "key": "catalog_cp02:x0.0x0000000000040000.2",
+  "jp": "クリスマスイブの夜に相応しい\r\nとびっきりにあまーい夢をイメー\r\nジしたステージです。\r\n夢のようなステージからアイドル\r\n達の歌と踊りを、サンタさんに代\r\nわって贈り届けます。\r\nこのステージは５人まで歌って踊\r\nることができます。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000008000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 808,
+  "key": "catalog_cp02:x0.0x0000000000008000",
+  "jp": "ひまわりハニーのお守り",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000008000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 612,
+  "key": "catalog_cp02:x0.0x0000000000008000.2",
+  "jp": "このお守りを着けるとステージシ\r\nーンにて、ひまわりの花びらが舞\r\nうように華やかで、スピーディか\r\nつダンサブルなバーストアピール\r\nをお楽しみいただけます。\r\n＜お守りの効果＞\r\nチェンジ・ザ・バースト\r\n使ってみてのお楽しみ！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000020000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 810,
+  "key": "catalog_cp02:x0.0x0000000000020000",
+  "jp": "６０００００マニー＃２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000100000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 811,
+  "key": "catalog_cp02:x0.0x0000000000100000",
+  "jp": "ふさふさウールネック",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000000100000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 613,
+  "key": "catalog_cp02:x0.0x0000000000100000.2",
+  "jp": "羊セットの１つです。\r\nふさふさした羊の首元がイメージ\r\nです。寒い日々が続いても暖かく\r\n過ごせて、ほっこりした気分にな\r\nれます。\r\nファンの皆さんも私達のステージ\r\nで、ＨＯＴになってくださいね！\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 614,
+  "key": "catalog_cp02:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃０２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 615,
+  "key": "catalog_cp02:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃０２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000100000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 616,
+  "key": "catalog_cp02:x0.0x0000000100000000",
+  "jp": "ＳＰアクセパック＃０１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000100000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 617,
+  "key": "catalog_cp02:x0.0x0000000100000000.2",
+  "jp": "４種類のアクセサリーをまとめた\r\nお買い得なパックです！\r\nこのアイテムの購入には、\r\nトロフィー「ベスト２０」の獲得\r\nが必要です。\r\n※アクセサリーは個別にも販売し\r\nています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp02:x0.0x0000000200000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 618,
+  "key": "catalog_cp02:x0.0x0000000200000000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話にメールが届くようになる、\r\nアイドル９人分のメールアドレス\r\nのお買い得なパックです！\r\n※メールはアイドル個別にも販売\r\nしています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp02/catalog_info.xmb#x0",
+    "ps3:cp03/catalog_info.xmb#x0",
+    "ps3:cp04/catalog_info.xmb#x0",
+    "ps3:cp05/catalog_info.xmb#x0",
+    "ps3:cp06/catalog_info.xmb#x0",
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0",
+    "ps3:cp09/catalog_info.xmb#x0",
+    "ps3:cp10/catalog_info.xmb#x0",
+    "ps3:cp11/catalog_info.xmb#x0",
+    "ps3:cp12/catalog_info.xmb#x0",
+    "ps3:cp13/catalog_info.xmb#x0",
+    "ps3:cp14/catalog_info.xmb#x0",
+    "ps3:cp15/catalog_info.xmb#x0",
+    "ps3:cp16/catalog_info.xmb#x0",
+    "ps3:cp17/catalog_info.xmb#x0",
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp03:x0.0x0000000000001000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 818,
+  "key": "catalog_cp03:x0.0x0000000000001000",
+  "jp": "８７６プロ★キュート愛",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp03/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp03:x0.0x0000000000001000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 619,
+  "key": "catalog_cp03:x0.0x0000000000001000.2",
+  "jp": "８７６プロの「日高愛」が着る\r\nキュートな衣装です。\r\nＶＯ．イメージがＵＰします。\r\n衣装の他に、楽曲「ALIVE」と\r\n「GO MY WAY!!」で愛が出演する\r\nステージを、Ｓ４Ｕ！モードにて\r\n鑑賞することができます。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp03/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp03:x0.0x0000000000000800": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 820,
+  "key": "catalog_cp03:x0.0x0000000000000800",
+  "jp": "６０００００マニー＃３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp03/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp03:x0.0x0000000000008000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 620,
+  "key": "catalog_cp03:x0.0x0000000000008000",
+  "jp": "アバターパック・ちびキャラ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp03/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp03:x0.0x0000000000008000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 621,
+  "key": "catalog_cp03:x0.0x0000000000008000.2",
+  "jp": "７６５プロの１３人のアイドルた\r\nちをちびキャラにアレンジして、\r\n個性あふれるアバターに仕立てま\r\nした。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp03/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp03:x0.0x0000000000002000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 823,
+  "key": "catalog_cp03:x0.0x0000000000002000",
+  "jp": "ウールの腕輪",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp03/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp03:x0.0x0000000000002000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 622,
+  "key": "catalog_cp03:x0.0x0000000000002000.2",
+  "jp": "羊セットの１つです。\r\nふんわりとやさしい肌触りが気持\r\nちいいウールの腕輪です。\r\nさむーい北風に負けないように、\r\nこのアクセサリーを着けて大きく\r\n腕を振って踊れば、心も体もほか\r\nほかに！\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp03/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp03:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 623,
+  "key": "catalog_cp03:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃０３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp03/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp03:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 624,
+  "key": "catalog_cp03:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃０３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp03/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000040000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 827,
+  "key": "catalog_cp04:x0.0x0000000000040000",
+  "jp": "ミクアペンド",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000040000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 625,
+  "key": "catalog_cp04:x0.0x0000000000040000.2",
+  "jp": "バーチャルアイドル「初音ミク」\r\nの未来派テイストな衣装です。\r\nＶＯ．イメージがＵＰします。\r\n衣装の他に、初音ミクが楽曲\r\n「メルト」で歌って踊る華麗な\r\nステージを、Ｓ４Ｕ！モード\r\nにて鑑賞することができます。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000000400.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 626,
+  "key": "catalog_cp04:x0.0x0000000000000400.2",
+  "jp": "魔法使いセットの１つです。\r\nこの帽子を被って呪文を唱えると\r\n魔力が一際高まると言われます。\r\nアイドルが唱える呪文は…。\r\nこのアイテムの購入には、\r\nトロフィー「イチゴ賞」の獲得が\r\n必要です。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000000800.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 627,
+  "key": "catalog_cp04:x0.0x0000000000000800.2",
+  "jp": "魔法使いセットの１つです。\r\n魔法をかけられたホウキで、目指\r\nす夢のトップアイドルまで、まっ\r\nしぐらに芸能界を翔け抜けて！\r\nこのアイテムの購入には、\r\nトロフィー「イチゴ賞」の獲得が\r\n必要です。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000001000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 628,
+  "key": "catalog_cp04:x0.0x0000000000001000.2",
+  "jp": "魔法使いセットの１つです。\r\n魔女の使い魔とも言われる黒猫を\r\nちょっぴりダークテイストなぬい\r\nぐるみにアレンジしました。\r\nこのアイテムの購入には、\r\nトロフィー「イチゴ賞」の獲得が\r\n必要です。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000002000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 629,
+  "key": "catalog_cp04:x0.0x0000000000002000.2",
+  "jp": "魔法使いセットの１つです。\r\nこの靴を履き、正しき心にて魔術\r\nを行えば歓喜が湧くとか。アイド\r\nル達なら、きっと歓声が…！\r\nこのアイテムの購入には、\r\nトロフィー「イチゴ賞」の獲得が\r\n必要です。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000020000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 833,
+  "key": "catalog_cp04:x0.0x0000000000020000",
+  "jp": "ＵＦＯインスペース",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000020000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 630,
+  "key": "catalog_cp04:x0.0x0000000000020000.2",
+  "jp": "超光速航法で、未知なる世界に針\r\n路を向けてワープＮＯＷ！\r\nまだ見ぬ遥か彼方のフロンティア\r\nを目指して、宇宙を旅するＵＦＯ\r\nをイメージしたＳＦテイストのス\r\nテージです。\r\nこのステージは５人まで歌って踊\r\nることができます。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000004000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 835,
+  "key": "catalog_cp04:x0.0x0000000000004000",
+  "jp": "カラフルスターのお守り",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000004000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 631,
+  "key": "catalog_cp04:x0.0x0000000000004000.2",
+  "jp": "このお守りを着けるとステージシ\r\nーンにて、色とりどりの星々が舞\r\nうカラフルかつ女の子のキュート\r\nさが溢れるバーストアピールを、\r\nお楽しみいただけます。\r\n＜お守りの効果＞\r\nチェンジ・ザ・バースト\r\n使ってみてのお楽しみ！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000010000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 837,
+  "key": "catalog_cp04:x0.0x0000000000010000",
+  "jp": "６０００００マニー＃４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000000100000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 632,
+  "key": "catalog_cp04:x0.0x0000000000100000.2",
+  "jp": "羊セットの１つです。\r\nふわふわとした毛ざわりで、足元\r\nもしっかりと暖かいウールのブー\r\nツカバーです。\r\nちょっと短めなのがダンスステッ\r\nプを刻んだときに、お洒落さが光\r\nるポイントです。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 633,
+  "key": "catalog_cp04:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃０４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 634,
+  "key": "catalog_cp04:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃０４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000100000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 635,
+  "key": "catalog_cp04:x0.0x0000000100000000",
+  "jp": "ＳＰアクセパック＃０２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp04:x0.0x0000000100000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 636,
+  "key": "catalog_cp04:x0.0x0000000100000000.2",
+  "jp": "４種類のアクセサリーをまとめた\r\nお買い得なパックです！\r\nこのアイテムの購入には、\r\nトロフィー「イチゴ賞」の獲得\r\nが必要です。\r\n※アクセサリーは個別にも販売し\r\nています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp04/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000000004000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 843,
+  "key": "catalog_cp05:x0.0x0000000000004000",
+  "jp": "８７６プロ★クール絵理",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000000004000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 637,
+  "key": "catalog_cp05:x0.0x0000000000004000.2",
+  "jp": "８７６プロの「水谷絵理」が着る\r\nクールな衣装です。\r\nＤＡ．イメージがＵＰします。\r\n衣装の他に、楽曲「プリコグ」と\r\n「shiny smile」で、絵理が出演\r\nするステージを、S4U！モードに\r\nて鑑賞することができます。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000000002000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 845,
+  "key": "catalog_cp05:x0.0x0000000000002000",
+  "jp": "６０００００マニー＃５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000000010000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 638,
+  "key": "catalog_cp05:x0.0x0000000000010000",
+  "jp": "アバターパック・キャライラス\r\nト",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000000010000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 639,
+  "key": "catalog_cp05:x0.0x0000000000010000.2",
+  "jp": "７６５プロと９６１プロのキャラ\r\nクターをイラスト風のアバターに\r\nアレンジしてみました。\r\n小鳥さんも高木社長も、それから\r\nジュピターの面々と黒井社長も入\r\nって、なんと全１９個！\r\nお買い得になっていますので、\r\nぜひどうぞ！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000000008000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 848,
+  "key": "catalog_cp05:x0.0x0000000000008000",
+  "jp": "ひな祭りカチューシャ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000000008000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 640,
+  "key": "catalog_cp05:x0.0x0000000000008000.2",
+  "jp": "桃の節句・ひな祭りをテーマに桃\r\nの花と菱餅をモチーフにしたカチ\r\nューシャです。\r\nひな祭りでは、女の子の健やかな\r\n成長を祈ります。あなたのアイド\r\nル達が夢に向かってすくすくと育\r\nちますように！\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 641,
+  "key": "catalog_cp05:x0.0x0000000040000000",
+  "jp": "ＥＸ衣装パック＃０１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000040000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 642,
+  "key": "catalog_cp05:x0.0x0000000040000000.2",
+  "jp": "２種類のエクステンド衣装をまと\r\nめたお買い得なパックです！\r\n※エクステンド衣装は個別にも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0",
+    "ps3:cp09/catalog_info.xmb#x0",
+    "ps3:cp16/catalog_info.xmb#x0",
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 643,
+  "key": "catalog_cp05:x0.0x0000000080000000",
+  "jp": "ステージ衣装パック＃０５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp05:x0.0x0000000100000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 644,
+  "key": "catalog_cp05:x0.0x0000000100000000",
+  "jp": "アクセサリーパック＃０５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp05/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000000400.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 645,
+  "key": "catalog_cp06:x0.0x0000000000000400.2",
+  "jp": "ＩＡ大賞セットの１つです。\r\n栄えあるＩＡ大賞の獲得者が被る\r\nのに相応しい名誉ある栄冠です。\r\nさあ、いまこそ凱旋ライブを！\r\nこのアイテムの購入には、\r\nトロフィー「ＩＡ大賞」の獲得が\r\n必要です。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000000800.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 646,
+  "key": "catalog_cp06:x0.0x0000000000000800.2",
+  "jp": "ＩＡ大賞セットの１つです。\r\nトップアイドルの証・ＩＡ大賞に\r\n選ばれし者のみが着けることを許\r\nされた栄誉ある金メダルです。\r\nこのアイテムの購入には、\r\nトロフィー「ＩＡ大賞」の獲得が\r\n必要です。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000001000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 647,
+  "key": "catalog_cp06:x0.0x0000000000001000.2",
+  "jp": "ＩＡ大賞セットの１つです。\r\n難関のＩＡ大賞に輝いたアイドル\r\nのみが、その手に持つことを許さ\r\nれた誉れ高きトロフィーです。\r\nこのアイテムの購入には、\r\nトロフィー「ＩＡ大賞」の獲得が\r\n必要です。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000002000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 648,
+  "key": "catalog_cp06:x0.0x0000000000002000.2",
+  "jp": "ＩＡ大賞セットの１つです。\r\nＩＡ大賞を勝ち取った者のみが、\r\n着けることができるトリコロール\r\nカラーのガーターリングです。\r\nこのアイテムの購入には、\r\nトロフィー「ＩＡ大賞」の獲得が\r\n必要です。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000020000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 858,
+  "key": "catalog_cp06:x0.0x0000000000020000",
+  "jp": "エターナルビッグツリー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000020000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 649,
+  "key": "catalog_cp06:x0.0x0000000000020000.2",
+  "jp": "様々な想いを込めた一粒の種から\r\nやがて芽が出て、幹や枝を伸ばし\r\n豊かな生命を育む大きな木に…。\r\nアイドルたちのこれまでと、これ\r\nからへの想いを込めたステージで\r\nす。\r\nこのステージは５人まで歌って踊\r\nることができます。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000004000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 860,
+  "key": "catalog_cp06:x0.0x0000000000004000",
+  "jp": "ＬＯＶＥサインのお守り",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000004000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 650,
+  "key": "catalog_cp06:x0.0x0000000000004000.2",
+  "jp": "このお守りを着けるとステージシ\r\nーンにて、アイドルたちがファン\r\nの皆様に愛を込めたサインを送る\r\nバーストアピールを、お楽しみい\r\nただけます。\r\n＜お守りの効果＞\r\nチェンジ・ザ・バースト\r\n使ってみてのお楽しみ！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000010000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 862,
+  "key": "catalog_cp06:x0.0x0000000000010000",
+  "jp": "６０００００マニー＃６",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000080000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 863,
+  "key": "catalog_cp06:x0.0x0000000000080000",
+  "jp": "ぎゅーっとトロ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000000080000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 651,
+  "key": "catalog_cp06:x0.0x0000000000080000.2",
+  "jp": "なんと、「どこでもいっしょ」シ\r\nリーズのトロをモチーフにしたア\r\nクセサリーの登場です！\r\nアイドル達の腕にぎゅーっとくっ\r\nついて、どんなに激しいステージ\r\nでも、どこでもいっしょニャ！\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 652,
+  "key": "catalog_cp06:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃０６",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 653,
+  "key": "catalog_cp06:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃０６",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000100000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 654,
+  "key": "catalog_cp06:x0.0x0000000100000000",
+  "jp": "ＳＰアクセパック＃０３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp06:x0.0x0000000100000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 655,
+  "key": "catalog_cp06:x0.0x0000000100000000.2",
+  "jp": "４種類のアクセサリーをまとめた\r\nお買い得なパックです！\r\nこのアイテムの購入には、\r\nトロフィー「ＩＡ大賞」の獲得が\r\n必要です。\r\n※アクセサリーは個別にも販売し\r\nています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp06/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000000002.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 656,
+  "key": "catalog_cp07:x0.0x0000000000000002.2",
+  "jp": "作詞・作曲：ササキトモコ\r\n思わせぶりなお嬢様が、今宵、\r\nあなたを惑わせる。ヴァンパイ\r\nアガール的Ｊ－ＰＯＰソング！\r\nこの楽曲は３人まで一緒に歌うこ\r\nとができます。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000020000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 870,
+  "key": "catalog_cp07:x0.0x0000000000020000",
+  "jp": "８７６プロ★コズミック涼",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000020000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 657,
+  "key": "catalog_cp07:x0.0x0000000000020000.2",
+  "jp": "８７６プロの「秋月涼」が着る\r\nコズミックな衣装です。\r\nＶＩ．イメージがＵＰします。\r\n衣装の他に\r\n楽曲「Dazzling World」と\r\n「キラメキラリ」で涼が出演する\r\nステージをS4U！モードで\r\n鑑賞することができます。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000000400.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 658,
+  "key": "catalog_cp07:x0.0x0000000000000400.2",
+  "jp": "ゴシックセットの１つです。\r\nフェミニンなゴシックファッショ\r\nンのヘッドドレスを着ければ、\r\n意中の人は、もうあなたに夢中！\r\nご購入には、トロフィー「ベスト\r\n１０」の獲得が必要です。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000000800.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 659,
+  "key": "catalog_cp07:x0.0x0000000000000800.2",
+  "jp": "ゴシックセットの１つです。\r\n深紅のバラが意味するのは、愛情\r\nそれとも情熱？いえいえ、きっと\r\n「私を射止めて」です！\r\nご購入には、トロフィー「ベスト\r\n１０」の獲得が必要です。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000001000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 660,
+  "key": "catalog_cp07:x0.0x0000000000001000.2",
+  "jp": "ゴシックセットの１つです。\r\nフリルに赤いリボンが付いたブレ\r\nスを振って、ダンスシーンでキュ\r\nートさをアピールしましょう！\r\nご購入には、トロフィー「ベスト\r\n１０」の獲得が必要です。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000002000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 661,
+  "key": "catalog_cp07:x0.0x0000000000002000.2",
+  "jp": "ゴシックセットの１つです。\r\nリボン付きフリルが、ダンサブル\r\nにファッショナブル！このアンク\r\nルを身に着けて、いざステージの\r\n舞踏会へ！\r\nご購入には、トロフィー「ベスト\r\n１０」の獲得が必要です。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000010000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 876,
+  "key": "catalog_cp07:x0.0x0000000000010000",
+  "jp": "６０００００マニー＃７",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000200000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 662,
+  "key": "catalog_cp07:x0.0x0000000000200000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、春香からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは９人分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000400000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 663,
+  "key": "catalog_cp07:x0.0x0000000000400000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、美希からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは９人分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000800000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 664,
+  "key": "catalog_cp07:x0.0x0000000000800000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、千早からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは９人分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000001000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 665,
+  "key": "catalog_cp07:x0.0x0000000001000000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、やよいからのメールが届\r\nくようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは９人分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000002000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 666,
+  "key": "catalog_cp07:x0.0x0000000002000000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、雪歩からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは９人分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000004000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 667,
+  "key": "catalog_cp07:x0.0x0000000004000000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、真からのメールが届くよ\r\nうになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは９人分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000008000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 668,
+  "key": "catalog_cp07:x0.0x0000000008000000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、真美からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは９人分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000010000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 669,
+  "key": "catalog_cp07:x0.0x0000000010000000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、貴音からのメールが届く\r\nようになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは９人分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000020000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 670,
+  "key": "catalog_cp07:x0.0x0000000020000000.2",
+  "jp": "ゲーム内のプロデューサーの携帯\r\n電話に、響からのメールが届くよ\r\nうになります。\r\nアイドル活動に、何かいいことが\r\n起きるかも…！？\r\n※メールは９人分のパックでも販\r\n売しています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0",
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000040000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 886,
+  "key": "catalog_cp07:x0.0x0000000000040000",
+  "jp": "ひょこっとクロ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000000040000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 671,
+  "key": "catalog_cp07:x0.0x0000000000040000.2",
+  "jp": "なんと、「どこでもいっしょ」シ\r\nリーズのクロをモチーフにしたア\r\nクセサリーの登場です！\r\nトロだけにいい思いはさせない\r\nみャ！オレっちもアイマスのステ\r\nージで、うひゃっほうみャ！ \r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 672,
+  "key": "catalog_cp07:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃０７",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 673,
+  "key": "catalog_cp07:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃０７",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000100000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 674,
+  "key": "catalog_cp07:x0.0x0000000100000000",
+  "jp": "ＳＰアクセパック＃０４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp07:x0.0x0000000100000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 675,
+  "key": "catalog_cp07:x0.0x0000000100000000.2",
+  "jp": "４種類のアクセサリーをまとめた\r\nお買い得なパックです！\r\nこのアイテムの購入には、\r\nトロフィー「ベスト１０」の獲得\r\nが必要です。\r\n※アクセサリーは個別にも販売し\r\nています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp07/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000002.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 676,
+  "key": "catalog_cp08:x0.0x0000000000000002.2",
+  "jp": "作詞：mft　作曲：中川浩二\r\nリスクのない愛なんて、刺激ある\r\nわけないじゃない！突っ張ったロ\r\nマンスを求める女の子たちを歌う\r\nハードナンバー。\r\nこの楽曲は５人まで一緒に歌うこ\r\nとができます。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000020": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 893,
+  "key": "catalog_cp08:x0.0x0000000000000020",
+  "jp": "ドレッシーアリス",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000020.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 677,
+  "key": "catalog_cp08:x0.0x0000000000000020.2",
+  "jp": "不思議の国のアリスをモチーフに\r\nした黒いリボンとトランプのマー\r\nク、腰に着けた懐中時計がアクセ\r\nントなおしゃれな衣装です。\r\nこの衣装で歌い踊って、世界中を\r\nワンダーランドなネバーランド\r\nに！\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000004": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 895,
+  "key": "catalog_cp08:x0.0x0000000000000004",
+  "jp": "レイニースズラン",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000004.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 678,
+  "key": "catalog_cp08:x0.0x0000000000000004.2",
+  "jp": "雨に濡れながらも健気に咲くスズ\r\nランの花をイメージしました。\r\n可憐な見かけとは異なり、実はと\r\nても丈夫な花です。\r\nあなたのアイドルたちも、そうあ\r\nりますように！\r\n花言葉は意識しない美しさ。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000008": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 897,
+  "key": "catalog_cp08:x0.0x0000000000000008",
+  "jp": "ランダムカラービューティ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000008.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 679,
+  "key": "catalog_cp08:x0.0x0000000000000008.2",
+  "jp": "様々な色をモザイク状に散りばめ\r\nた衣装です。ショッキングピンク\r\nをアクセントカラーとして押さえ\r\nファッショナブルさもしっかりと\r\nアピール。\r\nこの衣装で踊れば、ステージは\r\n文字通り色とりどり！\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000010": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 899,
+  "key": "catalog_cp08:x0.0x0000000000000010",
+  "jp": "デジタルスペースクラフト",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000010.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 680,
+  "key": "catalog_cp08:x0.0x0000000000000010.2",
+  "jp": "高度な演算処理能力と耐熱シール\r\nドを備えた最新鋭の軌道宇宙船を\r\nモチーフにした衣装です。\r\nこの衣装なら、ステージがどんな\r\nにヒートアップしても大丈夫！熱\r\n気をさらに高めちゃいましょう！\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000040": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 901,
+  "key": "catalog_cp08:x0.0x0000000000000040",
+  "jp": "三月ウサギのみみ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000040.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 681,
+  "key": "catalog_cp08:x0.0x0000000000000040.2",
+  "jp": "アリスセットの１つです。\r\n不思議の国のアリスに登場する\r\n三月ウサギをモチーフにしたアク\r\nセサリーです。\r\nこれを着けてお茶会を開いたら、\r\nそのお話のように、とんでもない\r\nことになっちゃうかも？\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000080": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 903,
+  "key": "catalog_cp08:x0.0x0000000000000080",
+  "jp": "ワンダーランドキー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000080.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 682,
+  "key": "catalog_cp08:x0.0x0000000000000080.2",
+  "jp": "アリスセットの１つです。\r\nこの鍵で秘密の扉を開けば、そこ\r\nはきっとワンダーランド！\r\nでも、まずはその扉を探しましょ\r\nう。夢の世界へと通じる扉は、ど\r\nこかであなたが訪れるのを待って\r\nいます。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000100": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 905,
+  "key": "catalog_cp08:x0.0x0000000000000100",
+  "jp": "メルヘンフラワーブレス",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000100.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 683,
+  "key": "catalog_cp08:x0.0x0000000000000100.2",
+  "jp": "アリスセットの１つです。\r\nメルヘンチックな花々をイメージ\r\nしたアクセサリーです。\r\nちょっぴりサイケな色合いで、\r\nいつもとは一風変わった華を添え\r\nれば、ステージがワンダーランド\r\nに早変わり。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000200": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 907,
+  "key": "catalog_cp08:x0.0x0000000000000200",
+  "jp": "カラフルいもむし",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000200.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 684,
+  "key": "catalog_cp08:x0.0x0000000000000200.2",
+  "jp": "アリスセットの１つです。\r\n不思議の国のアリスに登場する\r\nいもむしを、お話の通りにキノコ\r\nのてっぺんに乗せたアクセサリー\r\nです。いもむしさんからお話のよ\r\nうに、何かアドバイスが聞けるか\r\nも！？\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000400.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 685,
+  "key": "catalog_cp08:x0.0x0000000000000400.2",
+  "jp": "妖精さんセットの１つです。\r\nエルフ族の耳がモチーフです。\r\nその神話のように、いつまでも美\r\nしく長命であらんことを！\r\nご購入には、トロフィー「ニンジ\r\nン賞」の獲得が必要です。\r\nＤＡ．イメージがアップします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000000800.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 686,
+  "key": "catalog_cp08:x0.0x0000000000000800.2",
+  "jp": "妖精さんセットの１つです。\r\n眠りに落ちた街を後にして、妖し\r\nくも儚げなこの羽根で、今夜こそ\r\n私を月まで連れて行って！\r\nご購入には、トロフィー「ニンジ\r\nン賞」の獲得が必要です。\r\nＤＡ．イメージがアップします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000001000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 687,
+  "key": "catalog_cp08:x0.0x0000000000001000.2",
+  "jp": "妖精さんセットの１つです。\r\n今宵のあなたはステージの魔法使\r\nい！魔力で光る杖先から、ステー\r\nジにステキな魔法をかけて！\r\nご購入には、トロフィー「ニンジ\r\nン賞」の獲得が必要です。\r\nＤＡ．イメージがアップします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000002000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 688,
+  "key": "catalog_cp08:x0.0x0000000000002000.2",
+  "jp": "妖精さんセットの１つです。\r\nあなたとのハーモニーに憧れて、\r\nこのブーツで踵を鳴らすと、ステ\r\nージは魔術に落ちていく…。\r\nご購入には、トロフィー「ニンジ\r\nン賞」の獲得が必要です。\r\nＤＡ．イメージがアップします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000000010000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 913,
+  "key": "catalog_cp08:x0.0x0000000000010000",
+  "jp": "６０００００マニー＃８",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 689,
+  "key": "catalog_cp08:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃０８",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 690,
+  "key": "catalog_cp08:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃０８",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000100000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 691,
+  "key": "catalog_cp08:x0.0x0000000100000000",
+  "jp": "ＳＰアクセパック＃０５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp08:x0.0x0000000100000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 692,
+  "key": "catalog_cp08:x0.0x0000000100000000.2",
+  "jp": "４種類のアクセサリーをまとめた\r\nお買い得なパックです！\r\nこのアイテムの購入には、\r\nトロフィー「ニンジン賞」の獲得\r\nが必要です。\r\n※アクセサリーは個別にも販売し\r\nています。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp08/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp09:x0.0x0000000000000002.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 693,
+  "key": "catalog_cp09:x0.0x0000000000000002.2",
+  "jp": "作詞：mft　作曲：高田龍一\r\n愛が団結した応援曲をラブミサイ\r\nルとして全弾発射！みんなで歌っ\r\nて幸せになりたい！世直しポジテ\r\nィブソング。\r\nこの楽曲は５人まで一緒に歌うこ\r\nとができます。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp09/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp09:x0.0x0000000000000020": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 919,
+  "key": "catalog_cp09:x0.0x0000000000000020",
+  "jp": "キューティインセクト",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp09/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp09:x0.0x0000000000000020.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 694,
+  "key": "catalog_cp09:x0.0x0000000000000020.2",
+  "jp": "かわいらしいテントウムシとミツ\r\nバチをモチーフにした衣装です。\r\nミツバチは働き者の象徴で、テン\r\nトウムシはその名の通り、天に至\r\nる道を教えてくれるとか。この衣\r\n装で明日のトップを目指して！\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp09/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp09:x0.0x0000000000004000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 921,
+  "key": "catalog_cp09:x0.0x0000000000004000",
+  "jp": "６０００００マニー＃９",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp09/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp09:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 695,
+  "key": "catalog_cp09:x0.0x0000000040000000",
+  "jp": "ＥＸ衣装パック＃０２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp09/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp09:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 696,
+  "key": "catalog_cp09:x0.0x0000000080000000",
+  "jp": "ステージ衣装パック＃０９",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp09/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp09:x0.0x0000000100000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 697,
+  "key": "catalog_cp09:x0.0x0000000100000000",
+  "jp": "アクセサリーパック＃０９",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp09/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000000000040": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 925,
+  "key": "catalog_cp10:x0.0x0000000000000040",
+  "jp": "７６５シロスクールミズギ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000000000040.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 698,
+  "key": "catalog_cp10:x0.0x0000000000000040.2",
+  "jp": "この衣装を着たら、白魚のような\r\nマーメイドはもちろん、\r\nアクセサリー「しろねこセット」\r\nと組み合わせれば、かわいい白猫\r\nさんにも！\r\nオプションモードで、服装設定を\r\n切り替えることができます。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000000000004": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 927,
+  "key": "catalog_cp10:x0.0x0000000000000004",
+  "jp": "ウィーピングウィステリア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000000000004.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 699,
+  "key": "catalog_cp10:x0.0x0000000000000004.2",
+  "jp": "ウィステリアとは藤の英名。\r\nその水がしたたるように咲く花を\r\nモチーフに、落ち着いたストライ\r\nプ柄にまとめました。\r\nこの衣装を着たら、水もしたたる\r\nようなステキなアイドルに！\r\n花言葉は歓迎。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000000000008": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 929,
+  "key": "catalog_cp10:x0.0x0000000000000008",
+  "jp": "バーニングパフォーマー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000000000008.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 700,
+  "key": "catalog_cp10:x0.0x0000000000000008.2",
+  "jp": "衣装にあしらった炎には、トップ\r\nアイドルという夢への女の子たち\r\nの熱い想いが込められています。\r\nこの衣装をまとって、ゆらめく炎\r\nの如く妖艶に踊るパフォーマーと\r\nなり、最高に熱いステージを！\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000000000010": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 931,
+  "key": "catalog_cp10:x0.0x0000000000000010",
+  "jp": "ストラトスバタフライ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000000000010.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 701,
+  "key": "catalog_cp10:x0.0x0000000000000010.2",
+  "jp": "ある種の蝶は、そのか弱い羽根で\r\n高度数千メートルまで昇るとか。\r\nさらに高く成層圏まで舞い上がれ\r\nば地表は様々な青色となり、ステ\r\nンドグラスのよう…。\r\nそんな遥かな高みまで、届きます\r\nように。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000000000400.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 702,
+  "key": "catalog_cp10:x0.0x0000000000000400.2",
+  "jp": "スイーツセットの１つです。\r\nハートと星のクッキーがナイスア\r\nクセント！リボンもついて、プレ\r\nゼントに最適なブーツです。\r\nもちろん、とびっきりのステージ\r\nも、ご一緒にお届けしまーす♪\r\nＶＯ．イメージがアップします。\r\n",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000000002000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 934,
+  "key": "catalog_cp10:x0.0x0000000000002000",
+  "jp": "６０００００マニー＃１０",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 703,
+  "key": "catalog_cp10:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃１０",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp10:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 704,
+  "key": "catalog_cp10:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃１０",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp10/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000020": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 937,
+  "key": "catalog_cp11:x0.0x0000000000000020",
+  "jp": "フルブルーム浴衣ドレス",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000020.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 705,
+  "key": "catalog_cp11:x0.0x0000000000000020.2",
+  "jp": "満開の桜の花を一面にあしらった\r\n浴衣ドレスです。\r\n裾にはフリルをつけて、和洋折衷\r\nなお洒落さをアピール。\r\n今日のステージはお祭り気分で、\r\nファンの皆さんと一緒に盛り上が\r\nっちゃいましょう♪\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000040": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 939,
+  "key": "catalog_cp11:x0.0x0000000000000040",
+  "jp": "小悪魔のミズギ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000040.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 706,
+  "key": "catalog_cp11:x0.0x0000000000000040.2",
+  "jp": "いつもとは違う一面を、この水着\r\nでアピールしましょう！\r\n大人びたセクシーさで、ブラック\r\nホールのように周りの視線を奪い\r\nつくして！\r\nオプションモードで、服装設定を\r\n切り替えることができます。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000080": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 941,
+  "key": "catalog_cp11:x0.0x0000000000000080",
+  "jp": "フリルカチューシャ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000080.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 707,
+  "key": "catalog_cp11:x0.0x0000000000000080.2",
+  "jp": "フリルのついたカチューシャで、\r\nメイドさんのような可愛らしさを\r\nアピールしちゃいましょう♪\r\n今号のエクステンド衣装「フルブ\r\nルーム浴衣ドレス」との組み合わ\r\nせもバッチリきまってます。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000100": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 943,
+  "key": "catalog_cp11:x0.0x0000000000000100",
+  "jp": "猫鈴チョーカー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000100.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 708,
+  "key": "catalog_cp11:x0.0x0000000000000100.2",
+  "jp": "黒いレザーのチョーカーに、猫に\r\n着けるような可愛い金色の鈴をア\r\nレンジしました。\r\nステージ用なので音は鳴りません\r\nが、大事なアイドルたちが迷子に\r\nならないように、目を離さないで\r\nくださいね♪\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000200": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 945,
+  "key": "catalog_cp11:x0.0x0000000000000200",
+  "jp": "ヨーヨー水風船",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000200.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 709,
+  "key": "catalog_cp11:x0.0x0000000000000200.2",
+  "jp": "ヨーヨー水風船と言えば、縁日の\r\n定番アイテム。\r\nこのアクセサリーを着けて、お祭\r\nり気分で弾けるステージを！\r\n２個ありますから、お仕事が終わ\r\nったらプロデューサーさんも一緒\r\nに遊びましょう♪\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000400": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 947,
+  "key": "catalog_cp11:x0.0x0000000000000400",
+  "jp": "かざぐるまアンクル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000000400.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 710,
+  "key": "catalog_cp11:x0.0x0000000000000400.2",
+  "jp": "かざぐるまをアレンジした和風の\r\nアンクルです。アイドルの足元で\r\nくるくる回って、お祭り気分のス\r\nテージに華を添えます。\r\nプロデューサーさん、ステージに\r\n見とれて、目を回しちゃダメです\r\nよ♪\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000000002000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 949,
+  "key": "catalog_cp11:x0.0x0000000000002000",
+  "jp": "６０００００マニー＃１１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 711,
+  "key": "catalog_cp11:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃１１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp11:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 712,
+  "key": "catalog_cp11:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃１１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp11/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000000000002": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 952,
+  "key": "catalog_cp12:x0.0x0000000000000002",
+  "jp": "ふるふるフューチャー☆",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000000000002.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 713,
+  "key": "catalog_cp12:x0.0x0000000000000002.2",
+  "jp": "作詞：朝日祭　作曲：Yoshi\r\n教えてハニー、未来は何色？\r\nとっても大好きなハニーへの一途\r\nな想いを込めて歌う、スウィーテ\r\nストなラブソング！\r\nこの楽曲は３人まで一緒に歌うこ\r\nとができます。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000000000004": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 954,
+  "key": "catalog_cp12:x0.0x0000000000000004",
+  "jp": "マリンチェックスターチス",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000000000004.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 714,
+  "key": "catalog_cp12:x0.0x0000000000000004.2",
+  "jp": "赤、青、白の色で咲き乱れる海の\r\nラベンダーとも言われるスターチ\r\nスの花をイメージしたマリンチェ\r\nック柄の衣装です。\r\n花言葉は変わらない心。いつまで\r\nもその花が色あせないことに由来\r\nします。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000000000008": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 956,
+  "key": "catalog_cp12:x0.0x0000000000000008",
+  "jp": "トゥインクルスパンコール",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000000000008.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 715,
+  "key": "catalog_cp12:x0.0x0000000000000008.2",
+  "jp": "生地にあしらった星々が、スパン\r\nコールのようにキラキラと光を反\r\n射する魅惑的な衣装です。\r\n無数の星々からスーパースター・\r\nトップアイドルを目指して、きら\r\nめくステージを駆け上がりましょ\r\nう！\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000000000010": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 958,
+  "key": "catalog_cp12:x0.0x0000000000000010",
+  "jp": "アストラルメッセンジャー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000000000010.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 716,
+  "key": "catalog_cp12:x0.0x0000000000000010.2",
+  "jp": "宇宙からステージに向けて発信さ\r\nれた謎のビット信号を受信！解読\r\nすると、時おりハートの記号が現\r\nれて…。\r\nメッセージの真意、さらなる情報\r\nはステージで確かめて！きっと素\r\n敵なコンタクトが…。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000000001000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 960,
+  "key": "catalog_cp12:x0.0x0000000000001000",
+  "jp": "６０００００マニー＃１２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 717,
+  "key": "catalog_cp12:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃１２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp12:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 718,
+  "key": "catalog_cp12:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃１２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp12/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000002": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 963,
+  "key": "catalog_cp13:x0.0x0000000000000002",
+  "jp": "魔法をかけて！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000002.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 719,
+  "key": "catalog_cp13:x0.0x0000000000000002.2",
+  "jp": "作詞・作曲：神前暁\r\nまだ見ぬ王子様に思いを馳せて\r\n今日も鏡の中で、ため息がひとつ\r\n…。恋を夢見る女の子の心を歌っ\r\nた、マジカル・エレポップ。\r\nこの楽曲は３人まで一緒に歌うこ\r\nとができます。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000020": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 965,
+  "key": "catalog_cp13:x0.0x0000000000000020",
+  "jp": "ハロウィントリッカー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000020.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 720,
+  "key": "catalog_cp13:x0.0x0000000000000020.2",
+  "jp": "ＣＡＳＴ　Ａ　ＳＰＥＣＩＡＬ\r\nＳＰＥＬＬ　ＯＮ　ＹＯＵ！\r\nハロウィンシーズンにピッタリな\r\nかわいい魔法使いをイメージした\r\n衣装です。\r\nステージから、ファンの皆さんに\r\nステキな魔法をかけて！\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000040": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 967,
+  "key": "catalog_cp13:x0.0x0000000000000040",
+  "jp": "モンスターボルト",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000040.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 721,
+  "key": "catalog_cp13:x0.0x0000000000000040.2",
+  "jp": "ハロウィンセットの１つ。\r\n某科学者が作り上げた禁断の怪物\r\n・人造人間をモチーフにした重厚\r\n感あふれるアクセサリーです。\r\n大きなボルトが見るものに衝撃を\r\n与えます。ステージにもインパク\r\nトを！\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000080": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 969,
+  "key": "catalog_cp13:x0.0x0000000000000080",
+  "jp": "ゆらゆらゴースト",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000080.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 722,
+  "key": "catalog_cp13:x0.0x0000000000000080.2",
+  "jp": "ハロウィンセットの１つ。\r\nこんなにかわいいアイドルたちな\r\nら、オバケだって一緒に踊りたく\r\nなっちゃう！？\r\nアイドルたちに合わせてゆ～らゆ\r\nら、明るくなったり暗くなったり\r\nしながら踊ります。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000100": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 971,
+  "key": "catalog_cp13:x0.0x0000000000000100",
+  "jp": "ゲロゲロパペット",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000100.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 723,
+  "key": "catalog_cp13:x0.0x0000000000000100.2",
+  "jp": "ハロウィンセットの１つです。\r\nＴＶアニメ第４話に登場した\r\n「ゲロゲロキッチン」のカエルの\r\nパペットをモチーフにしたアクセ\r\nサリーです。\r\nこれさえ着ければ、ステージは\r\n成功間違いなしゲーロ！？\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000200": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 973,
+  "key": "catalog_cp13:x0.0x0000000000000200",
+  "jp": "パンプキンガーター",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000200.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 724,
+  "key": "catalog_cp13:x0.0x0000000000000200.2",
+  "jp": "ハロウィンセットの１つ。\r\nＴＲＩＣＫ　ＯＲ　ＴＲＥＡＴ？\r\nハロウィンの代名詞「ジャック・\r\nオー・ランタン」をアクセサリー\r\nに。\r\nこのランタンで足元を照らせば、\r\n今日のステージは転ばない！？\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000000800": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 975,
+  "key": "catalog_cp13:x0.0x0000000000000800",
+  "jp": "３０００００マニー＃１３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000000001000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 976,
+  "key": "catalog_cp13:x0.0x0000000000001000",
+  "jp": "６０００００マニー＃１３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 725,
+  "key": "catalog_cp13:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃１３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp13:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 726,
+  "key": "catalog_cp13:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃１３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp13/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000002": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 979,
+  "key": "catalog_cp14:x0.0x0000000000000002",
+  "jp": "エージェント夜を往く",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000002.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 727,
+  "key": "catalog_cp14:x0.0x0000000000000002.2",
+  "jp": "作詞・作曲：LindaAI-CUE\r\n眠れない夜、呼べば現れるエージ\r\nェント…。恋と欲望をもてあそぶ\r\n詐欺師を歌う官能的でミステリア\r\nスな楽曲。\r\nこの楽曲は３人まで一緒に歌うこ\r\nとができます。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000020": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 981,
+  "key": "catalog_cp14:x0.0x0000000000000020",
+  "jp": "スターライトエージェント",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000020.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 728,
+  "key": "catalog_cp14:x0.0x0000000000000020.2",
+  "jp": "星降る夜空から舞い降りたエージ\r\nェントをイメージした衣装。\r\n今宵はステージのクラウン（道化\r\n師）となり、色とりどりのスパン\r\nコールを満天の星空の如くきらめ\r\nかせ、思うがままのひと時を…。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000004": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 983,
+  "key": "catalog_cp14:x0.0x0000000000000004",
+  "jp": "マイベイビーズブレス",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000004.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 729,
+  "key": "catalog_cp14:x0.0x0000000000000004.2",
+  "jp": "ベイビーズブレス（赤ちゃんの吐\r\n息）とは、かすみ草の英名。\r\nまるで霞（かすみ）がかかったよ\r\nうに、咲くその花をイメージして\r\nドッグトゥース（千鳥格子）柄に\r\nまとめました。\r\n花言葉は無邪気。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000008": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 985,
+  "key": "catalog_cp14:x0.0x0000000000000008",
+  "jp": "コーデュロイカントリー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000008.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 730,
+  "key": "catalog_cp14:x0.0x0000000000000008.2",
+  "jp": "肌触りもよく、保温効果が高い\r\nコーデュロイ生地で仕立てた衣装\r\nです。その保温性から、英国では\r\nカントリーウェアとして愛されて\r\nきたとか。\r\n寒いときにも、アイドルたちの\r\nステージで心を温めて！\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000010": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 987,
+  "key": "catalog_cp14:x0.0x0000000000000010",
+  "jp": "サーキットアーキテクト",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000010.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 731,
+  "key": "catalog_cp14:x0.0x0000000000000010.2",
+  "jp": "きらめく電飾が電子の流れをイメ\r\nージした、高度な演算処理能力を\r\n誇る電子回路を組み込んだ衣装で\r\nす。\r\nこの衣装を着れば、計算しつくさ\r\nれたビジュアルアピールでステー\r\nジの成功は間違いなし！？\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000040": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 989,
+  "key": "catalog_cp14:x0.0x0000000000000040",
+  "jp": "ナイト帽子",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000040.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 732,
+  "key": "catalog_cp14:x0.0x0000000000000040.2",
+  "jp": "かつての西欧の騎士が着用したと\r\n言われる気品あふれる帽子です。\r\nステージの騎士たるアイドルが\r\n守り続けていくもの…それはファ\r\nンの方々の想いと、彼女たち自身\r\nのトップアイドルへの夢です！\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000080": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 991,
+  "key": "catalog_cp14:x0.0x0000000000000080",
+  "jp": "フェザーコサージュ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000080.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 733,
+  "key": "catalog_cp14:x0.0x0000000000000080.2",
+  "jp": "白い羽根を組み合わせて仕立てた\r\nあたかも一輪の花のような優雅な\r\nコサージュです。\r\nこのアクセサリーを着けて、風に\r\n漂う羽根のように軽やかに舞い、\r\nステージという夢のひと時に華を\r\n添えて…。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000100": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 993,
+  "key": "catalog_cp14:x0.0x0000000000000100",
+  "jp": "ダーク☆ネイル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000100.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 734,
+  "key": "catalog_cp14:x0.0x0000000000000100.2",
+  "jp": "夜空をイメージした漆黒のマニキ\r\nュアで、ミステリアスなお洒落さ\r\nをアピールしちゃいましょう！\r\n人差し指の星のネイルチャームが\r\nアクセント。楽曲に合わせて腕を\r\n振ると、まるで流れ星のよう…。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000200": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 995,
+  "key": "catalog_cp14:x0.0x0000000000000200",
+  "jp": "ガーリィタトゥーシール",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000200.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 735,
+  "key": "catalog_cp14:x0.0x0000000000000200.2",
+  "jp": "女性用のタトゥーシールです。\r\n太ももに大胆に貼り付けて、ちょ\r\nっぴりワイルドなお洒落を楽しん\r\nで！\r\n花の色はアイドルごとに異なりま\r\nす。ユニットを組めば、色とりど\r\nりのフラワーガーデンが！？\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000000800": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 997,
+  "key": "catalog_cp14:x0.0x0000000000000800",
+  "jp": "３０００００マニー＃１４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000000001000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 998,
+  "key": "catalog_cp14:x0.0x0000000000001000",
+  "jp": "６０００００マニー＃１４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 736,
+  "key": "catalog_cp14:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃１４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp14:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 737,
+  "key": "catalog_cp14:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃１４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp14/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000002": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1001,
+  "key": "catalog_cp15:x0.0x0000000000000002",
+  "jp": "私はアイドル♡",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000002.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 738,
+  "key": "catalog_cp15:x0.0x0000000000000002.2",
+  "jp": "作詞：中村恵　作曲：佐々木宏人\r\n人に見えない努力なんて白鳥並以\r\n上！きっと私が一番！\r\nアイドルである自分の自分による\r\n自分のための応援ソング。\r\nこの楽曲は３人まで一緒に歌うこ\r\nとができます。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000020": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1003,
+  "key": "catalog_cp15:x0.0x0000000000000020",
+  "jp": "プリマコンツェルト♪",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000020.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 739,
+  "key": "catalog_cp15:x0.0x0000000000000020.2",
+  "jp": "アイドルマスター７周年ライブで\r\nキャストが着用したステージ衣装\r\nがモチーフです。\r\n衣装名には「これからも、いつま\r\nでも最高のステージを、みんなと\r\nいっしょに♪」との意味が込めら\r\nれています。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000040": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1005,
+  "key": "catalog_cp15:x0.0x0000000000000040",
+  "jp": "シンフォニックイヤリング",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000040.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 740,
+  "key": "catalog_cp15:x0.0x0000000000000040.2",
+  "jp": "ステージ上のアイドルたちはもち\r\nろん、観客の皆さんとも最高に調\r\n和して、ステージ全体であたかも\r\n一つのシンフォニーを奏でられま\r\nすように…。\r\nそんな願いを込めて、イヤリング\r\nに仕立てました。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000080": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1007,
+  "key": "catalog_cp15:x0.0x0000000000000080",
+  "jp": "ハーモニックブローチ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000080.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 741,
+  "key": "catalog_cp15:x0.0x0000000000000080.2",
+  "jp": "アイドルたちが歌い踊るステージ\r\nから、美しい響きが世界中のファ\r\nンの皆さんに届いて、一緒にステ\r\nキなハーモニーを醸し出せますよ\r\nうに…。\r\nそんな願いを込めて、ブローチの\r\n形にまとめました。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000100": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1009,
+  "key": "catalog_cp15:x0.0x0000000000000100",
+  "jp": "メロディックリング",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000100.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 742,
+  "key": "catalog_cp15:x0.0x0000000000000100.2",
+  "jp": "アイドルたちは様々な想いを歌と\r\n踊りに込めて、ステージの麗しき\r\n旋律に乗せてファンの皆さんと\r\nプロデューサーのあなたに贈り届\r\nけます。\r\nそんなアイドルたちに相応しい\r\n指輪のアクセサリーです。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000200": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1011,
+  "key": "catalog_cp15:x0.0x0000000000000200",
+  "jp": "ビッグリボンアンクル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000200.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 743,
+  "key": "catalog_cp15:x0.0x0000000000000200.2",
+  "jp": "大きなリボンを足元につけて、華\r\n麗に踊るその様は、まるで蝶々が\r\n舞い飛んでいるよう…。\r\nそんな幻想も抱きそうなステージ\r\nを、このアクセサリーで！\r\nリボンの色はアイドルごとに異な\r\nります。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000000800": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1013,
+  "key": "catalog_cp15:x0.0x0000000000000800",
+  "jp": "３０００００マニー＃１５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000000001000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1014,
+  "key": "catalog_cp15:x0.0x0000000000001000",
+  "jp": "６０００００マニー＃１５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 744,
+  "key": "catalog_cp15:x0.0x0000000040000000",
+  "jp": "ステージ衣装パック＃１５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp15:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 745,
+  "key": "catalog_cp15:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃１５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp15/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000002": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1017,
+  "key": "catalog_cp16:x0.0x0000000000000002",
+  "jp": "思い出をありがとう",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000002.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 746,
+  "key": "catalog_cp16:x0.0x0000000000000002.2",
+  "jp": "作詞：中村恵　作曲：佐々木宏人\r\n失恋は今日で忘れよう。今の気持\r\nちを言葉にしたら…。\r\n女の子の素直な気持ちを歌う恋に\r\n前向きになれるポップス。\r\nこの楽曲は３人まで一緒に歌うこ\r\nとができます。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000004": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1019,
+  "key": "catalog_cp16:x0.0x0000000000000004",
+  "jp": "カーディガンスクーラー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000004.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 747,
+  "key": "catalog_cp16:x0.0x0000000000000004.2",
+  "jp": "存在感がキラっと光る、ふんわり\r\nかわいくて動きやすいカーディガ\r\nンは、おしゃれなスクーラー（学\r\n生）の必須アイテム！\r\nオプションモードで、服装設定を\r\n切り替えることができます。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000008": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1021,
+  "key": "catalog_cp16:x0.0x0000000000000008",
+  "jp": "トラディショナルメイド",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000008.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 748,
+  "key": "catalog_cp16:x0.0x0000000000000008.2",
+  "jp": "高級感のあるベルベット生地を\r\n豪華に使ったメイドさん風の衣装\r\nです。ちょっと伝統的な雰囲気の\r\n中、お茶と一緒に私たちの歌は\r\nいかがですか？\r\nこの衣装は着用する女の子によっ\r\nて色が異なります。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000010": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1023,
+  "key": "catalog_cp16:x0.0x0000000000000010",
+  "jp": "首掛けヘッドフォン",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000010.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 749,
+  "key": "catalog_cp16:x0.0x0000000000000010.2",
+  "jp": "軽量かつ本格派のヘッドフォン。\r\nいつでもどこでも、お気に入りの\r\nアイドルミュージックを聴いて、\r\nＦＥＥＬ　ＳＯ　ＧＯＯＤ！\r\n首にかければ、アクティブ＆グル\r\nーヴィーな音楽派アイドルに！\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000020": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1025,
+  "key": "catalog_cp16:x0.0x0000000000000020",
+  "jp": "肩掛けデイパック",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000020.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 750,
+  "key": "catalog_cp16:x0.0x0000000000000020.2",
+  "jp": "見た目よりもたっぷり入る、おで\r\nかけに便利で元気なデイパック\r\nです。\r\nワンショルダーにかけた後姿が、\r\n行動派のお洒落さをアピール！\r\nこのアクセサリーは着用する女の\r\n子によって色が異なります。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000040": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1027,
+  "key": "catalog_cp16:x0.0x0000000000000040",
+  "jp": "ハンディメガホン",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000040.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 751,
+  "key": "catalog_cp16:x0.0x0000000000000040.2",
+  "jp": "マイクだけでは物足りない！\r\n私たちの歌声よ、もっと遠くへ！\r\n…そんなアイドル活動にアグレッ\r\nシブな気分の時は絶対コレ！な\r\nアクセサリーです。\r\nステージで使えば必聴曲となるこ\r\nと間違いなし！？\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000080": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1029,
+  "key": "catalog_cp16:x0.0x0000000000000080",
+  "jp": "クマさんのぬいぐるみ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000080.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 752,
+  "key": "catalog_cp16:x0.0x0000000000000080.2",
+  "jp": "アニメに登場したあのクマさんが\r\nアクセサリーになって、ステージ\r\nに堂々デビュー！\r\n愛くるしい表情ながら、激しいダ\r\nンスにも振り落とされない頑張り\r\n屋さんなところは、アイドルたち\r\nと一緒です！\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000800": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1031,
+  "key": "catalog_cp16:x0.0x0000000000000800",
+  "jp": "博士の帽子",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000000000800.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 753,
+  "key": "catalog_cp16:x0.0x0000000000000800.2",
+  "jp": "かぶるだけで頭がよくなるかも？\r\n卒業式シーズンにぴったりな帽子\r\nです。金色の房はタッセルと呼ば\r\nれています。\r\n今日のステージはこの帽子で、\r\nちょっぴり知的なアイドルを\r\n気取ってみては…♪\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 754,
+  "key": "catalog_cp16:x0.0x0000000040000000",
+  "jp": "ＥＸ衣装パック＃０３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp16:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 755,
+  "key": "catalog_cp16:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃１６",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp16/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000002.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 756,
+  "key": "catalog_cp17:x0.0x0000000000000002.2",
+  "jp": "作詞：yura　作曲：Jesahm\r\nひとりきりの夜、ふと願うのは\r\n大切な人との逢瀬…。\r\n大人の女性ならではの切ない感情\r\nが漂うスローバラード。\r\nこの楽曲は３人まで一緒に歌うこ\r\nとができます。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000004": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1036,
+  "key": "catalog_cp17:x0.0x0000000000000004",
+  "jp": "ブライトイーグレット",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000004.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 757,
+  "key": "catalog_cp17:x0.0x0000000000000004.2",
+  "jp": "イーグレットとは水鳥のシラサギ\r\nの英名。春の陽光を浴びて、きら\r\nめく水面に清楚にたたずむシラサ\r\nギをイメージした衣装です。\r\nステージという大空で、優雅に舞\r\nい飛ぶことができますように！\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000008": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1038,
+  "key": "catalog_cp17:x0.0x0000000000000008",
+  "jp": "エキゾチックチャイナ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000008.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 758,
+  "key": "catalog_cp17:x0.0x0000000000000008.2",
+  "jp": "異国情緒あふれる魅惑的なチャイ\r\nナドレス風のステージ衣装です。\r\n歌とともに、しなやかに舞い踊る\r\nその様に、観客は目も耳も奪われ\r\nて…。\r\nこの衣装は着用するアイドルに\r\nよって色が異なります。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000010": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1040,
+  "key": "catalog_cp17:x0.0x0000000000000010",
+  "jp": "ホワイトパールイヤリング",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000010.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 759,
+  "key": "catalog_cp17:x0.0x0000000000000010.2",
+  "jp": "白真珠セットの１つです。\r\n真珠は俗に「人魚の涙」とも言わ\r\nれます。真珠を瞳に、水晶を涙に\r\n見立てたイヤリングです。\r\n今日流すのは悔し涙？\r\nでも、いつかきっと嬉し涙に変わ\r\nると信じて！\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000020": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1042,
+  "key": "catalog_cp17:x0.0x0000000000000020",
+  "jp": "ホワイトパールネックレス",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000020.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 760,
+  "key": "catalog_cp17:x0.0x0000000000000020.2",
+  "jp": "白真珠セットの１つです。\r\n真珠は母貝の中でゆっくりと成長\r\nし、清楚な魅力を少しづつ、まと\r\nっていきます。\r\nアイドルとプロデューサーの関係\r\nにも似たその真珠をネックレスに\r\n仕立てました。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000040": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1044,
+  "key": "catalog_cp17:x0.0x0000000000000040",
+  "jp": "ホワイトパールバングル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000040.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 761,
+  "key": "catalog_cp17:x0.0x0000000000000040.2",
+  "jp": "白真珠セットの１つ。\r\n両端の真珠をアクセントに無限を\r\nイメージさせる螺旋リングには\r\nピュアな輝きを放つ水晶を飾り付\r\nけました。\r\n願わくばアイドルたちのピュアな\r\n輝きが、さらに増しますように！\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000080": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1046,
+  "key": "catalog_cp17:x0.0x0000000000000080",
+  "jp": "ホワイトパールガーター",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000080.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 762,
+  "key": "catalog_cp17:x0.0x0000000000000080.2",
+  "jp": "白真珠セットの１つです。\r\n真珠は「月のしずく」とも呼ばれ\r\nます。しずくに見立てた水晶は、\r\n夜道を照らす優しい月の光。\r\n過酷な芸能界でアイドルたちの\r\n希望となる光とは？\r\nそれはもちろん…。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000100": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1048,
+  "key": "catalog_cp17:x0.0x0000000000000100",
+  "jp": "Ｈ．Ｍ．Ｄ．",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000000000100.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 763,
+  "key": "catalog_cp17:x0.0x0000000000000100.2",
+  "jp": "次世代ライブ用に改良されたヘッ\r\nドマウントディスプレイ。\r\n様々な情報が映し出され、オンデ\r\nマンドでのファンサービスにも対\r\n応可能！？\r\n前面の発光部はアイドルによって\r\n赤と緑で色が異なります。\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 764,
+  "key": "catalog_cp17:x0.0x0000000040000000",
+  "jp": "ＥＸ衣装パック＃０４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp17:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 765,
+  "key": "catalog_cp17:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃１７",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp17/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000002": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1052,
+  "key": "catalog_cp18:x0.0x0000000000000002",
+  "jp": "ポジティブ！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000002.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 766,
+  "key": "catalog_cp18:x0.0x0000000000000002.2",
+  "jp": "作詞：mft　作曲：中川浩二\r\n悩んでもしかたない！\r\nそんなときもあるけど、明日は\r\nきっと違うさ！聴くと元気＆やる\r\n気が出る前向き宣言ポップス！\r\nこの楽曲は３人まで一緒に歌うこ\r\nとができます。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000004": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1054,
+  "key": "catalog_cp18:x0.0x0000000000000004",
+  "jp": "ＰＯＰレインドロップ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000004.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 767,
+  "key": "catalog_cp18:x0.0x0000000000000004.2",
+  "jp": "大きな水玉模様のレインコートに\r\nポシェットもかけて♪雨の日の憂\r\n鬱さも一転して、ＰＯＰな気分で\r\nお出かけできます。\r\n長靴もはいて、これで例え雨の日\r\nに野外ライブがあっても、備えは\r\n完璧！？\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000008": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1056,
+  "key": "catalog_cp18:x0.0x0000000000000008",
+  "jp": "グランプリクィーン",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000008.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 768,
+  "key": "catalog_cp18:x0.0x0000000000000008.2",
+  "jp": "トップを目指すのは、レーサーも\r\nアイドルも同じ。果たして、グラ\r\nンプリの栄冠に輝くのは…！？\r\nデッドヒートな世界に華を添える\r\n衣装です。\r\nこの衣装は着用するアイドルに\r\nよって色が異なります。\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000010": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1058,
+  "key": "catalog_cp18:x0.0x0000000000000010",
+  "jp": "ミリオンドリームス",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000010.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 769,
+  "key": "catalog_cp18:x0.0x0000000000000010.2",
+  "jp": "アイドル…それは女の子達の永遠\r\nの憧れ。\r\n女の子達がもっと輝いて、ステー\r\nジでたくさんの夢が叶いますよう\r\nに！…そんな願いが込められた\r\nミリオンライブ！でアイドル達が\r\n着用している衣装です。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000020": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1060,
+  "key": "catalog_cp18:x0.0x0000000000000020",
+  "jp": "とらねこみみ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000020.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 770,
+  "key": "catalog_cp18:x0.0x0000000000000020.2",
+  "jp": "とらねこセットの１つです。\r\n縞模様のとらねこ柄の耳と大きな\r\n赤いリボンで、凛々しい可愛さを\r\nアピール！\r\nカタログ第０４号のラグジュアリ\r\nー衣装・ダンシングタイガーとの\r\n組み合わせも楽しんで！\r\nＶＩ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000040": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1062,
+  "key": "catalog_cp18:x0.0x0000000000000040",
+  "jp": "とらねこしっぽ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000040.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 771,
+  "key": "catalog_cp18:x0.0x0000000000000040.2",
+  "jp": "とらねこセットの１つです。\r\n縞々模様の尻尾に可愛い赤いリボ\r\nンがナイスアクセント！\r\nとらねこみみと一緒に、カタログ\r\n第０４号のラグジュアリー衣装・\r\nダンシングタイガーとのコーデも\r\nＧＯＯＤ！\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000080": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1064,
+  "key": "catalog_cp18:x0.0x0000000000000080",
+  "jp": "ふわふわリストバンド",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000080.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 772,
+  "key": "catalog_cp18:x0.0x0000000000000080.2",
+  "jp": "とらねこセットの１つです。\r\n触っているだけで癒される子猫の\r\n毛並みのような、ふんわり柔らか\r\nなリストバンドです。\r\n可愛い小さな鈴が付いてますが、\r\nステージ上では鳴らないので、\r\nご安心を！？\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000100": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1066,
+  "key": "catalog_cp18:x0.0x0000000000000100",
+  "jp": "ねずみのぬいぐるみ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000100.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 773,
+  "key": "catalog_cp18:x0.0x0000000000000100.2",
+  "jp": "とらねこセットの１つです。\r\n猫がじゃれ遊ぶのに最適な、ねず\r\nみのぬいぐるみです。\r\nこれさえ着ければ獲物を狙うとき\r\nのような華麗なフットワークを、\r\nステージでも見せてくれること\r\n間違いなし！？\r\nＶＯ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000200": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 1068,
+  "key": "catalog_cp18:x0.0x0000000000000200",
+  "jp": "貝殻の髪飾り",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000000000200.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 774,
+  "key": "catalog_cp18:x0.0x0000000000000200.2",
+  "jp": "南国の海で採れた美しい貝殻に、\r\n淡いピンクと黄色の真珠を散りば\r\nめた髪飾りです。\r\n耳に当てるとかすかに聴こえる\r\n潮騒が、ステージ前の緊張した\r\n気分を解きほぐし、リラックス\r\nさせてくれます。\r\nＤＡ．イメージがＵＰします。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000040000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 775,
+  "key": "catalog_cp18:x0.0x0000000040000000",
+  "jp": "ＥＸ衣装パック＃０５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000040000000.2": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 776,
+  "key": "catalog_cp18:x0.0x0000000040000000.2",
+  "jp": "２種類のエクステンド衣装に加え\r\nて、なんとラグジュアリー衣装\r\n『ミリオンドリームス』も！３種\r\n類の衣装をまとめたお買い得な\r\nパックです！\r\n※各衣装は個別にも販売していま\r\nす。\r\n※多重購入にはご注意ください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
+ },
+ "dlc:catalog:catalog_cp18:x0.0x0000000080000000": {
+  "cat": "dlc",
+  "grp": "catalog",
+  "seq": 777,
+  "key": "catalog_cp18:x0.0x0000000080000000",
+  "jp": "アクセサリーパック＃１８",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "src": [
+    "ps3:cp18/catalog_info.xmb#x0"
+   ],
+   "plat": "ps3",
+   "plat_note": "PS3판 DLC 카탈로그 — 360판과 문구가 다르거나 PS3 전용"
+  }
  }
 }

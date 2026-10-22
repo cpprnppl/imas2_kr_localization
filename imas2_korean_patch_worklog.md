@@ -1384,3 +1384,7 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
 - 치환 코드 입력: 원문에 든 코드만 칩 버튼(편집칸·카드 아래), 누르면 같은 칸 입력칸 커서 위치에 삽입.
 - 주소 딥링크 #/<분류>/<소분류>[/<검색어>][!open](다른 판 펼침).
 - 스크린샷: KOR 노트 webapp_platform_image_pair.png / webapp_platform_text_pair.png (로컬 빌드, headless Edge).
+- PS3 DLC catalog_info 원문 보강(KOR·pc-360-dlc): dlc_inject coverage에서 PS3 catalog 916칸 중 385칸 원문 없음 →
+  catalog 그룹에 없는 고유 원문 295개를 행으로 추가(키 catalog_cpNN:x0.<id>, meta.src 해당 원문이 나오는 cp 위치 전부,
+  plat ps3). 같은 원문은 한 행(주입기의 원문 일치 적용으로 전 칸 커버). dlc_texts.json 295 + DB 신규 104(191은 앞 단계에서
+  먼저 추가, ignore-duplicates). coverage 재확인: PS3 catalog 916/916(100%), 전 플랫폼·그룹 원문 100%.
