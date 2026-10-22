@@ -206,7 +206,8 @@ def image_index():
         for it in json.load(open(ex, encoding="utf-8"))["items"]:
             if it["md5"] in groups:
                 continue
-            t = {x["n"]: x for x in idx[it["rel"]]["jp"]["textures"]}[it["n"]]
+            # initialFix처럼 이미지 추출(index.json) 밖 파일은 항목에 치수·포맷·png를 직접 적어 둔다
+            t = ({x["n"]: x for x in idx[it["rel"]]["jp"]["textures"]}[it["n"]] if it["rel"] in idx else it)
             groups[it["md5"]] = {"md5": it["md5"], "w": t["w"], "h": t["h"], "fmt": t["fmt"],
                                  "locs": it["locs"], "png": t["png"], "rel0": it["rel"], "jp": it["jp"]}
     return groups

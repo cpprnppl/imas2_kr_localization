@@ -395,6 +395,34 @@
     "scene\\produce_night.mpc#061",
     "scene\\produce_scheduling.mpc#061"
    ]
+  },
+  {
+   "rel": "initialFix.mpc",
+   "n": 7,
+   "md5": "e67f326fa506b4eb1d4d5e29fa839d79",
+   "jp": "はい",
+   "locs": [
+    "initialFix.mpc#007"
+   ],
+   "w": 64,
+   "h": 32,
+   "fmt": "DXT5",
+   "png": "initialFix_007.png",
+   "note": "확인창 버튼 — initialFix는 폰트 주입 파일이라 이미지 추출 대상에서 빠져 있었다"
+  },
+  {
+   "rel": "initialFix.mpc",
+   "n": 8,
+   "md5": "9f0c7ce55dfc6e9d39b34d709b632af7",
+   "jp": "いいえ",
+   "locs": [
+    "initialFix.mpc#008"
+   ],
+   "w": 64,
+   "h": 32,
+   "fmt": "DXT5",
+   "png": "initialFix_008.png",
+   "note": "확인창 버튼 — initialFix는 폰트 주입 파일이라 이미지 추출 대상에서 빠져 있었다"
   }
  ]
 }

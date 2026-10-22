@@ -287,7 +287,15 @@ def translations(code):
         if r["cat"] == "script" and r["kr"]:
             scb[r["jp"]][r["kr"]] += 1
     scb_tr = {jp: c.most_common(1)[0][0] for jp, c in scb.items()}
-    return by_pair, {jp: c.most_common(1)[0][0] for jp, c in by_jp.items()}, len(rows), scb_tr
+    by_jp1 = {jp: c.most_common(1)[0][0] for jp, c in by_jp.items()}
+    # initialTemp 라이벌 유닛 프리셋(producer·unit·title)은 NPC 명단과 같은 이름 — 게임 데이터 행에 없으면
+    # NPC 명단(웹 XMB exep_init, 360 전용 x360: 포함) 번역을 원문 일치로 쓴다 (2026-10-23 전수 조사)
+    xt = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
+    for k in ("scene/exep_init.mpc", "scene/exep_init.mpc@x360"):
+        for v in xt.get(k, {}).values():
+            if v.get("kr") and v.get("jp") and v["jp"] not in by_jp1:
+                by_jp1[v["jp"]] = v["kr"]
+    return by_pair, by_jp1, len(rows), scb_tr
 
 
 def build_file(rel, by_pair, by_jp, stats, scb_tr=None):

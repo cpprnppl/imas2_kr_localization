@@ -21,6 +21,7 @@ import json
 import time
 import argparse
 import unicodedata
+import urllib.error
 import urllib.request
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -46,7 +47,14 @@ def refresh(code):
             r = urllib.request.Request(
                 f"{cfg['url']}/rest/v1/rows?select=id,cat,grp,key,jp,kr,st,meta&cat=eq.{c}&order=id&limit=1000&offset={off}",
                 headers={"apikey": cfg["anon_key"], "Authorization": f"Bearer {cfg['anon_key']}", "x-team-code": code})
-            ch = json.load(urllib.request.urlopen(r))
+            for tries in range(4):          # meta가 커져 가끔 문장 시간 제한(500) — 잠깐 쉬고 다시
+                try:
+                    ch = json.load(urllib.request.urlopen(r))
+                    break
+                except urllib.error.HTTPError as ex:
+                    if ex.code != 500 or tries == 3:
+                        raise
+                    time.sleep(3)
             for x in ch:
                 m = x.get("meta") or {}
                 rows.append({"id": x["id"], "cat": x["cat"], "grp": x["grp"], "key": x["key"], "jp": x["jp"],

@@ -36,7 +36,8 @@ DLC_GROUPS = [("mail", "DLC 메일 (캐릭터별)"),
 IMAGE_GROUP_LABELS = {
     "bg2d": "배경 (bg2d)", "game": "레슨·ALF·앨범 (game)", "iface": "선택 화면 (iface)",
     "interface": "인터페이스 (interface)", "mail": "메일 (mail)",
-    "s4u": "Stage For You (s4u)", "scene": "씬·메뉴 (scene)"}
+    "s4u": "Stage For You (s4u)", "scene": "씬·메뉴 (scene)",
+    "initialFix.mpc": "공통 UI (확인창 はい/いいえ 등)"}
 
 
 def xmb_budgets():
@@ -97,6 +98,12 @@ def image_groups():
         top = rel.split("\\")[0].split("/")[0]
         if top not in tops:
             tops.append(top)
+    ex = os.path.join(HERE, "image_extra.json")      # CN 미수정 일본어 그림(initialFix 확인창 버튼 등)
+    if os.path.exists(ex):
+        for it in json.load(open(ex, encoding="utf-8"))["items"]:
+            top = it["rel"].split("\\")[0].split("/")[0]
+            if top not in tops:
+                tops.append(top)
     out = [{"g": t, "label": IMAGE_GROUP_LABELS.get(t, t)} for t in sorted(tops)]
     if os.path.exists(os.path.join(OUT_DEFAULT, "dlc_tex", "index.json")):
         out.append({"g": "dlc", "label": "DLC (카탈로그·곡 로고·재킷)"})
