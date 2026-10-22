@@ -1281,3 +1281,9 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   SCB 1,097개). game_kor 불변 확인. 실행 `IMAS2PC_DISC_ROOT=...\game_kor360_test`.
 - 남은 것: 인게임 1배 확인(음성 커뮤, 로직 다른 파일 대표: les_tu01·w01_03·w02_* 등) — GPU 순서 대기.
   360 전용 313줄 번역 필요(웹앱 추가 여부 KOR 결정).
+- **360 전용 313줄 웹앱 등록(KOR 결정)**: script 분류에 id `script:<폴더>:x360:<파일>#<360 인덱스>`,
+  meta.x360·x_idx, 그룹 끝(seq 900000+)에 ignore-duplicates로 추가(기존 52,240행·번역 46,119행 불변 확인).
+  웹앱: "360 전용" 배지·필터, meta.suggest(같은 파일 PS3 대사 중 유사도 ≥0.5의 기존 번역, 29줄·완전일치 11)를
+  참고 줄로 표시(kr에는 안 넣음). 버린 PS3 번역 77줄은 build_report lost[]에 번역문과 함께 보관.
+  회수: webapp_pull.py script가 `translation_x360_<날짜>.json`도 생성 → pcport360 build가 최신 파일을 읽어
+  360 원문이 같을 때만 적용(rewrap 포함), 다르면 x360_stale로 보고. 메모리 시험: 31 적용·원문 바꾼 1개 거부.

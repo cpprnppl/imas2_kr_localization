@@ -15,6 +15,7 @@
 .kr-cell:hover{outline:1px dashed var(--pf-v5-global--primary-color--100);outline-offset:2px}
 .kr-cell.is-empty{color:var(--pf-v5-global--Color--200)}
 .jp-cell{white-space:pre-wrap;color:var(--pf-v5-global--Color--100)}
+.sugg{margin-top:4px;font-size:12px;color:var(--pf-v5-global--Color--200);border-left:2px solid var(--pf-v5-global--BorderColor--100);padding-left:6px;white-space:pre-wrap}
 .kr-miss{color:var(--pf-v5-global--danger-color--100);font-weight:700;text-decoration:underline}
 td textarea{width:100%;min-height:4rem;font:inherit}
 /* 게임 이모티콘: 입력칸은 COLR 컬러 웹폰트(PUA만), 표시는 컬러 스프라이트 */
@@ -354,6 +355,7 @@ function renderFilter() {
        ["edited", "식질됨 (검수 대기)"], ["done", "검수 완료"], ["warn", "경고 있음"]]
     : [["all", "전체"], ["todo", "미번역"], ["review", "번역됨 (검수 대기)"],
        ["done", "검수 완료"], ["warn", "경고 있음"]];
+  if (rows.some(r => (r.meta || {}).x360)) opts.push(["x360", "360 전용 (PC판)"]);
   const counts = {};
   for (const [v] of opts) counts[v] = 0;
   for (const r of rows) {
@@ -487,6 +489,7 @@ function markMissing(kr) {
 function passFilter(r, f) {
   if (f === "all") return true;
   if (f === "warn") return warns(r).length > 0;
+  if (f === "x360") return !!(r.meta || {}).x360;
   if (isBlank(r)) return false;
   if (r.cat === "image") {
     const img = KRIMG[r.key];
@@ -564,8 +567,8 @@ function render() {
                 <span class="pf-v5-u-color-200" style="font-size:12px">${esc((m.locs || [])[0] || "")}${(m.locs || []).length > 1 ? ` 외 ${m.locs.length - 1}곳` : ""}</span>`;
     } else if (cat === "script") {
       const m = r.meta || {};
-      first = `<span class="nowrap">${esc(m.sp || "")}</span><br><span class="pf-v5-u-color-200" style="font-size:11px">${esc(m.file || "")}</span>`;
-      second = `<div class="jp-cell">${fmtText(r.jp)}</div>`;
+      first = `<span class="nowrap">${esc(m.sp || "")}</span>${m.x360 ? ` <span class="pf-v5-c-label pf-m-cyan pf-m-compact" title="360판(PC 포트)에만 있는 대사 — PS3판에는 없음"><span class="pf-v5-c-label__content">360 전용</span></span>` : ""}<br><span class="pf-v5-u-color-200" style="font-size:11px">${esc(m.file || "")}</span>`;
+      second = `<div class="jp-cell">${fmtText(r.jp)}</div>` + (m.suggest ? `<div class="sugg" title="PS3판의 비슷한 대사 번역 (유사도 ${Math.round(m.suggest.ratio * 100)}%) — 참고용">참고 · ${Math.round(m.suggest.ratio * 100)}%: ${fmtText(m.suggest.kr)}</div>` : "");
     } else {
       first = `<code style="font-size:12px">${esc(r.key)}</code>`;
       second = `<div class="jp-cell">${fmtText(r.jp)}</div>`;

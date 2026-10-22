@@ -101,6 +101,17 @@ def pull_script(rows, reviewed_only):
                 n += 1
     wb.save(dst)
     print(f"갱신 {n}셀 → {dst}")
+    # PC 포트(360) 전용 대사 → translation_x360_<날짜>.json (pcport360.py build가 최신 파일 사용)
+    x = {}
+    for r in rows:
+        m = r.get("meta") or {}
+        if m.get("x360") and want(r, reviewed_only):
+            x.setdefault(m["file"], {})[str(m["x_idx"])] = {"jp": r["jp"], "kr": r["kr"]}
+    if x:
+        xp = os.path.join(JP_ROOT, "gscript", "tools",
+                          f"translation_x360_{time.strftime('%Y%m%d_%H%M')}.json")
+        json.dump(x, open(xp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print(f"360 전용 대사 {sum(len(v) for v in x.values())}줄 → {xp}")
     print("excel2scb 전환은 scb-excel 파이프라인에서 이 파일로 교체 후 실행")
 
 

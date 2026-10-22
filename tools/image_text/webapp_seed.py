@@ -109,6 +109,30 @@ def rows_script():
     return out
 
 
+def rows_script_x360():
+    """PC 포트(360) 전용 대사: pcport360.py build 보고서의 untranslated_360 → script 행.
+    id script:<폴더>:x360:<파일>#<360 MSG 인덱스>. 그룹 끝(seq 900000+)에 파일·인덱스 순.
+    meta.suggest = 같은 파일 PS3 대사 중 가장 비슷한 것의 기존 번역(참고용, kr에는 안 넣음)."""
+    p = os.path.join(JP_ROOT, "gscript", "tools", "pcport360_build_report.json")
+    if not os.path.exists(p):
+        print("  script360: pcport360_build_report.json 없음 — 먼저 python pcport360.py build")
+        return []
+    files = json.load(open(p, encoding="utf-8"))["files"]
+    out = []
+    for fi, (rel, r) in enumerate(sorted(files.items())):
+        for u in r.get("untranslated_360", []):
+            grp = rel.split("\\")[0]
+            key = f"x360:{rel}#{u['x']}"
+            meta = {"sp": "", "file": rel, "x360": True, "x_idx": u["x"],
+                    "note": "360판(PC 포트)에만 있는 대사 — PS3판에는 없음"}
+            if u.get("suggest"):
+                meta["suggest"] = u["suggest"]
+            out.append({"id": f"script:{grp}:{key}", "cat": "script", "grp": grp,
+                        "seq": 900000 + fi * 1000 + u["x"], "key": key, "jp": u["jp_360"],
+                        "kr": "", "st": 0, "ts": 0, "by": "", "meta": meta})
+    return out
+
+
 def image_index():
     idx = json.load(open(os.path.join(OUT_DEFAULT, "index.json"), encoding="utf-8"))
     groups = {}
@@ -151,6 +175,8 @@ def seed_rows(code, only, force):
         batches.append(("xmb", rows_xmb()))
     if only in (None, "script"):
         batches.append(("script", rows_script()))
+    if only in (None, "script", "script360"):
+        batches.append(("script360", rows_script_x360()))
     if only in (None, "image"):
         batches.append(("image", rows_image()))
     if only in (None, "dlc"):
@@ -280,7 +306,7 @@ def upload_dlc_thumbs(service_key):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--code", help="팀 암호 (rows 시딩)")
-    ap.add_argument("--only", choices=["xmb", "script", "image", "dlc", "dlcimg", "gamedata"])
+    ap.add_argument("--only", choices=["xmb", "script", "script360", "image", "dlc", "dlcimg", "gamedata"])
     ap.add_argument("--dlc-thumbs", action="store_true", help="DLC 텍스처 업로드")
     ap.add_argument("--force-merge", action="store_true",
                     help="기존 행 덮어쓰기 (팀 수정 소실 주의)")

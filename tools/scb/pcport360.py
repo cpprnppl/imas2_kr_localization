@@ -230,7 +230,18 @@ def excel_path():
     return p if os.path.exists(p) else os.path.join(GAME_TOOLS, "translation_2.xlsx")
 
 
-def build_one(rel, abs_map, font_map):
+def load_x360_translations():
+    """웹앱 회수(webapp_pull.py script)가 만든 최신 translation_x360_*.json:
+    {rel: {x인덱스(str): {"jp": 360 원문, "kr": 번역}}} — 360에만 있는 대사."""
+    import glob
+    fs = sorted(glob.glob(os.path.join(GAME_TOOLS, "translation_x360_*.json")))
+    if not fs:
+        return None, {}
+    d = json.load(open(fs[-1], encoding="utf-8"))
+    return fs[-1], {k.replace("/", "\\").lower(): v for k, v in d.items()}
+
+
+def build_one(rel, abs_map, font_map, x360_tr=None):
     p, x = load_ps3(rel), load_360(rel)
     sp, sx = common.parse_section_dir(p), common.parse_section_dir(x)
     if "MSG" not in sp or "MSG" not in sx:
@@ -246,6 +257,27 @@ def build_one(rel, abs_map, font_map):
     lost = sorted(i for i in new_ps3 if i not in mapping)
     mapped_x = set(mapping.values())
     untranslated = [j for j in range(len(tx)) if j not in mapped_x and tx[j].strip()]
+    x_applied, x_stale = 0, []
+    for js, ent in (x360_tr or {}).items():
+        j = int(js)
+        if j in untranslated and tx[j] == ent.get("jp") and ent.get("kr", "").strip():
+            new_x[j] = e2s.rewrap(ent["kr"])
+            x_applied += 1
+        else:
+            x_stale.append(j)          # 원문/위치가 달라진 회수본 — 적용 안 함
+    # 360 전용 대사의 번역 참고: 같은 파일 PS3 대사 중 가장 비슷한 것의 기존 번역
+    idx_tr = {}
+    for s_ in pp["strings"]:
+        hit = abs_map.get(s_["abs_offset"])
+        if hit and hit[1].strip() and not e2s.is_garbage_translation(hit[1]):
+            idx_tr[s_["index"]] = hit[1]
+    def suggest(jt):
+        best = None
+        for i, kr in idx_tr.items():
+            r = difflib.SequenceMatcher(None, jt, tp[i]).ratio()
+            if r >= 0.5 and (best is None or r > best["ratio"]):
+                best = {"ps3": i, "jp": tp[i], "kr": kr, "ratio": round(r, 2)}
+        return best
     new_msg = e2s.build_msg_block(px, new_x, font_map, msg_size)
     new_dec, _delta = e2s.replace_msg_section(x, msg_abs, msg_size, new_msg)
     rep = {
@@ -253,8 +285,10 @@ def build_one(rel, abs_map, font_map):
         "translated": len(new_x), "recovered": recovered, "misses": misses, "garbage": garbage,
         "approx": [{"ps3": i, "x": mapping[i], "ratio": r, "jp_ps3": tp[i], "jp_360": tx[mapping[i]]}
                    for i, r in approx.items() if i in new_ps3],
-        "lost": [{"ps3": i, "jp_ps3": tp[i]} for i in lost],
-        "untranslated_360": [{"x": j, "jp_360": tx[j]} for j in untranslated],
+        "untranslated_360": [{"x": j, "jp_360": tx[j], "suggest": suggest(tx[j]),
+                              "translated": j in new_x} for j in untranslated],
+        "lost": [{"ps3": i, "jp_ps3": tp[i], "kr": idx_tr.get(i, "")} for i in lost],
+        "x360_applied": x_applied, "x360_stale": x_stale,
     }
     return new_dec, rep
 
@@ -265,6 +299,9 @@ def cmd_build(a):
     xl = excel_path()
     print(f"번역 엑셀: {xl}")
     tr = e2s.load_translations(xl)
+    xp, x360 = load_x360_translations()
+    if xp:
+        print(f"360 전용 대사 번역: {xp}")
     targets = {r.replace("/", "\\").lower() for r in a.rels} if a.rels else None
     report, ok, skipped, fail = {}, 0, [], []
     for rel, abs_map in sorted(tr.items()):
@@ -275,7 +312,7 @@ def cmd_build(a):
             skipped.append(relw)          # PS3 전용(ryu 등) — 360 트리에 없음
             continue
         try:
-            new_dec, rep = build_one(relw, abs_map, font_map)
+            new_dec, rep = build_one(relw, abs_map, font_map, x360.get(relw.lower()))
         except Exception as ex:
             fail.append((relw, repr(ex)))
             continue
@@ -286,7 +323,7 @@ def cmd_build(a):
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         open(dst, "wb").write(new_dec)
         ok += 1
-    json.dump({"excel": xl, "files": report, "skipped_ps3_only": skipped, "failed": fail},
+    json.dump({"excel": xl, "x360": xp, "files": report, "skipped_ps3_only": skipped, "failed": fail},
               open(os.path.join(GAME_TOOLS, "pcport360_build_report.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
     reps = [r for r in report.values() if "skip" not in r]
@@ -298,7 +335,10 @@ def cmd_build(a):
          f"- 이식된 번역 {sum(r['translated'] for r in reps):,}줄",
          f"- 원문이 달라진 짝(PS3 문구 수정분, 번역은 이식) {sum(len(r['approx']) for r in reps)}줄",
          f"- **대응 안 된 PS3 번역(360에 해당 대사 없음, 버림)** {sum(len(r['lost']) for r in reps)}줄",
-         f"- **360에만 있는 대사(번역 없음 → 일본어로 남음)** {sum(len(r['untranslated_360']) for r in reps)}줄", ""]
+         f"- **360에만 있는 대사** {sum(len(r['untranslated_360']) for r in reps)}줄 — 웹앱 번역 반영 "
+         f"{sum(r['x360_applied'] for r in reps)}줄, 나머지는 일본어로 남음"
+         + (f" (회수본과 원문 불일치로 미적용 {sum(len(r['x360_stale']) for r in reps)}줄)"
+            if any(r['x360_stale'] for r in reps) else ""), ""]
     if fail:
         L += ["## 실패", ""] + [f"- {r}: {e}" for r, e in fail] + [""]
     L += ["## 파일별 (1:1이 아닌 것)", "", "| 파일 | MSG PS3→360 | 이식 | 원문 다른 짝 | 버린 번역 | 360 전용 대사 |",
