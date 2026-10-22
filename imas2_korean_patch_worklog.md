@@ -1367,3 +1367,20 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
 
 ### 원천 공백 (coverage)
 - PS3 catalog_info 916칸 중 385칸(43%)과 PS3 전용 15곡 가사(age ali daz ful gm2 ki2 mah mlt omo pm9 pos pre sh2 wat wim)는 웹앱에 원문 행이 없다. dlc_text.py가 PS3에서 packageInfo·mail·ranker만 추출했기 때문이다. 추출 보강은 ui-image-extract 쪽 과제다.
+
+## 36. 웹앱 플랫폼 표시 사양(KOR) + 전체 검색 + 치환 코드 입력 (2026-10-23, 로컬 커밋 — 배포는 사용자 OK 대기)
+- 배지: 공통 없음 / PS3 파랑 "PS3" / 360 초록 "360", 표는 상태 열 위, 카드·가사는 제목 줄 오른쪽 끝(툴팁 plat_note).
+  필터 "플랫폼: 전체 / 공통 / PS3 전용 / 360 전용". 사이드바 소분류 옆 "PS3 n · 360 n"(platform_audit.py counts →
+  platform_counts.json → webapp_build META.plat_counts).
+- 다른 판: meta.pair(platform_audit.py pair) — gamedata 83쌍(같은 파일·같은 id, 판별 문구 다름), DLC '#ps3'↔본 행 22쌍,
+  이미지 7쌍(튜토리얼 카드). "다른 판 보기" 토글 → 상대 판 원문·번역, 상대 번역이 있으면 "그 번역 가져오기"(누를 때만 저장).
+  script의 문구만 다른 공통 103줄은 행 하나(360 문구만 표시, 번역 공유) — 360 빌드가 PS3 행 번역을 이식하므로 분리 안 함(KOR에 제안).
+- 그림 짝은 한 파일에 PS3 미대응 1장·360 전용 1장·같은 치수일 때만. 축소 흑백 상관 짝짓기는 짧은 라벨에서 오답
+  (システム設定2↔システム設定, つづきから↔アップロード, お守りINFO↔お守りGET) → 폐기, DB의 잘못된 4쌍 제거.
+  짝 그림은 PS3판 행 바로 밑에 360판 행을 붙여 한 묶음(배경색), 작업본은 판별로 따로, 치수 같으면 "○판 작업본 복사".
+- 적용 범위: 편집칸·카드 아래 "이 번역이 들어가는 곳: PS3 한글 패치 / PC 포트(360)".
+- DLC 가사 '#ps3' 줄은 "곡 (PS3판 문구)" 별도 카드(같은 곡 카드에 섞이면 줄 수가 어긋남).
+- 전체 검색(사이드바 "전체 검색"): 모든 분류 jp/kr ilike, 분류 선택, 300건 상한, 배지·키 표시, 누르면 해당 소분류+키로 이동.
+- 치환 코드 입력: 원문에 든 코드만 칩 버튼(편집칸·카드 아래), 누르면 같은 칸 입력칸 커서 위치에 삽입.
+- 주소 딥링크 #/<분류>/<소분류>[/<검색어>][!open](다른 판 펼침).
+- 스크린샷: KOR 노트 webapp_platform_image_pair.png / webapp_platform_text_pair.png (로컬 빌드, headless Edge).

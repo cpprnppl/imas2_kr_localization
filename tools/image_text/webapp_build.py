@@ -130,6 +130,8 @@ def main():
              "groups": [{"g": g, "label": l} for g, l in DLC_GROUPS]},
         ],
     }
+    pc = os.path.join(HERE, "platform_counts.json")     # platform_audit.py counts
+    meta["plat_counts"] = json.load(open(pc, encoding="utf-8")) if os.path.exists(pc) else {}
     tpl = open(os.path.join(HERE, "webapp_template.html"), encoding="utf-8").read()
     html = tpl.replace("/*__DATA__*/null", json.dumps(meta, ensure_ascii=False))
     html = html.replace("/*__CFG__*/null", json.dumps(cfg))

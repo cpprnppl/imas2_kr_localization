@@ -549,14 +549,115 @@ def scan_ps3_dlc_images(new_lyrics):
     return out
 
 
+def pair(code, apply_=True):
+    """같은 대상인데 두 판에서 다른 행을 서로 연결(meta.pair = 상대 행 id).
+    - gamedata: PS3 행(360에 같은 id가 다른 문구로 있음) ↔ x360 행(같은 파일·같은 id)
+    - dlc: '<키>#ps3' ↔ '<키>'
+    - image: PS3 전용 그림 ↔ 같은 파일의 360 전용 그림(축소 흑백 상관으로 짝, 같은 치수 우선)"""
+    from PIL import Image
+    rows = fetch_rows()
+    by_id = {r["id"]: r for r in rows}
+    pairs = {}
+
+    def link(a, b):
+        if a not in pairs and b not in pairs:
+            pairs[a], pairs[b] = b, a
+    gd = [r for r in rows if r["cat"] == "gamedata"]
+    x360 = collections.defaultdict(list)
+    for r in gd:
+        if r["key"].startswith("x360:"):
+            tag, tid = r["key"][5:].split(":", 1)
+            x360[(tag.split("#")[0], tid.rsplit(".", 1)[0] if re.search(r"\.\d+$", tid) else tid)].append(r["id"])
+    for r in gd:
+        m = r.get("meta") or {}
+        if m.get("plat") == "ps3" and "문구가 다름" in m.get("plat_note", ""):
+            tag, tid = r["key"].split(":", 1)
+            tid = tid.rsplit(".", 1)[0] if re.search(r"\.\d+$", tid) else tid
+            for cand in x360.get((tag.split("#")[0], tid), []):
+                if cand not in pairs:
+                    link(r["id"], cand)
+                    break
+    for r in rows:
+        if r["cat"] == "dlc" and r["key"].endswith("#ps3"):
+            base = f"dlc:{r['grp']}:{r['key'][:-4]}"
+            if base in by_id:
+                link(r["id"], base)
+
+    def thumb(path):
+        im = Image.open(path).convert("L").resize((64, 32))
+        a = np.asarray(im, np.float32)
+        a -= a.mean()
+        return a / (np.linalg.norm(a) + 1e-6)
+    img_ps3 = collections.defaultdict(list)
+    img_x = collections.defaultdict(list)
+    for r in rows:
+        if r["cat"] != "image" or r["grp"] == "dlc":
+            continue
+        m = r.get("meta") or {}
+        for L in m.get("locs", []):
+            if m.get("plat") == "x360" and L.startswith("x360:"):
+                rel, n = L[5:].rsplit("#", 1)
+                p = os.path.join(OUT_DEFAULT, "x360_only", f"{rel.replace('/', '_')}_{int(n):03d}.png")
+                img_x[rel.replace("/", "\\")].append((r["id"], m, p))
+            elif m.get("plat") == "ps3" and "같은 그림 없음" in m.get("plat_note", ""):
+                rel, n = L.replace("/", "\\").rsplit("#", 1)
+                stem = os.path.splitext(os.path.basename(rel))[0]
+                p = os.path.join(OUT_DEFAULT, "jp", os.path.dirname(rel), f"{stem}_{int(n):03d}.png")
+                img_ps3[rel].append((r["id"], m, p))
+    # 그림 짝은 엄격하게: 한 파일에 PS3 미대응 1장·360 전용 1장이고 치수가 같을 때만(튜토리얼 카드).
+    # 축소 흑백 상관은 짧은 글자 라벨에서 엉뚱한 짝을 냄(システム設定2↔システム設定, お守りINFO↔お守りGET) — 2026-10-23 눈검수.
+    for rel, xs in img_x.items():
+        ps = img_ps3.get(rel, [])
+        if len(xs) == 1 and len(ps) == 1:
+            (xid, xm, _xp), (pid, pm, _pp) = xs[0], ps[0]
+            if (xm["w"], xm["h"]) == (pm["w"], pm["h"]):
+                link(xid, pid)
+    upd = []
+    for r in rows:
+        m = dict(r.get("meta") or {})
+        want = pairs.get(r["id"])
+        if m.get("pair") == want:
+            continue
+        if want:
+            m["pair"] = want
+        else:
+            m.pop("pair", None)          # 이전 실행의 잘못된 짝 제거
+        upd.append({k: r[k] for k in ("id", "cat", "grp", "seq", "key", "jp")} | {"meta": m})
+    c = collections.Counter(a.split(":")[0] for a in pairs)
+    print(f"연결 {len(pairs) // 2}쌍 {dict((k, v // 2) for k, v in c.items())}, meta 갱신 {len(upd)}")
+    for a, b in pairs.items():
+        if a.startswith("image:") and by_id[a]["meta"].get("plat") == "x360":
+            print("  그림 짝:", by_id[a]["meta"]["locs"][0], "↔", by_id[b]["meta"]["locs"][0])
+    if apply_ and upd:
+        for i in range(0, len(upd), 500):
+            _post("/rest/v1/rows?on_conflict=id", upd[i:i + 500], code,
+                  "resolution=merge-duplicates,return=minimal")
+
+
+def counts():
+    """사이드바 표시용 분류별 PS3·360 전용 건수 → platform_counts.json (webapp_build가 META에 넣음)."""
+    out = collections.defaultdict(lambda: collections.defaultdict(collections.Counter))
+    for r in fetch_rows():
+        out[r["cat"]][r["grp"]][(r.get("meta") or {}).get("plat", "common")] += 1
+    data = {c: {g: {k: v for k, v in cnt.items() if k in ("ps3", "x360")} for g, cnt in gs.items()}
+            for c, gs in out.items()}
+    json.dump(data, open(os.path.join(HERE, "platform_counts.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+    print("platform_counts.json 저장")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["scan", "apply"])
+    ap.add_argument("cmd", choices=["scan", "apply", "pair", "counts"])
     ap.add_argument("--code")
     ap.add_argument("--service-key")
     a = ap.parse_args()
     if a.cmd == "apply":
         return apply(a.code, a.service_key)
+    if a.cmd == "pair":
+        return pair(a.code, apply_=bool(a.code))
+    if a.cmd == "counts":
+        return counts()
     rows = fetch_rows()
     print(f"웹앱 {len(rows)}행")
     out = {}

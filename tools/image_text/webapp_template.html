@@ -15,6 +15,17 @@
 .kr-cell:hover{outline:1px dashed var(--pf-v5-global--primary-color--100);outline-offset:2px}
 .kr-cell.is-empty{color:var(--pf-v5-global--Color--200)}
 .jp-cell{white-space:pre-wrap;color:var(--pf-v5-global--Color--100)}
+.plat-tag{margin-bottom:4px}
+.nav-plat{font-size:10px;color:var(--pf-v5-global--Color--200);margin-left:4px;white-space:nowrap}
+.pair-panel{margin-top:4px;padding:6px 8px;border-left:3px solid var(--pf-v5-global--info-color--100);background:var(--pf-v5-global--BackgroundColor--200);font-size:12px}
+.pair-h{font-size:11px;color:var(--pf-v5-global--Color--200);margin-top:2px}
+.pair-note{font-size:11px;color:var(--pf-v5-global--Color--200);margin-top:4px}
+.pair-parent td{border-bottom:0!important;background:var(--pf-v5-global--BackgroundColor--200)}
+.pair-child td{background:var(--pf-v5-global--BackgroundColor--200);border-top:1px dashed var(--pf-v5-global--BorderColor--100)!important}
+.pair-lbl{font-size:11px;font-weight:600;margin-bottom:2px}
+.scope{font-size:11px;color:var(--pf-v5-global--Color--200);margin-top:3px}
+.ph-bar{font-size:11px;margin-top:4px;color:var(--pf-v5-global--Color--200)}
+.ph-ins{font:600 10px/1.6 monospace;padding:0 4px;border-radius:3px;border:0;cursor:pointer;background:var(--pf-v5-global--palette--purple-100,#cbc1ff);color:#1f0066}
 .sugg{margin-top:4px;font-size:12px;color:var(--pf-v5-global--Color--200);border-left:2px solid var(--pf-v5-global--BorderColor--100);padding-left:6px;white-space:pre-wrap}
 .kr-miss{color:var(--pf-v5-global--danger-color--100);font-weight:700;text-decoration:underline}
 td textarea{width:100%;min-height:4rem;font:inherit}
@@ -291,6 +302,10 @@ function renderNav() {
   dash.className = "pf-v5-c-nav__item";
   dash.innerHTML = `<a class="pf-v5-c-nav__link${cat === "dash" ? " pf-m-current" : ""}" data-cat="dash">진행 현황</a>`;
   ul.appendChild(dash);
+  const srch = document.createElement("li");
+  srch.className = "pf-v5-c-nav__item";
+  srch.innerHTML = `<a class="pf-v5-c-nav__link${cat === "search" ? " pf-m-current" : ""}" data-cat="search">전체 검색</a>`;
+  ul.appendChild(srch);
   for (const sec of META.nav) {
     const li = document.createElement("li");
     const open = sec.cat === cat;
@@ -305,7 +320,7 @@ function renderNav() {
           ${sec.groups.map(g => `
             <li class="pf-v5-c-nav__item">
               <a class="pf-v5-c-nav__link${sec.cat === cat && g.g === grp ? " pf-m-current" : ""}"
-                 data-cat="${sec.cat}" data-grp="${g.g}">${esc(g.label)}</a>
+                 data-cat="${sec.cat}" data-grp="${g.g}">${esc(g.label)}${navPlat(sec.cat, g.g)}</a>
             </li>`).join("")}
         </ul>
       </section>`;
@@ -316,9 +331,10 @@ function renderNav() {
   li.innerHTML = `<a class="pf-v5-c-nav__link${cat === "activity" ? " pf-m-current" : ""}" data-cat="activity">수정 이력</a>`;
   ul.appendChild(li);
   ul.onclick = ev => {
-    const a = ev.target.closest("[data-grp],[data-sec],[data-cat='activity'],[data-cat='dash']");
+    const a = ev.target.closest("[data-grp],[data-sec],[data-cat='activity'],[data-cat='dash'],[data-cat='search']");
     if (!a) return;
     if (a.dataset.cat === "dash") { showDash(); return; }
+    if (a.dataset.cat === "search") { showSearch(); return; }
     if (a.dataset.sec) {
       const item = a.closest(".pf-v5-c-nav__item");
       const sub = item.querySelector(".pf-v5-c-nav__subnav");
@@ -332,6 +348,11 @@ function renderNav() {
   };
 }
 
+function navPlat(c, g) {
+  const n = ((META.plat_counts || {})[c] || {})[g];
+  if (!n || (!n.ps3 && !n.x360)) return "";
+  return ` <span class="nav-plat">${n.ps3 ? `PS3 ${n.ps3}` : ""}${n.ps3 && n.x360 ? " · " : ""}${n.x360 ? `360 ${n.x360}` : ""}</span>`;
+}
 function navMeta(c, g) {
   const sec = META.nav.find(s => s.cat === c);
   return { sec, grp: sec && sec.groups.find(x => x.g === g) };
@@ -369,6 +390,7 @@ function renderFilter() {
 async function openGroup(c, g) {
   closeNavIfNarrow();
   cat = c; grp = g; page = 0; filter = "all"; query = ""; subSel = "";
+  try { history.replaceState(null, "", `#/${c}/${g}`); } catch (e) {}
   $("#q").value = "";
   renderNav();
   const { sec, grp: gm } = navMeta(c, g);
@@ -537,7 +559,17 @@ function render() {
   if (cat === "dlc" && (grp === "mail" || grp === "catalog")) return renderCards();
   if (cat === "gamedata" && rows.some(r => (r.meta || {}).card)) return renderCards();
   renderStats();
-  const vis = visibleRows();
+  let vis = visibleRows();
+  if (cat === "image") {        // 두 판에서 다른 그림: 360판 행을 PS3판 행 바로 밑에 붙여 한 묶음으로
+    const ids = new Set(vis.map(r => r.id)), out = [];
+    for (const r of vis) {
+      const p = (r.meta || {}).pair, pr = p && ids.has(p) ? rowById(p) : null;
+      if (pr && platOf(r) === "x360" && platOf(pr) === "ps3") continue;
+      out.push(r);
+      if (pr && platOf(r) === "ps3") out.push(pr);
+    }
+    vis = out;
+  }
   const maxPage = Math.max(0, Math.ceil(vis.length / perPage) - 1);
   if (page > maxPage) page = maxPage;
   const slice = vis.slice(page * perPage, (page + 1) * perPage);
@@ -550,29 +582,38 @@ function render() {
       : ["id", "원문", "한국어", "경고", "상태"];
   let h = `<table class="pf-v5-c-table pf-m-compact pf-m-grid-md" role="grid"><thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">`
     + heads.map(x => `<th class="pf-v5-c-table__th">${x}</th>`).join("") + `</tr></thead><tbody class="pf-v5-c-table__tbody">`;
-  for (const r of slice) {
+  for (const [ri, r] of slice.entries()) {
     const w = warns(r);
-    const dim = isBlank(r) || r.st >= 2 ? " row-dim" : "";
+    const pm = r.meta || {};
+    const pairedImg = cat === "image" && pm.pair && (
+      (platOf(r) === "ps3" && slice[ri + 1] && slice[ri + 1].id === pm.pair) ||
+      (platOf(r) === "x360" && slice[ri - 1] && slice[ri - 1].id === pm.pair));
+    const dim = (isBlank(r) || r.st >= 2 ? " row-dim" : "") +
+      (pairedImg ? (platOf(r) === "ps3" ? " pair-parent" : " pair-child") : "");
     let first, second;
     if (cat === "image") {
       const m = r.meta || {};
       const img = KRIMG[r.key];
-      first = `<div style="display:flex;gap:6px;align-items:flex-start;flex-wrap:wrap">
+      const pr = m.pair ? rowById(m.pair) : null;
+      const canCopy = pr && KRIMG[pr.key] && (pr.meta || {}).w === m.w && (pr.meta || {}).h === m.h;
+      first = `${pairedImg ? `<div class="pair-lbl">${platOf(r) === "ps3" ? "PS3판" : "↳ 360판 (같은 그림의 360판 — 작업본은 판별로 따로)"}</div>` : ""}
+        <div style="display:flex;gap:6px;align-items:flex-start;flex-wrap:wrap">
         <div><div class="thumb thumb-click" data-act="view" title="클릭하면 크게 보기"><img loading="lazy" src="${CFG.texbase}/jp/${r.key}.png" alt=""></div>
           <div class="pf-v5-u-color-200" style="font-size:10px">원본</div></div>
         ${img ? `<div><div class="thumb thumb-click" data-act="view"><img class="krimg-slot" data-md5="${esc(r.key)}" alt="작업본"></div>
           <div class="pf-v5-u-color-200" style="font-size:10px">작업본 · ${esc(img.by || "")}</div></div>` : ""}
         <button class="pf-v5-c-button pf-m-control pf-m-compact" data-act="upload">${img ? "교체" : "작업본 업로드"}</button>
+        ${canCopy ? `<button class="pf-v5-c-button pf-m-link pf-m-compact" data-act="copykr" data-id="${esc(r.id)}" title="치수가 같아서 그대로 쓸 수 있음">${platOf(pr) === "ps3" ? "PS3판" : "360판"} 작업본 복사</button>` : ""}
       </div>`;
-      second = `<span class="nowrap">${m.kind ? `<b>${esc(m.kind)}</b> · ` : ""}${m.w}×${m.h} ${esc(m.fmt || "")}</span>${platBadge(r)}<br>
+      second = `<span class="nowrap">${m.kind ? `<b>${esc(m.kind)}</b> · ` : ""}${m.w}×${m.h} ${esc(m.fmt || "")}</span><br>
                 <span class="pf-v5-u-color-200" style="font-size:12px">${esc((m.locs || [])[0] || "")}${(m.locs || []).length > 1 ? ` 외 ${m.locs.length - 1}곳` : ""}</span>`;
     } else if (cat === "script") {
       const m = r.meta || {};
-      first = `<span class="nowrap">${esc(m.sp || "")}</span>${platBadge(r)}<br><span class="pf-v5-u-color-200" style="font-size:11px">${esc(m.file || "")}</span>`;
-      second = `<div class="jp-cell">${fmtText(r.jp)}</div>` + (m.suggest ? `<div class="sugg" title="PS3판의 비슷한 대사 번역 (유사도 ${Math.round(m.suggest.ratio * 100)}%) — 참고용">참고 · ${Math.round(m.suggest.ratio * 100)}%: ${fmtText(m.suggest.kr)}</div>` : "");
+      first = `<span class="nowrap">${esc(m.sp || "")}</span><br><span class="pf-v5-u-color-200" style="font-size:11px">${esc(m.file || "")}</span>`;
+      second = `<div class="jp-cell">${fmtText(r.jp)}</div>` + pairToggleHtml(r) + (m.suggest ? `<div class="sugg" title="PS3판의 비슷한 대사 번역 (유사도 ${Math.round(m.suggest.ratio * 100)}%) — 참고용">참고 · ${Math.round(m.suggest.ratio * 100)}%: ${fmtText(m.suggest.kr)}</div>` : "");
     } else {
-      first = `<code style="font-size:12px">${esc(r.key)}</code>${platBadge(r)}`;
-      second = `<div class="jp-cell">${fmtText(r.jp)}</div>`;
+      first = `<code style="font-size:12px">${esc(r.key)}</code>`;
+      second = `<div class="jp-cell">${fmtText(r.jp)}</div>` + pairToggleHtml(r);
     }
     h += `<tr class="pf-v5-c-table__tr${dim}" data-id="${esc(r.id)}">
       <td class="pf-v5-c-table__td v-mid">${first}</td>
@@ -580,7 +621,7 @@ function render() {
       <td class="pf-v5-c-table__td kr-cell${r.kr ? "" : " is-empty"}" data-act="edit">${r.kr ? markMissing(r.kr) : (isBlank(r) ? "—" : "클릭해서 입력")}</td>
       <td class="pf-v5-c-table__td" style="max-width:10rem">${w.map(([t, c]) =>
         `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}</td>
-      <td class="pf-v5-c-table__td nowrap v-mid">${isBlank(r) ? "" : stLabel(r)}</td>
+      <td class="pf-v5-c-table__td nowrap v-mid">${platBadge(r) ? `<div class="plat-tag">${platBadge(r)}</div>` : ""}${isBlank(r) ? "" : stLabel(r)}</td>
     </tr>`;
   }
   h += "</tbody></table>";
@@ -596,8 +637,9 @@ function render() {
    (일어와 같은 줄 수, 빈 줄 = 미번역). 저장 시 줄별 행으로 분배. */
 // 본편 키 "곡/LYR_nnn", DLC 키 "lyrics_곡:LYR_nnn"
 function songOf(r) {
-  return r.key.includes(":") ? r.key.split(":")[0].replace(/^lyrics_/, "")
-                             : r.key.split("/")[0];
+  const s0 = r.key.includes(":") ? r.key.split(":")[0].replace(/^lyrics_/, "")
+                                 : r.key.split("/")[0];
+  return r.key.endsWith("#ps3") ? s0 + " (PS3판 문구)" : s0;
 }
 function songRows(song) {
   return rows.filter(r => songOf(r) === song)
@@ -618,9 +660,9 @@ function renderLyrics() {
     const krText = rs.map(r => r.kr || "").join("\n");
     h += `<div class="pf-v5-c-card pf-m-compact lyr-card" data-song="${esc(song)}" style="margin-bottom:12px">
       <div class="pf-v5-c-card__title" style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
-        <b>${esc(song)}</b>${platBadgeGroup(rs)}
+        <b>${esc(song)}</b>
         <span class="pf-v5-u-color-200" style="font-weight:400;font-size:13px">${esc(rs[0].jp.slice(0, 26))}</span>
-        <span style="margin-left:auto;font-size:12px" class="pf-v5-u-color-200">번역 ${done}/${rs.length} · 검수 ${rv}</span></div>
+        <span style="margin-left:auto;font-size:12px" class="pf-v5-u-color-200">번역 ${done}/${rs.length} · 검수 ${rv}</span>${platBadgeGroup(rs)}</div>
       <div class="pf-v5-c-card__body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px">
         <div style="font-size:13px;line-height:1.75">${jpHtml}</div>
         <div><textarea class="lyr-ta" rows="${rs.length + 1}" spellcheck="false" wrap="off"
@@ -704,18 +746,60 @@ function subLabel(k) {
 }
 let subSel = "";
 /* 플랫폼 태그 meta.plat: common | ps3 | x360 (platform_audit.py). plat_note = 판 차이 설명 */
-const PLAT = { ps3: ["PS3 전용", "orange"], x360: ["360 전용", "cyan"] };
-const PLAT_OPT = [["", "판: 모두"], ["common", "공통 (두 판 모두)"], ["ps3", "PS3 전용"], ["x360", "360 전용 (PC판)"]];
+const PLAT = { ps3: ["PS3", "blue"], x360: ["360", "green"] };
+const PLAT_OPT = [["", "플랫폼: 전체"], ["common", "공통"], ["ps3", "PS3 전용"], ["x360", "360 전용"]];
 function platOf(r) { const m = r.meta || {}; return m.plat || (m.x360 ? "x360" : "common"); }
 function platBadge(r) {
   const m = r.meta || {}, p = platOf(r);
-  if (PLAT[p]) return ` <span class="pf-v5-c-label pf-m-${PLAT[p][1]} pf-m-compact" title="${esc(m.plat_note || "")}"><span class="pf-v5-c-label__content">${PLAT[p][0]}</span></span>`;
-  if (m.plat_note) return ` <span class="pf-v5-c-label pf-m-compact" title="${esc(m.plat_note)}"><span class="pf-v5-c-label__content">판 차이</span></span>`;
-  return "";
+  if (!PLAT[p]) return "";
+  const tip = m.plat_note || (p === "ps3" ? "PS3판에만 있음" : "360판(PC 포트)에만 있음");
+  return `<span class="pf-v5-c-label pf-m-${PLAT[p][1]} pf-m-compact plat-badge" title="${esc(tip)}"><span class="pf-v5-c-label__content">${PLAT[p][0]}</span></span>`;
 }
 function platBadgeGroup(rs) {
-  return new Set(rs.map(platOf)).size === 1 ? platBadge(rs[0])
-    : ` <span class="pf-v5-c-label pf-m-compact" title="PS3·360 전용 줄이 섞여 있음"><span class="pf-v5-c-label__content">판 혼합</span></span>`;
+  const seen = new Set(), out = [];
+  for (const r of rs) { const p = platOf(r); if (PLAT[p] && !seen.has(p)) { seen.add(p); out.push(platBadge(r)); } }
+  return out.join(" ");
+}
+/* 적용 범위 안내 */
+function scopeText(r) {
+  const p = platOf(r);
+  return "이 번역이 들어가는 곳: " + (p === "ps3" ? "PS3 한글 패치" : p === "x360" ? "PC 포트(360)" : "PS3 한글 패치 · PC 포트(360)");
+}
+/* 다른 판 보기: meta.pair(상대 판 행 id) 또는 script의 '360판 문구' 메모 */
+const PAIRS = {};
+const openPairs = new Set();
+function hasOther(r) { const m = r.meta || {}; return !!m.pair || /^360판 문구/.test(m.plat_note || ""); }
+function pairCached(id) { return rowById(id) || PAIRS[id] || null; }
+async function pairRow(id) {
+  if (pairCached(id)) return pairCached(id);
+  const { data } = await sb.from("rows").select("*").eq("id", id).maybeSingle();
+  if (data) PAIRS[id] = data;
+  return data;
+}
+function pairPanelHtml(r) {
+  const m = r.meta || {};
+  if (!m.pair) return `<div class="pair-panel"><div class="pair-h">360판 문구</div>
+    <div class="jp-cell">${fmtText((m.plat_note || "").replace(/^360판 문구: /, ""))}</div>
+    <div class="pair-note">문구만 조금 다르고, 이 번역 하나가 두 판에 함께 들어갑니다.</div></div>`;
+  const pr = pairCached(m.pair);
+  if (!pr) return `<div class="pair-panel">불러오는 중…</div>`;
+  const other = platOf(pr) === "x360" ? "360판" : platOf(pr) === "ps3" ? "PS3판" : "다른 판";
+  const take = pr.kr && pr.kr !== r.kr && r.cat !== "image";
+  return `<div class="pair-panel"><div class="pair-h">${other} 원문</div><div class="jp-cell">${fmtText(pr.jp || "")}</div>
+    <div class="pair-h">${other} 번역</div><div>${pr.kr ? fmtText(pr.kr) : '<span class="pf-v5-u-color-200">아직 없음</span>'}</div>
+    ${take ? `<button class="pf-v5-c-button pf-m-secondary pf-m-compact" data-act="pairtake" data-id="${esc(r.id)}" style="margin-top:4px">그 번역 가져오기</button>` : ""}</div>`;
+}
+function pairToggleHtml(r) {
+  if (!hasOther(r)) return "";
+  const open = openPairs.has(r.id);
+  return `<div><button class="pf-v5-c-button pf-m-link pf-m-inline pf-m-small" data-act="pairtog" data-id="${esc(r.id)}">${open ? "다른 판 닫기" : "다른 판 보기"}</button></div>${open ? pairPanelHtml(r) : ""}`;
+}
+/* 치환 코드 칩(원문에 든 것만) — 누르면 마지막 입력칸 커서 위치에 넣음 */
+function phChipsHtml(jp) {
+  const codes = [...new Set((jp || "").match(PH_RE) || [])];
+  if (!codes.length) return "";
+  return `<div class="ph-bar">치환 코드 넣기: ${codes.map(c =>
+    `<button type="button" class="ph-ins" data-ch="${c.charCodeAt(0)}" title="스크립트 치환 코드 U+${c.charCodeAt(0).toString(16).toUpperCase()} — 게임이 이름 등으로 바꿔 넣음">${c.charCodeAt(0).toString(16).toUpperCase()}</button>`).join(" ")}</div>`;
 }
 let platSel = "";
 function renderPlatFilter() {
@@ -723,6 +807,7 @@ function renderPlatFilter() {
   const cnt = { "": rows.length };
   rows.forEach(r => { const p = platOf(r); cnt[p] = (cnt[p] || 0) + 1; });
   if (!cnt.ps3 && !cnt.x360) { el.hidden = true; platSel = ""; return; }
+  cnt.common = cnt.common || 0;
   el.innerHTML = PLAT_OPT.filter(([v]) => cnt[v]).map(([v, l]) => `<option value="${v}">${l} · ${cnt[v]}</option>`).join("");
   if (!cnt[platSel]) platSel = "";
   el.value = platSel;
@@ -799,26 +884,27 @@ function renderCards() {
                   || g.parts[0]).r.jp;
     h += `<div class="pf-v5-c-card pf-m-compact mc-card" data-gid="${esc(g.gid)}" style="margin-bottom:12px">
       <div class="pf-v5-c-card__title" style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
-        <b>${esc(who)}</b>${platBadgeGroup(g.parts.map(p => p.r))}${g.n ? `<span class="pf-v5-u-color-200" style="font-size:12px">#${esc(g.n)}</span>` : ""}
+        <b>${esc(who)}</b>${g.n ? `<span class="pf-v5-u-color-200" style="font-size:12px">#${esc(g.n)}</span>` : ""}
         <span style="font-weight:400;font-size:13px">${esc(subj.split("\n")[0].slice(0, 40))}</span>
-        <span style="margin-left:auto;font-size:12px" class="pf-v5-u-color-200">번역 ${done}/${g.parts.length} · 검수 ${rv}</span></div>
+        <span style="margin-left:auto;font-size:12px" class="pf-v5-u-color-200">번역 ${done}/${g.parts.length} · 검수 ${rv}</span>${platBadgeGroup(g.parts.map(p => p.r))}</div>
       <div class="pf-v5-c-card__body" style="display:flex;flex-direction:column;gap:10px">`;
     for (const { r, part } of g.parts) {
       const jpN = (r.jp.match(/\n/g) || []).length;
       const w = warns(r).filter(([t]) => t !== "미번역");
       h += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
         <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px">${PART_LABEL[part] || part} (JP)</div>
-          <div class="jp-cell" style="font-size:13px;line-height:1.7">${fmtText(r.jp)}</div></div>
+          <div class="jp-cell" style="font-size:13px;line-height:1.7">${fmtText(r.jp)}</div>${pairToggleHtml(r)}</div>
         <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px;display:flex;gap:6px;align-items:center">${PART_LABEL[part] || part} (KR)
             ${w.map(([t, c]) => `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}
             <button class="pf-v5-c-button pf-m-plain pf-m-compact" data-act="mchist" data-id="${esc(r.id)}" title="수정 이력" style="margin-left:auto">🕘</button></div>
           <textarea class="pf-v5-c-form-control mc-ta" data-id="${esc(r.id)}" data-jpn="${jpN}" rows="${jpN + 1}"
             spellcheck="false" style="width:100%;font-size:13px;line-height:1.7">
-${esc(r.kr)}</textarea>
+${esc(r.kr)}</textarea>${phChipsHtml(r.jp)}
           ${r.jp.includes("\n") || ["body", "desc", "caption", "text", "stext", "profiletext"].includes(part)
             ? `<div class="nl-hint mc-cnt"></div>` : ""}</div></div>`;
     }
-    h += `<div style="display:flex;gap:8px;justify-content:flex-end">
+    h += `<div style="display:flex;gap:8px;justify-content:flex-end;align-items:center">
+        <span class="scope" style="margin-right:auto">${esc(scopeText(g.parts[0].r))}</span>
         <button class="pf-v5-c-button pf-m-primary pf-m-compact" data-act="mcsave">저장</button>
         <button class="pf-v5-c-button pf-m-control pf-m-compact" data-act="mcreview">검수 완료</button></div>
       </div></div>`;
@@ -905,6 +991,8 @@ $("#content").addEventListener("click", ev => {
     const card = mcAct.closest(".mc-card");
     if (card) { cardSave(card, mcAct.dataset.act === "mcreview"); return; }
   }
+  const pAct = ev.target.closest("[data-act=pairtog],[data-act=pairtake],[data-act=copykr]");
+  if (pAct) { pairAction(pAct.dataset.act, rowById(pAct.dataset.id)); return; }
   const tr = ev.target.closest("tr[data-id]");
   if (!tr) return;
   const r = rowById(tr.dataset.id);
@@ -917,6 +1005,109 @@ $("#content").addEventListener("click", ev => {
   else if (act.dataset.act === "hist") showHist(r);
   else if (act.dataset.act === "view") openViewer(r);
   else if (act.dataset.act === "upload") pickUpload(r);
+});
+
+/* ---------------- 전체 검색 (모든 분류 원문·번역) ---------------- */
+let gSearch = { q: "", c: "", res: [] };
+function showSearch() {
+  closeNavIfNarrow();
+  cat = "search"; grp = null; renderNav();
+  $("#crumb").textContent = "전체 검색";
+  $("#budget").hidden = true; $("#grpStat").textContent = "";
+  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true;
+  const cats = [["", "모든 분류"], ...META.nav.map(s => [s.cat, s.label])];
+  $("#content").innerHTML = `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+      <input id="gq" class="pf-v5-c-form-control" style="max-width:420px" placeholder="원문·번역 전체에서 찾기 (2글자 이상, Enter)" value="${esc(gSearch.q)}">
+      <select id="gc" class="pf-v5-c-form-control" style="width:auto">${cats.map(([v, l]) => `<option value="${v}"${v === gSearch.c ? " selected" : ""}>${esc(l)}</option>`).join("")}</select>
+      <button class="pf-v5-c-button pf-m-primary" id="gbtn">검색</button></div><div id="gres"></div>`;
+  const go = () => runSearch($("#gq").value.trim(), $("#gc").value);
+  $("#gbtn").onclick = go;
+  $("#gq").onkeydown = ev => { if (ev.key === "Enter") go(); };
+  $("#gq").focus();
+  if (gSearch.res.length) drawSearch();
+}
+async function runSearch(q, c) {
+  if (q.length < 2) { toast("2글자 이상 입력하세요"); return; }
+  gSearch.q = q; gSearch.c = c;
+  $("#gres").innerHTML = "찾는 중…";
+  const v = '"*' + q.replace(/["\\]/g, m => "\\" + m) + '*"';
+  let qq = sb.from("rows").select("id,cat,grp,key,jp,kr,st,meta").or(`jp.ilike.${v},kr.ilike.${v}`).limit(301);
+  if (c) qq = qq.eq("cat", c);
+  const { data, error } = await qq;
+  if (error) { $("#gres").textContent = "검색 실패: " + error.message; return; }
+  gSearch.res = data;
+  drawSearch();
+}
+function hl(text, q) {
+  const t = esc(text || ""), qq = esc(q);
+  const i = t.toLowerCase().indexOf(qq.toLowerCase());
+  const s0 = Math.max(0, i - 40), cut = i < 0 ? t.slice(0, 90) : t.slice(s0, i + qq.length + 60);
+  return (s0 > 0 ? "…" : "") + (i < 0 ? cut : cut.replace(t.substr(i, qq.length), `<mark>${t.substr(i, qq.length)}</mark>`));
+}
+function drawSearch() {
+  const res = gSearch.res, q = gSearch.q;
+  const more = res.length > 300;
+  let h = `<div class="pf-v5-u-color-200" style="font-size:12px;margin-bottom:6px">${more ? "300건 넘음 — 앞 300건만 표시, 검색어를 더 구체적으로" : res.length + "건"}</div>
+    <table class="pf-v5-c-table pf-m-compact pf-m-grid-md"><thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">
+    <th class="pf-v5-c-table__th">분류</th><th class="pf-v5-c-table__th">원문</th><th class="pf-v5-c-table__th">한국어</th></tr></thead><tbody class="pf-v5-c-table__tbody">`;
+  for (const r of res.slice(0, 300)) {
+    const { sec, grp: gm } = navMeta(r.cat, r.grp);
+    h += `<tr class="pf-v5-c-table__tr search-hit" data-sid="${esc(r.id)}" style="cursor:pointer">
+      <td class="pf-v5-c-table__td"><span class="nowrap">${esc(sec ? sec.label : r.cat)} › ${esc(gm ? gm.label : r.grp)}</span> ${platBadge(r)}<br>
+        <code style="font-size:11px">${esc(r.key)}</code></td>
+      <td class="pf-v5-c-table__td" style="max-width:26rem">${emoHtml(hl(r.jp, q))}</td>
+      <td class="pf-v5-c-table__td" style="max-width:26rem">${r.kr ? emoHtml(hl(r.kr, q)) : '<span class="pf-v5-u-color-200">미번역</span>'}</td></tr>`;
+  }
+  $("#gres").innerHTML = h + "</tbody></table>";
+  $("#gres").onclick = async ev => {
+    const tr = ev.target.closest("[data-sid]");
+    if (!tr) return;
+    const r = res.find(x => x.id === tr.dataset.sid);
+    await openGroup(r.cat, r.grp);
+    query = r.key; $("#q").value = r.key; page = 0;
+    render();
+  };
+}
+
+async function pairAction(act, r) {
+  if (!r) return;
+  if (act === "pairtog") {
+    if (openPairs.has(r.id)) openPairs.delete(r.id);
+    else { openPairs.add(r.id); if ((r.meta || {}).pair) { render(); await pairRow(r.meta.pair); } }
+    render();
+  } else if (act === "pairtake") {
+    if (needNick()) return;
+    const pr = await pairRow(r.meta.pair);
+    if (!pr || !pr.kr) return;
+    await save(r, pr.kr, Math.max(1, r.st));
+    toast("다른 판 번역을 가져와 저장했습니다", "success");
+  } else if (act === "copykr") {
+    if (needNick()) return;
+    const pr = rowById(r.meta.pair);
+    if (!pr) return;
+    const { data, error } = await sb.from("tex_kr").select("data").eq("md5", pr.key).single();
+    if (error || !data) { toast("상대 판 작업본을 못 읽었습니다"); return; }
+    const ts = Date.now();
+    const res = await sb.from("tex_kr").upsert({ md5: r.key, data: data.data, ts, by: nick });
+    if (res.error) { toast("복사 실패: " + res.error.message); return; }
+    KRIMG[r.key] = { ts, by: nick, url: null };
+    toast("작업본을 복사했습니다", "success");
+    render();
+  }
+}
+document.addEventListener("mousedown", ev => { if (ev.target.closest(".ph-ins")) ev.preventDefault(); });
+document.addEventListener("click", ev => {
+  const b = ev.target.closest(".ph-ins");
+  if (!b) return;
+  // 칩과 같은 칸(표의 편집 셀 / 카드의 입력 묶음)에 있는 입력칸 우선
+  const own = b.closest(".ph-bar").parentElement.querySelector("textarea");
+  const ta = own || (lastTa && document.body.contains(lastTa) ? lastTa : null);
+  if (!ta) { toast("먼저 한국어 입력칸을 클릭하세요"); return; }
+  const ch = String.fromCharCode(+b.dataset.ch), s0 = ta.selectionStart, e0 = ta.selectionEnd;
+  ta.value = ta.value.slice(0, s0) + ch + ta.value.slice(e0);
+  ta.selectionStart = ta.selectionEnd = s0 + 1;
+  ta.dispatchEvent(new Event("input", { bubbles: true }));
+  ta.focus();
 });
 
 /* ---------------- 이미지 일괄 다운로드/업로드 ---------------- */
@@ -1148,6 +1339,12 @@ function startEdit(r, td) {
   };
   td.textContent = ""; td.appendChild(ta);
   if (r.cat !== "image") { td.appendChild(hint); updHint(); ta.addEventListener("input", updHint); }
+  if (r.cat !== "image" && PH_RE.test(r.jp)) {
+    PH_RE.lastIndex = 0;
+    td.insertAdjacentHTML("beforeend", phChipsHtml(r.jp));
+  }
+  PH_RE.lastIndex = 0;
+  td.insertAdjacentHTML("beforeend", `<div class="scope">${esc(scopeText(r))}</div>`);
   ta.focus();
   let moved = null;   // Enter/Tab = 저장 후 다음 행, Alt+↑↓ = 이동, Esc = 취소
   ta.onkeydown = ev => {
@@ -1232,7 +1429,7 @@ async function showDash(force) {
   cat = "dash"; grp = null; renderNav();
   $("#crumb").textContent = "진행 현황";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
-  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true;
+  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true;
   if (!DASH || force) {
     $("#content").innerHTML = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content">집계 중…</div></div>`;
     const out = [];
@@ -1290,7 +1487,7 @@ async function showActivity() {
   cat = "activity"; grp = null; renderNav();
   $("#crumb").textContent = "수정 이력";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
-  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true;
+  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true;
   $("#content").innerHTML = `
     <div class="pf-v5-c-toolbar"><div class="pf-v5-c-toolbar__content" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
       <input class="pf-v5-c-form-control" style="width:10rem" id="actBy" placeholder="작업자 필터">
@@ -1428,6 +1625,23 @@ async function boot() {
   $("#nick").value = nick;
   setupEmoji();
   renderNav();
+  // 주소 #/<분류>/<소분류>[/<검색어>] 로 바로 열기 (링크 공유용)
+  const hm = decodeURIComponent(location.hash || "").match(/^#\/([^/]+)\/([^/]+)(?:\/(.+))?$/);
+  if (hm && navMeta(hm[1], hm[2]).grp) {
+    await openGroup(hm[1], hm[2]);
+    let q3 = hm[3] || "";
+    const openAll = q3.endsWith("!open");      // 링크 끝 !open = 보이는 행의 '다른 판' 펼침
+    if (openAll) q3 = q3.slice(0, -5);
+    if (q3) { query = q3; $("#q").value = q3; render(); }
+    if (openAll) {
+      for (const r of visibleRows().slice(0, perPage)) if (hasOther(r)) {
+        openPairs.add(r.id);
+        if ((r.meta || {}).pair) await pairRow(r.meta.pair);
+      }
+      render();
+    }
+    return;
+  }
   showDash();   // 홈 = 진행 현황
 }
 // 게이트 핸들러는 어떤 비동기 작업보다 먼저 바인딩한다 (무반응 방지)
