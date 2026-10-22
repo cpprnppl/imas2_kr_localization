@@ -1188,3 +1188,39 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   - game_kor는 공유 game을 통째 복사해 원본 백업(_backup_kr_orig, _kor_backup)도 포함 →
     "원본에서 빌드" 로직 그대로 동작.
   - 게임 데이터 텍스트를 initialFix.mpc에 넣을 때는 **game_kor의 폰트 주입본**을 기준으로.
+
+## 33. 게임 이모티콘(PUA U+E000~E03F) 웹앱 지원 + XMB 재빌드 버그 수정 (2026-10-23, KOR 지시)
+
+### 이모티콘 정체
+- 메일 계열 텍스트에 사설 영역 코드 U+E000~E03F가 섞여 있음(사용 61종, DLC 2,901회·
+  게임 데이터 291회·본편 메일 XMB 291회). 웹 폰트에 없어 웹앱에서 ㅁ로 보였음.
+- 그림은 본문 폰트(NFH)가 아니라 **initialTemp.mpc 2번째 NUT 텍스처(256x512 DXT5) 상단
+  8x8 칸(32x32)**. 코드 U+E000+i = i번째 칸(문맥 대조: E009 おやすみ=zzZ, E025 車,
+  E028 飛行機, E03B 朝食=주먹밥, E03C ケーキ, E03E かみつく=강아지).
+- 게임 쪽 폰트 슬롯 확인은 폰트 세션 담당(이 절 범위 밖).
+
+### 웹앱
+- `tools/image_text/emoji_assets.py`: 시트(256x256 PNG) + 픽셀 윤곽 단색 웹폰트
+  imas2emo.ttf(cmap U+E000~E03F) 생성 → Supabase storage `tex/emoji/`에만 업로드
+  (게임 자산이라 git 미포함).
+- 표시: 일어 원문·검토 셀은 컬러 스프라이트 span, 한국어 입력칸(textarea)은
+  `@font-face imas2emo`(unicode-range PUA 한정)로 같은 칸에 그림 표시. 저장값은 PUA 코드 그대로.
+- 팔레트: 좌하단 "이모티콘" 버튼 → 64칸, 마지막으로 포커스된 한국어 칸 커서 위치에 삽입
+  (mousedown 기본동작 차단으로 편집 상태 유지). PF `page__main` z-index 100에 가려져
+  팔레트 z-index 300.
+- 경고(차단 아님): 이모티콘 개수 다름 / 종류 다름(순서 무관). 폰트 커버리지 검사는
+  원래 한글(가~힣)만 보므로 PUA 자동 제외. Python 쪽 encode_with_mapping도 한글만 치환.
+
+### XMB 재빌드 버그 (일반 버그, PUA와 무관)
+- 기존 `rebuild_xmb`는 값 섹션의 "첫 _text 이전"만 보존하고 그 뒤를 _text로 통째 재배치
+  → 본편 메일 XMB처럼 ASCII id가 _text 사이에 섞인 파일에서 id 파괴(재파싱 0xff 오류).
+  지금까지 쓰던 NPC 표·가사는 id가 앞에 몰려 있어 안 드러났음.
+- 수정: _text 문자열 자리만 비우고 나머지 바이트는 제자리 유지, 빈 자리(옛 _text 구간 +
+  꼬리 여백)에 순서대로 배치, 모자라면 allow_grow일 때만 꼬리 확장. 원본 특성 두 가지 반영:
+  (1) 컴파일러가 같은 문자열을 vofs 공유로 중복 제거 → 공유 유지, 자리 부족 시 동일 내용 재사용,
+  (2) UTF-16 _text가 **홀수 오프셋**에도 놓임 → 정렬 패딩 제거(정렬하면 무교체 재빌드가
+  자리 부족). 검증에 "비 _text 값 불변" 추가.
+- 회귀(캐시 전체 XMB 278개, 단독+pac 내장): 무교체 재빌드 **원본과 바이트 동일 278/278**,
+  전 _text 23,560칸을 한국어+원문 이모티콘으로 교체 → 재파싱 일치 278/278(이모티콘 6,802개
+  UTF-16BE 원형 유지). 본편 mail_produce PUA 칸 왕복(JSON→재빌드→pac 재조립) 통과.
+  pcport_apply build(NPC 942칸)·dance_lyrics build 정상.

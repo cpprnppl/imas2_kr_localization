@@ -203,44 +203,91 @@ def rebuild_xmb(data: bytes, base: int, repl: dict, log, allow_grow: bool = Fals
     p = parse_xmb(data, base)
     o_attr, o_val = p["o_attr"], p["o_val"]
     end = len(data)  # 단독 XMB: 파일 끝까지가 값 섹션
+    avail = end - o_val
     texts = collect_texts(p)
     tmap = {t["attr"]: t for t in texts}
+    sec = bytearray(data[o_val:end])
 
-    # 값 섹션 재구성: ASCII id들은 제자리 유지(최소 _text vofs 이전 영역 복사),
-    # _text들은 그 뒤에 순서대로 재배치.
-    first_txt = min(p["attrs"][t["attr"]]["vofs"] for t in texts)
-    buf = bytearray(data[o_val:o_val + first_txt])
-    new_vofs = {}
+    # 값 섹션에서 _text 문자열 자리만 비우고 나머지 바이트(ASCII id, idmap이
+    # 가리킬 수 있는 값)는 제자리 유지. 메일 XMB처럼 id와 _text가 섞여 있어도
+    # 안전(2026-10-23: 첫 _text 이후를 통째로 덮던 방식은 메일 id를 파괴).
+    def span(vofs, utf16):
+        e = vofs
+        if utf16:
+            while sec[e:e + 2] != b"\x00\x00":
+                e += 2
+            return vofs, e + 2
+        return vofs, sec.index(b"\x00", vofs) + 1
+
+    tattrs = {t["attr"] for t in texts}
+    used_end = 0
+    free = []
+    for ai, a in enumerate(p["attrs"]):
+        s, e = span(a["vofs"], ai in tattrs)
+        used_end = max(used_end, e)
+        if ai in tattrs:
+            free.append((s, e))
+    # _text는 원본에서도 홀수 오프셋에 놓인다(UTF-16 정렬 불요) — 정렬하지 않는다.
+    nz = len(sec.rstrip(b"\x00"))
+    tail = max(used_end, nz + 2 if nz else 0)
+    if tail < avail:
+        free.append((tail, avail))
+    for s, e in free:
+        sec[s:e] = b"\x00" * (e - s)
+    free.sort()
+    merged = []
+    for s, e in free:
+        if merged and s <= merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], e)
+        else:
+            merged.append([s, e])
+
+    # 원본 컴파일러가 같은 문자열을 공유 vofs로 중복 제거해 둔 경우가 있으므로
+    # (원래 vofs, 내용)이 같으면 한 자리 공유, 자리가 모자라면 같은 내용 재사용.
+    new_vofs, by_src, by_blob = {}, {}, {}
     for t in sorted(texts, key=lambda t: p["attrs"][t["attr"]]["vofs"]):
-        s = repl.get(t["attr"], t["text"])
-        if len(buf) % 2:
-            buf.append(0)
-        new_vofs[t["attr"]] = len(buf)
-        buf += s.encode("utf-16-be") + b"\x00\x00"
-    avail = end - o_val
-    if len(buf) > avail:
-        if not (allow_grow and base == 0):
-            raise ValueError(f"값 섹션 초과: {len(buf)} > {avail}B — 문구를 줄이세요")
-        while len(buf) % 16:        # 원본과 같은 16바이트 정렬 꼬리
-            buf.append(0)
-        avail = len(buf)
-    else:
-        buf += b"\x00" * (avail - len(buf))
+        blob = repl.get(t["attr"], t["text"]).encode("utf-16-be") + b"\x00\x00"
+        key = (p["attrs"][t["attr"]]["vofs"], blob)
+        if key in by_src:
+            new_vofs[t["attr"]] = by_src[key]
+            continue
+        for iv in merged:
+            s = iv[0]
+            if s + len(blob) <= iv[1]:
+                break
+        else:
+            if blob in by_blob:
+                new_vofs[t["attr"]] = by_src[key] = by_blob[blob]
+                continue
+            if not (allow_grow and base == 0):
+                raise ValueError(f"값 섹션 초과: _text attr{t['attr']} {len(blob)}B 자리 없음 "
+                                 f"(섹션 {avail}B) — 문구를 줄이세요")
+            s = len(sec)
+            sec += b"\x00" * len(blob)
+            iv = [len(sec), len(sec)]
+        sec[s:s + len(blob)] = blob
+        iv[0] = s + len(blob)
+        new_vofs[t["attr"]] = by_src[key] = s
+        by_blob.setdefault(blob, s)
+    while len(sec) > avail and len(sec) % 16:   # 확장 시 원본과 같은 16바이트 정렬 꼬리
+        sec.append(0)
+    avail = len(sec)
 
     out = bytearray(data)
-    out[o_val:end] = buf
+    out[o_val:end] = sec
     for ai, vofs in new_vofs.items():
         struct.pack_into(">I", out, o_attr + ai * 8 + 4, vofs)
-    # 검증: 재파싱해 교체 텍스트 일치 + id/구조 불변
+    # 검증: 재파싱해 교체 텍스트 일치 + id/구조 불변 + 비 _text 값 불변
     p2 = parse_xmb(bytes(out), base)
     t2 = {t["attr"]: t for t in collect_texts(p2)}
     for ai, t in tmap.items():
         want = repl.get(ai, t["text"])
         assert t2[ai]["text"] == want, f"재파싱 불일치 attr{ai}"
         assert t2[ai]["id"] == t["id"], f"id 변동 attr{ai}"
-    assert len(out) == base + (o_val - base) + avail
-    used = max(new_vofs.values()) if new_vofs else 0
-    log(f"    _text {len(repl)}/{len(texts)}개 교체, 값 섹션 사용 {used}B / 여유 {avail}B")
+    for e1, e2 in zip(p["entries"], p2["entries"]):
+        assert e1.get("attrs") == e2.get("attrs"), f"비 _text 값 변동 node{e1['node']}"
+    used = max((v + 2 for v in new_vofs.values()), default=0)
+    log(f"    _text {len(repl)}/{len(texts)}개 교체, 값 섹션 {avail}B (마지막 _text 시작 {used - 2}B)")
     return bytes(out)
 
 

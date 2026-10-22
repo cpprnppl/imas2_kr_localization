@@ -17,6 +17,16 @@
 .jp-cell{white-space:pre-wrap;color:var(--pf-v5-global--Color--100)}
 .kr-miss{color:var(--pf-v5-global--danger-color--100);font-weight:700;text-decoration:underline}
 td textarea{width:100%;min-height:4rem;font:inherit}
+/* 게임 이모티콘: 입력칸은 단색 웹폰트(PUA만), 표시는 컬러 스프라이트 */
+textarea{font-family:"imas2emo",var(--pf-v5-global--FontFamily--text,"RedHatText"),"Malgun Gothic",sans-serif!important}
+.emo{display:inline-block;width:1.25em;height:1.25em;vertical-align:-.28em;
+  background-size:10em 10em;background-repeat:no-repeat;image-rendering:pixelated}
+#emoPal{position:fixed;left:16px;bottom:16px;z-index:300;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+#emoGrid{background:var(--pf-v5-global--BackgroundColor--100);border:1px solid var(--pf-v5-global--BorderColor--100);
+  padding:6px;display:grid;grid-template-columns:repeat(8,30px);gap:2px;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+#emoGrid button{width:30px;height:30px;border:1px solid transparent;background:none;cursor:pointer;padding:0;font-size:22px;line-height:0}
+#emoGrid button:hover{border-color:var(--pf-v5-global--primary-color--100)}
+#emoHint{font-size:11px;color:var(--pf-v5-global--Color--200);grid-column:1/-1;line-height:1.3}
 .thumb{background:repeating-conic-gradient(#9a9a9a 0 25%,#d4d4d4 0 50%) 0 0/12px 12px;
   display:inline-block;line-height:0;border:1px solid var(--pf-v5-global--BorderColor--100)}
 .thumb img{image-rendering:pixelated;max-width:240px;max-height:72px;width:auto;height:auto}
@@ -161,6 +171,12 @@ td textarea{width:100%;min-height:4rem;font:inherit}
       <button class="pf-v5-c-button pf-m-link" id="frClose">닫기</button>
     </footer>
   </div>
+</div>
+
+<!-- 게임 이모티콘 팔레트 -->
+<div id="emoPal" hidden>
+  <div id="emoGrid" hidden></div>
+  <button class="pf-v5-c-button pf-m-secondary pf-m-small" id="emoToggle" title="게임 이모티콘 넣기">이모티콘</button>
 </div>
 
 <!-- 이미지 뷰어 -->
@@ -385,9 +401,61 @@ function warns(r) {
   if (U16(r.kr) > U16(r.jp) * 1.6 + 4) w.push([`길이 ${U16(r.kr)}/${U16(r.jp)}`, "orange"]);
   const miss = [...new Set([...r.kr].filter(ch => ch >= "가" && ch <= "힣" && !MAP.has(ch)))];
   if (miss.length) w.push(["폰트에 없음: " + miss.join(""), "red"]);
+  const ej = emoSig(r.jp), ek = emoSig(r.kr);
+  if (ej !== ek) {
+    const nj2 = (r.jp.match(EMO_RE) || []).length, nk2 = (r.kr.match(EMO_RE) || []).length;
+    w.push([nj2 === nk2 ? "이모티콘 종류 다름" : `이모티콘 개수 다름 (KR ${nk2} · JP ${nj2})`, "orange"]);
+  }
   return w;
 }
 const isBlank = r => r.cat !== "image" && !r.jp;
+
+/* ---------------- 게임 이모티콘 (PUA U+E000~E03F) ----------------
+   게임 전용 아이콘(initialTemp 시트 32x32 8x8칸, U+E000+i = i번째 칸).
+   표시는 컬러 스프라이트 span, 입력칸(textarea)은 단색 웹폰트(imas2emo,
+   unicode-range로 이 범위만). 저장 값은 원래 PUA 코드 그대로. */
+const EMO_RE = /[-]/g;
+const emoSig = s => ((s || "").match(EMO_RE) || []).sort().join("");
+function emoHtml(html) {
+  return html.replace(EMO_RE, ch => {
+    const i = ch.charCodeAt(0) - 0xE000;
+    return `<span class="emo" title="U+${ch.charCodeAt(0).toString(16).toUpperCase()}" style="background-position:${-(i % 8) * 1.25}em ${-Math.floor(i / 8) * 1.25}em"></span>`;
+  });
+}
+const fmtText = s => nlMark(emoHtml(esc(s)));
+
+let lastTa = null;
+document.addEventListener("focusin", ev => { if (ev.target.tagName === "TEXTAREA") lastTa = ev.target; });
+function setupEmoji() {
+  if (!CFG || !CFG.texbase) return;
+  const st = document.createElement("style");
+  st.textContent = `@font-face{font-family:"imas2emo";src:url("${CFG.texbase}/emoji/imas2emo.ttf") format("truetype");unicode-range:U+E000-E03F}
+    .emo{background-image:url("${CFG.texbase}/emoji/emoji_sheet.png")}`;
+  document.head.appendChild(st);
+  const grid = $("#emoGrid");
+  let h = "";
+  for (let i = 0; i < 64; i++) {
+    h += `<button type="button" data-ch="${i}" title="U+E0${i.toString(16).toUpperCase().padStart(2, "0")}">${emoHtml(String.fromCharCode(0xE000 + i))}</button>`;
+  }
+  grid.innerHTML = h + `<div id="emoHint">한국어 칸을 클릭한 뒤 고르면 커서 위치에 들어갑니다.</div>`;
+  // mousedown 기본동작을 막아 입력칸 포커스(편집 상태)를 유지
+  grid.addEventListener("mousedown", ev => ev.preventDefault());
+  grid.addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-ch]");
+    if (!b) return;
+    const ta = lastTa && document.body.contains(lastTa) ? lastTa : null;
+    if (!ta) { toast("먼저 한국어 입력칸을 클릭하세요"); return; }
+    const ch = String.fromCharCode(0xE000 + (+b.dataset.ch));
+    const s = ta.selectionStart, e = ta.selectionEnd;
+    ta.value = ta.value.slice(0, s) + ch + ta.value.slice(e);
+    ta.selectionStart = ta.selectionEnd = s + 1;
+    ta.dispatchEvent(new Event("input", { bubbles: true }));
+    ta.focus();
+  });
+  $("#emoToggle").addEventListener("mousedown", ev => ev.preventDefault());
+  $("#emoToggle").onclick = () => { grid.hidden = !grid.hidden; };
+  $("#emoPal").hidden = false;
+}
 
 function grpStats() {
   let tgt = 0, tr = 0, rv = 0, ed = 0, bytes = 0;
@@ -405,8 +473,8 @@ function grpStats() {
 /* ---------------- 렌더 ---------------- */
 const nlMark = html => html.replace(/\n/g, '<span class="nl">↵</span>\n');
 function markMissing(kr) {
-  return nlMark(esc(kr).replace(/[가-힣]/g,
-    ch => MAP.has(ch) ? ch : `<span class="kr-miss">${ch}</span>`));
+  return nlMark(emoHtml(esc(kr).replace(/[가-힣]/g,
+    ch => MAP.has(ch) ? ch : `<span class="kr-miss">${ch}</span>`)));
 }
 
 function passFilter(r, f) {
@@ -490,10 +558,10 @@ function render() {
     } else if (cat === "script") {
       const m = r.meta || {};
       first = `<span class="nowrap">${esc(m.sp || "")}</span><br><span class="pf-v5-u-color-200" style="font-size:11px">${esc(m.file || "")}</span>`;
-      second = `<div class="jp-cell">${nlMark(esc(r.jp))}</div>`;
+      second = `<div class="jp-cell">${fmtText(r.jp)}</div>`;
     } else {
       first = `<code style="font-size:12px">${esc(r.key)}</code>`;
-      second = `<div class="jp-cell">${nlMark(esc(r.jp))}</div>`;
+      second = `<div class="jp-cell">${fmtText(r.jp)}</div>`;
     }
     h += `<tr class="pf-v5-c-table__tr${dim}" data-id="${esc(r.id)}">
       <td class="pf-v5-c-table__td v-mid">${first}</td>
@@ -535,7 +603,7 @@ function renderLyrics() {
     shown++;
     const done = rs.filter(r => r.kr).length, rv = rs.filter(r => r.st >= 2).length;
     const jpHtml = rs.map((r, i) =>
-      `<div class="lyr-jp-line"><span class="lyr-no">${i + 1}</span>${esc(r.jp)}</div>`).join("");
+      `<div class="lyr-jp-line"><span class="lyr-no">${i + 1}</span>${emoHtml(esc(r.jp))}</div>`).join("");
     const krText = rs.map(r => r.kr || "").join("\n");
     h += `<div class="pf-v5-c-card pf-m-compact lyr-card" data-song="${esc(song)}" style="margin-bottom:12px">
       <div class="pf-v5-c-card__title" style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
@@ -703,7 +771,7 @@ function renderCards() {
       const w = warns(r).filter(([t]) => t !== "미번역");
       h += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
         <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px">${PART_LABEL[part] || part} (JP)</div>
-          <div class="jp-cell" style="font-size:13px;line-height:1.7">${nlMark(esc(r.jp))}</div></div>
+          <div class="jp-cell" style="font-size:13px;line-height:1.7">${fmtText(r.jp)}</div></div>
         <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px;display:flex;gap:6px;align-items:center">${PART_LABEL[part] || part} (KR)
             ${w.map(([t, c]) => `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}
             <button class="pf-v5-c-button pf-m-plain pf-m-compact" data-act="mchist" data-id="${esc(r.id)}" title="수정 이력" style="margin-left:auto">🕘</button></div>
@@ -1321,6 +1389,7 @@ async function boot() {
   $("#gatewrap").style.display = "none";   // CSS display:flex보다 확실하게
   $("#app").hidden = false;
   $("#nick").value = nick;
+  setupEmoji();
   renderNav();
   showDash();   // 홈 = 진행 현황
 }
