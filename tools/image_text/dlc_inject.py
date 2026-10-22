@@ -379,6 +379,11 @@ def coverage(_args):
     jp_src = defaultdict(set)
     for v in rows.values():
         jp_src[v["grp"]].add(v["jp"])
+    audit_p = os.path.join(HERE, "platform_audit.json")   # 웹앱에 추가된 PS3 행(platform_audit apply)
+    if os.path.exists(audit_p):
+        for v in json.load(open(audit_p, encoding="utf-8")).get("dlc", {}).get("add_lyrics", {}).values():
+            jp_src["songinfo"].add(v["jp"])
+    nosrc = []
     c = ciphers()
     for plat, root, pat in (("360", os.path.join(X360_SRC, X360_SUB), "*"),
                             ("ps3", PS3_ORIG if os.path.isdir(PS3_ORIG) else PS3_DLC, "cp*")):
@@ -400,6 +405,9 @@ def coverage(_args):
                             nosrc_songs.add(song_of(rel))
                     else:
                         has = text in jp_src[g]
+                    if not has and g != "songinfo":
+                        nosrc.append({"plat": plat, "pkg": pkg[:6] if plat == "360" else pkg, "file": rel,
+                                      "grp": g, "xi": xi, "id": tid, "jp": text})
                     src[g] += has
                     done[g] += (xi, attr) in repl
         print(f"== {plat}")
@@ -408,6 +416,11 @@ def coverage(_args):
                   f"kr 적용 {done[g]:5d} ({100 * done[g] // tot[g]}%)")
         if nosrc_songs:
             print(f"  웹앱에 가사 원문이 없는 곡: {' '.join(sorted(nosrc_songs))}")
+    if nosrc:
+        os.makedirs(REPORT_DIR, exist_ok=True)
+        p = os.path.join(REPORT_DIR, "coverage_nosrc.json")
+        json.dump(nosrc, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print(f"웹앱 원문 없는 칸 {len(nosrc)}개 목록 → {p}")
 
 
 # ---------------------------------------------------------------- 왕복 검사
