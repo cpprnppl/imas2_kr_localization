@@ -256,6 +256,33 @@ def xmb_repl_for(texts, kr_by_id):
     return repl
 
 
+NPC_X360_KEY = "scene/exep_init.mpc@x360"   # 360판에서 같은 id에 다른 이름이 든 칸 (웹앱 키 x360:<id>)
+
+
+def npc_kr_for(texts, tr):
+    """NPC 명단 표 → {id: kr}. 360판은 43개 id의 원문이 PS3와 다르다(NPCP_123 フィガロ→リョウコ姫 등) —
+    id만 보고 PS3 번역을 넣으면 엉뚱한 이름이 된다. 원문 일치 PS3 번역 > 360 전용 번역(원문 일치) >
+    같은 원문의 다른 id 번역(다수결) 순, 없으면 일본어 그대로 둔다."""
+    ps3 = tr.get("scene/exep_init.mpc", {})
+    x360 = tr.get(NPC_X360_KEY, {})
+    byjp = {}
+    for v in ps3.values():
+        if v.get("kr"):
+            byjp.setdefault(v.get("jp"), {}).setdefault(v["kr"], 0)
+            byjp[v.get("jp")][v["kr"]] += 1
+    out = {}
+    for t in texts:
+        p, x = ps3.get(t["id"], {}), x360.get(t["id"], {})
+        if p.get("kr") and p.get("jp") == t["text"]:
+            out[t["id"]] = p["kr"]
+        elif x.get("kr") and x.get("jp") == t["text"]:
+            out[t["id"]] = x["kr"]
+        elif t["text"] in byjp:
+            c = byjp[t["text"]]
+            out[t["id"]] = max(c, key=c.get)
+    return out
+
+
 def apply_xmb(rel, data, tr, log):
     """단독 XMB면 그대로, pac이면 NPC 명단 XMB(들)를 교체."""
     if data[:4] == b"XMB ":
@@ -267,9 +294,8 @@ def apply_xmb(rel, data, tr, log):
         return rebuild_xmb(data, 0, repl, lambda *a: None, allow_grow=True), len(repl)
     if data[:4] != b"pac\x00":
         return data, 0
-    npc = {k: v["kr"] for k, v in tr.get("scene/exep_init.mpc", {}).items() if v.get("kr")}
     ents, ds = parse_pac(data)
-    blobs, n = {}, 0
+    blobs, npcs, n = {}, {}, 0
     for e in ents:
         seg = data[ds + e["ofs"]: ds + e["ofs"] + e["size"]]
         if seg[:4] != b"XMB ":
@@ -280,6 +306,8 @@ def apply_xmb(rel, data, tr, log):
             continue
         if not any(t["id"].startswith(NPC_PREFIX) for t in texts):
             continue
+        npc = npc_kr_for(texts, tr)
+        npcs[e["i"]] = npc
         repl = xmb_repl_for(texts, npc)
         if repl:
             blobs[e["i"]] = rebuild_xmb(seg, 0, repl, lambda *a: None, allow_grow=True)
@@ -294,7 +322,7 @@ def apply_xmb(rel, data, tr, log):
         b = out[ds2 + e2["ofs"]: ds2 + e2["ofs"] + e2["size"]]
         if e["i"] in blobs:
             got = {t["id"]: t["text"] for t in collect_texts(parse_xmb(b, 0))}
-            for tid, s in npc.items():
+            for tid, s in npcs[e["i"]].items():
                 if tid in got:
                     assert got[tid] == s, f"{rel}: {tid} 불일치"
         else:

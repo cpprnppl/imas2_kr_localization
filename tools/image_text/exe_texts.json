@@ -42,12 +42,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758348,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5785008,
+     "slot": 12928,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9254": {
@@ -59,12 +66,24 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758356,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5785000,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845184,
+     "slot": 224,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B925C": {
@@ -76,12 +95,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758364,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784992,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9264": {
@@ -93,12 +119,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758372,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784984,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B926C": {
@@ -110,12 +143,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758380,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784976,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9274": {
@@ -127,12 +167,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758388,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784960,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9280": {
@@ -144,12 +191,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758400,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784944,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B928C": {
@@ -161,12 +215,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758412,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784928,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9298": {
@@ -178,12 +239,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758424,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784912,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B92A4": {
@@ -195,12 +263,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758436,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784896,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B92B0": {
@@ -212,12 +287,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758448,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784880,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B92BC": {
@@ -229,12 +311,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758460,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784864,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B92C8": {
@@ -246,12 +335,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758472,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784848,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B92D8": {
@@ -263,12 +359,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758488,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784840,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B92E0": {
@@ -280,12 +383,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758496,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784832,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B92E8": {
@@ -297,12 +407,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758504,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784824,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B92F0": {
@@ -314,12 +431,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758512,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784816,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B92F8": {
@@ -331,12 +455,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758520,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784800,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9304": {
@@ -348,12 +479,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758532,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784792,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845072,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845448,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B930C": {
@@ -365,12 +513,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758540,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784784,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9314": {
@@ -382,12 +537,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758548,
    "slot": 4,
    "cap": 1,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784640,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9318": {
@@ -399,12 +561,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758552,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784776,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9328": {
@@ -416,12 +585,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758568,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784760,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9330": {
@@ -433,12 +609,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758576,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784752,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845176,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845584,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9338": {
@@ -450,12 +643,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758584,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784744,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845168,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845576,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9340": {
@@ -467,12 +677,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758592,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784736,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845160,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845568,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9348": {
@@ -484,12 +711,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758600,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784728,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845152,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845560,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9350": {
@@ -501,12 +745,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758608,
    "slot": 4,
    "cap": 1,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784720,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845144,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845520,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9354": {
@@ -518,12 +779,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758612,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784712,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845136,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845512,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B935C": {
@@ -535,12 +813,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758620,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784704,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845128,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845504,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9364": {
@@ -552,12 +847,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758628,
    "slot": 4,
    "cap": 1,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784696,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845120,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845496,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9368": {
@@ -569,12 +881,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758632,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784688,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845112,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845488,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9370": {
@@ -586,12 +915,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758640,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784680,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845104,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845480,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9378": {
@@ -603,12 +949,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758648,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784672,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845096,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845472,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9380": {
@@ -620,12 +983,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758656,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784664,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845088,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845464,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0B9388": {
@@ -637,12 +1017,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 758664,
    "slot": 9760,
    "cap": 4879,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5784656,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845080,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5845456,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BB9A8": {
@@ -654,12 +1051,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 768424,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5954208,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BB9B0": {
@@ -671,12 +1075,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 768432,
    "slot": 20,
    "cap": 9,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5800528,
+     "slot": 3832,
+     "enc": "u16"
+    },
+    {
+     "offset": 5830840,
+     "slot": 24,
+     "enc": "u16"
+    },
+    {
+     "offset": 5954184,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BB9C4": {
@@ -688,12 +1109,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 768452,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5954168,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BB9D0": {
@@ -705,12 +1133,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 768464,
    "slot": 32,
    "cap": 15,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5954136,
+     "slot": 32,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BB9F0": {
@@ -722,12 +1157,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 768496,
    "slot": 48,
    "cap": 23,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5954088,
+     "slot": 48,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BBA20": {
@@ -739,12 +1181,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 768544,
    "slot": 32,
    "cap": 15,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5954056,
+     "slot": 32,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BBA40": {
@@ -756,12 +1205,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 768576,
    "slot": 48,
    "cap": 23,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5954008,
+     "slot": 48,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BBA70": {
@@ -807,12 +1263,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 768716,
    "slot": 52,
    "cap": 25,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5953920,
+     "slot": 56,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BBB00": {
@@ -824,12 +1287,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 768768,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5953992,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BBB10": {
@@ -841,12 +1311,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 768784,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5953976,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BBB20": {
@@ -875,12 +1352,29 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 769564,
    "slot": 792,
    "cap": 395,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5797936,
+     "slot": 872,
+     "enc": "u16"
+    },
+    {
+     "offset": 5798808,
+     "slot": 64,
+     "enc": "u16"
+    },
+    {
+     "offset": 5858712,
+     "slot": 72,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BC134": {
@@ -892,12 +1386,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 770356,
    "slot": 1052,
    "cap": 525,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5798872,
+     "slot": 320,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BC550": {
@@ -928,25 +1429,8 @@
   "meta": {
    "plat": "x360",
    "offset": 771468,
-   "slot": 2366,
-   "cap": 1182,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
-  }
- },
- "exe:xex360:0x0BCECA": {
-  "cat": "exe",
-  "grp": "xex360",
-  "seq": 55,
-  "key": "0x0BCECA",
-  "jp": "慮来",
-  "kr": "",
-  "st": 0,
-  "meta": {
-   "plat": "x360",
-   "offset": 773834,
-   "slot": 778,
-   "cap": 388,
+   "slot": 3144,
+   "cap": 1571,
    "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
    "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
   }
@@ -954,126 +1438,175 @@
  "exe:xex360:0x0BD1D4": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 56,
+  "seq": 55,
   "key": "0x0BD1D4",
   "jp": "女の子を選択してください。",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 774612,
    "slot": 28,
    "cap": 13,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5818144,
+     "slot": 32,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BD1F0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 57,
+  "seq": 56,
   "key": "0x0BD1F0",
   "jp": "意気込みを語ってもらう女の子を選んでください",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 774640,
    "slot": 48,
    "cap": 23,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5817968,
+     "slot": 48,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BD220": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 58,
+  "seq": 57,
   "key": "0x0BD220",
   "jp": "プロデュースに力を入れる女の子を選んでください",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 774688,
    "slot": 48,
    "cap": 23,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5818016,
+     "slot": 48,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BD250": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 59,
+  "seq": 58,
   "key": "0x0BD250",
   "jp": "じゃんけんをする女の子を選んでください",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 774736,
    "slot": 40,
    "cap": 19,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5818064,
+     "slot": 40,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BD278": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 60,
+  "seq": 59,
   "key": "0x0BD278",
   "jp": "リーダーにする女の子を選んでください",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 774776,
    "slot": 64,
    "cap": 31,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5818104,
+     "slot": 40,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BD2B8": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 61,
+  "seq": 60,
   "key": "0x0BD2B8",
   "jp": "をリーダーにします。\nよろしいですか？",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 774840,
    "slot": 488,
    "cap": 243,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5818176,
+     "slot": 280,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BD4A0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 62,
+  "seq": 61,
   "key": "0x0BD4A0",
   "jp": "を選択して下さい",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 775328,
    "slot": 1808,
    "cap": 903,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5818456,
+     "slot": 1176,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BDBB0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 63,
+  "seq": 62,
   "key": "0x0BDBB0",
   "jp": "Ａ",
   "kr": "",
@@ -1090,75 +1623,103 @@
  "exe:xex360:0x0BDBB4": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 64,
+  "seq": 63,
   "key": "0x0BDBB4",
   "jp": "Ｂ",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 777140,
    "slot": 4,
    "cap": 1,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5819632,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BDBB8": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 65,
+  "seq": 64,
   "key": "0x0BDBB8",
   "jp": "Ｏ",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 777144,
    "slot": 4,
    "cap": 1,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5819640,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BDBBC": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 66,
+  "seq": 65,
   "key": "0x0BDBBC",
   "jp": "ＡＢ",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 777148,
    "slot": 2132,
    "cap": 1065,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5819648,
+     "slot": 624,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE410": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 67,
+  "seq": 66,
   "key": "0x0BE410",
   "jp": "ティンときたどっと！",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 779280,
    "slot": 132,
    "cap": 65,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5820352,
+     "slot": 3368,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE494": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 68,
+  "seq": 67,
   "key": "0x0BE494",
   "jp": "どっとっぷTVを終了します。\nよろしいですか？",
   "kr": "",
@@ -1175,1197 +1736,1809 @@
  "exe:xex360:0x0BE604": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 69,
+  "seq": 68,
   "key": "0x0BE604",
   "jp": "ミミヨリ",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 779780,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5820272,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE610": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 70,
+  "seq": 69,
   "key": "0x0BE610",
   "jp": "登場回数",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 779792,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5820288,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE61C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 71,
+  "seq": 70,
   "key": "0x0BE61C",
   "jp": "プロデューサー",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 779804,
    "slot": 60,
    "cap": 29,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5820304,
+     "slot": 24,
+     "enc": "u16"
+    },
+    {
+     "offset": 5858784,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE658": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 72,
+  "seq": 71,
   "key": "0x0BE658",
   "jp": "スキップ",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 779864,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5820328,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5837184,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE664": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 73,
+  "seq": 72,
   "key": "0x0BE664",
   "jp": "終了",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 779876,
-   "slot": 664,
-   "cap": 331,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
-  }
- },
- "exe:xex360:0x0BE8FC": {
-  "cat": "exe",
-  "grp": "xex360",
-  "seq": 74,
-  "key": "0x0BE8FC",
-  "jp": "捨父",
-  "kr": "",
-  "st": 0,
-  "meta": {
-   "plat": "x360",
-   "offset": 780540,
-   "slot": 40,
-   "cap": 19,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
-  }
- },
- "exe:xex360:0x0BE924": {
-  "cat": "exe",
-  "grp": "xex360",
-  "seq": 75,
-  "key": "0x0BE924",
-  "jp": "捨爵",
-  "kr": "",
-  "st": 0,
-  "meta": {
-   "plat": "x360",
-   "offset": 780580,
-   "slot": 40,
-   "cap": 19,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 744,
+   "cap": 371,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5820344,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5858888,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE94C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 76,
+  "seq": 73,
   "key": "0x0BE94C",
   "jp": "アイドラの視聴を終了します。\nよろしいですか？",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 780620,
    "slot": 52,
    "cap": 25,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823792,
+     "slot": 48,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE980": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 77,
+  "seq": 74,
   "key": "0x0BE980",
   "jp": "タイトルに戻ります。\n保存していないデータは失われますが、\nよろしいですか？",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 780672,
    "slot": 80,
    "cap": 39,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823840,
+     "slot": 96,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE9D0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 78,
+  "seq": 75,
   "key": "0x0BE9D0",
   "jp": "ゲームに戻る",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 780752,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823720,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE9E0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 79,
+  "seq": 76,
   "key": "0x0BE9E0",
   "jp": "ユニット情報",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 780768,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823736,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE9F0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 80,
+  "seq": 77,
   "key": "0x0BE9F0",
   "jp": "楽曲情報",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 780784,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823752,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BE9FC": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 81,
+  "seq": 78,
   "key": "0x0BE9FC",
   "jp": "タイトル画面へ戻る",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 780796,
    "slot": 140,
    "cap": 69,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823768,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BEA88": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 82,
+  "seq": 79,
   "key": "0x0BEA88",
   "jp": "記者",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 780936,
    "slot": 20,
    "cap": 9,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5824056,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BEA9C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 83,
+  "seq": 80,
   "key": "0x0BEA9C",
   "jp": "なし",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 780956,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5824064,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5830784,
+     "slot": 32,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BEAA4": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 84,
+  "seq": 81,
   "key": "0x0BEAA4",
   "jp": "万",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 780964,
    "slot": 4,
    "cap": 1,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827120,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5850624,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BEAA8": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 85,
+  "seq": 82,
   "key": "0x0BEAA8",
   "jp": "人",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 780968,
    "slot": 1636,
    "cap": 817,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5824048,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5827128,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5850664,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF10C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 86,
+  "seq": 83,
   "key": "0x0BF10C",
   "jp": "枚",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 782604,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823936,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5850632,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF114": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 87,
+  "seq": 84,
   "key": "0x0BF114",
   "jp": "位",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 782612,
    "slot": 4,
    "cap": 1,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823944,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5850656,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF118": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 88,
+  "seq": 85,
   "key": "0x0BF118",
   "jp": "ランク外",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 782616,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823952,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5850640,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF124": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 89,
+  "seq": 86,
   "key": "0x0BF124",
   "jp": "リリース",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 782628,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823992,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF130": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 90,
+  "seq": 87,
   "key": "0x0BF130",
   "jp": "チャート",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 782640,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5824008,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF13C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 91,
+  "seq": 88,
   "key": "0x0BF13C",
   "jp": "売上",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 782652,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5824024,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF144": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 92,
+  "seq": 89,
   "key": "0x0BF144",
   "jp": "ハイスコア",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 782660,
    "slot": 48,
    "cap": 23,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5824032,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF174": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 93,
+  "seq": 90,
   "key": "0x0BF174",
   "jp": "週目",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 782708,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823976,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF17C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 94,
+  "seq": 91,
   "key": "0x0BF17C",
   "jp": "／最高",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 782716,
-   "slot": 752,
-   "cap": 375,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 740,
+   "cap": 369,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5823968,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
+  }
+ },
+ "exe:xex360:0x0BF460": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 92,
+  "key": "0x0BF460",
+  "jp": "南エリア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "common",
+   "offset": 783456,
+   "slot": 12,
+   "cap": 5,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827264,
+     "slot": 3520,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF46C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 95,
+  "seq": 93,
   "key": "0x0BF46C",
   "jp": "西エリア",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 783468,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827248,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF478": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 96,
+  "seq": 94,
   "key": "0x0BF478",
   "jp": "上方エリア",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 783480,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827232,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF484": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 97,
+  "seq": 95,
   "key": "0x0BF484",
   "jp": "中央エリア",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 783492,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827216,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF490": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 98,
+  "seq": 96,
   "key": "0x0BF490",
   "jp": "首都エリア",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 783504,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827200,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF49C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 99,
+  "seq": 97,
   "key": "0x0BF49C",
   "jp": "北東エリア",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 783516,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827184,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF4A8": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 100,
+  "seq": 98,
   "key": "0x0BF4A8",
   "jp": "全エリア",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 783528,
-   "slot": 690,
-   "cap": 344,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
-  }
- },
- "exe:xex360:0x0BF75A": {
-  "cat": "exe",
-  "grp": "xex360",
-  "seq": 101,
-  "key": "0x0BF75A",
-  "jp": "慮来",
-  "kr": "",
-  "st": 0,
-  "meta": {
-   "plat": "x360",
-   "offset": 784218,
-   "slot": 298,
-   "cap": 148,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 988,
+   "cap": 493,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827168,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF884": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 102,
+  "seq": 99,
   "key": "0x0BF884",
   "jp": "ファン人数",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 784516,
    "slot": 44,
    "cap": 21,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827104,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5839584,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5842280,
+     "slot": 688,
+     "enc": "u16"
+    },
+    {
+     "offset": 5844648,
+     "slot": 424,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF8B0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 103,
+  "seq": 100,
   "key": "0x0BF8B0",
   "jp": "ギャラ",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 784560,
-   "slot": 40,
-   "cap": 19,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 32,
+   "cap": 15,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827136,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
+  }
+ },
+ "exe:xex360:0x0BF8D0": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 101,
+  "key": "0x0BF8D0",
+  "jp": "ファン",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "common",
+   "offset": 784592,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827144,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BF8D8": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 104,
+  "seq": 102,
   "key": "0x0BF8D8",
   "jp": "全国ファン人数",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 784600,
    "slot": 1360,
    "cap": 679,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5827152,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BFE28": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 105,
+  "seq": 103,
   "key": "0x0BFE28",
   "jp": "アイマスエンジェル",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 785960,
    "slot": 320,
    "cap": 159,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5830816,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0BFF68": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 106,
+  "seq": 104,
   "key": "0x0BFF68",
   "jp": "設定を保存しますか？\n\n（設定を保存しない場合、タイトル画面に戻り、\nステージフォーユー！ で設定したデータは失われます。）",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 786280,
    "slot": 1276,
    "cap": 637,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5830864,
+     "slot": 1760,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C0464": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 107,
+  "seq": 105,
   "key": "0x0C0464",
   "jp": "タッチする場所を指定してください",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 787556,
    "slot": 5256,
    "cap": 2627,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5832624,
+     "slot": 4456,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C18EC": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 108,
+  "seq": 106,
   "key": "0x0C18EC",
   "jp": "カメラ切替",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 792812,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5837200,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C18F8": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 109,
+  "seq": 107,
   "key": "0x0C18F8",
   "jp": "アイドル切替",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 792824,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5837216,
+     "slot": 2184,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1908": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 110,
+  "seq": 108,
   "key": "0x0C1908",
   "jp": "カメラ操作",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 792840,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5837104,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1914": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 111,
+  "seq": 109,
   "key": "0x0C1914",
   "jp": "カーソル移動",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 792852,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5837120,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1924": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 112,
+  "seq": 110,
   "key": "0x0C1924",
   "jp": "バースト",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 792868,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5837080,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1930": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 113,
+  "seq": 111,
   "key": "0x0C1930",
   "jp": "アピール",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 792880,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5837144,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C193C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 114,
+  "seq": 112,
   "key": "0x0C193C",
   "jp": "表示ON/OFF",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 792892,
    "slot": 1444,
    "cap": 721,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5837160,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1EE0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 115,
+  "seq": 113,
   "key": "0x0C1EE0",
   "jp": "嘘時嘘分",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 794336,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839520,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1EEC": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 116,
+  "seq": 114,
   "key": "0x0C1EEC",
   "jp": "だみーゆにっと",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 794348,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839536,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1EFC": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 117,
+  "seq": 115,
   "key": "0x0C1EFC",
   "jp": "撮影場所",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 794364,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839552,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5842200,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5844616,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1F08": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 118,
+  "seq": 116,
   "key": "0x0C1F08",
   "jp": "曲名",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 794376,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839568,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5844632,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1F10": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 119,
+  "seq": 117,
   "key": "0x0C1F10",
   "jp": "スコア",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 794384,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839576,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5842264,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5844640,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1F18": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 120,
+  "seq": 118,
   "key": "0x0C1F18",
   "jp": "ダミー地点",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 794392,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839600,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1F24": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 121,
+  "seq": 119,
   "key": "0x0C1F24",
   "jp": "たぶんきょくめいの文字数やばい",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 794404,
    "slot": 108,
    "cap": 53,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839616,
+     "slot": 264,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1F90": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 122,
+  "seq": 120,
   "key": "0x0C1F90",
   "jp": "ダウンロード コンテンツステージ",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 794512,
    "slot": 36,
    "cap": 17,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839400,
+     "slot": 40,
+     "enc": "u16"
+    },
+    {
+     "offset": 5844480,
+     "slot": 40,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C1FB4": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 123,
+  "seq": 121,
   "key": "0x0C1FB4",
   "jp": "ダウンロード コンテンツ曲",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 794548,
-   "slot": 28,
-   "cap": 13,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
-  }
- },
- "exe:xex360:0x0C1FD0": {
-  "cat": "exe",
-  "grp": "xex360",
-  "seq": 124,
-  "key": "0x0C1FD0",
-  "jp": "－－",
-  "kr": "",
-  "st": 0,
-  "meta": {
-   "plat": "x360",
-   "offset": 794576,
-   "slot": 568,
-   "cap": 283,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 596,
+   "cap": 297,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839440,
+     "slot": 80,
+     "enc": "u16"
+    },
+    {
+     "offset": 5844520,
+     "slot": 72,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2208": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 125,
+  "seq": 122,
   "key": "0x0C2208",
   "jp": "サーチ３",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795144,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840672,
+     "slot": 1152,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843648,
+     "slot": 816,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2214": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 126,
+  "seq": 123,
   "key": "0x0C2214",
   "jp": "サーチ２",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795156,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840656,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843632,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2220": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 127,
+  "seq": 124,
   "key": "0x0C2220",
   "jp": "サーチ１",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795168,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840640,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843616,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C222C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 128,
+  "seq": 125,
   "key": "0x0C222C",
   "jp": "サブファン人数",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795180,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840624,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843600,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C223C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 129,
+  "seq": 126,
   "key": "0x0C223C",
   "jp": "サブスコア",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795196,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840608,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843584,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2248": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 130,
+  "seq": 127,
   "key": "0x0C2248",
   "jp": "サブ曲名、衣装名",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795208,
    "slot": 20,
    "cap": 9,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840584,
+     "slot": 24,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843560,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C225C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 131,
+  "seq": 128,
   "key": "0x0C225C",
   "jp": "サブ撮影場所名",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795228,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840568,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843544,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C226C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 132,
+  "seq": 129,
   "key": "0x0C226C",
   "jp": "サブファン人数タイトル",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795244,
    "slot": 24,
    "cap": 11,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840544,
+     "slot": 24,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843520,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2284": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 133,
+  "seq": 130,
   "key": "0x0C2284",
   "jp": "サブスコアタイトル",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795268,
    "slot": 20,
    "cap": 9,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840520,
+     "slot": 24,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843496,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2298": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 134,
+  "seq": 131,
   "key": "0x0C2298",
   "jp": "サブ曲名タイトル",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795288,
    "slot": 20,
    "cap": 9,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840496,
+     "slot": 24,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843472,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C22AC": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 135,
+  "seq": 132,
   "key": "0x0C22AC",
   "jp": "サブ撮影場所キャプション",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795308,
    "slot": 28,
    "cap": 13,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840464,
+     "slot": 32,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843440,
+     "slot": 32,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C22C8": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 136,
+  "seq": 133,
   "key": "0x0C22C8",
   "jp": "サブユニット名",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795336,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840448,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843424,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C22D8": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 137,
+  "seq": 134,
   "key": "0x0C22D8",
   "jp": "サブ時間",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795352,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840432,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843408,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C22E4": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 138,
+  "seq": 135,
   "key": "0x0C22E4",
   "jp": "サブ日付",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795364,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840416,
+     "slot": 16,
+     "enc": "u16"
+    },
+    {
+     "offset": 5843392,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C22F0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 139,
+  "seq": 136,
   "key": "0x0C22F0",
   "jp": "メニュー２－タイトル８",
   "kr": "",
@@ -2382,7 +3555,7 @@
  "exe:xex360:0x0C2308": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 140,
+  "seq": 137,
   "key": "0x0C2308",
   "jp": "メニュー２－タイトル７",
   "kr": "",
@@ -2399,7 +3572,7 @@
  "exe:xex360:0x0C2320": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 141,
+  "seq": 138,
   "key": "0x0C2320",
   "jp": "メニュー２－タイトル６",
   "kr": "",
@@ -2416,7 +3589,7 @@
  "exe:xex360:0x0C2338": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 142,
+  "seq": 139,
   "key": "0x0C2338",
   "jp": "メニュー２－タイトル５",
   "kr": "",
@@ -2433,7 +3606,7 @@
  "exe:xex360:0x0C2350": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 143,
+  "seq": 140,
   "key": "0x0C2350",
   "jp": "メニュー２－タイトル４",
   "kr": "",
@@ -2450,7 +3623,7 @@
  "exe:xex360:0x0C2368": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 144,
+  "seq": 141,
   "key": "0x0C2368",
   "jp": "メニュー２－タイトル３",
   "kr": "",
@@ -2467,7 +3640,7 @@
  "exe:xex360:0x0C2380": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 145,
+  "seq": 142,
   "key": "0x0C2380",
   "jp": "メニュー２－タイトル２",
   "kr": "",
@@ -2484,7 +3657,7 @@
  "exe:xex360:0x0C2398": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 146,
+  "seq": 143,
   "key": "0x0C2398",
   "jp": "メニュー２－タイトル１",
   "kr": "",
@@ -2501,7 +3674,7 @@
  "exe:xex360:0x0C23B0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 147,
+  "seq": 144,
   "key": "0x0C23B0",
   "jp": "メニュー２－８",
   "kr": "",
@@ -2518,7 +3691,7 @@
  "exe:xex360:0x0C23C0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 148,
+  "seq": 145,
   "key": "0x0C23C0",
   "jp": "メニュー２－７",
   "kr": "",
@@ -2535,7 +3708,7 @@
  "exe:xex360:0x0C23D0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 149,
+  "seq": 146,
   "key": "0x0C23D0",
   "jp": "メニュー２－６",
   "kr": "",
@@ -2552,7 +3725,7 @@
  "exe:xex360:0x0C23E0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 150,
+  "seq": 147,
   "key": "0x0C23E0",
   "jp": "メニュー２－５",
   "kr": "",
@@ -2569,7 +3742,7 @@
  "exe:xex360:0x0C23F0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 151,
+  "seq": 148,
   "key": "0x0C23F0",
   "jp": "メニュー２－４",
   "kr": "",
@@ -2586,7 +3759,7 @@
  "exe:xex360:0x0C2400": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 152,
+  "seq": 149,
   "key": "0x0C2400",
   "jp": "メニュー２－３",
   "kr": "",
@@ -2603,7 +3776,7 @@
  "exe:xex360:0x0C2410": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 153,
+  "seq": 150,
   "key": "0x0C2410",
   "jp": "メニュー２－２",
   "kr": "",
@@ -2620,7 +3793,7 @@
  "exe:xex360:0x0C2420": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 154,
+  "seq": 151,
   "key": "0x0C2420",
   "jp": "メニュー２－１",
   "kr": "",
@@ -2637,7 +3810,7 @@
  "exe:xex360:0x0C2430": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 155,
+  "seq": 152,
   "key": "0x0C2430",
   "jp": "メニュー１－４",
   "kr": "",
@@ -2654,7 +3827,7 @@
  "exe:xex360:0x0C2440": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 156,
+  "seq": 153,
   "key": "0x0C2440",
   "jp": "メニュー１－３",
   "kr": "",
@@ -2671,7 +3844,7 @@
  "exe:xex360:0x0C2450": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 157,
+  "seq": 154,
   "key": "0x0C2450",
   "jp": "メニュー１－２",
   "kr": "",
@@ -2688,7 +3861,7 @@
  "exe:xex360:0x0C2460": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 158,
+  "seq": 155,
   "key": "0x0C2460",
   "jp": "メニュー１－１",
   "kr": "",
@@ -2705,109 +3878,180 @@
  "exe:xex360:0x0C2470": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 159,
+  "seq": 156,
   "key": "0x0C2470",
   "jp": "保存画面タイトル",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795760,
    "slot": 152,
    "cap": 75,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5840008,
+     "slot": 212,
+     "enc": "u16"
+    },
+    {
+     "offset": 5842984,
+     "slot": 212,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2508": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 160,
+  "seq": 157,
   "key": "0x0C2508",
   "jp": "サインインしてからもう一度選択してください。",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795912,
    "slot": 78,
    "cap": 38,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839880,
+     "slot": 48,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2556": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 161,
+  "seq": 158,
   "key": "0x0C2556",
   "jp": "　選択した項目にアップロードできません。",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 795990,
    "slot": 42,
    "cap": 20,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839928,
+     "slot": 40,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2580": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 162,
+  "seq": 159,
   "key": "0x0C2580",
   "jp": "ランキングにアップロードできません。",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 796032,
-   "slot": 408,
-   "cap": 203,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 388,
+   "cap": 193,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5839968,
+     "slot": 40,
+     "enc": "u16"
+    }
+   ]
+  }
+ },
+ "exe:xex360:0x0C2704": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 160,
+  "key": "0x0C2704",
+  "jp": "ランキングに登録",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "common",
+   "offset": 796420,
+   "slot": 20,
+   "cap": 9,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5841896,
+     "slot": 272,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2718": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 163,
+  "seq": 161,
   "key": "0x0C2718",
   "jp": "並び替え",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 796440,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5841864,
+     "slot": 32,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2724": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 164,
+  "seq": 162,
   "key": "0x0C2724",
   "jp": "削除",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 796452,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5841856,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C272C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 165,
+  "seq": 163,
   "key": "0x0C272C",
   "jp": "ストレージ選択",
   "kr": "",
@@ -2824,120 +4068,222 @@
  "exe:xex360:0x0C273C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 166,
+  "seq": 164,
   "key": "0x0C273C",
   "jp": "フォトアルバムへ",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 796476,
-   "slot": 260,
-   "cap": 129,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 252,
+   "cap": 125,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5841824,
+     "slot": 32,
+     "enc": "u16"
+    }
+   ]
+  }
+ },
+ "exe:xex360:0x0C2838": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 165,
+  "key": "0x0C2838",
+  "jp": "楽曲",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "common",
+   "offset": 796728,
+   "slot": 8,
+   "cap": 3,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5842232,
+     "slot": 8,
+     "enc": "u16"
+    },
+    {
+     "offset": 5858816,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2840": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 167,
+  "seq": 166,
   "key": "0x0C2840",
   "jp": "日付",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 796736,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5842168,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2848": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 168,
+  "seq": 167,
   "key": "0x0C2848",
   "jp": "楽曲スコアランキング",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 796744,
    "slot": 24,
    "cap": 11,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5842240,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2860": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 169,
+  "seq": 168,
   "key": "0x0C2860",
   "jp": "ＰＶ新着",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 796768,
    "slot": 12,
    "cap": 5,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5842216,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C286C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 170,
+  "seq": 169,
   "key": "0x0C286C",
   "jp": "ファン人数ランキング",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 796780,
    "slot": 616,
    "cap": 307,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5842176,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2AD4": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 171,
+  "seq": 170,
   "key": "0x0C2AD4",
   "jp": "ユニット名表示場所",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 797396,
    "slot": 108,
    "cap": 53,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5844592,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2B40": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 172,
+  "seq": 171,
   "key": "0x0C2B40",
   "jp": "ダミーネーム",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 797504,
-   "slot": 600,
-   "cap": 299,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 568,
+   "cap": 283,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5844464,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
+  }
+ },
+ "exe:xex360:0x0C2D78": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 172,
+  "key": "0x0C2D78",
+  "jp": "受信メール",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "common",
+   "offset": 798072,
+   "slot": 32,
+   "cap": 15,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5845632,
+     "slot": 2080,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2D98": {
@@ -2949,12 +4295,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 798104,
    "slot": 16,
    "cap": 7,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5845592,
+     "slot": 40,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2DA8": {
@@ -2966,12 +4319,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 798120,
    "slot": 96,
    "cap": 47,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5845432,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C2E08": {
@@ -2983,18 +4343,83 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 798216,
-   "slot": 2776,
-   "cap": 1387,
+   "slot": 514,
+   "cap": 256,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5845408,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
+  }
+ },
+ "exe:xex360:0x0C300A": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 176,
+  "key": "0x0C300A",
+  "jp": "　＞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 798730,
+   "slot": 6,
+   "cap": 2,
    "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
    "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C3010": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 177,
+  "key": "0x0C3010",
+  "jp": "＜",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 798736,
+   "slot": 2228,
+   "cap": 1113,
+   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+  }
+ },
+ "exe:xex360:0x0C38C4": {
+  "cat": "exe",
+  "grp": "xex360",
+  "seq": 178,
+  "key": "0x0C38C4",
+  "jp": "衣装名が見つかりません",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "common",
+   "offset": 800964,
+   "slot": 28,
+   "cap": 13,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5847720,
+     "slot": 2904,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C38E0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 176,
+  "seq": 179,
   "key": "0x0C38E0",
   "jp": "メーターが最大になるタイミングに合わせてＡボタンを押してください",
   "kr": "",
@@ -3011,177 +4436,199 @@
  "exe:xex360:0x0C4298": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 177,
+  "seq": 180,
   "key": "0x0C4298",
   "jp": "北東",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 803480,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5850680,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C42A0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 178,
+  "seq": 181,
   "key": "0x0C42A0",
   "jp": "首都",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 803488,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5850688,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C42A8": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 179,
+  "seq": 182,
   "key": "0x0C42A8",
   "jp": "中央",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 803496,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5850696,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C42B0": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 180,
+  "seq": 183,
   "key": "0x0C42B0",
   "jp": "上方",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 803504,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5850704,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C42B8": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 181,
+  "seq": 184,
   "key": "0x0C42B8",
   "jp": "西",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 803512,
    "slot": 4,
    "cap": 1,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5850712,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C42BC": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 182,
+  "seq": 185,
   "key": "0x0C42BC",
   "jp": "南",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 803516,
-   "slot": 1748,
-   "cap": 873,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 5532,
+   "cap": 2765,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5850720,
+     "slot": 1408,
+     "enc": "u16"
+    }
+   ]
   }
  },
- "exe:xex360:0x0C4990": {
+ "exe:xex360:0x0C5858": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 183,
-  "key": "0x0C4990",
-  "jp": "呉低",
+  "seq": 186,
+  "key": "0x0C5858",
+  "jp": "スピードを上げろ！",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
-   "offset": 805264,
-   "slot": 1350,
-   "cap": 674,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
-  }
- },
- "exe:xex360:0x0C4ED6": {
-  "cat": "exe",
-  "grp": "xex360",
-  "seq": 184,
-  "key": "0x0C4ED6",
-  "jp": "慮来",
-  "kr": "",
-  "st": 0,
-  "meta": {
-   "plat": "x360",
-   "offset": 806614,
-   "slot": 2454,
-   "cap": 1226,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat": "common",
+   "offset": 809048,
+   "slot": 20,
+   "cap": 9,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5804360,
+     "slot": 24,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C586C": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 185,
+  "seq": 187,
   "key": "0x0C586C",
   "jp": "スピードを落とせ！",
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 809068,
-   "slot": 456,
-   "cap": 227,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
-  }
- },
- "exe:xex360:0x0C5A34": {
-  "cat": "exe",
-  "grp": "xex360",
-  "seq": 186,
-  "key": "0x0C5A34",
-  "jp": "呉低",
-  "kr": "",
-  "st": 0,
-  "meta": {
-   "plat": "x360",
-   "offset": 809524,
-   "slot": 6236,
-   "cap": 3117,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 6692,
+   "cap": 3345,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5804384,
+     "slot": 8608,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C7290": {
   "cat": "exe",
   "grp": "xex360",
-  "seq": 187,
+  "seq": 188,
   "key": "0x0C7290",
   "jp": "竜宮小町",
   "kr": "",
@@ -3189,25 +4636,8 @@
   "meta": {
    "plat": "x360",
    "offset": 815760,
-   "slot": 5102,
-   "cap": 2550,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
-  }
- },
- "exe:xex360:0x0C867E": {
-  "cat": "exe",
-  "grp": "xex360",
-  "seq": 188,
-  "key": "0x0C867E",
-  "jp": "摩湧",
-  "kr": "",
-  "st": 0,
-  "meta": {
-   "plat": "x360",
-   "offset": 820862,
-   "slot": 3886,
-   "cap": 1942,
+   "slot": 8988,
+   "cap": 4493,
    "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
    "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
   }
@@ -3238,12 +4668,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 824764,
    "slot": 236,
    "cap": 117,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5858832,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C96A8": {
@@ -3255,12 +4692,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 825000,
    "slot": 8,
    "cap": 3,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5858848,
+     "slot": 8,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C96B0": {
@@ -3289,12 +4733,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 825044,
    "slot": 28,
    "cap": 13,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5858872,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C96F0": {
@@ -3306,12 +4757,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 825072,
    "slot": 32,
    "cap": 15,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5858896,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C9710": {
@@ -3323,12 +4781,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 825104,
    "slot": 28,
    "cap": 13,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5858912,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C972C": {
@@ -3340,12 +4805,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 825132,
    "slot": 32,
    "cap": 15,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5858928,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C974C": {
@@ -3357,12 +4829,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 825164,
    "slot": 32,
    "cap": 15,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5858944,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C976C": {
@@ -3374,12 +4853,19 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 825196,
    "slot": 32,
    "cap": 15,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5858960,
+     "slot": 16,
+     "enc": "u16"
+    }
+   ]
   }
  },
  "exe:xex360:0x0C978C": {
@@ -3391,29 +4877,3763 @@
   "kr": "",
   "st": 0,
   "meta": {
-   "plat": "x360",
+   "plat": "common",
    "offset": 825228,
-   "slot": 64,
-   "cap": 31,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "slot": 14,
+   "cap": 6,
+   "plat_note": "360 xex·PS3 EBOOT 둘 다 하드코딩 (meta.eboot = PS3 위치)",
+   "inject": "주입 경로 준비 중(실행 파일 패치 필요)",
+   "eboot": [
+    {
+     "offset": 5858976,
+     "slot": 91736,
+     "enc": "u16"
+    }
+   ]
   }
  },
- "exe:xex360:0x0C97CC": {
+ "exe:eboot_ps3:0x587D18": {
   "cat": "exe",
-  "grp": "xex360",
-  "seq": 200,
-  "key": "0x0C97CC",
-  "jp": "卯杯",
+  "grp": "eboot_ps3",
+  "seq": 0,
+  "key": "0x587D18",
+  "jp": "アイドルマスター２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5799192,
+   "slot": 1336,
+   "enc": "u16",
+   "cap": 9,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x58B300": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 1,
+  "key": "0x58B300",
+  "jp": "ライバル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5812992,
+   "slot": 4976,
+   "enc": "u16",
+   "cap": 4,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x58DDF0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 2,
+  "key": "0x58DDF0",
+  "jp": "週前",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5823984,
+   "slot": 8,
+   "enc": "u16",
+   "cap": 3,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x58DE48": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 3,
+  "key": "0x58DE48",
+  "jp": "思い出アピールのボルテージ増加量UP",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5824072,
+   "slot": 3032,
+   "enc": "u16",
+   "cap": 18,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x591D5C": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 4,
+  "key": "0x591D5C",
+  "jp": "８",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5840220,
+   "slot": 16,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x591D6C": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 5,
+  "key": "0x591D6C",
+  "jp": "タイトル１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5840236,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x591D84": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 6,
+  "key": "0x591D84",
+  "jp": "タイトル２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5840260,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x591D9C": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 7,
+  "key": "0x591D9C",
+  "jp": "タイトル３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5840284,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x591DB4": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 8,
+  "key": "0x591DB4",
+  "jp": "タイトル４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5840308,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x591DCC": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 9,
+  "key": "0x591DCC",
+  "jp": "タイトル５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5840332,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x591DE4": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 10,
+  "key": "0x591DE4",
+  "jp": "タイトル６",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5840356,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x591DFC": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 11,
+  "key": "0x591DFC",
+  "jp": "タイトル７",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5840380,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x591E14": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 12,
+  "key": "0x591E14",
+  "jp": "タイトル８",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5840404,
+   "slot": 12,
+   "enc": "u16",
+   "cap": 5,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x592818": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 13,
+  "key": "0x592818",
+  "jp": "終了しますか？",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5842968,
+   "slot": 16,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5928FC": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 14,
+  "key": "0x5928FC",
+  "jp": "８",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5843196,
+   "slot": 16,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x59290C": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 15,
+  "key": "0x59290C",
+  "jp": "タイトル１",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5843212,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x592924": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 16,
+  "key": "0x592924",
+  "jp": "タイトル２",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5843236,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x59293C": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 17,
+  "key": "0x59293C",
+  "jp": "タイトル３",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5843260,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x592954": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 18,
+  "key": "0x592954",
+  "jp": "タイトル４",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5843284,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x59296C": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 19,
+  "key": "0x59296C",
+  "jp": "タイトル５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5843308,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x592984": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 20,
+  "key": "0x592984",
+  "jp": "タイトル６",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5843332,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x59299C": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 21,
+  "key": "0x59299C",
+  "jp": "タイトル７",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5843356,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5929B4": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 22,
+  "key": "0x5929B4",
+  "jp": "タイトル８",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5843380,
+   "slot": 12,
+   "enc": "u16",
+   "cap": 5,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x593218": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 23,
+  "key": "0x593218",
+  "jp": "麗花",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5845528,
+   "slot": 8,
+   "enc": "u16",
+   "cap": 3,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x593220": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 24,
+  "key": "0x593220",
+  "jp": "ジュリア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5845536,
+   "slot": 16,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x593230": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 25,
+  "key": "0x593230",
+  "jp": "りんこ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5845552,
+   "slot": 8,
+   "enc": "u16",
+   "cap": 3,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x593AA0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 26,
+  "key": "0x593AA0",
+  "jp": "オン",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5847712,
+   "slot": 8,
+   "enc": "u16",
+   "cap": 3,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x594BE0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 27,
+  "key": "0x594BE0",
+  "jp": "３ステージトータルハイスコア",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5852128,
+   "slot": 32,
+   "enc": "u16",
+   "cap": 15,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x594C00": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 28,
+  "key": "0x594C00",
+  "jp": "エピソードアイテム入手率",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5852160,
+   "slot": 6552,
+   "enc": "u16",
+   "cap": 12,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x596448": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 29,
+  "key": "0x596448",
+  "jp": "ステージなし",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5858376,
+   "slot": 16,
+   "enc": "sjis",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩 — Shift-JIS(그라비아 스테이지명 표)",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x596458": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 30,
+  "key": "0x596458",
+  "jp": "ホリゾントスタジオ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5858392,
+   "slot": 24,
+   "enc": "sjis",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩 — Shift-JIS(그라비아 스테이지명 표)",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x596480": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 31,
+  "key": "0x596480",
+  "jp": "ハウススタジオ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5858432,
+   "slot": 16,
+   "enc": "sjis",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩 — Shift-JIS(그라비아 스테이지명 표)",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5964B0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 32,
+  "key": "0x5964B0",
+  "jp": "ライブ流用 中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5858480,
+   "slot": 16,
+   "enc": "sjis",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩 — Shift-JIS(그라비아 스테이지명 표)",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5964C0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 33,
+  "key": "0x5964C0",
+  "jp": "ライブ流用 高",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5858496,
+   "slot": 16,
+   "enc": "sjis",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩 — Shift-JIS(그라비아 스테이지명 표)",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5964D0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 34,
+  "key": "0x5964D0",
+  "jp": "ホリゾントスタジオ2",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5858512,
+   "slot": 24,
+   "enc": "sjis",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩 — Shift-JIS(그라비아 스테이지명 표)",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5964E8": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 35,
+  "key": "0x5964E8",
+  "jp": "ホリゾントスタジオ3",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5858536,
+   "slot": 24,
+   "enc": "sjis",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩 — Shift-JIS(그라비아 스테이지명 표)",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x596500": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 36,
+  "key": "0x596500",
+  "jp": "ホリゾントスタジオ4",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5858560,
+   "slot": 24,
+   "enc": "sjis",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩 — Shift-JIS(그라비아 스테이지명 표)",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5965F0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 37,
+  "key": "0x5965F0",
+  "jp": "オンラインID",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5858800,
+   "slot": 16,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x596628": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 38,
+  "key": "0x596628",
+  "jp": "プロフィール",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5858856,
+   "slot": 16,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5ACCF8": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 39,
+  "key": "0x5ACCF8",
+  "jp": "アイドルマスター２\n（インストールデータ）",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5950712,
+   "slot": 2056,
+   "enc": "u16",
+   "cap": 21,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD500": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 40,
+  "key": "0x5AD500",
+  "jp": "待機中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952768,
+   "slot": 8,
+   "enc": "u16",
+   "cap": 3,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD508": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 41,
+  "key": "0x5AD508",
+  "jp": "タイトルデモ中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952776,
+   "slot": 16,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD518": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 42,
+  "key": "0x5AD518",
+  "jp": "メインメニュー選択中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952792,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD530": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 43,
+  "key": "0x5AD530",
+  "jp": "プロデュース（活動%d週目）",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952816,
+   "slot": 32,
+   "enc": "u16",
+   "cap": 15,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD550": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 44,
+  "key": "0x5AD550",
+  "jp": "プロデュース（エピローグ）",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952848,
+   "slot": 32,
+   "enc": "u16",
+   "cap": 15,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD570": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 45,
+  "key": "0x5AD570",
+  "jp": "ステージフォーユー！閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952880,
+   "slot": 32,
+   "enc": "u16",
+   "cap": 15,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD590": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 46,
+  "key": "0x5AD590",
+  "jp": "765ショップカタログ閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952912,
+   "slot": 32,
+   "enc": "u16",
+   "cap": 15,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD5B0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 47,
+  "key": "0x5AD5B0",
+  "jp": "アルバム閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952944,
+   "slot": 16,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD5C0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 48,
+  "key": "0x5AD5C0",
+  "jp": "メール閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952960,
+   "slot": 16,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD5D0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 49,
+  "key": "0x5AD5D0",
+  "jp": "アイドラ閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952976,
+   "slot": 16,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD5E0": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 50,
+  "key": "0x5AD5E0",
+  "jp": "ランキング閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5952992,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD5F8": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 51,
+  "key": "0x5AD5F8",
+  "jp": "オプション設定中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5953016,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD610": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 52,
+  "key": "0x5AD610",
+  "jp": "エクストラエピソード中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5953040,
+   "slot": 24,
+   "enc": "u16",
+   "cap": 11,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD628": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 53,
+  "key": "0x5AD628",
+  "jp": "グラビア撮影中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5953064,
+   "slot": 272,
+   "enc": "u16",
+   "cap": 7,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD738": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 54,
+  "key": "0x5AD738",
+  "jp": "セーブデータのユーザー情報が異なります。\nPSボタンでゲームを終了し、セーブデータを削除してから\nゲームを再起動して下さい。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5953336,
+   "slot": 128,
+   "enc": "u16",
+   "cap": 63,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:eboot_ps3:0x5AD7B8": {
+  "cat": "exe",
+  "grp": "eboot_ps3",
+  "seq": 55,
+  "key": "0x5AD7B8",
+  "jp": "新規にアイドルマスター2のセーブデータを作ります",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "ps3",
+   "offset": 5953464,
+   "slot": 456,
+   "enc": "u16",
+   "cap": 24,
+   "plat_note": "PS3 실행 파일(EBOOT) 하드코딩",
+   "inject": "주입 경로 준비 중(EBOOT 패치 필요)"
+  }
+ },
+ "exe:xdbf360:XSTR_32768": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 0,
+  "key": "XSTR_32768",
+  "jp": "アイドルマスター２",
   "kr": "",
   "st": 0,
   "meta": {
    "plat": "x360",
-   "offset": 825292,
-   "slot": 6,
-   "cap": 2,
-   "plat_note": "360 실행 파일(default.xex) 하드코딩 — PS3 EBOOT 대응은 미확인",
-   "inject": "주입 경로 준비 중(실행 파일 패치 필요)"
+   "offset": 6125170,
+   "xstr_id": 32768,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_32517": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 1,
+  "key": "XSTR_32517",
+  "jp": "ランク",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125201,
+   "xstr_id": 32517,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_32515": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 2,
+  "key": "XSTR_32515",
+  "jp": "ゲーマー名",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125214,
+   "xstr_id": 32515,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_32512": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 3,
+  "key": "XSTR_32512",
+  "jp": "ゲームの種類",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125405,
+   "xstr_id": 32512,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_32513": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 4,
+  "key": "XSTR_32513",
+  "jp": "ランク マッチ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125427,
+   "xstr_id": 32513,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_32514": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 5,
+  "key": "XSTR_32514",
+  "jp": "プレイヤー マッチ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125450,
+   "xstr_id": 32514,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_8": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 6,
+  "key": "XSTR_8",
+  "jp": "プロデュースゲーム",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125479,
+   "xstr_id": 8,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_9": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 7,
+  "key": "XSTR_9",
+  "jp": "待機中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125510,
+   "xstr_id": 9,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_10": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 8,
+  "key": "XSTR_10",
+  "jp": "行け！　はじめてのお仕事！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125523,
+   "xstr_id": 10,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_11": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 9,
+  "key": "XSTR_11",
+  "jp": "アイドルと初めて一緒に仕事に行きました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125566,
+   "xstr_id": 11,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_12": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 10,
+  "key": "XSTR_12",
+  "jp": "アイドルと初仕事を行ってください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125630,
+   "xstr_id": 12,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_15": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 11,
+  "key": "XSTR_15",
+  "jp": "全力でオーディションを受けてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125685,
+   "xstr_id": 15,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_17": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 12,
+  "key": "XSTR_17",
+  "jp": "挑め！　初オーディション！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125746,
+   "xstr_id": 17,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_18": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 13,
+  "key": "XSTR_18",
+  "jp": "初めてのオーディションを受けました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125789,
+   "xstr_id": 18,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_19": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 14,
+  "key": "XSTR_19",
+  "jp": "目指せ！　初ランクイン！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125847,
+   "xstr_id": 19,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_20": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 15,
+  "key": "XSTR_20",
+  "jp": "初めてどっとっぷTVのランキングにランクインしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125887,
+   "xstr_id": 20,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_21": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 16,
+  "key": "XSTR_21",
+  "jp": "どっとっぷTVのランキングで、ランクインを目指してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6125968,
+   "xstr_id": 21,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_22": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 17,
+  "key": "XSTR_22",
+  "jp": "戦え！　RISING MOON！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126058,
+   "xstr_id": 22,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_23": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 18,
+  "key": "XSTR_23",
+  "jp": "RISING MOONに参加しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126088,
+   "xstr_id": 23,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_24": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 19,
+  "key": "XSTR_24",
+  "jp": "RISING MOONに参加してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126127,
+   "xstr_id": 24,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_28": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 20,
+  "key": "XSTR_28",
+  "jp": "吹っ飛ばせ！　ODYSSEY！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126172,
+   "xstr_id": 28,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_29": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 21,
+  "key": "XSTR_29",
+  "jp": "ODYSSEYに参加しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126207,
+   "xstr_id": 29,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_30": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 22,
+  "key": "XSTR_30",
+  "jp": "ODYSSEYに参加してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126242,
+   "xstr_id": 30,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_34": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 23,
+  "key": "XSTR_34",
+  "jp": "集え！　ＩＡノミネート発表会！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126283,
+   "xstr_id": 34,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_35": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 24,
+  "key": "XSTR_35",
+  "jp": "IA大賞ノミネート発表会に出席しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126332,
+   "xstr_id": 35,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_36": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 25,
+  "key": "XSTR_36",
+  "jp": "IA大賞ノミネート発表会に出席してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126392,
+   "xstr_id": 36,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_40": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 26,
+  "key": "XSTR_40",
+  "jp": "ぶちのめせ！　FIRE BALL！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126458,
+   "xstr_id": 40,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_41": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 27,
+  "key": "XSTR_41",
+  "jp": "FIRE BALLに参加しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126495,
+   "xstr_id": 41,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_42": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 28,
+  "key": "XSTR_42",
+  "jp": "FIRE BALLに参加してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126532,
+   "xstr_id": 42,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_46": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 29,
+  "key": "XSTR_46",
+  "jp": "恐怖！　地獄の特訓！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126575,
+   "xstr_id": 46,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_47": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 30,
+  "key": "XSTR_47",
+  "jp": "地獄の特訓をアイドルに課しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126609,
+   "xstr_id": 47,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_48": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 31,
+  "key": "XSTR_48",
+  "jp": "地獄の特訓をアイドルに課してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126664,
+   "xstr_id": 48,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_54": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 32,
+  "key": "XSTR_54",
+  "jp": "集合！　はじめてのクィンテットライブ！",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126725,
+   "xstr_id": 54,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_55": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 33,
+  "key": "XSTR_55",
+  "jp": "クィンテットライブを開催しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126786,
+   "xstr_id": 55,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_56": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 34,
+  "key": "XSTR_56",
+  "jp": "クィンテットライブを開催してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126841,
+   "xstr_id": 56,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_57": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 35,
+  "key": "XSTR_57",
+  "jp": "ベスト５０",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126902,
+   "xstr_id": 57,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_58": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 36,
+  "key": "XSTR_58",
+  "jp": "どっとっぷTVのランキングで、５０位以内に入りました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6126921,
+   "xstr_id": 58,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_59": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 37,
+  "key": "XSTR_59",
+  "jp": "どっとっぷTVのランキングで、５０位以内に入ってください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127002,
+   "xstr_id": 59,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_60": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 38,
+  "key": "XSTR_60",
+  "jp": "ベスト２０",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127089,
+   "xstr_id": 60,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_61": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 39,
+  "key": "XSTR_61",
+  "jp": "どっとっぷTVのランキングで、２０位以内に入りました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127108,
+   "xstr_id": 61,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_62": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 40,
+  "key": "XSTR_62",
+  "jp": "どっとっぷTVのランキングで、２０位以内に入ってください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127189,
+   "xstr_id": 62,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_63": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 41,
+  "key": "XSTR_63",
+  "jp": "ベスト１０",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127276,
+   "xstr_id": 63,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_64": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 42,
+  "key": "XSTR_64",
+  "jp": "どっとっぷTVのランキングで、１０位以内に入りました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127295,
+   "xstr_id": 64,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_65": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 43,
+  "key": "XSTR_65",
+  "jp": "どっとっぷTVのランキングで、１０位以内に入ってください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127376,
+   "xstr_id": 65,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_66": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 44,
+  "key": "XSTR_66",
+  "jp": "ベスト５",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127463,
+   "xstr_id": 66,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_67": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 45,
+  "key": "XSTR_67",
+  "jp": "どっとっぷTVのランキングで、５位以内に入りました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127479,
+   "xstr_id": 67,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_68": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 46,
+  "key": "XSTR_68",
+  "jp": "どっとっぷTVのランキングで、５位以内に入ってください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127557,
+   "xstr_id": 68,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_69": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 47,
+  "key": "XSTR_69",
+  "jp": "トップアイドル",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127641,
+   "xstr_id": 69,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_70": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 48,
+  "key": "XSTR_70",
+  "jp": "どっとっぷTVのランキングで、１位になりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127666,
+   "xstr_id": 70,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_71": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 49,
+  "key": "XSTR_71",
+  "jp": "どっとっぷTVのランキングで、１位になってください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127738,
+   "xstr_id": 71,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_72": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 50,
+  "key": "XSTR_72",
+  "jp": "スノーホワイト賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127816,
+   "xstr_id": 72,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_73": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 51,
+  "key": "XSTR_73",
+  "jp": "スノーホワイト賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127844,
+   "xstr_id": 73,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_74": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 52,
+  "key": "XSTR_74",
+  "jp": "スノーホワイト賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127896,
+   "xstr_id": 74,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_75": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 53,
+  "key": "XSTR_75",
+  "jp": "フォレストグリーン賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127954,
+   "xstr_id": 75,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_76": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 54,
+  "key": "XSTR_76",
+  "jp": "フォレストグリーン賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6127988,
+   "xstr_id": 76,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_77": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 55,
+  "key": "XSTR_77",
+  "jp": "フォレストグリーン賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128046,
+   "xstr_id": 77,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_78": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 56,
+  "key": "XSTR_78",
+  "jp": "フェニックスレッド賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128110,
+   "xstr_id": 78,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_79": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 57,
+  "key": "XSTR_79",
+  "jp": "フェニックスレッド賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128144,
+   "xstr_id": 79,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_80": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 58,
+  "key": "XSTR_80",
+  "jp": "フェニックスレッド賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128202,
+   "xstr_id": 80,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_81": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 59,
+  "key": "XSTR_81",
+  "jp": "ブラックパール賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128266,
+   "xstr_id": 81,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_82": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 60,
+  "key": "XSTR_82",
+  "jp": "ブラックパール賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128294,
+   "xstr_id": 82,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_83": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 61,
+  "key": "XSTR_83",
+  "jp": "ブラックパール賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128346,
+   "xstr_id": 83,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_84": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 62,
+  "key": "XSTR_84",
+  "jp": "オーシャンブルー賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128404,
+   "xstr_id": 84,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_85": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 63,
+  "key": "XSTR_85",
+  "jp": "オーシャンブルー賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128435,
+   "xstr_id": 85,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_86": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 64,
+  "key": "XSTR_86",
+  "jp": "オーシャンブルー賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128490,
+   "xstr_id": 86,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_87": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 65,
+  "key": "XSTR_87",
+  "jp": "ＩＡ大賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128551,
+   "xstr_id": 87,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_88": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 66,
+  "key": "XSTR_88",
+  "jp": "ＩＡ大賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128567,
+   "xstr_id": 88,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_89": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 67,
+  "key": "XSTR_89",
+  "jp": "ＩＡ大賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128607,
+   "xstr_id": 89,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_91": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 68,
+  "key": "XSTR_91",
+  "jp": "ＩＡ大賞で全部門を制覇しました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128667,
+   "xstr_id": 91,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_92": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 69,
+  "key": "XSTR_92",
+  "jp": "ＩＡ大賞で全部門を制覇してください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128719,
+   "xstr_id": 92,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_93": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 70,
+  "key": "XSTR_93",
+  "jp": "駆け出しプロデューサー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128777,
+   "xstr_id": 93,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_94": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 71,
+  "key": "XSTR_94",
+  "jp": "プロデューサーＬＶが０２になりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128814,
+   "xstr_id": 94,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_95": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 72,
+  "key": "XSTR_95",
+  "jp": "プロデューサーＬＶを０２以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128875,
+   "xstr_id": 95,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_96": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 73,
+  "key": "XSTR_96",
+  "jp": "新米プロデューサー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128945,
+   "xstr_id": 96,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_97": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 74,
+  "key": "XSTR_97",
+  "jp": "プロデューサーＬＶが０３になりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6128976,
+   "xstr_id": 97,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_98": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 75,
+  "key": "XSTR_98",
+  "jp": "プロデューサーＬＶを０３以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6129037,
+   "xstr_id": 98,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_99": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 76,
+  "key": "XSTR_99",
+  "jp": "普通プロデューサー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6129107,
+   "xstr_id": 99,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_100": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 77,
+  "key": "XSTR_100",
+  "jp": "プロデューサーＬＶが０４になりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6129138,
+   "xstr_id": 100,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_101": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 78,
+  "key": "XSTR_101",
+  "jp": "プロデューサーＬＶを０４以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6129199,
+   "xstr_id": 101,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_32518": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 79,
+  "key": "XSTR_32518",
+  "jp": "ランク",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6129306,
+   "xstr_id": 32518,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_32516": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 80,
+  "key": "XSTR_32516",
+  "jp": "ゲーマー名",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6129319,
+   "xstr_id": 32516,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_285": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 81,
+  "key": "XSTR_285",
+  "jp": "プロデューサーＬＶを０５以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132100,
+   "xstr_id": 285,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_286": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 82,
+  "key": "XSTR_286",
+  "jp": "中堅プロデューサー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132170,
+   "xstr_id": 286,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_287": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 83,
+  "key": "XSTR_287",
+  "jp": "プロデューサーＬＶが０５になりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132201,
+   "xstr_id": 287,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_288": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 84,
+  "key": "XSTR_288",
+  "jp": "プロデューサーＬＶを０６以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132262,
+   "xstr_id": 288,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_289": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 85,
+  "key": "XSTR_289",
+  "jp": "敏腕プロデューサー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132332,
+   "xstr_id": 289,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_290": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 86,
+  "key": "XSTR_290",
+  "jp": "プロデューサーＬＶが０６になりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132363,
+   "xstr_id": 290,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_291": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 87,
+  "key": "XSTR_291",
+  "jp": "プロデューサーＬＶを０７以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132424,
+   "xstr_id": 291,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_292": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 88,
+  "key": "XSTR_292",
+  "jp": "売れっ子プロデューサー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132494,
+   "xstr_id": 292,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_293": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 89,
+  "key": "XSTR_293",
+  "jp": "プロデューサーＬＶが０７になりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132531,
+   "xstr_id": 293,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_294": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 90,
+  "key": "XSTR_294",
+  "jp": "プロデューサーＬＶを０８以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132592,
+   "xstr_id": 294,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_295": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 91,
+  "key": "XSTR_295",
+  "jp": "超売れっ子 プロデューサー",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132662,
+   "xstr_id": 295,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_296": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 92,
+  "key": "XSTR_296",
+  "jp": "プロデューサーＬＶが０８になりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132703,
+   "xstr_id": 296,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_297": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 93,
+  "key": "XSTR_297",
+  "jp": "プロデューサーＬＶを０９以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132764,
+   "xstr_id": 297,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_298": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 94,
+  "key": "XSTR_298",
+  "jp": "アイドルマスター",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132834,
+   "xstr_id": 298,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_299": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 95,
+  "key": "XSTR_299",
+  "jp": "プロデューサーＬＶが０９になりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132862,
+   "xstr_id": 299,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_300": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 96,
+  "key": "XSTR_300",
+  "jp": "プロデューサーＬＶを１０以上にしてください。 ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132923,
+   "xstr_id": 300,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_301": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 97,
+  "key": "XSTR_301",
+  "jp": "真アイドルマスター",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6132994,
+   "xstr_id": 301,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_302": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 98,
+  "key": "XSTR_302",
+  "jp": "プロデューサーＬＶが１０になりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133025,
+   "xstr_id": 302,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_303": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 99,
+  "key": "XSTR_303",
+  "jp": "天海春香をリーダーとして最後までプロデュースしてください。 ",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133086,
+   "xstr_id": 303,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_304": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 100,
+  "key": "XSTR_304",
+  "jp": "俺と春香。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133178,
+   "xstr_id": 304,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_305": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 101,
+  "key": "XSTR_305",
+  "jp": "天海春香をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133197,
+   "xstr_id": 305,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_306": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 102,
+  "key": "XSTR_306",
+  "jp": "星井美希をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133282,
+   "xstr_id": 306,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_307": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 103,
+  "key": "XSTR_307",
+  "jp": "俺と美希。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133373,
+   "xstr_id": 307,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_308": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 104,
+  "key": "XSTR_308",
+  "jp": "星井美希をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133392,
+   "xstr_id": 308,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_309": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 105,
+  "key": "XSTR_309",
+  "jp": "如月千早をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133477,
+   "xstr_id": 309,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_310": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 106,
+  "key": "XSTR_310",
+  "jp": "俺と千早。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133568,
+   "xstr_id": 310,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_311": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 107,
+  "key": "XSTR_311",
+  "jp": "如月千早をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133587,
+   "xstr_id": 311,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_312": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 108,
+  "key": "XSTR_312",
+  "jp": "高槻やよいをリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133672,
+   "xstr_id": 312,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_313": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 109,
+  "key": "XSTR_313",
+  "jp": "俺とやよい。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133766,
+   "xstr_id": 313,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_314": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 110,
+  "key": "XSTR_314",
+  "jp": "高槻やよいをリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133788,
+   "xstr_id": 314,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_315": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 111,
+  "key": "XSTR_315",
+  "jp": "萩原雪歩をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133876,
+   "xstr_id": 315,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_316": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 112,
+  "key": "XSTR_316",
+  "jp": "俺と雪歩。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133967,
+   "xstr_id": 316,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_317": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 113,
+  "key": "XSTR_317",
+  "jp": "萩原雪歩をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6133986,
+   "xstr_id": 317,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_318": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 114,
+  "key": "XSTR_318",
+  "jp": "菊地真をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134071,
+   "xstr_id": 318,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_319": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 115,
+  "key": "XSTR_319",
+  "jp": "俺と真。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134159,
+   "xstr_id": 319,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_320": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 116,
+  "key": "XSTR_320",
+  "jp": "菊地真をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134175,
+   "xstr_id": 320,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_321": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 117,
+  "key": "XSTR_321",
+  "jp": "双海真美をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134257,
+   "xstr_id": 321,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_322": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 118,
+  "key": "XSTR_322",
+  "jp": "俺と真美。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134348,
+   "xstr_id": 322,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_323": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 119,
+  "key": "XSTR_323",
+  "jp": "双海真美をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134367,
+   "xstr_id": 323,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_324": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 120,
+  "key": "XSTR_324",
+  "jp": "四条貴音をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134452,
+   "xstr_id": 324,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_325": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 121,
+  "key": "XSTR_325",
+  "jp": "俺と貴音。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134543,
+   "xstr_id": 325,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_326": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 122,
+  "key": "XSTR_326",
+  "jp": "四条貴音をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134562,
+   "xstr_id": 326,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_327": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 123,
+  "key": "XSTR_327",
+  "jp": "我那覇響をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134647,
+   "xstr_id": 327,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_328": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 124,
+  "key": "XSTR_328",
+  "jp": "俺と響。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134738,
+   "xstr_id": 328,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_329": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 125,
+  "key": "XSTR_329",
+  "jp": "我那覇響をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134754,
+   "xstr_id": 329,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_330": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 126,
+  "key": "XSTR_330",
+  "jp": "？？？",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134839,
+   "xstr_id": 330,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_331": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 127,
+  "key": "XSTR_331",
+  "jp": "俺と竜宮小町。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134852,
+   "xstr_id": 331,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_332": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 128,
+  "key": "XSTR_332",
+  "jp": "竜宮小町の伊織、亜美、あずさをゲストに呼べるようになりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134877,
+   "xstr_id": 332,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_333": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 129,
+  "key": "XSTR_333",
+  "jp": "？？？",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134974,
+   "xstr_id": 333,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_334": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 130,
+  "key": "XSTR_334",
+  "jp": "俺と律子。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6134987,
+   "xstr_id": 334,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_335": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 131,
+  "key": "XSTR_335",
+  "jp": "秋月律子をゲストに呼べるようになりました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135006,
+   "xstr_id": 335,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_336": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 132,
+  "key": "XSTR_336",
+  "jp": "アイドル１人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135073,
+   "xstr_id": 336,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_337": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 133,
+  "key": "XSTR_337",
+  "jp": "イチゴ賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135173,
+   "xstr_id": 337,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_338": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 134,
+  "key": "XSTR_338",
+  "jp": "アイドル１人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135189,
+   "xstr_id": 338,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_339": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 135,
+  "key": "XSTR_339",
+  "jp": "アイドル２人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135283,
+   "xstr_id": 339,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_340": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 136,
+  "key": "XSTR_340",
+  "jp": "ニンジン賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135383,
+   "xstr_id": 340,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_341": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 137,
+  "key": "XSTR_341",
+  "jp": "アイドル２人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135402,
+   "xstr_id": 341,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_342": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 138,
+  "key": "XSTR_342",
+  "jp": "アイドル３人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135496,
+   "xstr_id": 342,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_343": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 139,
+  "key": "XSTR_343",
+  "jp": "サンデー賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135596,
+   "xstr_id": 343,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_344": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 140,
+  "key": "XSTR_344",
+  "jp": "アイドル３人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135615,
+   "xstr_id": 344,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_345": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 141,
+  "key": "XSTR_345",
+  "jp": "アイドル４人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135709,
+   "xstr_id": 345,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_346": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 142,
+  "key": "XSTR_346",
+  "jp": "ヨーグルト賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135809,
+   "xstr_id": 346,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_347": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 143,
+  "key": "XSTR_347",
+  "jp": "アイドル４人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135831,
+   "xstr_id": 347,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_348": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 144,
+  "key": "XSTR_348",
+  "jp": "アイドル５人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6135925,
+   "xstr_id": 348,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_349": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 145,
+  "key": "XSTR_349",
+  "jp": "ゴマ賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136025,
+   "xstr_id": 349,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_350": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 146,
+  "key": "XSTR_350",
+  "jp": "アイドル５人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136038,
+   "xstr_id": 350,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_351": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 147,
+  "key": "XSTR_351",
+  "jp": "アイドル６人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136132,
+   "xstr_id": 351,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_352": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 148,
+  "key": "XSTR_352",
+  "jp": "ロールケーキ賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136232,
+   "xstr_id": 352,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_353": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 149,
+  "key": "XSTR_353",
+  "jp": "アイドル６人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136257,
+   "xstr_id": 353,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_354": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 150,
+  "key": "XSTR_354",
+  "jp": "アイドル７人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136351,
+   "xstr_id": 354,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_355": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 151,
+  "key": "XSTR_355",
+  "jp": "シチリアオレンジ賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136451,
+   "xstr_id": 355,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_356": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 152,
+  "key": "XSTR_356",
+  "jp": "アイドル７人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136482,
+   "xstr_id": 356,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_357": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 153,
+  "key": "XSTR_357",
+  "jp": "アイドル８人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136576,
+   "xstr_id": 357,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_358": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 154,
+  "key": "XSTR_358",
+  "jp": "ハチミツ賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136676,
+   "xstr_id": 358,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_359": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 155,
+  "key": "XSTR_359",
+  "jp": "アイドル８人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136695,
+   "xstr_id": 359,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_360": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 156,
+  "key": "XSTR_360",
+  "jp": "アイドル９人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136789,
+   "xstr_id": 360,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_361": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 157,
+  "key": "XSTR_361",
+  "jp": "クリーム賞",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136889,
+   "xstr_id": 361,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_362": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 158,
+  "key": "XSTR_362",
+  "jp": "アイドル９人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6136908,
+   "xstr_id": 362,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_461": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 159,
+  "key": "XSTR_461",
+  "jp": "タイトルデモ中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6138668,
+   "xstr_id": 461,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_462": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 160,
+  "key": "XSTR_462",
+  "jp": "メインメニュー選択中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6138693,
+   "xstr_id": 462,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_464": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 161,
+  "key": "XSTR_464",
+  "jp": "プロデュース（活動{p0x10000008}週目）",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6138727,
+   "xstr_id": 464,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_466": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 162,
+  "key": "XSTR_466",
+  "jp": "プロデュース（エピローグ）",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6138796,
+   "xstr_id": 466,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_467": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 163,
+  "key": "XSTR_467",
+  "jp": "アルバム閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6138839,
+   "xstr_id": 467,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_468": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 164,
+  "key": "XSTR_468",
+  "jp": "メール閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6138864,
+   "xstr_id": 468,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_469": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 165,
+  "key": "XSTR_469",
+  "jp": "アイドラ閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6138886,
+   "xstr_id": 469,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_470": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 166,
+  "key": "XSTR_470",
+  "jp": "ランキング閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6138911,
+   "xstr_id": 470,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_471": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 167,
+  "key": "XSTR_471",
+  "jp": "オプション設定中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6138939,
+   "xstr_id": 471,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_473": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 168,
+  "key": "XSTR_473",
+  "jp": "765ショップカタログ閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6138967,
+   "xstr_id": 473,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_474": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 169,
+  "key": "XSTR_474",
+  "jp": "ステージフォーユー！閲覧中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6139007,
+   "xstr_id": 474,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
+  }
+ },
+ "exe:xdbf360:XSTR_475": {
+  "cat": "exe",
+  "grp": "xdbf360",
+  "seq": 170,
+  "key": "XSTR_475",
+  "jp": "ユニット選択中",
+  "kr": "",
+  "st": 0,
+  "meta": {
+   "plat": "x360",
+   "offset": 6139050,
+   "xstr_id": 475,
+   "plat_note": "360 업적·접속 상태 문자열(XDBF) — Xbox 대시보드 표시용, 게임 화면에는 안 나옴",
+   "inject": "PC 포트가 업적 알림을 띄울 때만 사용 (길이 제한 없음, XSTR 재작성)"
   }
  }
 }

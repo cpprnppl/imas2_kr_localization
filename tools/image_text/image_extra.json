@@ -1,0 +1,400 @@
+{
+ "_doc": "CN 패치가 안 건드려 index.json cn_modified에 없는 일본어 글자 그림 — 2026-10-23 전수 점검(coverage_scan 이미지 시트 육안 확인). webapp_seed.image_index()가 이미지 행으로 포함한다. jp = 그림 속 글자(검색용).",
+ "items": [
+  {
+   "rel": "game\\les_mar.mpc",
+   "n": 20,
+   "md5": "bae472b97ba1c09edf9b8e66fcf02be3",
+   "jp": "ペースDOWN中",
+   "locs": [
+    "game\\les_mar.mpc#020"
+   ]
+  },
+  {
+   "rel": "game\\les_mar.mpc",
+   "n": 21,
+   "md5": "f91235dbdb787b0bdbe277f1184d4acb",
+   "jp": "ペースUP中",
+   "locs": [
+    "game\\les_mar.mpc#021"
+   ]
+  },
+  {
+   "rel": "game\\les_mar.mpc",
+   "n": 48,
+   "md5": "01a7f51dbdad190cf67bcf741ed27c17",
+   "jp": "765プロ",
+   "locs": [
+    "game\\les_mar.mpc#048"
+   ]
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 12,
+   "md5": "c6a05b91e79668f86e719a9f6b3d0657",
+   "jp": "CV:神原 大地",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#012",
+    "interface\\swg\\ProStaffRoll.tsk#037"
+   ]
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 53,
+   "md5": "4705b0aba2950364b433ed1cdacf61bd",
+   "jp": "CV:下田 麻美",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#053",
+    "interface\\swg\\ProStaffRoll.tsk#099"
+   ]
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 14,
+   "md5": "2ca10e133f7203c5e2ad055299e02329",
+   "jp": "CV:子安 武人",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#014"
+   ]
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 22,
+   "md5": "7733765d37161f7e65d7491d287d69cd",
+   "jp": "CV:大塚 芳忠",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#022"
+   ]
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 105,
+   "md5": "ebbd3e1b5278f5c2813dc7ae6c8a70e8",
+   "jp": "CV:平田 宏美",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#105"
+   ]
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 127,
+   "md5": "0e0961fb4b2ea41de208917777c81b95",
+   "jp": "CV:今井 麻美",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#127"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 10,
+   "md5": "998ae92b9a8d26fb0eb37f2eb3e1a4ad",
+   "jp": "山梨",
+   "locs": [
+    "scene\\exep_commu.mpc#010",
+    "scene\\produce_etc.mpc#010",
+    "scene\\produce_morning.mpc#010",
+    "scene\\produce_night.mpc#010",
+    "scene\\produce_scheduling.mpc#010"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 11,
+   "md5": "7c15d587300586e1c1e9d8991b903f55",
+   "jp": "山口",
+   "locs": [
+    "scene\\exep_commu.mpc#011",
+    "scene\\produce_etc.mpc#011",
+    "scene\\produce_morning.mpc#011",
+    "scene\\produce_night.mpc#011",
+    "scene\\produce_scheduling.mpc#011"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 12,
+   "md5": "818019ed666cbc15bf4fcef29f3cf73f",
+   "jp": "山形",
+   "locs": [
+    "scene\\exep_commu.mpc#012",
+    "scene\\produce_etc.mpc#012",
+    "scene\\produce_morning.mpc#012",
+    "scene\\produce_night.mpc#012",
+    "scene\\produce_scheduling.mpc#012"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 13,
+   "md5": "106ddd0c7b2bf71b1d2f19310706ce21",
+   "jp": "和歌山",
+   "locs": [
+    "scene\\exep_commu.mpc#013",
+    "scene\\produce_etc.mpc#013",
+    "scene\\produce_morning.mpc#013",
+    "scene\\produce_night.mpc#013",
+    "scene\\produce_scheduling.mpc#013"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 15,
+   "md5": "50620c6dec741bfa6900c15b09fd5271",
+   "jp": "富山",
+   "locs": [
+    "scene\\exep_commu.mpc#015",
+    "scene\\produce_etc.mpc#015",
+    "scene\\produce_morning.mpc#015",
+    "scene\\produce_night.mpc#015",
+    "scene\\produce_scheduling.mpc#015"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 19,
+   "md5": "88f4bb81b95e69d0a43608abc0ac0c12",
+   "jp": "栃木",
+   "locs": [
+    "scene\\exep_commu.mpc#019",
+    "scene\\produce_etc.mpc#019",
+    "scene\\produce_morning.mpc#019",
+    "scene\\produce_night.mpc#019",
+    "scene\\produce_scheduling.mpc#019"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 24,
+   "md5": "72ecc571c6bd770f92775b09ef8b5bde",
+   "jp": "埼玉",
+   "locs": [
+    "scene\\exep_commu.mpc#024",
+    "scene\\produce_etc.mpc#024",
+    "scene\\produce_morning.mpc#024",
+    "scene\\produce_night.mpc#024",
+    "scene\\produce_scheduling.mpc#024"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 26,
+   "md5": "dc46f57fcf342d3a98019906e2f60d84",
+   "jp": "大阪",
+   "locs": [
+    "scene\\exep_commu.mpc#026",
+    "scene\\produce_etc.mpc#026",
+    "scene\\produce_morning.mpc#026",
+    "scene\\produce_night.mpc#026",
+    "scene\\produce_scheduling.mpc#026"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 29,
+   "md5": "6b34f1082d48905d82abac031792e230",
+   "jp": "大分",
+   "locs": [
+    "scene\\exep_commu.mpc#029",
+    "scene\\produce_etc.mpc#029",
+    "scene\\produce_morning.mpc#029",
+    "scene\\produce_night.mpc#029",
+    "scene\\produce_scheduling.mpc#029"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 31,
+   "md5": "b87b8df48248501d506532a5654a939e",
+   "jp": "新潟",
+   "locs": [
+    "scene\\exep_commu.mpc#031",
+    "scene\\produce_etc.mpc#031",
+    "scene\\produce_morning.mpc#031",
+    "scene\\produce_night.mpc#031",
+    "scene\\produce_scheduling.mpc#031"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 32,
+   "md5": "1dbecfbb612ef1ad561af7666103bf06",
+   "jp": "奈良",
+   "locs": [
+    "scene\\exep_commu.mpc#032",
+    "scene\\produce_etc.mpc#032",
+    "scene\\produce_morning.mpc#032",
+    "scene\\produce_night.mpc#032",
+    "scene\\produce_scheduling.mpc#032"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 38,
+   "md5": "4aa92b1c8c1b2b7f1087f9f4742cc4bf",
+   "jp": "三重",
+   "locs": [
+    "scene\\exep_commu.mpc#038",
+    "scene\\produce_etc.mpc#038",
+    "scene\\produce_morning.mpc#038",
+    "scene\\produce_night.mpc#038",
+    "scene\\produce_scheduling.mpc#038"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 39,
+   "md5": "312000eddbc73f9a9a95a0376dccaddd",
+   "jp": "京都",
+   "locs": [
+    "scene\\exep_commu.mpc#039",
+    "scene\\produce_etc.mpc#039",
+    "scene\\produce_morning.mpc#039",
+    "scene\\produce_night.mpc#039",
+    "scene\\produce_scheduling.mpc#039"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 40,
+   "md5": "cdd443262cfba09c045764986a360a47",
+   "jp": "熊本",
+   "locs": [
+    "scene\\exep_commu.mpc#040",
+    "scene\\produce_etc.mpc#040",
+    "scene\\produce_morning.mpc#040",
+    "scene\\produce_night.mpc#040",
+    "scene\\produce_scheduling.mpc#040"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 41,
+   "md5": "272f21c7437e5c437b049b56df5471af",
+   "jp": "高知",
+   "locs": [
+    "scene\\exep_commu.mpc#041",
+    "scene\\produce_etc.mpc#041",
+    "scene\\produce_morning.mpc#041",
+    "scene\\produce_night.mpc#041",
+    "scene\\produce_scheduling.mpc#041"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 42,
+   "md5": "1925b6d1dca6ce74b5eb6da7dcc715db",
+   "jp": "神奈川",
+   "locs": [
+    "scene\\exep_commu.mpc#042",
+    "scene\\produce_etc.mpc#042",
+    "scene\\produce_morning.mpc#042",
+    "scene\\produce_night.mpc#042",
+    "scene\\produce_scheduling.mpc#042"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 45,
+   "md5": "82dab5da38d8b7f5cd62b4b7d9df9601",
+   "jp": "香川",
+   "locs": [
+    "scene\\exep_commu.mpc#045",
+    "scene\\produce_etc.mpc#045",
+    "scene\\produce_morning.mpc#045",
+    "scene\\produce_night.mpc#045",
+    "scene\\produce_scheduling.mpc#045"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 46,
+   "md5": "873eac362352a2b3daa1f9d3b62cdaaf",
+   "jp": "岩手",
+   "locs": [
+    "scene\\exep_commu.mpc#046",
+    "scene\\produce_etc.mpc#046",
+    "scene\\produce_morning.mpc#046",
+    "scene\\produce_night.mpc#046",
+    "scene\\produce_scheduling.mpc#046"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 47,
+   "md5": "4675110da364689730eb5d6c49cca66a",
+   "jp": "石川",
+   "locs": [
+    "scene\\exep_commu.mpc#047",
+    "scene\\produce_etc.mpc#047",
+    "scene\\produce_morning.mpc#047",
+    "scene\\produce_night.mpc#047",
+    "scene\\produce_scheduling.mpc#047"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 48,
+   "md5": "e3daba454329176d18bd21fa6aa187a5",
+   "jp": "茨城",
+   "locs": [
+    "scene\\exep_commu.mpc#048",
+    "scene\\produce_etc.mpc#048",
+    "scene\\produce_morning.mpc#048",
+    "scene\\produce_night.mpc#048",
+    "scene\\produce_scheduling.mpc#048"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 54,
+   "md5": "5be508aff198b164d56395a3e5333e4a",
+   "jp": "岐阜",
+   "locs": [
+    "scene\\exep_commu.mpc#054",
+    "scene\\produce_etc.mpc#054",
+    "scene\\produce_morning.mpc#054",
+    "scene\\produce_night.mpc#054",
+    "scene\\produce_scheduling.mpc#054"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 57,
+   "md5": "1656c58117a602860d4ccf802b979533",
+   "jp": "福井",
+   "locs": [
+    "scene\\exep_commu.mpc#057",
+    "scene\\produce_etc.mpc#057",
+    "scene\\produce_morning.mpc#057",
+    "scene\\produce_night.mpc#057",
+    "scene\\produce_scheduling.mpc#057"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 60,
+   "md5": "0645add098a5a1473a366fc61c86136e",
+   "jp": "青森",
+   "locs": [
+    "scene\\exep_commu.mpc#060",
+    "scene\\produce_etc.mpc#060",
+    "scene\\produce_morning.mpc#060",
+    "scene\\produce_night.mpc#060",
+    "scene\\produce_scheduling.mpc#060"
+   ]
+  },
+  {
+   "rel": "scene\\exep_commu.mpc",
+   "n": 61,
+   "md5": "fab8f75519dbad7d9c103491b486def0",
+   "jp": "秋田",
+   "locs": [
+    "scene\\exep_commu.mpc#061",
+    "scene\\produce_etc.mpc#061",
+    "scene\\produce_morning.mpc#061",
+    "scene\\produce_night.mpc#061",
+    "scene\\produce_scheduling.mpc#061"
+   ]
+  }
+ ]
+}

@@ -1431,3 +1431,33 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   meta offset·slot·cap·plat x360, "주입 경로 준비 중(실행 파일 패치 필요)"). 화자 이름표 0xB924C~0xB9388(審査員…社長·小鳥·Ｐ…春香),
   이름 입력·저장·일시정지·どっとっぷTV·S4U 설정 저장·지역명 등. 개발용 더미 문구(だみーゆにっと 등)도 포함.
 - 웹: 사이드바 '실행 파일 문구', 슬롯 초과 경고(cap = 다음 문자열까지 바이트 기준 추정), 전체 검색에 포함('社長' → exe 행 검색됨).
+
+## 40. 누락 일본어 전수 조사 + 웹앱 등록 + 주입 커버리지 (2026-10-23 04~05시, KOR "누락된 거 다 찾아서 웹앱에 넣어라")
+- tools/image_text/coverage_scan.py: PS3 본편(gscript는 순정 백업)·PS3 DLC·360 본편·360 DLC·xex·PS3 EBOOT(rpcs3 --decrypt
+  사본, 정적 읽기만) 전부를 pac/TSK 재귀 → XMB·SCB는 구조로, 나머지는 원시 스캔. find_text 스냅샷과 대조.
+  결과: 고유 56,099 = 웹앱에 있음 53,118 + 웹 원문의 일부 91 + 제외 2,890(이름 입력 키보드 사전 2,051, 기계어 조각 823,
+  디버그 라벨 16), **미분류 0**. 게임 폴더 작업 사본(attract.mpc.orig, PauseMenu.mpc1)은 스캔 제외.
+- 추가된 웹 행(ignore-duplicates, 팀 번역 불변):
+  - 360 대사 중 원문이 PS3와 조금 다른 짝 103줄(○→A ボタン, Ｌ１→LB, 문구 수정) — 지금까지 PS3 번역이 그대로 들어갔다.
+    script 행 x360:<파일>#<idx>, meta.approx·suggest(PS3 원문/번역). pcport360 build는 이 행 번역이 있으면 우선 적용.
+  - 360 NPC 명단에서 같은 id에 PS3와 다른 이름이 든 43칸(NPCP_123 フィガロ→リョウコ姫 등) → xmb:exep_init:x360:<id>.
+    **버그 수정**: pcport_apply가 id만 보고 PS3 번역을 넣어 game_kor에 엉뚱한 이름이 들어가 있었다 → npc_kr_for
+    (원문 일치 PS3 번역 > 360 전용 번역 > 같은 원문 번역 > 일본어 유지). webapp_pull xmb는 x360: 키를 'scene/exep_init.mpc@x360'로.
+  - 실행 파일(xex_text.py 확장): PS3 EBOOT 전용 56행(eboot_ps3 — 세이브 사용자 불일치 오류, 새 세이브 생성, PSN 상태,
+    그라비아 스테이지명 SJIS 표 등), 360 XDBF 업적·접속 상태 171행(xdbf360, 화면 미표시), xex 누락 7행(앞 바이트가 붙어
+    통째로 버려지던 スピードを上げろ！·ランキングに登録 등 — 앞 쓰레기 글자만 떼도록 수정). 기존 xex 행 157개에 같은 문구의
+    PS3 EBOOT 위치(meta.eboot)를 붙여 plat=common.
+- 이미지: CN 패치가 안 건드려 행이 없던 텍스트형 텍스처 414장을 시트로 육안 점검 → 일본어 33장(exep_commu 현 이름 24,
+  스태프롤 'CV:성우명' 6, les_mar ペースUP中·DOWN中·765プロ) → image_extra.json, webapp_seed.image_index가 포함.
+  행 등록은 썸네일 업로드(서비스 키) 후.
+- **주입 커버리지**(coverage_scan injection.json): 웹앱에 문구가 있어도 그 위치를 쓰는 주입기가 없으면 화면은 일본어.
+  2,570곳 중 30곳 4,637문구가 주입기 없음:
+  1. PS3 게임 데이터 XMB 20파일 약 4,200문구(initialFix 1,367·fan_letter 694·ScheduleSelect 626·staff_roll 357…) —
+     gamedata_apply는 360(game_kor) 전용이라 PS3 패치엔 아예 안 들어가 있었다.
+  2. gscript 밖 pac 속 내장 SCB(구조는 gscript dec와 같음: pac 데이터 0x80 → [SCB, 컷씬 pac]) — member_select 소개 대사 9개
+     45줄, ScheduleSelect 120, dress_select 42, mail_produce 2, attract(360). PS3 attract만 patch_attract.py(§20)로 처리돼 있었다.
+     → gamedata_apply에 내장 SCB 주입 추가(게임 스크립트 행 번역을 원문 일치, excel2scb rewrap·MSG 재작성, validate_dec 게이트,
+     컷씬 pac 불변 검사). 360만. PS3는 리소스 주입 경로 신설 필요(1번과 함께).
+  3. 360 initialTemp.mpc 라이벌 유닛 프리셋 26문구 — 확인 결과 gamedata_apply.targets()가 원문 일치로 이미 처리(22칸 한국어).
+- 360 내장 SCB 시험 빌드: member_select 45/45, ScheduleSelect 107/121, dress_select 36/41, attract 10/12, mail_produce 3/3
+  한국어(나머지는 같은 원문의 게임 스크립트 번역이 없음).

@@ -67,7 +67,9 @@ def pull_xmb(rows, reviewed_only):
         if not rel:
             continue
         tid = tid.split("#")[0]
-        ent = tr.setdefault(rel, {}).setdefault(tid, {"jp": "", "cn": "", "kr": ""})
+        if tid.startswith("x360:"):         # 360판 NPC 명단에서 원문이 다른 칸 (pcport_apply.npc_kr_for)
+            rel, tid = rel + "@x360", tid[5:]
+        ent = tr.setdefault(rel, {}).setdefault(tid, {"jp": r["jp"], "cn": "", "kr": ""})
         if ent.get("kr") != r["kr"]:
             ent["kr"] = r["kr"]
             n += 1

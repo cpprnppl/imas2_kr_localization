@@ -129,7 +129,9 @@ def main():
             {"cat": "dlc", "label": "DLC",
              "groups": [{"g": g, "label": l} for g, l in DLC_GROUPS]},
             {"cat": "exe", "label": "실행 파일 문구",
-             "groups": [{"g": "xex360", "label": "360 실행 파일 (이름표·메뉴·확인 문구)"}]},
+             "groups": [{"g": "xex360", "label": "실행 파일 공통·360 (이름표·메뉴·확인 문구)"},
+                        {"g": "eboot_ps3", "label": "PS3 실행 파일 전용 (저장 오류·접속 상태 등)"},
+                        {"g": "xdbf360", "label": "360 업적·접속 상태 (화면 미표시)"}]},
         ],
     }
     pc = os.path.join(HERE, "platform_counts.json")     # platform_audit.py counts

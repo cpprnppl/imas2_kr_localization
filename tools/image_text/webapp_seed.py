@@ -130,6 +130,60 @@ def rows_script_x360():
             out.append({"id": f"script:{grp}:{key}", "cat": "script", "grp": grp,
                         "seq": 900000 + fi * 1000 + u["x"], "key": key, "jp": u["jp_360"],
                         "kr": "", "st": 0, "ts": 0, "by": "", "meta": meta})
+        # 원문이 PS3와 조금 다른 짝(○→A ボタン, Ｌ１→LB, 문구 수정): 지금은 PS3 번역이 그대로 들어간다.
+        # 360 문구에 맞춘 번역을 받으려고 행을 따로 둔다 — kr이 비어 있으면 PS3 번역 유지(pcport360 build).
+        for a in r.get("approx", []):
+            grp = rel.split("\\")[0]
+            key = f"x360:{rel}#{a['x']}"
+            meta = {"sp": "", "file": rel, "x360": True, "x_idx": a["x"], "plat": "x360", "approx": True,
+                    "note": "360판 원문이 PS3와 조금 다름(버튼명·문구 수정) — 지금은 PS3 번역이 임시로 들어감. "
+                            "360 원문에 맞게 고쳐 넣으면 PC판에 반영",
+                    "suggest": {"ps3": a["ps3"], "jp": a["jp_ps3"], "kr": a.get("kr_ps3", ""),
+                                "ratio": a["ratio"]}}
+            out.append({"id": f"script:{grp}:{key}", "cat": "script", "grp": grp,
+                        "seq": 900000 + fi * 1000 + a["x"], "key": key, "jp": a["jp_360"],
+                        "kr": "", "st": 0, "ts": 0, "by": "", "meta": meta})
+    return out
+
+
+def rows_npc_x360():
+    """360판 NPC 명단(alf_common 등 4개 pac에 복제된 표)에서 같은 id에 PS3와 다른 이름이 든 43칸.
+    id xmb:exep_init:x360:<id>. 번역은 pcport_apply.npc_kr_for가 원문 일치로만 적용한다.
+    kr 초기값: 같은 원문의 PS3 번역이 있으면 그것(st=1, src_tr=seed)."""
+    import pcport_apply as pa
+    from platform_audit import dec_any
+    from xmb_text import parse_xmb as _px, collect_texts as _ct
+    tr = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
+    ps3 = tr.get("scene/exep_init.mpc", {})
+    byjp = {}
+    for v in ps3.values():
+        if v.get("kr"):
+            byjp.setdefault(v["jp"], v["kr"])
+    data = dec_any(open(os.path.join(pa.PORT, "game", "alf", "alf_common.mpc"), "rb").read(), "x360")
+    ents, ds = pa.parse_pac(data)
+    out = []
+    for e in ents:
+        seg = data[ds + e["ofs"]: ds + e["ofs"] + e["size"]]
+        if seg[:4] != b"XMB ":
+            continue
+        texts = _ct(_px(seg, 0))
+        if not any(t["id"].startswith(pa.NPC_PREFIX) for t in texts):
+            continue
+        for i, t in enumerate(texts):
+            p = ps3.get(t["id"])
+            if not p or p.get("jp") == t["text"]:
+                continue
+            kr = byjp.get(t["text"], "")
+            meta = {"plat": "x360", "pair": f"xmb:exep_init:{t['id']}",
+                    "plat_note": f"360판은 이 칸이 '{p['jp']}' 대신 '{t['text']}' (alf_common·NationwideRanking·"
+                                 "ScheduleSelect·produce_etc 4곳 공통)",
+                    "inject": "pcport_apply (원문 일치 확인 후 적용)"}
+            if kr:
+                meta["src_tr"] = "seed"
+            out.append({"id": f"xmb:exep_init:x360:{t['id']}", "cat": "xmb", "grp": "exep_init",
+                        "seq": 900000 + i, "key": f"x360:{t['id']}", "jp": t["text"], "kr": kr,
+                        "st": 1 if kr else 0, "ts": 0, "by": "", "meta": meta})
+        break
     return out
 
 
@@ -146,6 +200,15 @@ def image_index():
                 "md5": t["md5"], "w": t["w"], "h": t["h"], "fmt": t["fmt"],
                 "locs": [], "png": t["png"], "rel0": rel})
             g["locs"].append(f"{rel}#{n:03d}")
+    # CN 패치가 안 건드린 일본어 그림 (image_extra.json, 전수 점검 육안 확인분)
+    ex = os.path.join(HERE, "image_extra.json")
+    if os.path.exists(ex):
+        for it in json.load(open(ex, encoding="utf-8"))["items"]:
+            if it["md5"] in groups:
+                continue
+            t = {x["n"]: x for x in idx[it["rel"]]["jp"]["textures"]}[it["n"]]
+            groups[it["md5"]] = {"md5": it["md5"], "w": t["w"], "h": t["h"], "fmt": t["fmt"],
+                                 "locs": it["locs"], "png": t["png"], "rel0": it["rel"], "jp": it["jp"]}
     return groups
 
 
@@ -161,11 +224,12 @@ def rows_image():
         top = g["rel0"].split("\\")[0].split("/")[0]
         it = specs.get(g["md5"], {})
         kr = it.get("text", "")
+        meta = {"w": g["w"], "h": g["h"], "fmt": g["fmt"], "locs": g["locs"], "mode": it.get("mode", "")}
+        if g.get("jp"):
+            meta["note"] = "중국어 패치가 안 건드린 일본어 그림 — 참고 그림(CN) 없음"
         out.append({"id": f"image:{top}:{g['md5']}", "cat": "image", "grp": top,
-                    "seq": i, "key": g["md5"], "jp": "", "kr": kr,
-                    "st": 1 if kr else 0, "ts": 0, "by": "",
-                    "meta": {"w": g["w"], "h": g["h"], "fmt": g["fmt"],
-                             "locs": g["locs"], "mode": it.get("mode", "")}})
+                    "seq": i, "key": g["md5"], "jp": g.get("jp", ""), "kr": kr,
+                    "st": 1 if kr else 0, "ts": 0, "by": "", "meta": meta})
     return out
 
 
@@ -177,6 +241,8 @@ def seed_rows(code, only, force):
         batches.append(("script", rows_script()))
     if only in (None, "script", "script360"):
         batches.append(("script360", rows_script_x360()))
+    if only in (None, "xmb", "npc360"):
+        batches.append(("npc360", rows_npc_x360()))
     if only in (None, "image"):
         batches.append(("image", rows_image()))
     if only in (None, "dlc"):
@@ -306,7 +372,8 @@ def upload_dlc_thumbs(service_key):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--code", help="팀 암호 (rows 시딩)")
-    ap.add_argument("--only", choices=["xmb", "script", "script360", "image", "dlc", "dlcimg", "gamedata"])
+    ap.add_argument("--only", choices=["xmb", "script", "script360", "npc360", "image", "dlc", "dlcimg",
+                                       "gamedata"])
     ap.add_argument("--dlc-thumbs", action="store_true", help="DLC 텍스처 업로드")
     ap.add_argument("--force-merge", action="store_true",
                     help="기존 행 덮어쓰기 (팀 수정 소실 주의)")

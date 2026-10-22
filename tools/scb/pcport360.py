@@ -258,9 +258,10 @@ def build_one(rel, abs_map, font_map, x360_tr=None):
     mapped_x = set(mapping.values())
     untranslated = [j for j in range(len(tx)) if j not in mapped_x and tx[j].strip()]
     x_applied, x_stale = 0, []
+    approx_x = {mapping[i] for i in approx}   # 원문이 달라진 짝(버튼명 ○→A 등): 웹앱 360 행 번역이 있으면 우선
     for js, ent in (x360_tr or {}).items():
         j = int(js)
-        if j in untranslated and tx[j] == ent.get("jp") and ent.get("kr", "").strip():
+        if (j in untranslated or j in approx_x) and tx[j] == ent.get("jp") and ent.get("kr", "").strip():
             new_x[j] = e2s.rewrap(ent["kr"])
             x_applied += 1
         else:
@@ -283,8 +284,9 @@ def build_one(rel, abs_map, font_map, x360_tr=None):
     rep = {
         "identity": tp == tx, "msg_ps3": len(tp), "msg_360": len(tx),
         "translated": len(new_x), "recovered": recovered, "misses": misses, "garbage": garbage,
-        "approx": [{"ps3": i, "x": mapping[i], "ratio": r, "jp_ps3": tp[i], "jp_360": tx[mapping[i]]}
-                   for i, r in approx.items() if i in new_ps3],
+        "approx": [{"ps3": i, "x": mapping[i], "ratio": r, "jp_ps3": tp[i], "jp_360": tx[mapping[i]],
+                    "kr_ps3": idx_tr.get(i, "")}
+                   for i, r in approx.items()],     # PS3 쪽이 미번역인 짝도 웹앱 360 행이 필요(전수 조사)
         "untranslated_360": [{"x": j, "jp_360": tx[j], "suggest": suggest(tx[j]),
                               "translated": j in new_x} for j in untranslated],
         "lost": [{"ps3": i, "jp_ps3": tp[i], "kr": idx_tr.get(i, "")} for i in lost],

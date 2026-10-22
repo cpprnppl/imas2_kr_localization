@@ -5,6 +5,9 @@ r"""
 
 대상: 360판 .mpc(pac) 안 내장 XMB의 _text — game_xmb.py 추출 범위와 같음
 (NPC 명단·가사 id 접두는 제외: pcport_apply·dance_lyrics 담당).
++ gscript 밖 pac 속 내장 SCB(멤버 선택 소개 대사·ScheduleSelect·dress_select·mail_produce·attract, 2026-10-23
+  전수 조사로 발견 — 웹앱엔 gscript 같은 대사로 있지만 주입기가 없었다): 게임 스크립트 행 번역을 원문 일치로,
+  excel2scb와 같은 MSG 재작성 경로·validate_output 게이트.
 
 원칙
   - 기준 파일 = game_kor의 **현재** 파일(폰트 주입된 initialFix·이미지 주입본 보존).
@@ -23,6 +26,7 @@ import os
 import sys
 import json
 import time
+import struct
 import shutil
 import hashlib
 import argparse
@@ -37,6 +41,12 @@ import game_xmb  # noqa: E402
 import platform_audit as PA  # noqa: E402
 from pcport_apply import parse_pac, rebuild_pac  # noqa: E402
 from dlc_inject import tsk_parse, tsk_build  # noqa: E402
+sys.path.insert(0, os.path.join(os.path.dirname(HERE), "scb"))
+import scb_common as C  # noqa: E402
+import excel2scb as E  # noqa: E402
+import validate_output as V  # noqa: E402
+
+FONT_MAP = E.load_font_mapping()     # 직접 한글 모드면 {} (gscript 빌드와 같은 규칙)
 
 GAME_KOR = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor"
 KOR_RES = os.path.join(GAME_KOR, "resource")
@@ -95,7 +105,42 @@ def children(d):
     return []
 
 
+def is_scb_dec(d):
+    """gscript 밖 pac 속에 든 대사 묶음(member_select 소개 대사·ScheduleSelect·dress_select·mail_produce·attract).
+    구조는 gscript dec 파일과 같다: pac(데이터 0x80) → [SCB, 컷씬 pac]."""
+    if d[:4] != b"pac\x00" or len(d) < 0x100 or struct.unpack_from(">I", d, 0x38)[0] != 0x80:
+        return False
+    return d[0x80:0x84] == b"SCB\x00"
+
+
+def scb_rebuild(base, orig, scb_tr, st, path):
+    """내장 SCB의 MSG를 excel2scb와 같은 경로(rewrap·MSG 표 재작성·pac 헤더 4필드)로 다시 만든다.
+    기준은 360 원본(orig) — 번역 없는 줄은 원문 그대로라 몇 번 돌려도 같다. game_kor 쪽(base)은
+    MSG 말고는 원본과 같아야 한다(컷씬 pac 등 다른 주입이 없음을 확인)."""
+    secs = C.parse_section_dir(orig)
+    msg_abs, msg_size = secs["MSG"]
+    pp = E.parse_msg_table(orig, msg_abs)
+    if base != orig:
+        bk, ok = children(base), children(orig)
+        if len(bk) != len(ok) or bk[1][1] != ok[1][1]:
+            raise ValueError(f"{path}: game_kor 쪽 내장 SCB의 컷씬 pac이 원본과 다름 — 다른 주입과 겹침")
+    new = {}
+    for s in pp["strings"]:
+        kr = scb_tr.get(s["text"])
+        if kr and not E.is_garbage_translation(kr):
+            new[s["index"]] = E.rewrap(kr)
+    st["scb_kr"] += len(new)
+    st["scb_jp"] += sum(1 for s in pp["strings"] if s["text"].strip() and s["index"] not in new)
+    if not new:
+        return orig
+    out, _delta = E.replace_msg_section(orig, msg_abs, msg_size, E.build_msg_block(pp, new, FONT_MAP, msg_size))
+    st["scb"] += 1
+    return out
+
+
 def has_scope(d):
+    if is_scb_dec(d):
+        return True
     if d[:4] == b"XMB ":
         try:
             return bool(scope_attrs(d))
@@ -105,7 +150,9 @@ def has_scope(d):
 
 
 def walk(base, orig, tr, st, path=""):
-    """기준(game_kor) 버퍼에 원본 구조를 따라 내려가며 대상 XMB를 재빌드. 새 바이트 반환."""
+    """기준(game_kor) 버퍼에 원본 구조를 따라 내려가며 대상 XMB·내장 SCB를 재빌드. 새 바이트 반환."""
+    if is_scb_dec(orig):
+        return scb_rebuild(base, orig, tr[2], st, path)
     if orig[:4] == b"XMB ":
         try:
             sc = scope_attrs(orig)
@@ -115,7 +162,7 @@ def walk(base, orig, tr, st, path=""):
             return base
         if base[:4] != b"XMB ":
             raise ValueError(f"{path}: game_kor 쪽이 XMB가 아님")
-        by_pair, by_jp = tr
+        by_pair, by_jp = tr[:2]
         repl = {}
         for ai, tid, jp in sc:
             kr = by_pair.get((tid, jp)) or by_jp.get(jp)
@@ -158,7 +205,8 @@ def load_orig(rel):
 
 
 def translations(code):
-    rows = [r for r in PA.fetch_rows() if r["cat"] == "gamedata" and r["kr"]]
+    allr = PA.fetch_rows(cats=("gamedata", "script"))
+    rows = [r for r in allr if r["cat"] == "gamedata" and r["kr"]]
     by_pair, by_jp = {}, collections.defaultdict(collections.Counter)
     for r in rows:
         k = r["key"][5:] if r["key"].startswith("x360:") else r["key"]
@@ -167,14 +215,21 @@ def translations(code):
             tid = tid.rsplit(".", 1)[0]
         by_pair[(tid, r["jp"])] = r["kr"]
         by_jp[r["jp"]][r["kr"]] += 1
-    return by_pair, {jp: c.most_common(1)[0][0] for jp, c in by_jp.items()}, len(rows)
+    # 내장 SCB(소개 대사 등)는 gscript 대사와 같은 원문 — 게임 스크립트 행 번역을 원문 일치로 쓴다(다수결)
+    scb = collections.defaultdict(collections.Counter)
+    for r in allr:
+        if r["cat"] == "script" and r["kr"]:
+            scb[r["jp"]][r["kr"]] += 1
+    scb_tr = {jp: c.most_common(1)[0][0] for jp, c in scb.items()}
+    return by_pair, {jp: c.most_common(1)[0][0] for jp, c in by_jp.items()}, len(rows), scb_tr
 
 
-def build_file(rel, by_pair, by_jp, stats):
+def build_file(rel, by_pair, by_jp, stats, scb_tr=None):
     base, orig = load_base(rel), load_orig(rel)
     st = collections.Counter()
-    out = walk(base, orig, (by_pair, by_jp), st, rel)
-    stats[rel] = {"kr": st["kr"], "jp": st["jp"], "xmb_changed": st["xmb"], "size": [len(base), len(out)]}
+    out = walk(base, orig, (by_pair, by_jp, scb_tr or {}), st, rel)
+    stats[rel] = {"kr": st["kr"], "jp": st["jp"], "xmb_changed": st["xmb"], "size": [len(base), len(out)],
+                  "scb_kr": st["scb_kr"], "scb_jp": st["scb_jp"], "scb_changed": st["scb"]}
     return base, out
 
 
@@ -194,14 +249,14 @@ def cmd_roundtrip(_a):
 
 
 def cmd_build(a):
-    by_pair, by_jp, n = translations(a.code)
-    print(f"웹앱 gamedata 번역 {n}행")
+    by_pair, by_jp, n, scb_tr = translations(a.code)
+    print(f"웹앱 gamedata 번역 {n}행, 내장 SCB용 게임 스크립트 번역 원문 {len(scb_tr):,}개")
     shutil.rmtree(OUT, ignore_errors=True)
     os.makedirs(OUT)
     stats = {}
     mapping = set(json.load(open(MAPPING_PATH, encoding="utf-8")).keys())
     for rel in targets():
-        _base, out = build_file(rel, by_pair, by_jp, stats)
+        _base, out = build_file(rel, by_pair, by_jp, stats, scb_tr)
         dst = os.path.join(OUT, rel)
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         open(dst, "wb").write(out)
@@ -209,8 +264,9 @@ def cmd_build(a):
     rep = {"files": stats, "font_missing": dict(miss.most_common()), "at": time.strftime("%Y-%m-%d %H:%M")}
     json.dump(rep, open(REPORT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     for rel, s in stats.items():
-        print(f"  {rel}: 한국어 {s['kr']}칸 / 일본어 유지 {s['jp']}칸, XMB {s['xmb_changed']}개, "
-              f"{s['size'][0]:,}→{s['size'][1]:,}B")
+        print(f"  {rel}: 한국어 {s['kr']}칸 / 일본어 유지 {s['jp']}칸, XMB {s['xmb_changed']}개"
+              + (f", 내장 대사 한국어 {s['scb_kr']}줄 / 일본어 {s['scb_jp']}줄" if s["scb_kr"] or s["scb_jp"] else "")
+              + f", {s['size'][0]:,}→{s['size'][1]:,}B")
     print(f"합계 한국어 {sum(s['kr'] for s in stats.values())}칸 → {OUT}")
     if miss:
         print(f"⚠ 폰트 매핑 2,359자에 없는 한글 {len(miss)}자(빈 글리프 가능): {''.join(miss)}")
@@ -218,6 +274,18 @@ def cmd_build(a):
 
 def check(out, base, orig, path):
     """out(빌드) vs base(game_kor) vs orig(360 원본) 재귀 비교."""
+    if is_scb_dec(orig):
+        # 내장 SCB: gscript 산출물과 같은 게이트(validate_output.validate_dec) + 컷씬 pac 불변 + 줄 수 불변
+        issues, _h = V.validate_dec(out, orig)
+        if issues:
+            raise ValueError(f"{path}: 내장 SCB {issues[:3]}")
+        if children(out)[1][1] != children(orig)[1][1]:
+            raise ValueError(f"{path}: 내장 SCB 컷씬 pac 변동")
+        po = E.parse_msg_table(orig, C.parse_section_dir(orig)["MSG"][0])
+        pn = E.parse_msg_table(out, C.parse_section_dir(out)["MSG"][0])
+        if po["count"] != pn["count"]:
+            raise ValueError(f"{path}: 내장 SCB 줄 수 변동")
+        return
     if orig[:4] == b"XMB ":
         try:
             sc = scope_attrs(orig)

@@ -890,8 +890,10 @@ function altHtml(r) {
 
 /* 적용 범위 안내 */
 function scopeText(r) {
-  if (r.cat === "exe") return "이 번역이 들어가는 곳: PC 포트(360) 실행 파일 — " + ((r.meta || {}).inject || "주입 경로 준비 중");
   const p = platOf(r);
+  if (r.cat === "exe") return "이 번역이 들어가는 곳: " +
+    (p === "ps3" ? "PS3 실행 파일(EBOOT)" : p === "x360" ? "PC 포트(360) 실행 파일" : "PS3 EBOOT · PC 포트(360) 실행 파일") +
+    " — " + ((r.meta || {}).inject || "주입 경로 준비 중");
   return "이 번역이 들어가는 곳: " + (p === "ps3" ? "PS3 한글 패치" : p === "x360" ? "PC 포트(360)" : "PS3 한글 패치 · PC 포트(360)");
 }
 /* 다른 판 보기: meta.pair(상대 판 행 id) 또는 script의 '360판 문구' 메모 */
