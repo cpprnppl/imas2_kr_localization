@@ -46,6 +46,14 @@ JP_ROOT = r"C:\Users\jackfilm\Desktop\rpcs3-v0.0.39-18811-6bfb3327_win64_msvc\de
 CN_ROOT = r"C:\Users\jackfilm\Desktop\偶像大师2汉化补丁\games\THE iDOLM@STER 2 [BLJS10083]\PS3_GAME\USRDIR\resource"
 IMAS2DEC = r"C:\Users\jackfilm\Documents\GitHub\Imas2ToolS\misc\imas2dec\imas2dec.exe"
 OUT_DEFAULT = r"C:\Users\jackfilm\Desktop\imas2_image_text"
+PS3_ORIG = os.path.join(OUT_DEFAULT, "ps3_res_orig")   # ps3_res_apply.py 순정 사본 (2026-10-23)
+
+
+def ps3_src(rel):
+    """PS3 resource를 '원본'으로 읽을 때의 경로. ps3_res_apply가 순정 사본을 떠 둔 파일은 그 사본 —
+    게임 폴더 파일은 한글 배포본일 수 있다(재패치 오염 방지, CLAUDE.md 규칙 1과 같은 이유)."""
+    p = os.path.join(PS3_ORIG, rel)
+    return p if os.path.exists(p) else os.path.join(JP_ROOT, rel)
 
 EXCLUDE_DIRS = {"gscript"}
 EXCLUDE_FILES = {"initialfix.mpc", "initialtemp.mpc"}
@@ -259,7 +267,7 @@ def inventory():
 
 
 def extract_side(rel: str, src_root: str, cache_root: str, png_root: str, log):
-    src = os.path.join(src_root, rel)
+    src = ps3_src(rel) if src_root == JP_ROOT else os.path.join(src_root, rel)
     if not os.path.exists(src):
         return {"error": "원본 없음", "textures": []}
     cache = stage_file(src, os.path.join(cache_root, rel), log)

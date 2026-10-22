@@ -147,8 +147,8 @@ def load_file(root, rel):
     p = os.path.join(OUT_DEFAULT, "_cache", root, rel)
     if not os.path.exists(p):
         if root == "jp" and rel.replace("/", "\\").startswith("songinfo\\"):
-            from extract_image_text import stage_file
-            src = os.path.join(JP_ROOT, rel)
+            from extract_image_text import stage_file, ps3_src
+            src = ps3_src(rel)
             stage_file(src, p, lambda *a: None)
             return open(p, "rb").read()
         raise FileNotFoundError(f"{p} — 먼저 extract_image_text.py를 실행하세요")

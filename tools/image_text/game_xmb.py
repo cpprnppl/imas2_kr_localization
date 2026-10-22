@@ -30,7 +30,7 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from xmb_text import parse_xmb  # noqa: E402
-from extract_image_text import JP_ROOT  # noqa: E402
+from extract_image_text import JP_ROOT, ps3_src  # noqa: E402
 from dlc_text import stage  # noqa: E402  (사본 복호화 캐시 재사용)
 
 JP = re.compile(r"[぀-ヿ一-鿿！-～]")
@@ -68,8 +68,8 @@ def iter_sources():
         top = rel_dir.split(os.sep)[0]
         dns[:] = [d for d in dns if d not in SKIP_DIRS and not d.startswith("_")]
         for fn in sorted(fns):
-            p = os.path.join(dp, fn)
             rel = os.path.normpath(os.path.join(rel_dir, fn))
+            p = ps3_src(rel)          # 한글 배포본이 아니라 순정 사본(있으면)
             low = fn.lower()
             if low.endswith(".mpc") and ".dec" not in low:
                 data = open(p, "rb").read()

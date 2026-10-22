@@ -29,10 +29,10 @@ from PIL import Image
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from extract_image_text import OUT_DEFAULT, JP_ROOT, walk_nuts, decode_texture  # noqa: E402
+from extract_image_text import OUT_DEFAULT, JP_ROOT, walk_nuts, decode_texture, ps3_src  # noqa: E402
 
 OUT = os.path.join(OUT_DEFAULT, "emoji")
-SRC = os.path.join(JP_ROOT, "initialTemp.mpc")   # 읽기 전용
+SRC = ps3_src("initialTemp.mpc")   # 읽기 전용 (ps3_res_apply 순정 사본이 있으면 그것)
 CELL, COLS, N = 32, 8, 64
 UPM, PX = 1024, 36                                # 1픽셀 = 36 units (칸 1.125em, 한글 옆에서 작아 보이지 않게)
 ASC, DESC = 992, 160

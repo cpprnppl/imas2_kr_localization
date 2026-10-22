@@ -29,7 +29,7 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(os.path.dirname(HERE), "scb"))
-from extract_image_text import JP_ROOT, OUT_DEFAULT  # noqa: E402
+from extract_image_text import JP_ROOT, OUT_DEFAULT, ps3_src  # noqa: E402
 from xmb_text import parse_xmb, collect_texts  # noqa: E402
 import platform_audit as PA  # noqa: E402
 import find_text as FT  # noqa: E402
@@ -221,10 +221,12 @@ def injector(src, rel, kind, gd_files):
         return "patch_attract"                           # tools/scb/patch_attract.py (워크로그 §20, PS3만)
     if src.endswith("_dlc"):
         return "dlc_inject" if re.search(r"(^|/)(mail|ranker|songinfo)/|catalog|package", r) else ""
+    # PS3 리소스는 xmb_text가 patched\에 빌드만 하고 게임 폴더 배포 경로가 없다(2026-10-23 확인: PS3 게임 폴더
+    # install.xmb·NPC 표·initialFix 등 한글 0) → PS3는 '미배포'로 표시하고 주입기 없음으로 센다
     if r in ("text/install.xmb", "ranker/ranker_npc.xmb") or (r.startswith("songinfo/") and "lyrics_" in r):
-        return "xmb_text" if ps3 else "pcport_apply"
+        return "xmb_text(빌드만·PS3 미배포)" if ps3 else "pcport_apply"
     if r in NPC_TABLE_FILES and kind == "npc":
-        return "xmb_text" if ps3 else "pcport_apply"
+        return ("xmb_text(빌드만·PS3 미배포)" if r == "scene/exep_init.mpc" else "") if ps3 else "pcport_apply"
     if r in gd_files and kind == "xmb":
         return "" if ps3 else "gamedata_apply"          # gamedata_apply는 360(game_kor) 전용
     if kind == "scb_embedded" and not ps3:
@@ -286,7 +288,7 @@ def scan():
                 if os.path.getsize(p) > 64 << 20:
                     stat["skip_big"] += 1
                     continue
-                raw = open(p, "rb").read()
+                raw = open(ps3_src(rel) if tag == "ps3_res" else p, "rb").read()   # PS3 배포본 말고 순정 사본
                 if tag == "ps3_scb":
                     import scb_common as C
                     try:
@@ -354,12 +356,12 @@ def scan():
         inweb = sum(1 for n in ns if n in web or n in big)
         inj_rows.append({"src": src, "file": rel, "kind": kind, "strings": len(ns), "in_web": inweb,
                          "injector": inj})
-    no_inj = [r for r in inj_rows if not r["injector"] and r["in_web"]]
+    no_inj = [r for r in inj_rows if (not r["injector"] or "미배포" in r["injector"]) and r["in_web"]]
     os.makedirs(OUT, exist_ok=True)
     json.dump(inj_rows, open(os.path.join(OUT, "injection.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     rep = {"at": time.strftime("%Y-%m-%d %H:%M"), "snapshot": snap["at"], "stat": dict(stat),
            "unique_strings": len(found), "result": dict(res), "undecryptable": undec,
-           "injection": {"locations": len(inj_rows), "with_injector": sum(1 for r in inj_rows if r["injector"]),
+           "injection": {"locations": len(inj_rows), "with_injector": len(inj_rows) - len(no_inj),
                          "web_but_no_injector": len(no_inj),
                          "strings_web_but_no_injector": sum(r["in_web"] for r in no_inj)}}
     json.dump(rep, open(os.path.join(OUT, "report.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
@@ -373,6 +375,7 @@ def scan():
               f"구조 텍스트 위치(파일×종류) {ij['locations']:,}곳 — 주입기 있음 {ij['with_injector']:,}, "
               f"**웹앱엔 있으나 주입기 없음 {ij['web_but_no_injector']:,}곳 · {ij['strings_web_but_no_injector']:,}문구**", ""]
     lines += [f"- {r['src']} | {r['file']} | {r['kind']} | 문구 {r['strings']} (웹 {r['in_web']})"
+              + (f" | {r['injector']}" if r["injector"] else "")
               for r in sorted(no_inj, key=lambda r: -r["in_web"])[:120]]
     lines += ["", "## 복호화·접근 불가", ""] + [f"- {a} {b} {c}" for a, b, c in undec[:60]]
     open(os.path.join(OUT, "report.md"), "w", encoding="utf-8").write("\n".join(lines) + "\n")

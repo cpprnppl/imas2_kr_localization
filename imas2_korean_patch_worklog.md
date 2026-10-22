@@ -1459,5 +1459,15 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
      → gamedata_apply에 내장 SCB 주입 추가(게임 스크립트 행 번역을 원문 일치, excel2scb rewrap·MSG 재작성, validate_dec 게이트,
      컷씬 pac 불변 검사). 360만. PS3는 리소스 주입 경로 신설 필요(1번과 함께).
   3. 360 initialTemp.mpc 라이벌 유닛 프리셋 26문구 — 확인 결과 gamedata_apply.targets()가 원문 일치로 이미 처리(22칸 한국어).
+- **PS3 리소스엔 한글이 하나도 없었다**(확인: install.xmb·NPC 표·initialFix·mainmenu·member_select 한글 0). xmb_text·이미지는
+  patched\까지 빌드만 되고 PS3 게임 폴더 배포 경로가 없었다(gscript·attract·폰트만 배포). KOR 결정으로 PS3 리소스 주입기 신설:
+  tools/image_text/ps3_res_apply.py — snapshot(ps3_res_orig: 한글 0 + 추출 캐시 평문 sha 일치 49/50, initialFix는 deploy_fonts
+  폰트 주입 상태가 기준) → build(이미지 층 inject_image_text 산출 + 텍스트 층 gamedata_apply.walk: gamedata·내장 SCB·
+  PS3 NPC 명단 표(npc_kr_for)·install/ranker 단독 XMB, 암호화본은 같은 키로 재암호화·왕복 확인) → validate(구조 재파싱·
+  비대상 불변·폰트 직접 등록판·initialFix 내장 NFH = loose 폰트·폰트에 없는 한글 0) → deploy(RPCS3 미실행, USRDIR\_backup_ps3res_<시각>
+  + manifest 이전/이후 sha) / restore. 첫 빌드: 50파일, 게임 데이터 3,001칸·NPC 5,652칸·내장 대사 195줄·단독 XMB 26칸·이미지 45파일,
+  구조 오류 0, 쓰인 한글 983자 전부 폰트에 있음. 배포는 사용자 승인 대기(권한 분류기가 공유 리소스 변경으로 차단).
+  PS3 resource를 원본으로 읽는 도구(game_xmb·extract_image_text·coverage_scan·emoji_assets·xmb_text 스테이징)는
+  extract_image_text.ps3_src(rel)로 순정 사본 우선 — 배포 뒤 게임 폴더 재추출 오염 방지.
 - 360 내장 SCB 시험 빌드: member_select 45/45, ScheduleSelect 107/121, dress_select 36/41, attract 10/12, mail_produce 3/3
   한국어(나머지는 같은 원문의 게임 스크립트 번역이 없음).

@@ -35,11 +35,12 @@ import collections
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from extract_image_text import OUT_DEFAULT  # noqa: E402
+import re  # noqa: E402
+from extract_image_text import OUT_DEFAULT, JP_ROOT  # noqa: E402
 from xmb_text import parse_xmb, rebuild_xmb, MAPPING_PATH  # noqa: E402
 import game_xmb  # noqa: E402
 import platform_audit as PA  # noqa: E402
-from pcport_apply import parse_pac, rebuild_pac  # noqa: E402
+from pcport_apply import parse_pac, rebuild_pac, NPC_PREFIX  # noqa: E402
 from dlc_inject import tsk_parse, tsk_build  # noqa: E402
 sys.path.insert(0, os.path.join(os.path.dirname(HERE), "scb"))
 import scb_common as C  # noqa: E402
@@ -53,6 +54,10 @@ KOR_RES = os.path.join(GAME_KOR, "resource")
 LOCK = r"C:\Users\jackfilm\Desktop\imas2pc\gpu_run.lock"
 OUT = os.path.join(OUT_DEFAULT, "out_gamedata")
 REPORT = os.path.join(OUT, "report.json")
+PLAT = "x360"
+PS3_ORIG = os.path.join(OUT_DEFAULT, "ps3_res_orig")          # PS3 리소스 순정 사본(대상 파일만, 읽기 전용 취급)
+PS3_SKIP = {"scene\\attract.mpc"}                            # tools/scb/patch_attract.py 담당(§20)
+HANGUL = re.compile("[가-힣]")
 
 
 def anc_id(nodes, entries, ni):
@@ -83,10 +88,22 @@ def scope_attrs(seg):
     return out
 
 
+def set_plat(plat):
+    """--plat ps3: 원본·기준 = PS3 순정 사본(ps3_res_orig — 첫 실행 때 게임 폴더에서 한글 없음 확인 후 복사),
+    산출 out_gamedata_ps3. PS3 .mpc는 평문 pac이라 재암호화 불필요. 배포는 KOR 승인 전까지 막아 둔다."""
+    global PLAT, OUT, REPORT
+    PLAT = plat
+    OUT = os.path.join(OUT_DEFAULT, "out_gamedata_ps3" if plat == "ps3" else "out_gamedata")
+    REPORT = os.path.join(OUT, "report.json")
+
+
 def targets():
-    """360 원본 트리에서 게임 데이터 XMB가 든 .mpc 상대경로."""
+    """원본 트리에서 게임 데이터 XMB·내장 SCB가 든 .mpc 상대경로."""
     out = []
-    for rel, d in PA.iter_360_sources():
+    src = ((rel, d) for rel, d in game_xmb.iter_sources()) if PLAT == "ps3" else PA.iter_360_sources()
+    for rel, d in src:
+        if PLAT == "ps3" and rel.lower() in PS3_SKIP:
+            continue
         if d is None or not rel.lower().endswith(".mpc") or d[:4] != b"pac\x00":
             continue
         if has_scope(d):
@@ -138,12 +155,23 @@ def scb_rebuild(base, orig, scb_tr, st, path):
     return out
 
 
+def npc_scope(seg):
+    """NPC 명단 XMB의 [(attr, id, text)] — PS3 리소스 주입(--plat ps3)에서만 대상. 360은 pcport_apply 담당."""
+    if PLAT != "ps3":
+        return []
+    from xmb_text import collect_texts
+    ts = collect_texts(parse_xmb(seg, 0))
+    if not any(t["id"].startswith(NPC_PREFIX) for t in ts):
+        return []
+    return [(t["attr"], t["id"], t["text"]) for t in ts if t["id"].startswith(NPC_PREFIX)]
+
+
 def has_scope(d):
     if is_scb_dec(d):
         return True
     if d[:4] == b"XMB ":
         try:
-            return bool(scope_attrs(d))
+            return bool(scope_attrs(d)) or bool(npc_scope(d))
         except Exception:  # noqa: BLE001
             return False
     return any(has_scope(c) for _i, c in children(d))
@@ -156,9 +184,10 @@ def walk(base, orig, tr, st, path=""):
     if orig[:4] == b"XMB ":
         try:
             sc = scope_attrs(orig)
+            npc = npc_scope(orig) if len(tr) > 3 and tr[3] else []
         except Exception:  # noqa: BLE001
             return base
-        if not sc:
+        if not sc and not npc:
             return base
         if base[:4] != b"XMB ":
             raise ValueError(f"{path}: game_kor 쪽이 XMB가 아님")
@@ -168,6 +197,12 @@ def walk(base, orig, tr, st, path=""):
             kr = by_pair.get((tid, jp)) or by_jp.get(jp)
             repl[ai] = kr or jp
             st["kr" if kr else "jp"] += 1
+        if npc:     # PS3 NPC 명단 표(360은 pcport_apply 담당) — 원문 일치 규칙은 360과 같은 npc_kr_for
+            from pcport_apply import npc_kr_for
+            krs = npc_kr_for([{"id": t, "text": j, "attr": a} for a, t, j in npc], tr[3])
+            for ai, tid, jp in npc:
+                repl[ai] = krs.get(tid) or jp
+                st["npc_kr" if krs.get(tid) else "npc_jp"] += 1
         new = rebuild_xmb(base, 0, repl, lambda *a: None, allow_grow=True)
         st["xmb"] += new != base
         return new
@@ -190,6 +225,8 @@ def walk(base, orig, tr, st, path=""):
 
 
 def load_base(rel):
+    if PLAT == "ps3":            # PS3 리소스엔 아직 다른 주입이 없다(2026-10-23 확인) — 기준 = 순정
+        return load_orig(rel)
     raw = open(os.path.join(KOR_RES, rel), "rb").read()
     d = PA.dec_any(raw, "x360")
     if d is None or d[:4] != b"pac\x00":
@@ -197,7 +234,36 @@ def load_base(rel):
     return d
 
 
+def has_hangul_in_scope(d):
+    if is_scb_dec(d):
+        return any(HANGUL.search(s["text"]) for s in
+                   E.parse_msg_table(d, C.parse_section_dir(d)["MSG"][0])["strings"])
+    if d[:4] == b"XMB ":
+        try:
+            return any(HANGUL.search(t) for _a, _t, t in scope_attrs(d))
+        except Exception:  # noqa: BLE001
+            return False
+    return any(has_hangul_in_scope(c) for _i, c in children(d))
+
+
+def ps3_pristine(rel):
+    """PS3 순정 사본. 없으면 게임 폴더 파일을 복사하되, 대상 칸에 한글이 이미 있으면(패치본) 거부."""
+    dst = os.path.join(PS3_ORIG, rel)
+    if not os.path.exists(dst):
+        d = open(os.path.join(JP_ROOT, rel), "rb").read()
+        if has_hangul_in_scope(d):
+            raise ValueError(f"{rel}: PS3 게임 폴더 파일에 이미 한글 — 순정이 아님, 사본 생성 거부")
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        open(dst, "wb").write(d)
+    return open(dst, "rb").read()
+
+
 def load_orig(rel):
+    if PLAT == "ps3":
+        d = ps3_pristine(rel)
+        if d[:4] != b"pac\x00":
+            raise ValueError(f"{rel}: PS3 파일이 평문 pac이 아님")
+        return d
     d = PA.dec_any(open(os.path.join(PA.X360, rel), "rb").read(), "x360")
     if d is None or d[:4] != b"pac\x00":
         raise ValueError(f"{rel}: 360 원본 복호화 실패")
@@ -288,7 +354,7 @@ def check(out, base, orig, path):
         return
     if orig[:4] == b"XMB ":
         try:
-            sc = scope_attrs(orig)
+            sc = scope_attrs(orig) + npc_scope(orig)
         except Exception:  # noqa: BLE001
             sc = []
         if not sc:
@@ -336,8 +402,13 @@ def cmd_validate(_a):
     sys.exit(0 if ok else 1)
 
 
-def cmd_deploy(_a):
-    if os.path.exists(LOCK) or os.system('tasklist /FI "IMAGENAME eq imas2pc.exe" | find /I "imas2pc.exe" >nul') == 0:
+def cmd_deploy(a):
+    if a.other_disc_ok:
+        from pcport_apply import game_kor_busy
+        why = game_kor_busy(True)
+        if why:
+            sys.exit(f"❌ {why} — 배포 보류")
+    elif os.path.exists(LOCK) or os.system('tasklist /FI "IMAGENAME eq imas2pc.exe" | find /I "imas2pc.exe" >nul') == 0:
         sys.exit("❌ 게임 실행 중(gpu_run.lock 또는 imas2pc.exe) — 배포 보류")
     if not validate_all():
         sys.exit("❌ 구조 검증 실패 — 배포 중단")
@@ -356,13 +427,20 @@ def cmd_deploy(_a):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--plat", choices=["x360", "ps3"], default="x360",
+                    help="ps3 = PS3 리소스(순정 사본 기준, 빌드·검증만 — 배포는 KOR 승인 대기)")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("roundtrip")
     b = sub.add_parser("build")
     b.add_argument("--code", required=True)
     sub.add_parser("validate")
-    sub.add_parser("deploy")
+    d = sub.add_parser("deploy")
+    d.add_argument("--other-disc-ok", action="store_true",
+                   help="gpu_run.lock 주인이 game_kor가 아닌 디스크로 돌 때(KOR 확인 후)만")
     a = ap.parse_args()
+    set_plat(a.plat)
+    if a.plat == "ps3" and a.cmd == "deploy":
+        sys.exit("PS3 리소스 배포 경로는 KOR 승인 전 — 빌드·검증만 (out_gamedata_ps3)")
     {"roundtrip": cmd_roundtrip, "build": cmd_build, "validate": cmd_validate, "deploy": cmd_deploy}[a.cmd](a)
 
 

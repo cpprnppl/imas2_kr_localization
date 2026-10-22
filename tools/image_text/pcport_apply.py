@@ -384,9 +384,26 @@ def build():
     return report
 
 
-def deploy():
-    if os.path.exists(LOCK):
-        sys.exit(f"[중단] {LOCK} 존재 — 게임 실행 중. 끝난 뒤 다시.")
+def game_kor_busy(other_disc_ok=False):
+    """game_kor를 쓰는 게임이 돌고 있으면 사유 문자열, 아니면 None.
+    other_disc_ok: gpu_run.lock이 있어도 잠금 주인의 로그·실행 중 프로세스 명령줄·환경 어디에도 game_kor가 없으면
+    허용(다른 디스크로 도는 런 — KOR 판단으로만 쓴다, 2026-10-23)."""
+    if os.path.exists(LOCK) and not other_disc_ok:
+        return f"{LOCK} 존재 — 게임 실행 중"
+    if os.path.exists(LOCK) and "game_kor" in open(LOCK, encoding="utf-8", errors="replace").read():
+        return "잠금 주인이 game_kor 사용"
+    out = os.popen('powershell -NoProfile -Command "Get-CimInstance Win32_Process | '
+                   'Where-Object { $_.CommandLine -match \'game_kor\' -and $_.Name -notmatch \'python|powershell|cmd|conhost|bash\' } | '
+                   'ForEach-Object { $_.Name }"').read().strip()
+    if out:
+        return f"game_kor를 명령줄에 쓰는 프로세스: {out}"
+    return None
+
+
+def deploy(other_disc_ok=False):
+    why = game_kor_busy(other_disc_ok)
+    if why:
+        sys.exit(f"[중단] {why}. 끝난 뒤 다시.")
     if not os.path.isdir(KOR_RES):
         sys.exit(f"[중단] 사본 없음: {KOR_RES} — build_imas2_o2\\game을 통째 복사 먼저")
     rep = json.load(open(os.path.join(OUT, "_report.json"), encoding="utf-8"))
@@ -422,8 +439,10 @@ def deploy():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["build", "deploy"])
+    ap.add_argument("--other-disc-ok", action="store_true",
+                    help="gpu_run.lock 주인이 game_kor가 아닌 디스크로 돌 때(KOR 확인 후)만")
     a = ap.parse_args()
-    build() if a.cmd == "build" else deploy()
+    build() if a.cmd == "build" else deploy(a.other_disc_ok)
 
 
 if __name__ == "__main__":
