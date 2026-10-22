@@ -142,10 +142,11 @@ def scb_rebuild(base, orig, scb_tr, st, path):
         if len(bk) != len(ok) or bk[1][1] != ok[1][1]:
             raise ValueError(f"{path}: game_kor 쪽 내장 SCB의 컷씬 pac이 원본과 다름 — 다른 주입과 겹침")
     new = {}
+    choices = E.choice_indices(orig)
     for s in pp["strings"]:
         kr = scb_tr.get(s["text"])
         if kr and not E.is_garbage_translation(kr):
-            new[s["index"]] = E.rewrap(kr)
+            new[s["index"]] = E.rewrap(kr, s["index"] in choices)
     st["scb_kr"] += len(new)
     st["scb_jp"] += sum(1 for s in pp["strings"] if s["text"].strip() and s["index"] not in new)
     if not new:

@@ -247,7 +247,7 @@ def build_one(rel, abs_map, font_map, x360_tr=None):
     if "MSG" not in sp or "MSG" not in sx:
         return None, {"skip": "MSG 없음"}
     pp = e2s.parse_msg_table(p, sp["MSG"][0])
-    new_ps3, recovered, misses, garbage = e2s.resolve_translations(pp, abs_map)
+    new_ps3, recovered, misses, garbage = e2s.resolve_translations(pp, abs_map, e2s.choice_indices(p))
     msg_abs, msg_size = sx["MSG"]
     px = e2s.parse_msg_table(x, msg_abs)
     tp = [s["text"] for s in pp["strings"]]
@@ -258,11 +258,12 @@ def build_one(rel, abs_map, font_map, x360_tr=None):
     mapped_x = set(mapping.values())
     untranslated = [j for j in range(len(tx)) if j not in mapped_x and tx[j].strip()]
     x_applied, x_stale = 0, []
+    choices_x = e2s.choice_indices(x)
     approx_x = {mapping[i] for i in approx}   # 원문이 달라진 짝(버튼명 ○→A 등): 웹앱 360 행 번역이 있으면 우선
     for js, ent in (x360_tr or {}).items():
         j = int(js)
         if (j in untranslated or j in approx_x) and tx[j] == ent.get("jp") and ent.get("kr", "").strip():
-            new_x[j] = e2s.rewrap(ent["kr"])
+            new_x[j] = e2s.rewrap(ent["kr"], j in choices_x)
             x_applied += 1
         else:
             x_stale.append(j)          # 원문/위치가 달라진 회수본 — 적용 안 함

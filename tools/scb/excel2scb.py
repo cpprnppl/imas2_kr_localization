@@ -293,14 +293,31 @@ def _wrap_balanced(flat: str) -> list:
 
 # 선택지 상자(xb_choice) 한 줄 폭 — 게임이 상자 폭에서 **글자 단위로** 자른다(Mac 1023e: '아니요, 괜찮습니다'가
 # '…괜찮습니 / 다'). 실측: '아니요, 괜찮습니'(추정 209)는 들어가고 '다'(235)가 넘침 → 209 이하로 어절 경계에서 미리 끊는다.
-# 선택지엔 표시가 없어 「」·（） 없는 한 줄 문자열 전부에 적용(대사창 평문 효과음 등은 2줄이 될 뿐 무해, 2026-10-23).
+# 선택지 MSG는 CMD 스트림의 선택지 명령(0x0103, 인자 4개, 첫 인자 = MSG 인덱스)으로 식별(전 파일 2,640줄, 2026-10-23).
+# 원문도 선택지는 '\n'으로 2줄을 쓴다('ステージの\n反映について') — 상자는 2줄까지.
 CHOICE_WIDTH = 209.0
-_OPEN_BRACKETS = "「『（(【〈《“\""
+CHOICE_OPCODE = 0x01030400
+
+
+def choice_indices(dec: bytes) -> set:
+    """dec(pac+SCB)의 선택지 MSG 인덱스 집합."""
+    secs = common.parse_section_dir(dec)
+    if "CMD" not in secs or "MSG" not in secs:
+        return set()
+    a, n = secs["CMD"]
+    count = struct.unpack_from(">H", dec, secs["MSG"][0] + 32)[0]
+    out = set()
+    for o in range(a, a + n - 8, 4):
+        if struct.unpack_from(">I", dec, o)[0] == CHOICE_OPCODE:
+            i = struct.unpack_from(">I", dec, o + 4)[0]
+            if i < count:
+                out.add(i)
+    return out
 
 
 def _wrap_choice(flat: str):
-    """괄호 없는 한 줄이 선택지 폭을 넘으면 공백에서 2줄로(문장부호 뒤 > 균형). 못 나누면 None."""
-    if not flat or flat[0] in _OPEN_BRACKETS or not (CHOICE_WIDTH < _text_width(flat) <= WRAP_WIDTH):
+    """선택지 문구가 상자 폭을 넘으면 공백에서 2줄로(둘 다 들어가는 곳 > 문장부호 뒤 > 균형). 못 나누면 None."""
+    if not flat or not (CHOICE_WIDTH < _text_width(flat) <= WRAP_WIDTH):
         return None
     words = flat.split(" ")
     best = None
@@ -331,9 +348,9 @@ def _cap_units(text: str) -> str:
     s = "".join(out)
     return s[:MAX_TEXT_UNITS].rstrip() if len(s) > MAX_TEXT_UNITS else s
 
-def rewrap(text: str) -> str:
+def rewrap(text: str, choice: bool = False) -> str:
     """기존 \n을 풀고(어절 중간 분리 복원) 띄어쓰기를 교정한 뒤
-    대사창 폭에 맞게 자연스러운 지점에서 다시 감싼다.
+    대사창 폭에 맞게 자연스러운 지점에서 다시 감싼다. choice=True(선택지 MSG)면 선택지 상자 폭으로.
     한글이 없는(미번역/일본어) 문자열은 재배치하지 않되, 116B 캡은 항상 적용."""
     if not any('가' <= c <= '힣' for c in text):
         return _cap_units(text)
@@ -356,9 +373,12 @@ def rewrap(text: str) -> str:
             out.append(c)
         flat = "".join(out)
     # 하드 캡 2단계: 줄바꿈 포함 총 길이가 캡을 넘으면 경계 절단 (게임 버퍼 보호)
-    choice = _wrap_choice(flat)
-    if choice and len("\n".join(choice)) <= MAX_TEXT_UNITS:
-        return "\n".join(choice)
+    if choice:
+        ch = _wrap_choice(flat)
+        if ch and len("\n".join(ch)) <= MAX_TEXT_UNITS:
+            return "\n".join(ch)
+        if _text_width(flat) <= WRAP_WIDTH:
+            return flat          # 상자 폭 안 / 한 어절이 너무 김 → 한 줄(게임이 글자 단위로 자름)
     result = "\n".join(_wrap_balanced(flat))
     while len(result) > MAX_TEXT_UNITS and flat:
         flat = flat[: max(0, len(flat) - 2)].rstrip()
@@ -370,6 +390,12 @@ def rewrap(text: str) -> str:
 # Excel load (abs_offset-based)
 # -------------------------
 def choose_excel_path():
+    # 웹앱 회수본(translation_webapp_<날짜>.xlsx)으로 빌드할 때: IMAS2_EXCEL=<경로> (기존 엑셀은 덮지 않음)
+    env = os.environ.get("IMAS2_EXCEL")
+    if env:
+        if not os.path.exists(env):
+            sys.exit(f"IMAS2_EXCEL 파일 없음: {env}")
+        return env
     if os.path.exists(EXCEL_PATH_V2):
         return EXCEL_PATH_V2
     if os.path.exists(EXCEL_PATH_WITH_ENTRY):
@@ -633,7 +659,8 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
     msg_abs, msg_size = secs["MSG"]
 
     parsed = parse_msg_table(dec, msg_abs)
-    new_by_idx, text_recovered, misses, garbage_skipped = resolve_translations(parsed, abs_to_tr)
+    new_by_idx, text_recovered, misses, garbage_skipped = resolve_translations(
+        parsed, abs_to_tr, choice_indices(dec))
 
     # rebuild MSG block
     new_msg = build_msg_block(parsed, new_by_idx, font_map, msg_size)
@@ -670,9 +697,10 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
     return True, warns
 
 
-def resolve_translations(parsed, abs_to_tr: dict):
+def resolve_translations(parsed, abs_to_tr: dict, choices=frozenset()):
     """엑셀 행(원본 abs_offset → (원문, 번역))을 MSG 문자열 인덱스로 매칭해
     rewrap(줄폭·116B 캡)까지 적용. pcport360.py도 같은 규칙을 쓰려고 분리.
+    choices = choice_indices(dec) — 선택지 MSG는 선택지 상자 폭으로 감싼다.
     Returns (new_by_idx, text_recovered, misses, garbage_skipped)."""
     abs_to_index = { s["abs_offset"]: s["index"] for s in parsed["strings"] }
 
@@ -701,7 +729,7 @@ def resolve_translations(parsed, abs_to_tr: dict):
             else:
                 misses += 1
                 continue
-        new_by_idx[idx] = rewrap(tr)
+        new_by_idx[idx] = rewrap(tr, idx in choices)
     return new_by_idx, text_recovered, misses, garbage_skipped
 
 
