@@ -45,6 +45,7 @@ textarea{font-family:"imas2emo",var(--pf-v5-global--FontFamily--text,"RedHatText
 .pal-h{grid-column:1/-1;font-size:11px;color:var(--pf-v5-global--Color--200);margin:2px 0}
 #emoGrid button.sym{font-size:16px;line-height:1;color:var(--pf-v5-global--Color--100)}
 #emoGrid button.sym.pair{grid-column:span 2;width:auto;letter-spacing:2px}
+.gw-line{display:block;padding-left:8px;border-left:2px solid var(--pf-v5-global--BorderColor--100);white-space:pre}
 .qk-bar{display:flex;flex-wrap:wrap;gap:2px;margin-top:3px}
 .qk{font-size:13px;line-height:1.4;min-width:26px;padding:0 4px;border:1px solid var(--pf-v5-global--BorderColor--100);border-radius:3px;background:var(--pf-v5-global--BackgroundColor--200);color:var(--pf-v5-global--Color--100);cursor:pointer}
 .qk:hover{border-color:var(--pf-v5-global--primary-color--100)}
@@ -419,6 +420,69 @@ async function loadKrimgList() {
 }
 
 /* ---------------- 경고/통계 ---------------- */
+/* 게임 줄바꿈 미리보기 — tools/scb/excel2scb.py rewrap()과 같은 규칙(띄어쓰기 교정 Kiwi 제외).
+   빌드는 번역문의 줄바꿈을 풀고 대사창 폭 702px(한글 26px·전각 27px·반각 13.5px)로 다시 감싼다.
+   대사창은 2줄, 한 대사 상한 57자(116바이트) — 넘으면 끝이 잘린다. */
+const WRAP_W = 702, MAX_UNITS = 57, MAX_RUN = 6;
+const isHan = c => c >= "가" && c <= "힣";
+function cWidth(ch) {
+  const o = ch.codePointAt(0);
+  if (o < 0x2E80) return 13.5;
+  if (o >= 0xE000 && o <= 0xF8FF) return 162;
+  if (o >= 0xAC00 && o <= 0xD7A3) return 26;
+  return 27;
+}
+const tWidth = s => { let w = 0; for (const c of s) w += cWidth(c); return w; };
+const P_FRAG = new Set(["다", "로", "야", "요", "라", "은", "는", "을", "를", "가"]);
+function joinSep(prev, nxt) {
+  if (!prev || !nxt) return "";
+  const b = prev[prev.length - 1], a = nxt[0];
+  if (b === " " || a === " ") return "";
+  if (!(isHan(b) && isHan(a))) return ("「『（([".includes(b) || ",.!?…、。」』！？）)]".includes(a)) ? "" : " ";
+  if (b === "이") return "";
+  let frag = "";
+  for (const c of nxt) { if (isHan(c)) frag += c; else break; }
+  return P_FRAG.has(frag) ? "" : " ";
+}
+const BREAK_P = "、。，．,.!?！？…」』～♪";
+function wrapBalanced(flat) {
+  if (tWidth(flat) <= WRAP_W) return [flat];
+  let words = [];
+  for (let w of flat.split(" ")) {
+    while (tWidth(w) > WRAP_W) { let seg = ""; while (w && tWidth(seg + w[0]) <= WRAP_W) { seg += w[0]; w = w.slice(1); } words.push(seg); }
+    if (w) words.push(w);
+  }
+  let best = null;
+  for (let k = 1; k < words.length; k++) {
+    const l1 = words.slice(0, k).join(" "), l2 = words.slice(k).join(" ");
+    const w1 = tWidth(l1), w2 = tWidth(l2);
+    if (w1 > WRAP_W || w2 > WRAP_W) continue;
+    const sc = [BREAK_P.includes(l1[l1.length - 1]) ? 0 : 1, Math.abs(w1 - w2)];
+    if (!best || sc[0] < best[0][0] || (sc[0] === best[0][0] && sc[1] < best[0][1])) best = [sc, k];
+  }
+  if (best) return [words.slice(0, best[1]).join(" "), words.slice(best[1]).join(" ")];
+  const lines = []; let cur = "";
+  for (const w of words) { const cand = cur ? cur + " " + w : w; if (tWidth(cand) <= WRAP_W) cur = cand; else { if (cur) lines.push(cur); cur = w; } }
+  if (cur) lines.push(cur);
+  return lines;
+}
+function compressRuns(s) {
+  const out = [];
+  for (const c of s) { if (c !== "\n" && out.length >= MAX_RUN && out.slice(-MAX_RUN).every(x => x === c)) continue; out.push(c); }
+  return out.join("");
+}
+function gameWrap(text) {
+  if (![...text].some(isHan)) { const t = [...text].length > MAX_UNITS ? compressRuns(text) : text; return { lines: t.split("\n"), cut: [...t].length > MAX_UNITS }; }
+  const parts = text.split("\n").map(p => p.trim());
+  let flat = parts[0];
+  for (const p of parts.slice(1)) flat = flat + joinSep(flat, p) + p;
+  flat = flat.split(/\s+/).filter(Boolean).join(" ");
+  if ([...flat].length > MAX_UNITS) flat = compressRuns(flat);
+  let res = wrapBalanced(flat).join("\n"), cut = false;
+  while ([...res].length > MAX_UNITS && flat) { flat = flat.slice(0, Math.max(0, flat.length - 2)).trimEnd(); res = wrapBalanced(flat).join("\n"); cut = true; }
+  return { lines: res.split("\n"), cut };
+}
+
 function warns(r) {
   const w = [];
   if (r.cat === "image") {
@@ -432,9 +496,14 @@ function warns(r) {
   if (!r.jp) return w;
   if (!r.kr) { w.push(["미번역", "red"]); return w; }
   const nj = (r.jp.match(/\n/g) || []).length, nk = (r.kr.match(/\n/g) || []).length;
-  if (nj !== nk) w.push(r.cat === "script"
-    ? [`개행 ${nk}/${nj} (게임에 넣을 때 자동 줄바꿈)`, "grey"]
-    : [`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);
+  if (r.cat === "script" && (/THOUGHT:|The user|I need|I will|-> |translat|Here is|japanese text/i.test(r.kr) ||
+      (![...r.kr].some(isHan) && [...r.kr].filter(c => /[A-Za-z]/.test(c)).length >= 5)))
+    w.push(["기계번역 오류(영문) — 게임엔 일본어로 나감", "red"]);   // excel2scb.is_garbage_translation과 같은 판정
+  if (r.cat === "script") {
+    const g = gameWrap(r.kr);
+    if (g.lines.length >= 3) w.push([`게임에서 ${g.lines.length}줄 — 줄여 주세요`, "red"]);
+    if (g.cut) w.push([`너무 김 — 게임에서 끝이 잘림 (57자 상한)`, "red"]);
+  } else if (nj !== nk) w.push([`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);
   const kj = /^「[\s\S]*」$/.test(r.jp.trim()), kk = /^「[\s\S]*」$/.test(r.kr.trim());
   if (kj !== kk) w.push(["「」 다름", "orange"]);
   if (U16(r.kr) > U16(r.jp) * 1.6 + 4) w.push([`길이 ${U16(r.kr)}/${U16(r.jp)}`, "orange"]);
@@ -1454,6 +1523,12 @@ function startEdit(r, td) {
   hint.className = "nl-hint";
   const nj = (r.jp.match(/\n/g) || []).length;
   const updHint = () => {
+    if (r.cat === "script") {
+      const g = gameWrap(ta.value.replace(/\r/g, ""));
+      hint.innerHTML = `게임 표시 (${g.lines.length}줄${g.cut ? " · 끝 잘림" : ""}): ` + g.lines.map(l => `<span class="gw-line">${esc(l)}</span>`).join("");
+      hint.classList.toggle("bad", g.lines.length >= 3 || g.cut);
+      return;
+    }
     const nk = (ta.value.match(/\n/g) || []).length;
     hint.textContent = `개행 ${nk}/${nj}` + (nk === nj ? "" : " — 원문과 맞추세요 (Shift+Enter = 줄바꿈)");
     hint.classList.toggle("bad", nk !== nj);
