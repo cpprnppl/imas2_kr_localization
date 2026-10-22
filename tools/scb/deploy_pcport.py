@@ -30,6 +30,7 @@ PCPORT_KOR = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor\resource\gscript"
 PCPORT_SHARED = r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game\resource\gscript"
 PCPORT = PCPORT_SHARED if "--allow-shared" in sys.argv else PCPORT_KOR
 BACKUP = os.path.join(os.path.dirname(PCPORT), "_backup_kr_orig", "gscript")
+BACKUP_PS3DEC = os.path.join(os.path.dirname(PCPORT), "_backup_ps3dec", "gscript")
 MANIFEST = os.path.join(GAME_TOOLS, "pcport_deploy_manifest.json" if PCPORT == PCPORT_SHARED
                         else ("pcport_kor360_deploy_manifest.json" if SRC360
                               else "pcport_kor_deploy_manifest.json"))
@@ -80,6 +81,12 @@ def main():
         if not os.path.exists(bak):
             os.makedirs(os.path.dirname(bak), exist_ok=True)
             shutil.copy2(dst, bak)
+        if SRC360:
+            # 지금 들어 있는 PS3 dec 배포본을 롤백용으로 보존 (최초 1회)
+            bak2 = os.path.join(BACKUP_PS3DEC, rel)
+            if not os.path.exists(bak2):
+                os.makedirs(os.path.dirname(bak2), exist_ok=True)
+                shutil.copy2(dst, bak2)
         shutil.copy2(s, dst)
         manifest["files"][rel.replace("\\", "/")] = sha256(dst)
         deployed.append(rel)
@@ -91,6 +98,8 @@ def main():
         with open(MANIFEST, "w", encoding="utf-8") as f:
             json.dump(manifest, f, ensure_ascii=False, indent=1)
         print(f"원본 백업: {BACKUP}")
+        if SRC360:
+            print(f"PS3 dec 배포본 백업(롤백용): {BACKUP_PS3DEC}")
         print(f"해시 기록: {MANIFEST}")
         print("✅ 완료 — 인게임 검증은 imas2pc 세션에 요청할 것")
 
