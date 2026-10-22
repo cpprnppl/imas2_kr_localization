@@ -785,7 +785,7 @@ function platBadgeGroup(rs) {
   return out.join(" ");
 }
 /* 번역 출처 meta.src_tr (sheet_merge.py sync · 시딩 태그) */
-const SRC = { human_sheet: ["시트 사람", "purple", "구글 시트에서 사람이 번역"], team: ["웹 작업자", "", "웹에서 팀원이 입력·수정"],
+const SRC = { human_sheet: ["시트 번역", "purple", "팀 구글 시트의 번역문 열(사람 번역)에서 가져옴"], team: ["웹 작업자", "", "웹에서 팀원이 입력·수정"],
   machine_init: ["기계번역", "", "초기 기계번역(Gemini API, 웹 시딩) — 검수 필요"], gemini_sheet: ["Gemini 초벌", "gold", "구글 시트의 Gemini 초벌"],
   claude: ["Claude 초벌", "", "Claude 초벌 번역 — 검수 필요"], seed: ["기존 번역", "", "웹 시딩 때 들어온 기존 번역"] };
 function srcOf(r) { return r.kr ? ((r.meta || {}).src_tr || "") : ""; }
@@ -813,8 +813,9 @@ function altHtml(r) {
   const a = (r.meta || {}).alt;
   if (!a || !a.kr || a.kr === r.kr) return "";
   const open = openAlts.has(r.id);
-  return `<div><button class="pf-v5-c-button pf-m-link pf-m-inline pf-m-small" data-act="alttog" data-id="${esc(r.id)}">${open ? "대안 닫기" : "Gemini 대안 보기"}</button></div>` +
-    (open ? `<div class="pair-panel"><div class="pair-h">Gemini 초벌(시트)</div><div>${fmtText(a.kr)}</div>
+  const lbl = a.src === "human_sheet" ? "시트 번역(불완전)" : "Gemini 초벌(시트)";
+  return `<div><button class="pf-v5-c-button pf-m-link pf-m-inline pf-m-small" data-act="alttog" data-id="${esc(r.id)}">${open ? "대안 닫기" : lbl + " 보기"}</button></div>` +
+    (open ? `<div class="pair-panel"><div class="pair-h">${lbl}${a.note ? " — " + esc(a.note) : ""}</div><div>${fmtText(a.kr)}</div>
       <button class="pf-v5-c-button pf-m-secondary pf-m-compact" data-act="alttake" data-id="${esc(r.id)}" style="margin-top:4px">이 번역 가져오기</button></div>` : "");
 }
 

@@ -128,6 +128,23 @@ def match(sheet, web):
     return pairs, how
 
 
+PH_ANY = re.compile(r"[\ue000-\uf8ff]")
+
+
+def incomplete(jp, hu):
+    """시트 '번역문'이 불완전한지(2026-10-23: 첫 줄만 번역된 행 1,768개 발견 → 되돌림).
+    여러 줄 원문인데 한 줄뿐 / 원문은 닫는 괄호로 끝나는데 번역은 아님 / 치환 코드·이모티콘 불일치."""
+    j, h = norm_jp(jp), hu.strip()
+    w = []
+    if "\n" in j and "\n" not in h:
+        w.append("줄 누락")
+    if j.endswith(("」", "）", "』")) and not h.endswith(("」", "）", "』", ")")):
+        w.append("닫는 괄호 없음")
+    if sorted(PH_ANY.findall(j)) != sorted(PH_ANY.findall(h)):
+        w.append("치환코드·이모티콘 다름")
+    return w
+
+
 def classify(sheet, pairs, team):
     cls = collections.defaultdict(list)
     for i, s in enumerate(sheet):
@@ -140,6 +157,8 @@ def classify(sheet, pairs, team):
         if s["hu"]:
             if loose(kr) == loose(s["hu"]):
                 cls["same"].append((s, w))
+            elif incomplete(s["jp"], s["hu"]):
+                cls["human_incomplete"].append((s, w))      # 덮지 않음(대안으로만)
             elif w["id"] in team:
                 cls["conflict"].append((s, w))
             elif not kr:
@@ -262,6 +281,10 @@ def cmd_sync(a):
             m.pop("src_tr", None)
         if s and s["gem"] and not s["hu"] and r["kr"] and loose(s["gem"]) != loose(r["kr"]):
             m["alt"] = {"kr": s["gem"], "src": "gemini_sheet"}
+        if s and s["hu"] and incomplete(s["jp"], s["hu"]) and loose(s["hu"]) != loose(r["kr"] or ""):
+            m["alt"] = {"kr": s["hu"], "src": "human_sheet",
+                        "note": "시트 번역(" + "·".join(incomplete(s["jp"], s["hu"])) + " — 불완전해 적용 안 함)"}
+            m["sheet_rejected"] = "·".join(incomplete(s["jp"], s["hu"]))
         if m != (r.get("meta") or {}):
             meta_upd.append({k: r[k] for k in ("id", "cat", "grp", "seq", "key", "jp")} | {"meta": m})
             r["meta"] = m
