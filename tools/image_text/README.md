@@ -24,6 +24,9 @@ python tools/image_text/webapp_build.py                    # iM@S2 KOR 웹앱 �
 python tools/image_text/webapp_seed.py --code <암호>       # Supabase rows 시딩 (기존 행 보호)
 python tools/image_text/webapp_seed.py --thumbs --service-key <sb_secret>  # 썸네일 업로드
 python tools/image_text/webapp_pull.py xmb|script|image --code <암호>      # 번역 회수
+python tools/image_text/dlc_inject.py build360                       # DLC 한글판 사본 content_kor (PC 포트, 평문)
+python tools/image_text/dlc_inject.py coverage                       # DLC 원문 존재율 / kr 적용률 (360·PS3)
+python tools/image_text/dlc_inject.py build-ps3 | deploy-ps3 | restore-ps3   # PS3 DLC 재암호화본 (RPCS3)
 ```
 
 ## iM@S2 KOR 번역 플랫폼 (imas2.buyeo.uk)

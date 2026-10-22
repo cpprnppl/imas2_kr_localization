@@ -1338,3 +1338,32 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   360 전용 이미지·게임 데이터 텍스트의 PC 포트 주입 경로(kr_x360 → pcport_apply, gamedata 주입 도구) 미구현.
   PS3 DLC game/cosinfo/exte 텍스처와 jacket_*_s(작은 재킷)는 360 기준과 같이 제외. 시딩 스크립트로 재시딩하면 plat이
   빠지므로 재시딩 뒤에는 `platform_audit.py scan && apply` 재실행.
+
+## 36. DLC 한글 주입기 — 360 한글판 DLC 사본 + PS3 재암호화본 (2026-10-23, KOR 지시)
+
+사용자 원문: "암호화 안하면 dlc 텍스트는 못넣냐?" / "없으면 만들어 넣어야지."
+도구: `tools/image_text/dlc_inject.py` (build360 / coverage / roundtrip / build-ps3 / deploy-ps3 / restore-ps3).
+
+### 암호 (실측)
+- 게임 자체 AES-192-CBC, IV 0, 선두 16B prefix 블록. 키 = 384B 키표 + 풋터 3바이트(풋터 끝-32 위치 +1~+3).
+  - 360 DLC: `table360.bin`, 풋터 32B.
+  - PS3 DLC: `table.bin[384:768]`(두 번째 표), 풋터 64B. `licenses\*.edat`은 NPDRM이라 대상 아님.
+- 복호화 → 무수정 재암호화(원 prefix·패딩·풋터 유지) = **원본과 바이트 동일**: 360 75개, PS3 136개(주입 대상 전부), imas2dec.exe 없이 메모리에서.
+- 360 DLC에서 평문인 것은 `packageInfo.pac`(TSK)뿐이고, catalog_info / mail / lyrics xmb와 dance mpc는 암호화돼 있다. PC 포트 엔진은 평문을 수용하므로 360 한글판은 평문으로 넣는다.
+
+### 컨테이너
+- `packageInfo.pac` = TSK: 'TSK ', u32 개수, (u32 size, u32 ofs)×n, 엔트리 0x40 정렬, 꼬리 0x40 정렬. XMB 2개(resource.xmb·텍스트) + eqp 2개. 무수정 재조립 = 원본 동일을 매번 검사.
+- 라이브 가사는 `dance\dan_<곡>_{1,3,5}.mpc` 내장 XMB(§28-2)이고, songinfo 가사 XMB도 함께 바꾼다. dance pac 재조립은 dance_lyrics.parse_pac/rebuild_pac를 재사용한다(비가사 엔트리 바이트 불변 검증).
+
+### 번역 매칭
+- `dlc_translations.json`의 meta.src(파일·XMB 번호) + id 서수로 찾되, **원문(jp)이 일치할 때만** 교체한다. 없으면 같은 그룹의 같은 원문 번역을 쓴다(원문일치).
+- 가사는 xmb_translations `songinfo/<곡>` + dlc songinfo 행을 id로 찾고, jp가 다르면 건너뛴다. PS3 iwt 8줄이 360과 원문이 달라 일본어로 남는다.
+- 360(PC 포트) = 원시 한글(직접 등록 폰트). PS3 = font_mapping 인코딩(가사 한글 633자 전부 매핑 있음). PUA 이모티콘·치환 코드는 그대로 둔다.
+
+### 결과 (10-23 02:27 회수분 기준)
+- 360: `Desktop\imas2dlc\content_kor`(원본 content 전체 사본, 원본 불변). 49개 파일, 가사 1,220칸. 카탈로그·메일·패키지는 웹앱 번역 0행이라 미적용.
+- PC 포트 인게임(1배, gpu_run.lock): `IMAS2PC_DLC_ROOT=content_kor` + `IMAS2PC_DISC_ROOT=imas2pc\game_kor`(한글 폰트)로 S4U Little Match Girl 라이브 가사가 한국어로 나온다("어른이 되지 못한 채 얼어붙은 나날은" 등). game_kor 없이 기준선 game으로 띄우면 글리프가 없어 `???`로 나온다.
+- PS3: 순정 백업 `Desktop\imas2_image_text\ps3_dlc_orig`(대상 136개, sha 매니페스트, 이후 build는 여기서만 읽음) → 재암호화본 `out_dlc_ps3`(46개: 가사 954칸 + ranker 6). 재복호화 = 주입 평문 게이트 통과. **RPCS3 dlc에는 아직 배포 안 함**(RPCS3 인게임 확인과 평문 수용 시험은 사용자 실행 필요).
+
+### 원천 공백 (coverage)
+- PS3 catalog_info 916칸 중 385칸(43%)과 PS3 전용 15곡 가사(age ali daz ful gm2 ki2 mah mlt omo pm9 pos pre sh2 wat wim)는 웹앱에 원문 행이 없다. dlc_text.py가 PS3에서 packageInfo·mail·ranker만 추출했기 때문이다. 추출 보강은 ui-image-extract 쪽 과제다.
