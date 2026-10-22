@@ -1224,3 +1224,18 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   전 _text 23,560칸을 한국어+원문 이모티콘으로 교체 → 재파싱 일치 278/278(이모티콘 6,802개
   UTF-16BE 원형 유지). 본편 mail_produce PUA 칸 왕복(JSON→재빌드→pac 재조립) 통과.
   pcport_apply build(NPC 942칸)·dance_lyrics build 정상.
+
+### 33-2. 전 분류 PUA 집계·컬러 입력칸·치환 코드 표시 (2026-10-23, KOR·사용자)
+- DB 전 61,705행 집계(읽기 전용): 이모티콘 U+E000~E03F는 **dlc mail 795행·2,901회·61종**,
+  **gamedata mail 18행·291회·21종**뿐. xmb·script·image 0. 미사용 E027/E033/E039(폰트 세션
+  표와 일치). 번역된 PUA 행은 아직 0 → 이모티콘 빠짐/치환 행 0건.
+- 범위 밖 PUA U+F001~F020(+F69A)은 **스크립트 치환 코드**(F001 유닛명, F011/F012·F015~F017
+  아이돌 이름, F01A~F01C 장소, F01D 숫자 등) — 이모티콘 아님, script 분류에만. 번역된 행에서
+  치환 코드가 어긋난 것은 1건(all_omi_01.scb:10192에 정체불명 U+F69A 추가). 목록:
+  Desktop\imas2_image_text\pua_check\(pua_census.md, pua_mismatch.xlsx 2시트, json).
+- 웹앱: 치환 코드를 보라색 칩(F001 등)으로 표시 + "치환 코드 다름" 경고(빨강). 이모티콘 표시·
+  팔레트·경고는 원래 전 분류 공통(fmtText/warns) — 수정 이력 표 2곳도 이모티콘 표시 추가.
+- 입력칸 실루엣 → **COLRv0 컬러 폰트**(칸별 24색 양자화 레이어, CPAL 1,320색, 146KB),
+  칸 1.125em로 키움. 컬러 미지원 환경은 실루엣 대체. 캐시 회피 `imas2emo.ttf?v=2`.
+- 팔레트 토글 버튼: 배경 없는 secondary → 채운 primary + 그림자.
+- 엑셀 왕복(openpyxl 저장→읽기)에서 PUA 그대로 유지 확인.

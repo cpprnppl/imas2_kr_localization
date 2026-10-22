@@ -10,7 +10,8 @@ E03B 朝食=주먹밥, E03C ケーキ=케이크, E03E かみつく=강아지).
 
 출력 (<OUT>/emoji/, 게임 자산이므로 git에 넣지 않음 — Supabase storage에만):
   emoji_sheet.png  256x256 컬러 스프라이트 (웹앱 표시용 span 배경)
-  imas2emo.ttf     픽셀 윤곽 단색 웹폰트, PUA 코드 그대로 (textarea 입력칸용)
+  imas2emo.ttf     픽셀 사각형 COLRv0 컬러 웹폰트, PUA 코드 그대로 (textarea 입력칸용,
+                   컬러 미지원 환경은 실루엣으로 대체)
 
   python emoji_assets.py build
   python emoji_assets.py upload --service-key <sb_secret>
@@ -33,8 +34,8 @@ from extract_image_text import OUT_DEFAULT, JP_ROOT, walk_nuts, decode_texture  
 OUT = os.path.join(OUT_DEFAULT, "emoji")
 SRC = os.path.join(JP_ROOT, "initialTemp.mpc")   # 읽기 전용
 CELL, COLS, N = 32, 8, 64
-UPM, PX = 1024, 32                                # 1픽셀 = 32 units
-ASC, DESC = 896, 128
+UPM, PX = 1024, 36                                # 1픽셀 = 36 units (칸 1.125em, 한글 옆에서 작아 보이지 않게)
+ASC, DESC = 992, 160
 
 
 def build_sheet():
@@ -74,30 +75,59 @@ def rects_of(mask):
     return out
 
 
-def build_font(sheet):
+def rect_glyph(mask):
+    from fontTools.pens.ttGlyphPen import TTGlyphPen
+    pen = TTGlyphPen(None)
+    for x0, y0, x1, y1 in rects_of(mask):
+        X0, X1 = x0 * PX, x1 * PX
+        Y0, Y1 = ASC - y1 * PX, ASC - y0 * PX      # 아래→위 좌표
+        pen.moveTo((X0, Y0)); pen.lineTo((X0, Y1)); pen.lineTo((X1, Y1)); pen.lineTo((X1, Y0))
+        pen.closePath()
+    return pen.glyph()
+
+
+def build_font(sheet, colors=24):
+    """COLRv0 컬러 폰트: 칸마다 RGBA를 colors색으로 양자화해 색별 레이어 글리프.
+    기본 글리프(실루엣)는 컬러 미지원 환경의 대체 표시."""
     from fontTools.fontBuilder import FontBuilder
     from fontTools.pens.ttGlyphPen import TTGlyphPen
     names = [".notdef"] + [f"uniE{i:03X}" for i in range(N)]
     cmap = {0xE000 + i: f"uniE{i:03X}" for i in range(N)}
+    glyphs, metrics = {".notdef": TTGlyphPen(None).glyph()}, {".notdef": (UPM, 0)}
+    palette, pal_idx, layers = [], {}, {}
+    for i in range(N):
+        cx, cy = (i % COLS) * CELL, (i // COLS) * CELL
+        cell = sheet[cy:cy + CELL, cx:cx + CELL]
+        gname = f"uniE{i:03X}"
+        glyphs[gname] = rect_glyph(cell[:, :, 3] >= 128)
+        metrics[gname] = (CELL * PX, 0)
+        vis = cell[:, :, 3] >= 24
+        if not vis.any():
+            continue
+        q = Image.fromarray(cell, "RGBA").quantize(colors, method=Image.Quantize.FASTOCTREE)
+        idx = np.array(q)
+        qp = np.array(q.getpalette(rawmode="RGBA")[:colors * 4], dtype=np.uint8).reshape(-1, 4)
+        lay = []
+        for c in np.unique(idx[vis]):
+            m = vis & (idx == c)
+            r, g, b, a = (int(v) for v in qp[c])
+            a = int(cell[:, :, 3][m].mean())       # 칸 실제 알파 평균(팔레트 알파는 거칠다)
+            key = (r, g, b, a)
+            if key not in pal_idx:
+                pal_idx[key] = len(palette)
+                palette.append((r / 255, g / 255, b / 255, a / 255))
+            lname = f"{gname}.c{len(lay)}"
+            names.append(lname)
+            glyphs[lname] = rect_glyph(m)
+            metrics[lname] = (CELL * PX, 0)
+            lay.append((lname, pal_idx[key]))
+        layers[gname] = lay
     fb = FontBuilder(UPM, isTTF=True)
     fb.setupGlyphOrder(names)
     fb.setupCharacterMap(cmap)
-    glyphs, metrics = {}, {}
-    pen = TTGlyphPen(None)
-    glyphs[".notdef"] = pen.glyph()
-    metrics[".notdef"] = (UPM, 0)
-    for i in range(N):
-        cx, cy = (i % COLS) * CELL, (i // COLS) * CELL
-        a = sheet[cy:cy + CELL, cx:cx + CELL, 3] >= 128
-        pen = TTGlyphPen(None)
-        for x0, y0, x1, y1 in rects_of(a):
-            X0, X1 = x0 * PX, x1 * PX
-            Y0, Y1 = ASC - y1 * PX, ASC - y0 * PX      # 아래→위 좌표
-            pen.moveTo((X0, Y0)); pen.lineTo((X0, Y1)); pen.lineTo((X1, Y1)); pen.lineTo((X1, Y0))
-            pen.closePath()
-        glyphs[f"uniE{i:03X}"] = pen.glyph()
-        metrics[f"uniE{i:03X}"] = (UPM, 0)
     fb.setupGlyf(glyphs)
+    fb.setupCOLR(layers, version=0)
+    fb.setupCPAL([palette])
     fb.setupHorizontalMetrics(metrics)
     fb.setupHorizontalHeader(ascent=ASC, descent=-DESC)
     fb.setupNameTable({"familyName": "imas2emo", "styleName": "Regular"})
