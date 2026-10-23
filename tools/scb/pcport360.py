@@ -29,6 +29,7 @@ pcport360.py — PC 포트(360 리컴파일)용 한글 SCB: **360 원본 dec에 
 배포: python deploy_pcport.py --src360   (validate 통과 시에만, game_kor 전용 — 인게임 확인 뒤)
 """
 import os
+import re
 import sys
 import json
 import struct
@@ -460,7 +461,86 @@ def voice_to_360(dec_p, dec_x):
     return bytes(out), {"voice_replaced": done, "voice_unmatched": miss}
 
 
-def build_ps3_logic(rel, out_dir, abs_map, font_map):
+def _al16(v):
+    return (v + 15) & ~15
+
+
+def _pac_rebuild(d, blobs):
+    """pac(헤더 0x40 + 행 0x20×n + 데이터) 재조립: 행은 원본 그대로 두고 크기·오프셋만 갱신.
+    오프셋 16 정렬, +0x08 = 실제 크기 합(컷씬 pac) / 길이−0x80(바깥 pac) 둘 다 관측치 그대로 재현한다."""
+    n = struct.unpack_from(">I", d, 0x0C)[0]
+    base = 0x40 + n * 0x20
+    out = bytearray(d[:base])
+    data = bytearray()
+    for k, b in enumerate(blobs):
+        of = _al16(len(data)) if k else 0
+        data += b"\0" * (of - len(data)) + b
+        struct.pack_into(">II", out, 0x40 + k * 0x20 + 8, len(b), of)
+    data += b"\0" * (_al16(len(data)) - len(data))
+    out += data
+    return out
+
+
+def clips_by_index_360(dec_p, dec_x):
+    """voice_to_360이 짝을 못 찾은 PS3 클립(360은 다른 문구라 길이가 다름 — 버튼 안내 대사 등)을
+    같은 순번의 360 클립으로 교체. 컷씬 pac의 'vis' 행 수가 두 판에서 같을 때만, 크기가 다른 행만.
+    길이가 바뀌므로 컷씬 pac(+0x08 = 클립 크기 합)과 바깥 pac(행 크기, +0x08 = 길이−0x80)을 다시 짠다."""
+    subs_p, subs_x = pac_subs(dec_p), pac_subs(dec_x)
+    new_subs, swapped = list(subs_p), []
+    for k in range(1, min(len(subs_p), len(subs_x))):
+        sp_, sx_ = subs_p[k], subs_x[k]
+        if sp_[:3] != b"pac" or sx_[:3] != b"pac":
+            continue
+        n = struct.unpack_from(">I", sp_, 0x0C)[0]
+        if n != struct.unpack_from(">I", sx_, 0x0C)[0]:
+            continue
+        base = 0x40 + n * 0x20
+        ents_p = [sp_[base + o:base + o + s] for s, o in (struct.unpack_from(">II", sp_, 0x40 + i * 0x20 + 8) for i in range(n))]
+        ents_x = [sx_[base + o:base + o + s] for s, o in (struct.unpack_from(">II", sx_, 0x40 + i * 0x20 + 8) for i in range(n))]
+        diff = [i for i in range(n) if len(ents_p[i]) != len(ents_x[i])]
+        if not diff:
+            continue
+        for i in diff:
+            ents_p[i] = ents_x[i]
+            swapped.append((k, i))
+        sub = _pac_rebuild(sp_, ents_p)
+        struct.pack_into(">I", sub, 8, sum(len(e) for e in ents_p))
+        new_subs[k] = bytes(sub)
+    if not swapped:
+        return dec_p, []
+    out = _pac_rebuild(dec_p, new_subs)
+    struct.pack_into(">I", out, 8, len(out) - 0x80)
+    return bytes(out), swapped
+
+
+# PS3 버튼 이름이 든 대사(360판은 같은 자리에 LB/RB·A 문구) — ps3-360-pc 정적 검사 패턴
+PS3_BUTTON = re.compile(r"[○×△□]|[ＬＲ][１２３]|[LR][123]|SELECT|START")
+
+
+def button_lines_360(rel, pp, px_texts, x360_tr, choices):
+    """PS3 MSG 중 PS3 버튼을 부르는 줄 → 360 짝 줄(SequenceMatcher 1:1 replace)의 웹앱 360 행 한글. {PS3 idx: kr}"""
+    import difflib
+    tp = [s_["text"] for s_ in pp["strings"]]
+    tr = x360_tr.get(rel) or x360_tr.get(rel.lower()) or {}
+    out, miss = {}, []
+    sm = difflib.SequenceMatcher(a=tp, b=px_texts, autojunk=False)
+    pair = {}
+    for op, a0, a1, b0, b1 in sm.get_opcodes():
+        if op == "replace" and a1 - a0 == b1 - b0:
+            pair.update({a0 + t: b0 + t for t in range(a1 - a0)})
+    for i, t in enumerate(tp):
+        if not PS3_BUTTON.search(t):
+            continue
+        j = pair.get(i)
+        kr = (tr.get(str(j)) or {}).get("kr") if j is not None else None
+        if kr:
+            out[i] = e2s.rewrap(kr, i in choices)
+        else:
+            miss.append(i)
+    return out, miss
+
+
+def build_ps3_logic(rel, out_dir, abs_map, font_map, x360_tr=None):
     """PS3 로직(CMD/LBL/LBN/VCN = PS3 순정 백업) + 웹앱 PS3 행 한글 MSG + 360 음성 클립 → 평문 pac(360 엔진은 평문 pac 수용).
     out_dir은 game_kor·공유 game·테스터 패키지 밖이어야 한다. → (out_path, report)"""
     low = os.path.abspath(out_dir).lower()
@@ -471,10 +551,15 @@ def build_ps3_logic(rel, out_dir, abs_map, font_map):
     sp = common.parse_section_dir(p)
     msg_abs, msg_size = sp["MSG"]
     pp = e2s.parse_msg_table(p, msg_abs)
-    new_by_idx, recovered, misses, garbage = e2s.resolve_translations(pp, abs_map, e2s.choice_indices(p))
+    choices = e2s.choice_indices(p)
+    new_by_idx, recovered, misses, garbage = e2s.resolve_translations(pp, abs_map, choices)
+    btn, btn_miss = button_lines_360(rel, pp, msg_texts(x), x360_tr or {}, choices)
+    new_by_idx.update(btn)                      # PS3 버튼 대사 → 360 문구(LB/RB·A)의 한글
     new_msg = e2s.build_msg_block(pp, new_by_idx, font_map, msg_size)
     new_dec, _delta = e2s.replace_msg_section(p, msg_abs, msg_size, new_msg)
     new_dec, vrep = voice_to_360(new_dec, x)
+    new_dec, swapped = clips_by_index_360(new_dec, x)   # 그 대사의 음성도 360 클립(길이 다름 → pac 재조립)
+    vrep.update(button_lines=sorted(btn), button_missing=btn_miss, clips_swapped_by_index=swapped)
     issues, _h = vo.validate_dec(new_dec, p)
     if issues:
         raise ValueError(f"{rel}: 구조 검증 실패 {issues[:3]}")
@@ -495,14 +580,20 @@ def cmd_ps3logic(a):
     tr = e2s.load_translations(xl)
     font_map = e2s.load_font_mapping()
     by_low = {k.replace("/", "\\").lower(): v for k, v in tr.items()}
+    xj = max(glob.glob(os.path.join(GAME_TOOLS, "translation_x360_*.json")), key=os.path.getmtime, default=None)
+    x360_tr = {k.replace("/", "\\").lower(): v for k, v in json.load(open(xj, encoding="utf-8")).items()} if xj else {}
+    print(f"360 전용 대사(버튼 줄 한글): {xj}")
     rep = {}
     for rel in a.rels:
         relw = rel.replace("/", "\\")
-        dst, r = build_ps3_logic(relw, a.out, by_low.get(relw.lower(), {}), font_map)
+        dst, r = build_ps3_logic(relw, a.out, by_low.get(relw.lower(), {}), font_map,
+                                 {relw: x360_tr.get(relw.lower(), {})})
         rep[relw] = r
         print(f"  {relw}: MSG {r['translated']}/{r['msg']} 한글, 미번역 {len(r['untranslated'])}, "
-              f"음성 360 클립 {r['voice_replaced']} (짝 없음 {r['voice_unmatched']}) → {dst}")
-    json.dump({"excel": xl, "files": rep}, open(os.path.join(a.out, "ps3logic_report.json"), "w", encoding="utf-8"),
+              f"음성 360 클립 {r['voice_replaced']} (짝 없음 {r['voice_unmatched']}), "
+              f"버튼 줄 360 문구 {r['button_lines']} (한글 없음 {r['button_missing']}), "
+              f"순번 교체 클립 {r['clips_swapped_by_index']} → {dst}")
+    json.dump({"excel": xl, "x360": xj, "files": rep}, open(os.path.join(a.out, "ps3logic_report.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
     print(f"→ {os.path.join(a.out, 'ps3logic_report.json')}")
 
