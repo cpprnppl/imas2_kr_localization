@@ -1498,3 +1498,28 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   배포판에서 제외 가능(빌드 로그에 초벌 수).
 - 360 내장 SCB 시험 빌드: member_select 45/45, ScheduleSelect 107/121, dress_select 36/41, attract 10/12, mail_produce 3/3
   한국어(나머지는 같은 원문의 게임 스크립트 번역이 없음).
+
+## 41. 실행 파일 하드코딩 문구 한글 주입 — exe_inject.py (2026-10-23, KOR 지시·승인)
+
+화자 이름표·일시정지 메뉴·일정/랭킹 라벨·기본 유닛명 등은 리소스가 아니라 실행 파일(.rdata) 안 UTF-16BE 문자열이다.
+도구: `tools/image_text/exe_inject.py` (analyze / build360 / deploy360 / build-ps3 / install-ps3 / uninstall-ps3).
+입력: `exe_texts.json`(위치) + `exe_translations.json`(웹앱 exe 회수본, ui-image-extract가 갱신).
+
+### 360 (PC 포트)
+- exe_texts의 offset은 default_unpacked.xex 파일 오프셋 → 이미지 VA = 0x82000000 + offset − 0x2000.
+- 참조 분석(xex360 200행): 데이터 포인터만 103, 코드 lis/addi 즉시값만 88, 둘 다 6, 없음 3. 리컴파일 C++에서 lis/addi는 즉시값이라 **코드 참조 문자열은 제자리만**, 데이터 참조는 이미지의 .reloc 섹션(RVA 0x6D0200–0x713C68, 고정 베이스라 로더·게임이 안 읽음, .text lis 0건, 우연 일치 데이터 워드 6개는 회피)으로 재배치하고 포인터 워드를 옮긴다.
+- 패치 파일 `game_kor\kor_exe_strings.bin`(KXS1: addr, len, orig, new). imas2pc `src/core/kor_exe_strings.cpp`가 loadXexImage 직후 적용, 토글 `[kor] exe_strings`(기본 true, 파일 없으면 무동작). 전 레코드 원본 일치 확인 후 전부 적용(하나라도 다르거나 이미지 밖이면 0개).
+- 화자 이름표는 ID로 표를 인덱싱(sub_821222B8)할 뿐 이름 비교가 없다.
+- 1배 확인(game_kor): 206 records 적용, 화자 이름표 사장/치하야/하루카 일행(초상·음성·진행 정상), 일시정지 메뉴, 유닛명 확인 「남코 엔젤 / 이대로 괜찮겠습니까?」, 일정 전국 팬 수·명·수도 지역·업무 건수·기자. 지역명은 사용자 결정 대기라 일본어.
+- **새 게임에서 기본 유닛명을 확정하면 한글 이름(남코 엔젤)이 세이브에 저장된다** — 토글을 꺼도 그 세이브엔 남는다.
+- 용량 초과(코드 참조, 제자리만 가능) 10행은 ui가 원문 글자 수 안으로 단축(b8747f3) → 초과 0.
+
+### PS3 (RPCS3 patch.yml)
+- PPU 해시 PPU-f942422316f63af3d64dc940b35ec8fddade0f44. 이 RPCS3 판의 patch 타입에 bytes가 없어 be32/be16 조각으로 쓴다. 재배치는 `alloc` 블록(0x0F000000, 64KB) + TOC·표 포인터 교체. 인코딩 font_mapping.
+- 제자리 186 + 재배치 24, 초과 0(xex·EBOOT가 앞뒤 전각 공백만 다른 짝은 공백 제거로 맞춤). Shift-JIS 그라비아 스테이지명 6행은 미처리.
+- RPCS3 로그 'PAT: Applied patch … (<- 773)', 부팅~멤버 선택 정상. **상시 적용 설치(사용자 승인: "패치 켜놔도 되고")**:
+  - `patches\imported_patch.yml` = out_exe\imas2_kor_exe.yml 사본, `config\patch_config.yml` = 이 패치 Enabled: true 한 항목. 둘 다 원래 없던 파일.
+  - 되돌리기: `python tools/image_text/exe_inject.py uninstall-ps3` (이 도구가 쓴 파일만 삭제). RPCS3 실행 중엔 둘 다 거부.
+
+### 번역 갱신 절차
+웹앱 exe 번역이 바뀌면: ui-image-extract가 exe_translations.json 회수 → `build360` → `deploy360`(gpu_run.lock 없을 때) → `build-ps3` → `install-ps3`(RPCS3 종료 상태). 게이트(원본 바이트·용량·겹침·.reloc 범위·참조 경로 재읽기 시뮬레이션·폰트)가 실패하면 파일을 쓰지 않는다.

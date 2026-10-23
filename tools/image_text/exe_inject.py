@@ -27,6 +27,12 @@ PS3 (RPCS3 patch.yml, PPU 해시 키, 시험 때만 활성화):
   python exe_inject.py build360 [--tr F]       # out_exe\\kor_exe_strings.bin + 보고
   python exe_inject.py deploy360               # game_kor\\kor_exe_strings.bin (gpu_run.lock 없을 때만)
   python exe_inject.py build-ps3 [--tr F]      # out_exe\\imas2_kor_exe.yml
+  python exe_inject.py install-ps3             # RPCS3 patches\\imported_patch.yml + config\\patch_config.yml (상시 적용)
+  python exe_inject.py uninstall-ps3           # 위 두 파일 삭제 (이 도구가 쓴 것만)
+
+번역 갱신 절차 (웹앱 exe 번역이 바뀌면):
+  ui-image-extract가 exe_translations.json 회수 → build360 → deploy360 (gpu_run.lock 없을 때)
+                                                → build-ps3 → install-ps3 (RPCS3 종료 상태)
 """
 import os
 import sys
@@ -440,15 +446,59 @@ def find_zero_run(eb, need=0x4000):
     return lo, hi
 
 
+# ---------------------------------------------------------------- PS3 상시 설치 (사용자 승인 2026-10-23)
+
+RPCS3 = r"C:\Users\jackfilm\Desktop\rpcs3-v0.0.39-18811-6bfb3327_win64_msvc"
+RP_PATCH = os.path.join(RPCS3, "patches", "imported_patch.yml")
+RP_CONFIG = os.path.join(RPCS3, "config", "patch_config.yml")
+PATCH_TITLE = "iM@S2 KOR exe strings (imas2_kr_localization exe_inject.py)"
+CONFIG_BLOCK = (f"{PS3_PPU_HASH}:\n  \"{PATCH_TITLE}\":\n    \"THE iDOLM@STER 2\":\n      NPJB00337:\n"
+                f"        All:\n          Enabled: true\n")
+
+
+def _rpcs3_running():
+    import subprocess
+    out = subprocess.run(["tasklist"], capture_output=True, text=True, errors="replace").stdout.lower()
+    return "rpcs3.exe" in out
+
+
+def install_ps3(_a):
+    """out_exe\\imas2_kor_exe.yml → RPCS3 patches\\imported_patch.yml + config\\patch_config.yml(활성).
+    두 파일은 이 도구 전용으로 쓴다(원래 없던 파일). 다른 내용이 있으면 백업 후 중단."""
+    if _rpcs3_running():
+        sys.exit("[중단] RPCS3 실행 중 — 종료 후 다시")
+    src = os.path.join(OUT, "imas2_kor_exe.yml")
+    for p in (RP_PATCH, RP_CONFIG):
+        if os.path.exists(p) and PATCH_TITLE not in open(p, encoding="utf-8").read():
+            shutil.copy2(p, p + time.strftime(".bak_%Y%m%d_%H%M%S"))
+            sys.exit(f"[중단] {p}에 다른 패치가 있음(백업함) — 수동 병합 필요")
+    shutil.copy2(src, RP_PATCH)
+    open(RP_CONFIG, "w", encoding="utf-8").write(CONFIG_BLOCK)
+    print(f"설치: {RP_PATCH}\n      {RP_CONFIG} (Enabled: true)\n되돌리기: python exe_inject.py uninstall-ps3")
+
+
+def uninstall_ps3(_a):
+    if _rpcs3_running():
+        sys.exit("[중단] RPCS3 실행 중 — 종료 후 다시")
+    for p in (RP_PATCH, RP_CONFIG):
+        if os.path.exists(p):
+            if PATCH_TITLE not in open(p, encoding="utf-8").read():
+                print(f"[건너뜀] {p}: 이 도구가 쓴 파일이 아님")
+                continue
+            os.remove(p)
+            print(f"삭제: {p}")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["analyze", "build360", "deploy360", "build-ps3"])
+    ap.add_argument("cmd", choices=["analyze", "build360", "deploy360", "build-ps3", "install-ps3", "uninstall-ps3"])
     ap.add_argument("--tr", default=TR_DEFAULT)
     ap.add_argument("--alloc-at", type=lambda x: int(x, 0), default=0x0F000000,
                     help="build-ps3: RPCS3 alloc 블록 주소(64KB 정렬, 메인 메모리 미사용 영역)")
     ap.add_argument("--alloc-size", type=lambda x: int(x, 0), default=0x10000)
     a = ap.parse_args()
-    return {"analyze": analyze, "build360": build360, "deploy360": deploy360, "build-ps3": build_ps3}[a.cmd](a)
+    return {"analyze": analyze, "build360": build360, "deploy360": deploy360, "build-ps3": build_ps3,
+            "install-ps3": install_ps3, "uninstall-ps3": uninstall_ps3}[a.cmd](a)
 
 
 if __name__ == "__main__":
