@@ -1487,5 +1487,14 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   pcport360·gamedata 내장 SCB 동일. 웹 미리보기는 meta.choice 행만(mark_choices.py로 2,431행 표시). excel2scb는 IMAS2_EXCEL 지원.
 - 1배 확인(game_kor, week02 체크포인트): 멤버 선택 Y = 3D 자기소개 재생기(로딩 중 회색 상자 → 재생), 재생 중 자막 없음(원판 비교 필요).
   지명 표기 불일치: 튜토리얼 '카미가타 지역' vs 일정 탭 '관서'. dress_select·선택지 화면은 일정 2개 지정 뒤라 미도달.
+- 멤버 선택 Y = 3D 자기소개 재생기 — **일본어 원판(공유 game)도 자막 없음**(음성·3D만) → 한글 패치 문제 아님.
+  카드: 위 작은 줄 = 읽기(あまみ はるか), 큰 이름 = fullname(天海 春香) 원판으로 확인.
+- 확인창 はい/いいえ = initialFix.mpc 텍스처 #7·#8(64x32 DXT5) — initialFix는 이미지 추출 제외 파일이라 빠져 있었다.
+  image_extra.json(치수·포맷 직접 기록) → 웹 행 '공통 UI' 그룹, Claude 초벌 '예/아니요'. 주입: pcport_apply.kr_jobs가 image_extra도 포함
+  (360 #7/#8 내용 일치 99dB, DXT5+swap16), ps3_res_apply.extra_images가 PS3 initialFix에 제자리 주입(md5 확인·33dB 게이트).
+  game_kor initialFix는 폰트 주입이 없어(NFH = 원본) pcport_apply 재생성 안전.
+- 이미지 빈 라벨 Claude 초벌 79행(src_tr claude, st 1) + 렌더 후보(kr_claude/, kr/ 빈 자리만, tex_kr 'Claude 초벌' 79) —
+  game_kor 메인 메뉴에 적용 확인(스타일은 원본과 다름: 흰 글자+외곽선 vs 원본 검은 글자+흰 글로). inject_image_text --exclude-src claude로
+  배포판에서 제외 가능(빌드 로그에 초벌 수).
 - 360 내장 SCB 시험 빌드: member_select 45/45, ScheduleSelect 107/121, dress_select 36/41, attract 10/12, mail_produce 3/3
   한국어(나머지는 같은 원문의 게임 스크립트 번역이 없음).

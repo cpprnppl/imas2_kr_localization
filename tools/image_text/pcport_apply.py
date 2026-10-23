@@ -160,6 +160,16 @@ def kr_jobs():
                         and os.path.splitext(os.path.basename(rel))[0] == m.group(1)), None)
             if hit:
                 by.setdefault(hit, []).append((int(m.group(2)), os.path.join(dp, fn)))
+    # index.json 밖 파일의 그림(image_extra.json — initialFix 확인창 はい/いいえ 등). jp/·kr/ 이름 규칙은 같다.
+    ex = os.path.join(HERE, "image_extra.json")
+    if os.path.exists(ex):
+        for it in json.load(open(ex, encoding="utf-8"))["items"]:
+            if it["rel"] in idx:
+                continue
+            stem = os.path.splitext(os.path.basename(it["rel"]))[0]
+            p = os.path.join(KR, os.path.dirname(it["rel"]), f"{stem}_{it['n']:03d}.png")
+            if os.path.exists(p) and (it["n"], p) not in by.get(it["rel"], []):
+                by.setdefault(it["rel"], []).append((it["n"], p))
     return by
 
 

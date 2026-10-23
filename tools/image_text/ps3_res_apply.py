@@ -168,11 +168,49 @@ def pristine(rel):
 
 
 # ---------------------------------------------------------------- 빌드
+def extra_images(rel, plain):
+    """image_extra.json의 index.json 밖 그림(initialFix 확인창 はい/いいえ 등)을 kr/ 작업본으로 제자리 교체.
+    inject_image_text와 같은 인코더·PSNR 게이트(33dB). 크기·치수·포맷 불변."""
+    import numpy as np
+    from PIL import Image
+    from extract_image_text import walk_nuts, decode_texture
+    from inject_image_text import encode_texture, psnr
+    ex = os.path.join(HERE, "image_extra.json")
+    items = [it for it in json.load(open(ex, encoding="utf-8"))["items"] if it["rel"] == rel] \
+        if os.path.exists(ex) else []
+    if not items:
+        return plain, 0
+    texs = walk_nuts(plain, lambda *a: None)
+    data, n = bytearray(plain), 0
+    stem = os.path.splitext(os.path.basename(rel))[0]
+    for it in items:
+        p = os.path.join(OUT_DEFAULT, "kr", os.path.dirname(rel), f"{stem}_{it['n']:03d}.png")
+        if not os.path.exists(p):
+            continue
+        t = texs[it["n"]]
+        raw = bytes(data[t["data_off"]:t["data_off"] + t["data_size"]])
+        if hashlib.md5(raw).hexdigest() != it["md5"]:
+            raise ValueError(f"{rel}#{it['n']}: 원본 텍스처 md5가 image_extra와 다름")
+        img = np.asarray(Image.open(p).convert("RGBA"), np.uint8)
+        fmt = {0: "DXT1", 1: "DXT3", 2: "DXT5"}.get(t["fmt"], t["fmt"])
+        new = encode_texture(fmt, img)
+        new = new + raw[len(new):] if len(new) < len(raw) else new
+        if len(new) != len(raw):
+            raise ValueError(f"{rel}#{it['n']}: 인코드 크기 불일치")
+        q = psnr(decode_texture(t["fmt"], new, t["w"], t["h"]), img)
+        if q < 33:
+            raise ValueError(f"{rel}#{it['n']}: 재디코드 {q:.1f}dB < 33")
+        data[t["data_off"]:t["data_off"] + t["data_size"]] = new
+        n += 1
+    return bytes(data), n
+
+
 def image_layer(rel, plain):
-    """inject_image_text 산출이 있으면 그 평문(같은 순정 캐시에서 만든 것인지 확인)."""
+    """inject_image_text 산출이 있으면 그 평문(같은 순정 캐시에서 만든 것인지 확인) + image_extra 그림."""
     p = os.path.join(PATCHED_IMG, rel)
     if not os.path.exists(p):
-        return plain, False
+        out, n = extra_images(rel, plain)
+        return out, n > 0
     c = os.path.join(CACHE_JP, rel)
     if not os.path.exists(c) or sha(open(c, "rb").read()) != sha(plain):
         raise ValueError(f"{rel}: 이미지 산출의 원본 캐시가 순정 사본과 다름 — inject_image_text 재실행 필요")
