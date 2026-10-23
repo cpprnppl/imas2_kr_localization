@@ -545,6 +545,66 @@ def cmd_texkr(a):
     print(f"tex_kr 'Claude 초벌' 갱신 {n}개, 대상 아님(팀 업로드·행 없음) {skip}")
 
 
+# 360판 전용 그림(웹앱 이미지 행 meta.plat x360, locs "x360:<rel>#<n>") — 원본은 x360_only/, 작업본은 kr_x360/
+# (webapp_pull 이름 규칙). 같은 배치의 PS3 그림 SPEC을 빌려 쓰는 것: 360 お守りGET = PS3 produce_common_099와 같은 144x32 배치.
+X360_ALIAS = {"game/les_com.mpc#106": "produce_common_099.png", "game/alf/alf_common.mpc#242": "produce_common_099.png"}
+
+
+def cmd_x360(a):
+    """360 전용 그림 행 중 번역이 있고 팀 작업본(tex_kr by ≠ Claude 초벌)이 없는 것만 원본 스타일로 그려
+    kr_x360/에 쓰고 tex_kr에 'Claude 초벌'로 올린다."""
+    import urllib.request
+    import urllib.parse
+    cfg = json.load(open(os.path.join(HERE, "webapp_config.json"), encoding="utf-8"))
+    H = {"apikey": cfg["anon_key"], "Authorization": f"Bearer {cfg['anon_key']}", "x-team-code": a.code,
+         "Content-Type": "application/json"}
+
+    def get(q):
+        return json.load(urllib.request.urlopen(urllib.request.Request(cfg["url"] + q, headers=H)))
+    rows = [r for r in get("/rest/v1/rows?cat=eq.image&grp=neq.dlc&select=id,grp,key,kr,meta&limit=2000")
+            if (r.get("meta") or {}).get("plat") == "x360" and r["kr"]]
+    man = json.load(open(MAN, encoding="utf-8"))
+    n = 0
+    for r in rows:
+        md5 = r["key"]
+        tk = get(f"/rest/v1/tex_kr?md5=eq.{md5}&select=by")
+        if tk and tk[0]["by"] != "Claude 초벌":
+            print(f"  [건너뜀] {md5}: 팀 작업본({tk[0]['by']})")
+            continue
+        locs = [L[5:] for L in r["meta"].get("locs", []) if L.startswith("x360:")]
+        if not locs:
+            continue
+        rel, nn = locs[0].rsplit("#", 1)
+        src = os.path.join(OUT_DEFAULT, "x360_only", f"{rel.replace('/', '_')}_{int(nn):03d}.png")
+        jp = np.asarray(Image.open(src).convert("RGBA"))
+        fname = X360_ALIAS.get(locs[0].split("#")[0] + f"#{int(nn)}",
+                               f"{os.path.splitext(os.path.basename(rel))[0]}_{int(nn):03d}.png")
+        new = redraw(fname, jp, r["kr"])
+        buf = io.BytesIO()
+        Image.fromarray(new).save(buf, "PNG")
+        data = buf.getvalue()
+        files = []
+        for L in locs:
+            lr, ln = L.rsplit("#", 1)
+            stem = lr.replace("/", "_").rsplit(".", 1)[0]
+            p = os.path.join(OUT_DEFAULT, "kr_x360", f"{stem}_{ln}.png")
+            os.makedirs(os.path.dirname(p), exist_ok=True)
+            open(p, "wb").write(data)
+            files.append(os.path.relpath(p, os.path.join(OUT_DEFAULT, "kr")))
+        body = json.dumps([{"md5": md5, "by": "Claude 초벌", "data": base64.b64encode(data).decode(),
+                            "ts": int(__import__("time").time() * 1000)}]).encode()
+        urllib.request.urlopen(urllib.request.Request(
+            cfg["url"] + "/rest/v1/tex_kr?on_conflict=md5", data=body, method="POST",
+            headers={**H, "Prefer": "resolution=merge-duplicates,return=minimal"}))
+        man[md5] = {"sha256": hashlib.sha256(data).hexdigest(), "kr_files": files,
+                    "style": {"font": "koverwatch.ttf", "tool": "claude_art.py", "plat": "x360"}}
+        Image.fromarray(new).save(os.path.join(OUT_DEFAULT, "coverage", f"x360_{md5[:8]}.png"))
+        n += 1
+        print(f"  {locs[0]} '{r['kr']}' → {', '.join(files)}")
+    json.dump(man, open(MAN, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"360 전용 초벌 {n}장")
+
+
 def main():
     import urllib.parse  # noqa: F401
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -554,6 +614,9 @@ def main():
     p = sub.add_parser("texkr")
     p.add_argument("--code", required=True)
     p.set_defaults(fn=cmd_texkr)
+    p = sub.add_parser("x360")
+    p.add_argument("--code", required=True)
+    p.set_defaults(fn=cmd_x360)
     a = ap.parse_args()
     a.fn(a)
 

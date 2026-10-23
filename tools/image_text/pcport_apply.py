@@ -225,6 +225,66 @@ def apply_textures(rel, data, jobs, log, unmatched):
     return bytes(data), done
 
 
+KR_X360 = os.path.join(OUT_DEFAULT, "kr_x360")
+X360_ONLY = os.path.join(OUT_DEFAULT, "x360_only")
+
+
+def x360_jobs():
+    """360판 전용 그림 작업본(kr_x360/<경로_밑줄>_<nnn>.png, webapp_pull) → {rel: [(360 텍스처 번호, png)]}.
+    번호는 360판 텍스처 순번 그대로(PS3 짝 없음). 경로는 포트 원본 트리에서 밑줄 이름이 같은 파일로 찾는다."""
+    import re
+    if not os.path.isdir(KR_X360):
+        return {}
+    under = {}
+    for dp, _d, fns in os.walk(PORT):
+        for fn in fns:
+            rel = os.path.relpath(os.path.join(dp, fn), PORT)
+            under[rel.replace("\\", "_").rsplit(".", 1)[0]] = rel
+    by = {}
+    for fn in os.listdir(KR_X360):
+        m = re.match(r"^(.+)_(\d{3})\.png$", fn)
+        if m and m.group(1) in under:
+            by.setdefault(under[m.group(1)], []).append((int(m.group(2)), os.path.join(KR_X360, fn)))
+    return by
+
+
+def apply_x360(rel, data, jobs, log):
+    """360 전용 그림 주입: 원본 덤프(x360_only/)와 360 원 페이로드가 ≥30dB로 맞는 코덱으로 인코드, 재디코드 ≥33dB."""
+    data = bytearray(data)
+    t360 = walk_nuts(bytes(data).replace(b"NTXR", b"NTP3"), lambda *a: None)
+    done = 0
+    for n, png in sorted(jobs):
+        t = t360[n]
+        ref_p = os.path.join(X360_ONLY, f"{rel.replace(os.sep, '_')}_{n:03d}.png")
+        ref = np.asarray(Image.open(ref_p).convert("RGBA"), np.uint8)
+        raw = bytes(data[t["data_off"]:t["data_off"] + t["data_size"]])
+        best = None
+        for name, dec, enc in candidates(t["fmt"]):
+            try:
+                p = psnr(dec(raw, t["w"], t["h"]), ref)
+            except Exception:  # noqa: BLE001
+                continue
+            if best is None or p > best[0]:
+                best = (p, name, dec, enc)
+        if best is None or best[0] < 30:
+            raise ValueError(f"{rel}#{n}: 360 원본과 덤프가 맞는 코덱 없음")
+        _p, name, dec, enc = best
+        img = np.asarray(Image.open(png).convert("RGBA"), np.uint8)
+        if img.shape[:2] != (t["h"], t["w"]):
+            raise ValueError(f"{rel}#{n}: 360 작업본 치수 불일치")
+        new = enc(img)
+        new = new + raw[len(new):] if len(new) < t["data_size"] else new
+        if len(new) != t["data_size"]:
+            raise ValueError(f"{rel}#{n}: 인코드 크기 {len(new)} != {t['data_size']}")
+        q = psnr(dec(new, t["w"], t["h"]), img)
+        if q < 33:
+            raise ValueError(f"{rel}#{n}: 재디코드 {q:.1f}dB < 33")
+        data[t["data_off"]:t["data_off"] + t["data_size"]] = new
+        done += 1
+        log(f"    360전용#{n:03d} fmt{t['fmt']}/{name} 원본일치 {_p:.0f}dB, 작업본 {q:.1f}dB")
+    return bytes(data), done
+
+
 # ---------------------------------------------------------------- XMB
 
 def parse_pac(data):
@@ -347,7 +407,8 @@ def apply_xmb(rel, data, tr, log):
 def build():
     tr = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
     jobs = kr_jobs()
-    targets = set(jobs)
+    xjobs = x360_jobs()                    # 360판 전용 그림(kr_x360/) — 2026-10-23 전까지 주입 경로가 없었다
+    targets = set(jobs) | set(xjobs)
     targets |= {"text\\install.xmb", "ranker\\ranker_npc.xmb"}
     # 곡 정보 가사 XMB(songinfo/<곡>/lyrics_<곡>.xmb) — 레슨(가사 미니게임)이 dance pac이 아니라 이 사본을 읽는다
     # (2026-10-23 ps3-360-pc 확인: 360 레슨 가사가 일본어). xmb_translations.json에 키가 있는 곡만.
@@ -379,6 +440,9 @@ def build():
             n_tex = n_x = n_b = 0
             if rel in jobs:
                 data, n_tex = apply_textures(rel, data, jobs[rel], print, report["unmatched"])
+            if rel in xjobs:
+                data, n_xt = apply_x360(rel, data, xjobs[rel], print)
+                n_tex += n_xt
             if rel in TB.RELS:      # 레슨·커뮤 결과 배너: 타일은 위 텍스처로, 칸 배정은 SWG(tile_banner.py)
                 data, n_b = TB.patch_container(data, orig=orig, log=print, with_tiles=rel in TB.DIRECT)
             data, n_x = apply_xmb(rel, data, tr, print)

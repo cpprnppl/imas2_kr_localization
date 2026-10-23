@@ -1579,3 +1579,9 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
 - **이전 빌드 배포 사고와 게이트**: 16:27 deploy_pcport --src360이 360 대본 빌드(16:28:54 완료)보다 먼저 돌아 이전 산출물을 배포(포팅이 gscript
   무변화로 발견). tools/scb/build_state.py — excel2scb·pcport360 전체 빌드가 running/done + 쓴 엑셀을 남기고, deploy.py·deploy_pcport --src360은
   빌드 중이거나 더 새 translation_webapp_*.xlsx가 있으면 거부(--allow-stale 우회). sync_to_game 목록에 추가.
+- **360판 전용 그림 주입 경로 추가**(17:3x): 웹앱의 360 전용 이미지 행(meta.plat x360, locs x360:<rel>#<n> → webapp_pull kr_x360/)을
+  pcport_apply가 읽지 않고 있었다. pcport_apply.x360_jobs/apply_x360 — 포트 트리에서 밑줄 이름으로 경로를 찾고, x360_only/ 원본 덤프와 ≥30dB로
+  맞는 코덱(이번엔 전부 DXT5+swap16, 99dB)으로 인코드, 재디코드 ≥33dB. claude_art.py x360 — 360 전용 행 중 번역 있고 팀 작업본 없는 것만
+  원본 스타일 Koverwatch로 kr_x360/에 그리고 tex_kr 'Claude 초벌'로 업서트(お守りGET은 PS3 produce_common_099 배치 SPEC 공유).
+  초벌: mainmenu #6 アップロード → 업로드(행에 PS3 #6 'つづきから/이어서'가 잘못 들어가 있던 것 바로잡음), #98 시스템 설정, #100 복장 설정,
+  les_com #106·alf_common #242 부적 GET. game_kor 17:39 배포. 남은 360 전용: 튜토리얼 카드 7장(Xbox 버튼 그림), S4U 가(仮) 재킷 2장.
