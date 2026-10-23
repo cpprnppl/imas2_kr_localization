@@ -29,6 +29,7 @@ PS3 (RPCS3 patch.yml, PPU 해시 키, 시험 때만 활성화):
   python exe_inject.py build-ps3 [--tr F]      # out_exe\\imas2_kor_exe.yml
   python exe_inject.py install-ps3             # RPCS3 patches\\imported_patch.yml + config\\patch_config.yml (상시 적용)
   python exe_inject.py uninstall-ps3           # 위 두 파일 삭제 (이 도구가 쓴 것만)
+  python exe_inject.py retry-text --code … [--out F]   # PS3 기능 이식: 웹앱 retry_001 → out_exe\\retry_text.bin (UTF-16BE+NUL)
 
 번역 갱신 절차 (웹앱 exe 번역이 바뀌면):
   ui-image-extract가 exe_translations.json 회수 → build360 → deploy360 (gpu_run.lock 없을 때)
@@ -497,16 +498,53 @@ def uninstall_ps3(_a):
             print(f"삭제: {p}")
 
 
+# ---------------------------------------------------------------- PS3 기능 이식: 리트라이 확인 문구 (ps3-360-pc 요청)
+RETRY_ROW = "gamedata:system:initialFix#x3:retry_001"
+
+
+def retry_text(a):
+    """웹앱 행(PS3 system_text retry_001) kr → UTF-16BE + 널 2바이트 파일. 줄바꿈은 원문처럼 0x000A.
+    360 cSelectYesNo가 sub_82271558로 쓰는 문자열과 같은 형식(직접 등록 한글, 폰트 집합 밖 글자면 실패).
+    PS3 오버레이 토글이 켜질 때만 읽히도록 배치는 ps3-360-pc 몫 — 여기서는 out_exe\\retry_text.bin(+--out)만 만든다."""
+    import urllib.request
+    import urllib.parse
+    cfg = json.load(open(os.path.join(HERE, "webapp_config.json"), encoding="utf-8"))
+    h = {"apikey": cfg["anon_key"], "Authorization": f"Bearer {cfg['anon_key']}", "x-team-code": a.code}
+    r = json.load(urllib.request.urlopen(urllib.request.Request(
+        f"{cfg['url']}/rest/v1/rows?id=eq.{urllib.parse.quote(RETRY_ROW, safe='')}&select=jp,kr,st,by", headers=h)))
+    if not r or not r[0]["kr"]:
+        sys.exit(f"❌ 웹앱 행 {RETRY_ROW} 없음/미번역")
+    kr = r[0]["kr"].replace("\r\n", "\n")
+    if kr.count("\n") != r[0]["jp"].count("\n"):
+        sys.exit(f"❌ 줄 수가 원문과 다름: kr {kr.count(chr(10)) + 1}줄 / jp {r[0]['jp'].count(chr(10)) + 1}줄")
+    fs = font_set()
+    miss = sorted({c for c in kr if "가" <= c <= "힣" and c not in fs})
+    if miss:
+        sys.exit(f"❌ 폰트에 없는 한글: {''.join(miss)}")
+    blob = u16z(kr)
+    assert blob[:-2].decode("utf-16-be") == kr
+    outs = [os.path.join(OUT, "retry_text.bin")] + ([a.out] if a.out else [])
+    for o in outs:
+        os.makedirs(os.path.dirname(o), exist_ok=True)
+        open(o, "wb").write(blob)
+    print(f"retry_001 (by {r[0]['by']}, st {r[0]['st']}) {len(kr)}자 {kr.count(chr(10)) + 1}줄 → {len(blob)}B UTF-16BE+NUL")
+    for o in outs:
+        print("  →", o)
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["analyze", "build360", "deploy360", "build-ps3", "install-ps3", "uninstall-ps3"])
+    ap.add_argument("cmd", choices=["analyze", "build360", "deploy360", "build-ps3", "install-ps3", "uninstall-ps3",
+                                    "retry-text"])
+    ap.add_argument("--code", help="retry-text: 팀 암호")
+    ap.add_argument("--out", help="retry-text: 추가 출력 경로(예: PS3 오버레이 ps3\\retry_text.bin)")
     ap.add_argument("--tr", default=TR_DEFAULT)
     ap.add_argument("--alloc-at", type=lambda x: int(x, 0), default=0x0F000000,
                     help="build-ps3: RPCS3 alloc 블록 주소(64KB 정렬, 메인 메모리 미사용 영역)")
     ap.add_argument("--alloc-size", type=lambda x: int(x, 0), default=0x10000)
     a = ap.parse_args()
     return {"analyze": analyze, "build360": build360, "deploy360": deploy360, "build-ps3": build_ps3,
-            "install-ps3": install_ps3, "uninstall-ps3": uninstall_ps3}[a.cmd](a)
+            "install-ps3": install_ps3, "uninstall-ps3": uninstall_ps3, "retry-text": retry_text}[a.cmd](a)
 
 
 if __name__ == "__main__":
