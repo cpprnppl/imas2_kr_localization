@@ -1,0 +1,7012 @@
+{
+ "exe:eboot_ps3:0x587D18": {
+  "grp": "eboot_ps3",
+  "key": "0x587D18",
+  "jp": "アイドルマスター２",
+  "kr": "아이돌 마스터 ２",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5799192,
+  "slot": 1336,
+  "cap": 9,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x58B300": {
+  "grp": "eboot_ps3",
+  "key": "0x58B300",
+  "jp": "ライバル",
+  "kr": "라이벌",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5812992,
+  "slot": 4976,
+  "cap": 4,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x58DDF0": {
+  "grp": "eboot_ps3",
+  "key": "0x58DDF0",
+  "jp": "週前",
+  "kr": "주 전",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5823984,
+  "slot": 8,
+  "cap": 3,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x58DE48": {
+  "grp": "eboot_ps3",
+  "key": "0x58DE48",
+  "jp": "思い出アピールのボルテージ増加量UP",
+  "kr": "추억 어필 볼티지 증가량 UP",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5824072,
+  "slot": 3032,
+  "cap": 18,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x591D5C": {
+  "grp": "eboot_ps3",
+  "key": "0x591D5C",
+  "jp": "８",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5840220,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x591D6C": {
+  "grp": "eboot_ps3",
+  "key": "0x591D6C",
+  "jp": "タイトル１",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5840236,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x591D84": {
+  "grp": "eboot_ps3",
+  "key": "0x591D84",
+  "jp": "タイトル２",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5840260,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x591D9C": {
+  "grp": "eboot_ps3",
+  "key": "0x591D9C",
+  "jp": "タイトル３",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5840284,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x591DB4": {
+  "grp": "eboot_ps3",
+  "key": "0x591DB4",
+  "jp": "タイトル４",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5840308,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x591DCC": {
+  "grp": "eboot_ps3",
+  "key": "0x591DCC",
+  "jp": "タイトル５",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5840332,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x591DE4": {
+  "grp": "eboot_ps3",
+  "key": "0x591DE4",
+  "jp": "タイトル６",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5840356,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x591DFC": {
+  "grp": "eboot_ps3",
+  "key": "0x591DFC",
+  "jp": "タイトル７",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5840380,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x591E14": {
+  "grp": "eboot_ps3",
+  "key": "0x591E14",
+  "jp": "タイトル８",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5840404,
+  "slot": 12,
+  "cap": 5,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x592818": {
+  "grp": "eboot_ps3",
+  "key": "0x592818",
+  "jp": "終了しますか？",
+  "kr": "종료하시겠습니까？",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5842968,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5928FC": {
+  "grp": "eboot_ps3",
+  "key": "0x5928FC",
+  "jp": "８",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5843196,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x59290C": {
+  "grp": "eboot_ps3",
+  "key": "0x59290C",
+  "jp": "タイトル１",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5843212,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x592924": {
+  "grp": "eboot_ps3",
+  "key": "0x592924",
+  "jp": "タイトル２",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5843236,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x59293C": {
+  "grp": "eboot_ps3",
+  "key": "0x59293C",
+  "jp": "タイトル３",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5843260,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x592954": {
+  "grp": "eboot_ps3",
+  "key": "0x592954",
+  "jp": "タイトル４",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5843284,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x59296C": {
+  "grp": "eboot_ps3",
+  "key": "0x59296C",
+  "jp": "タイトル５",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5843308,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x592984": {
+  "grp": "eboot_ps3",
+  "key": "0x592984",
+  "jp": "タイトル６",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5843332,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x59299C": {
+  "grp": "eboot_ps3",
+  "key": "0x59299C",
+  "jp": "タイトル７",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5843356,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5929B4": {
+  "grp": "eboot_ps3",
+  "key": "0x5929B4",
+  "jp": "タイトル８",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5843380,
+  "slot": 12,
+  "cap": 5,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x593218": {
+  "grp": "eboot_ps3",
+  "key": "0x593218",
+  "jp": "麗花",
+  "kr": "레이카",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5845528,
+  "slot": 8,
+  "cap": 3,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x593220": {
+  "grp": "eboot_ps3",
+  "key": "0x593220",
+  "jp": "ジュリア",
+  "kr": "줄리아",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5845536,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x593230": {
+  "grp": "eboot_ps3",
+  "key": "0x593230",
+  "jp": "りんこ",
+  "kr": "린코",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5845552,
+  "slot": 8,
+  "cap": 3,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x593AA0": {
+  "grp": "eboot_ps3",
+  "key": "0x593AA0",
+  "jp": "オン",
+  "kr": "온",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5847712,
+  "slot": 8,
+  "cap": 3,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x594BE0": {
+  "grp": "eboot_ps3",
+  "key": "0x594BE0",
+  "jp": "３ステージトータルハイスコア",
+  "kr": "３스테이지 합계 최고 득점",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5852128,
+  "slot": 32,
+  "cap": 15,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x594C00": {
+  "grp": "eboot_ps3",
+  "key": "0x594C00",
+  "jp": "エピソードアイテム入手率",
+  "kr": "에피소드 아이템 입수율",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5852160,
+  "slot": 6552,
+  "cap": 12,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x596448": {
+  "grp": "eboot_ps3",
+  "key": "0x596448",
+  "jp": "ステージなし",
+  "kr": "스테이지 없음",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5858376,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x596458": {
+  "grp": "eboot_ps3",
+  "key": "0x596458",
+  "jp": "ホリゾントスタジオ",
+  "kr": "호리존트 스튜디오",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5858392,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x596480": {
+  "grp": "eboot_ps3",
+  "key": "0x596480",
+  "jp": "ハウススタジオ",
+  "kr": "하우스 스튜디오",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5858432,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5964B0": {
+  "grp": "eboot_ps3",
+  "key": "0x5964B0",
+  "jp": "ライブ流用 中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5858480,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5964C0": {
+  "grp": "eboot_ps3",
+  "key": "0x5964C0",
+  "jp": "ライブ流用 高",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 5858496,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5964D0": {
+  "grp": "eboot_ps3",
+  "key": "0x5964D0",
+  "jp": "ホリゾントスタジオ2",
+  "kr": "호리존트 스튜디오2",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5858512,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5964E8": {
+  "grp": "eboot_ps3",
+  "key": "0x5964E8",
+  "jp": "ホリゾントスタジオ3",
+  "kr": "호리존트 스튜디오3",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5858536,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x596500": {
+  "grp": "eboot_ps3",
+  "key": "0x596500",
+  "jp": "ホリゾントスタジオ4",
+  "kr": "호리존트 스튜디오4",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5858560,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5965F0": {
+  "grp": "eboot_ps3",
+  "key": "0x5965F0",
+  "jp": "オンラインID",
+  "kr": "온라인 ID",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5858800,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x596628": {
+  "grp": "eboot_ps3",
+  "key": "0x596628",
+  "jp": "プロフィール",
+  "kr": "프로필",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5858856,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5ACCF8": {
+  "grp": "eboot_ps3",
+  "key": "0x5ACCF8",
+  "jp": "アイドルマスター２\n（インストールデータ）",
+  "kr": "아이돌 마스터 ２\n（설치 데이터）",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5950712,
+  "slot": 2056,
+  "cap": 21,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD500": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD500",
+  "jp": "待機中",
+  "kr": "대기 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952768,
+  "slot": 8,
+  "cap": 3,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD508": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD508",
+  "jp": "タイトルデモ中",
+  "kr": "타이틀 데모 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952776,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD518": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD518",
+  "jp": "メインメニュー選択中",
+  "kr": "메인 메뉴 선택 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952792,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD530": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD530",
+  "jp": "プロデュース（活動%d週目）",
+  "kr": "프로듀스（활동 %d주차）",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952816,
+  "slot": 32,
+  "cap": 15,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD550": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD550",
+  "jp": "プロデュース（エピローグ）",
+  "kr": "프로듀스（에필로그）",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952848,
+  "slot": 32,
+  "cap": 15,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD570": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD570",
+  "jp": "ステージフォーユー！閲覧中",
+  "kr": "스테이지 포 유! 보는 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952880,
+  "slot": 32,
+  "cap": 15,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD590": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD590",
+  "jp": "765ショップカタログ閲覧中",
+  "kr": "765 숍 카탈로그 보는 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952912,
+  "slot": 32,
+  "cap": 15,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD5B0": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD5B0",
+  "jp": "アルバム閲覧中",
+  "kr": "앨범 보는 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952944,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD5C0": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD5C0",
+  "jp": "メール閲覧中",
+  "kr": "메일 보는 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952960,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD5D0": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD5D0",
+  "jp": "アイドラ閲覧中",
+  "kr": "아이드라 보는 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952976,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD5E0": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD5E0",
+  "jp": "ランキング閲覧中",
+  "kr": "랭킹 보는 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5952992,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD5F8": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD5F8",
+  "jp": "オプション設定中",
+  "kr": "옵션 설정 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5953016,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD610": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD610",
+  "jp": "エクストラエピソード中",
+  "kr": "엑스트라 에피소드 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5953040,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD628": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD628",
+  "jp": "グラビア撮影中",
+  "kr": "그라비아 촬영 중",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5953064,
+  "slot": 272,
+  "cap": 7,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD738": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD738",
+  "jp": "セーブデータのユーザー情報が異なります。\nPSボタンでゲームを終了し、セーブデータを削除してから\nゲームを再起動して下さい。",
+  "kr": "세이브 데이터의 사용자 정보가 다릅니다.\nPS 버튼으로 게임을 종료하고 세이브 데이터를 삭제한 뒤\n게임을 다시 시작해 주세요.",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5953336,
+  "slot": 128,
+  "cap": 63,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:eboot_ps3:0x5AD7B8": {
+  "grp": "eboot_ps3",
+  "key": "0x5AD7B8",
+  "jp": "新規にアイドルマスター2のセーブデータを作ります",
+  "kr": "아이돌 마스터 2 세이브 데이터를 새로 만듭니다",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 5953464,
+  "slot": 456,
+  "cap": 24,
+  "eboot": null,
+  "plat": "ps3"
+ },
+ "exe:xdbf360:XSTR_10": {
+  "grp": "xdbf360",
+  "key": "XSTR_10",
+  "jp": "行け！　はじめてのお仕事！",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125523,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_100": {
+  "grp": "xdbf360",
+  "key": "XSTR_100",
+  "jp": "プロデューサーＬＶが０４になりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6129138,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_101": {
+  "grp": "xdbf360",
+  "key": "XSTR_101",
+  "jp": "プロデューサーＬＶを０４以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6129199,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_11": {
+  "grp": "xdbf360",
+  "key": "XSTR_11",
+  "jp": "アイドルと初めて一緒に仕事に行きました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125566,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_12": {
+  "grp": "xdbf360",
+  "key": "XSTR_12",
+  "jp": "アイドルと初仕事を行ってください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125630,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_15": {
+  "grp": "xdbf360",
+  "key": "XSTR_15",
+  "jp": "全力でオーディションを受けてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125685,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_17": {
+  "grp": "xdbf360",
+  "key": "XSTR_17",
+  "jp": "挑め！　初オーディション！",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125746,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_18": {
+  "grp": "xdbf360",
+  "key": "XSTR_18",
+  "jp": "初めてのオーディションを受けました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125789,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_19": {
+  "grp": "xdbf360",
+  "key": "XSTR_19",
+  "jp": "目指せ！　初ランクイン！",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125847,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_20": {
+  "grp": "xdbf360",
+  "key": "XSTR_20",
+  "jp": "初めてどっとっぷTVのランキングにランクインしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125887,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_21": {
+  "grp": "xdbf360",
+  "key": "XSTR_21",
+  "jp": "どっとっぷTVのランキングで、ランクインを目指してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125968,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_22": {
+  "grp": "xdbf360",
+  "key": "XSTR_22",
+  "jp": "戦え！　RISING MOON！",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126058,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_23": {
+  "grp": "xdbf360",
+  "key": "XSTR_23",
+  "jp": "RISING MOONに参加しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126088,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_24": {
+  "grp": "xdbf360",
+  "key": "XSTR_24",
+  "jp": "RISING MOONに参加してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126127,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_28": {
+  "grp": "xdbf360",
+  "key": "XSTR_28",
+  "jp": "吹っ飛ばせ！　ODYSSEY！",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126172,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_285": {
+  "grp": "xdbf360",
+  "key": "XSTR_285",
+  "jp": "プロデューサーＬＶを０５以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132100,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_286": {
+  "grp": "xdbf360",
+  "key": "XSTR_286",
+  "jp": "中堅プロデューサー",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132170,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_287": {
+  "grp": "xdbf360",
+  "key": "XSTR_287",
+  "jp": "プロデューサーＬＶが０５になりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132201,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_288": {
+  "grp": "xdbf360",
+  "key": "XSTR_288",
+  "jp": "プロデューサーＬＶを０６以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132262,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_289": {
+  "grp": "xdbf360",
+  "key": "XSTR_289",
+  "jp": "敏腕プロデューサー",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132332,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_29": {
+  "grp": "xdbf360",
+  "key": "XSTR_29",
+  "jp": "ODYSSEYに参加しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126207,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_290": {
+  "grp": "xdbf360",
+  "key": "XSTR_290",
+  "jp": "プロデューサーＬＶが０６になりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132363,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_291": {
+  "grp": "xdbf360",
+  "key": "XSTR_291",
+  "jp": "プロデューサーＬＶを０７以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132424,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_292": {
+  "grp": "xdbf360",
+  "key": "XSTR_292",
+  "jp": "売れっ子プロデューサー",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132494,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_293": {
+  "grp": "xdbf360",
+  "key": "XSTR_293",
+  "jp": "プロデューサーＬＶが０７になりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132531,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_294": {
+  "grp": "xdbf360",
+  "key": "XSTR_294",
+  "jp": "プロデューサーＬＶを０８以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132592,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_295": {
+  "grp": "xdbf360",
+  "key": "XSTR_295",
+  "jp": "超売れっ子 プロデューサー",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132662,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_296": {
+  "grp": "xdbf360",
+  "key": "XSTR_296",
+  "jp": "プロデューサーＬＶが０８になりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132703,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_297": {
+  "grp": "xdbf360",
+  "key": "XSTR_297",
+  "jp": "プロデューサーＬＶを０９以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132764,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_298": {
+  "grp": "xdbf360",
+  "key": "XSTR_298",
+  "jp": "アイドルマスター",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132834,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_299": {
+  "grp": "xdbf360",
+  "key": "XSTR_299",
+  "jp": "プロデューサーＬＶが０９になりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132862,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_30": {
+  "grp": "xdbf360",
+  "key": "XSTR_30",
+  "jp": "ODYSSEYに参加してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126242,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_300": {
+  "grp": "xdbf360",
+  "key": "XSTR_300",
+  "jp": "プロデューサーＬＶを１０以上にしてください。 ",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132923,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_301": {
+  "grp": "xdbf360",
+  "key": "XSTR_301",
+  "jp": "真アイドルマスター",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6132994,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_302": {
+  "grp": "xdbf360",
+  "key": "XSTR_302",
+  "jp": "プロデューサーＬＶが１０になりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133025,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_303": {
+  "grp": "xdbf360",
+  "key": "XSTR_303",
+  "jp": "天海春香をリーダーとして最後までプロデュースしてください。 ",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133086,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_304": {
+  "grp": "xdbf360",
+  "key": "XSTR_304",
+  "jp": "俺と春香。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133178,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_305": {
+  "grp": "xdbf360",
+  "key": "XSTR_305",
+  "jp": "天海春香をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133197,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_306": {
+  "grp": "xdbf360",
+  "key": "XSTR_306",
+  "jp": "星井美希をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133282,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_307": {
+  "grp": "xdbf360",
+  "key": "XSTR_307",
+  "jp": "俺と美希。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133373,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_308": {
+  "grp": "xdbf360",
+  "key": "XSTR_308",
+  "jp": "星井美希をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133392,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_309": {
+  "grp": "xdbf360",
+  "key": "XSTR_309",
+  "jp": "如月千早をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133477,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_310": {
+  "grp": "xdbf360",
+  "key": "XSTR_310",
+  "jp": "俺と千早。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133568,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_311": {
+  "grp": "xdbf360",
+  "key": "XSTR_311",
+  "jp": "如月千早をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133587,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_312": {
+  "grp": "xdbf360",
+  "key": "XSTR_312",
+  "jp": "高槻やよいをリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133672,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_313": {
+  "grp": "xdbf360",
+  "key": "XSTR_313",
+  "jp": "俺とやよい。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133766,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_314": {
+  "grp": "xdbf360",
+  "key": "XSTR_314",
+  "jp": "高槻やよいをリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133788,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_315": {
+  "grp": "xdbf360",
+  "key": "XSTR_315",
+  "jp": "萩原雪歩をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133876,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_316": {
+  "grp": "xdbf360",
+  "key": "XSTR_316",
+  "jp": "俺と雪歩。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133967,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_317": {
+  "grp": "xdbf360",
+  "key": "XSTR_317",
+  "jp": "萩原雪歩をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6133986,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_318": {
+  "grp": "xdbf360",
+  "key": "XSTR_318",
+  "jp": "菊地真をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134071,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_319": {
+  "grp": "xdbf360",
+  "key": "XSTR_319",
+  "jp": "俺と真。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134159,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_320": {
+  "grp": "xdbf360",
+  "key": "XSTR_320",
+  "jp": "菊地真をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134175,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_321": {
+  "grp": "xdbf360",
+  "key": "XSTR_321",
+  "jp": "双海真美をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134257,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_322": {
+  "grp": "xdbf360",
+  "key": "XSTR_322",
+  "jp": "俺と真美。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134348,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_323": {
+  "grp": "xdbf360",
+  "key": "XSTR_323",
+  "jp": "双海真美をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134367,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_324": {
+  "grp": "xdbf360",
+  "key": "XSTR_324",
+  "jp": "四条貴音をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134452,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_325": {
+  "grp": "xdbf360",
+  "key": "XSTR_325",
+  "jp": "俺と貴音。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134543,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_32512": {
+  "grp": "xdbf360",
+  "key": "XSTR_32512",
+  "jp": "ゲームの種類",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125405,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_32513": {
+  "grp": "xdbf360",
+  "key": "XSTR_32513",
+  "jp": "ランク マッチ",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125427,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_32514": {
+  "grp": "xdbf360",
+  "key": "XSTR_32514",
+  "jp": "プレイヤー マッチ",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125450,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_32515": {
+  "grp": "xdbf360",
+  "key": "XSTR_32515",
+  "jp": "ゲーマー名",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125214,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_32516": {
+  "grp": "xdbf360",
+  "key": "XSTR_32516",
+  "jp": "ゲーマー名",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6129319,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_32517": {
+  "grp": "xdbf360",
+  "key": "XSTR_32517",
+  "jp": "ランク",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125201,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_32518": {
+  "grp": "xdbf360",
+  "key": "XSTR_32518",
+  "jp": "ランク",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6129306,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_326": {
+  "grp": "xdbf360",
+  "key": "XSTR_326",
+  "jp": "四条貴音をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134562,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_327": {
+  "grp": "xdbf360",
+  "key": "XSTR_327",
+  "jp": "我那覇響をリーダーとして最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134647,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_32768": {
+  "grp": "xdbf360",
+  "key": "XSTR_32768",
+  "jp": "アイドルマスター２",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125170,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_328": {
+  "grp": "xdbf360",
+  "key": "XSTR_328",
+  "jp": "俺と響。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134738,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_329": {
+  "grp": "xdbf360",
+  "key": "XSTR_329",
+  "jp": "我那覇響をリーダーとして最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134754,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_330": {
+  "grp": "xdbf360",
+  "key": "XSTR_330",
+  "jp": "？？？",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134839,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_331": {
+  "grp": "xdbf360",
+  "key": "XSTR_331",
+  "jp": "俺と竜宮小町。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134852,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_332": {
+  "grp": "xdbf360",
+  "key": "XSTR_332",
+  "jp": "竜宮小町の伊織、亜美、あずさをゲストに呼べるようになりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134877,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_333": {
+  "grp": "xdbf360",
+  "key": "XSTR_333",
+  "jp": "？？？",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134974,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_334": {
+  "grp": "xdbf360",
+  "key": "XSTR_334",
+  "jp": "俺と律子。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6134987,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_335": {
+  "grp": "xdbf360",
+  "key": "XSTR_335",
+  "jp": "秋月律子をゲストに呼べるようになりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135006,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_336": {
+  "grp": "xdbf360",
+  "key": "XSTR_336",
+  "jp": "アイドル１人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135073,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_337": {
+  "grp": "xdbf360",
+  "key": "XSTR_337",
+  "jp": "イチゴ賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135173,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_338": {
+  "grp": "xdbf360",
+  "key": "XSTR_338",
+  "jp": "アイドル１人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135189,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_339": {
+  "grp": "xdbf360",
+  "key": "XSTR_339",
+  "jp": "アイドル２人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135283,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_34": {
+  "grp": "xdbf360",
+  "key": "XSTR_34",
+  "jp": "集え！　ＩＡノミネート発表会！",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126283,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_340": {
+  "grp": "xdbf360",
+  "key": "XSTR_340",
+  "jp": "ニンジン賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135383,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_341": {
+  "grp": "xdbf360",
+  "key": "XSTR_341",
+  "jp": "アイドル２人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135402,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_342": {
+  "grp": "xdbf360",
+  "key": "XSTR_342",
+  "jp": "アイドル３人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135496,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_343": {
+  "grp": "xdbf360",
+  "key": "XSTR_343",
+  "jp": "サンデー賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135596,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_344": {
+  "grp": "xdbf360",
+  "key": "XSTR_344",
+  "jp": "アイドル３人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135615,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_345": {
+  "grp": "xdbf360",
+  "key": "XSTR_345",
+  "jp": "アイドル４人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135709,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_346": {
+  "grp": "xdbf360",
+  "key": "XSTR_346",
+  "jp": "ヨーグルト賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135809,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_347": {
+  "grp": "xdbf360",
+  "key": "XSTR_347",
+  "jp": "アイドル４人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135831,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_348": {
+  "grp": "xdbf360",
+  "key": "XSTR_348",
+  "jp": "アイドル５人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6135925,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_349": {
+  "grp": "xdbf360",
+  "key": "XSTR_349",
+  "jp": "ゴマ賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136025,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_35": {
+  "grp": "xdbf360",
+  "key": "XSTR_35",
+  "jp": "IA大賞ノミネート発表会に出席しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126332,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_350": {
+  "grp": "xdbf360",
+  "key": "XSTR_350",
+  "jp": "アイドル５人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136038,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_351": {
+  "grp": "xdbf360",
+  "key": "XSTR_351",
+  "jp": "アイドル６人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136132,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_352": {
+  "grp": "xdbf360",
+  "key": "XSTR_352",
+  "jp": "ロールケーキ賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136232,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_353": {
+  "grp": "xdbf360",
+  "key": "XSTR_353",
+  "jp": "アイドル６人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136257,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_354": {
+  "grp": "xdbf360",
+  "key": "XSTR_354",
+  "jp": "アイドル７人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136351,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_355": {
+  "grp": "xdbf360",
+  "key": "XSTR_355",
+  "jp": "シチリアオレンジ賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136451,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_356": {
+  "grp": "xdbf360",
+  "key": "XSTR_356",
+  "jp": "アイドル７人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136482,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_357": {
+  "grp": "xdbf360",
+  "key": "XSTR_357",
+  "jp": "アイドル８人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136576,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_358": {
+  "grp": "xdbf360",
+  "key": "XSTR_358",
+  "jp": "ハチミツ賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136676,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_359": {
+  "grp": "xdbf360",
+  "key": "XSTR_359",
+  "jp": "アイドル８人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136695,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_36": {
+  "grp": "xdbf360",
+  "key": "XSTR_36",
+  "jp": "IA大賞ノミネート発表会に出席してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126392,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_360": {
+  "grp": "xdbf360",
+  "key": "XSTR_360",
+  "jp": "アイドル９人をリーダーとして、最後までプロデュースしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136789,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_361": {
+  "grp": "xdbf360",
+  "key": "XSTR_361",
+  "jp": "クリーム賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136889,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_362": {
+  "grp": "xdbf360",
+  "key": "XSTR_362",
+  "jp": "アイドル９人をリーダーとして、最後までプロデュースしました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6136908,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_40": {
+  "grp": "xdbf360",
+  "key": "XSTR_40",
+  "jp": "ぶちのめせ！　FIRE BALL！",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126458,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_41": {
+  "grp": "xdbf360",
+  "key": "XSTR_41",
+  "jp": "FIRE BALLに参加しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126495,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_42": {
+  "grp": "xdbf360",
+  "key": "XSTR_42",
+  "jp": "FIRE BALLに参加してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126532,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_46": {
+  "grp": "xdbf360",
+  "key": "XSTR_46",
+  "jp": "恐怖！　地獄の特訓！",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126575,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_461": {
+  "grp": "xdbf360",
+  "key": "XSTR_461",
+  "jp": "タイトルデモ中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6138668,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_462": {
+  "grp": "xdbf360",
+  "key": "XSTR_462",
+  "jp": "メインメニュー選択中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6138693,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_464": {
+  "grp": "xdbf360",
+  "key": "XSTR_464",
+  "jp": "プロデュース（活動{p0x10000008}週目）",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6138727,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_466": {
+  "grp": "xdbf360",
+  "key": "XSTR_466",
+  "jp": "プロデュース（エピローグ）",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6138796,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_467": {
+  "grp": "xdbf360",
+  "key": "XSTR_467",
+  "jp": "アルバム閲覧中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6138839,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_468": {
+  "grp": "xdbf360",
+  "key": "XSTR_468",
+  "jp": "メール閲覧中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6138864,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_469": {
+  "grp": "xdbf360",
+  "key": "XSTR_469",
+  "jp": "アイドラ閲覧中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6138886,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_47": {
+  "grp": "xdbf360",
+  "key": "XSTR_47",
+  "jp": "地獄の特訓をアイドルに課しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126609,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_470": {
+  "grp": "xdbf360",
+  "key": "XSTR_470",
+  "jp": "ランキング閲覧中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6138911,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_471": {
+  "grp": "xdbf360",
+  "key": "XSTR_471",
+  "jp": "オプション設定中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6138939,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_473": {
+  "grp": "xdbf360",
+  "key": "XSTR_473",
+  "jp": "765ショップカタログ閲覧中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6138967,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_474": {
+  "grp": "xdbf360",
+  "key": "XSTR_474",
+  "jp": "ステージフォーユー！閲覧中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6139007,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_475": {
+  "grp": "xdbf360",
+  "key": "XSTR_475",
+  "jp": "ユニット選択中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6139050,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_48": {
+  "grp": "xdbf360",
+  "key": "XSTR_48",
+  "jp": "地獄の特訓をアイドルに課してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126664,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_54": {
+  "grp": "xdbf360",
+  "key": "XSTR_54",
+  "jp": "集合！　はじめてのクィンテットライブ！",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126725,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_55": {
+  "grp": "xdbf360",
+  "key": "XSTR_55",
+  "jp": "クィンテットライブを開催しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126786,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_56": {
+  "grp": "xdbf360",
+  "key": "XSTR_56",
+  "jp": "クィンテットライブを開催してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126841,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_57": {
+  "grp": "xdbf360",
+  "key": "XSTR_57",
+  "jp": "ベスト５０",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126902,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_58": {
+  "grp": "xdbf360",
+  "key": "XSTR_58",
+  "jp": "どっとっぷTVのランキングで、５０位以内に入りました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6126921,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_59": {
+  "grp": "xdbf360",
+  "key": "XSTR_59",
+  "jp": "どっとっぷTVのランキングで、５０位以内に入ってください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127002,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_60": {
+  "grp": "xdbf360",
+  "key": "XSTR_60",
+  "jp": "ベスト２０",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127089,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_61": {
+  "grp": "xdbf360",
+  "key": "XSTR_61",
+  "jp": "どっとっぷTVのランキングで、２０位以内に入りました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127108,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_62": {
+  "grp": "xdbf360",
+  "key": "XSTR_62",
+  "jp": "どっとっぷTVのランキングで、２０位以内に入ってください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127189,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_63": {
+  "grp": "xdbf360",
+  "key": "XSTR_63",
+  "jp": "ベスト１０",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127276,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_64": {
+  "grp": "xdbf360",
+  "key": "XSTR_64",
+  "jp": "どっとっぷTVのランキングで、１０位以内に入りました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127295,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_65": {
+  "grp": "xdbf360",
+  "key": "XSTR_65",
+  "jp": "どっとっぷTVのランキングで、１０位以内に入ってください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127376,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_66": {
+  "grp": "xdbf360",
+  "key": "XSTR_66",
+  "jp": "ベスト５",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127463,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_67": {
+  "grp": "xdbf360",
+  "key": "XSTR_67",
+  "jp": "どっとっぷTVのランキングで、５位以内に入りました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127479,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_68": {
+  "grp": "xdbf360",
+  "key": "XSTR_68",
+  "jp": "どっとっぷTVのランキングで、５位以内に入ってください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127557,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_69": {
+  "grp": "xdbf360",
+  "key": "XSTR_69",
+  "jp": "トップアイドル",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127641,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_70": {
+  "grp": "xdbf360",
+  "key": "XSTR_70",
+  "jp": "どっとっぷTVのランキングで、１位になりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127666,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_71": {
+  "grp": "xdbf360",
+  "key": "XSTR_71",
+  "jp": "どっとっぷTVのランキングで、１位になってください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127738,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_72": {
+  "grp": "xdbf360",
+  "key": "XSTR_72",
+  "jp": "スノーホワイト賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127816,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_73": {
+  "grp": "xdbf360",
+  "key": "XSTR_73",
+  "jp": "スノーホワイト賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127844,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_74": {
+  "grp": "xdbf360",
+  "key": "XSTR_74",
+  "jp": "スノーホワイト賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127896,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_75": {
+  "grp": "xdbf360",
+  "key": "XSTR_75",
+  "jp": "フォレストグリーン賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127954,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_76": {
+  "grp": "xdbf360",
+  "key": "XSTR_76",
+  "jp": "フォレストグリーン賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6127988,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_77": {
+  "grp": "xdbf360",
+  "key": "XSTR_77",
+  "jp": "フォレストグリーン賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128046,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_78": {
+  "grp": "xdbf360",
+  "key": "XSTR_78",
+  "jp": "フェニックスレッド賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128110,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_79": {
+  "grp": "xdbf360",
+  "key": "XSTR_79",
+  "jp": "フェニックスレッド賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128144,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_8": {
+  "grp": "xdbf360",
+  "key": "XSTR_8",
+  "jp": "プロデュースゲーム",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125479,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_80": {
+  "grp": "xdbf360",
+  "key": "XSTR_80",
+  "jp": "フェニックスレッド賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128202,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_81": {
+  "grp": "xdbf360",
+  "key": "XSTR_81",
+  "jp": "ブラックパール賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128266,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_82": {
+  "grp": "xdbf360",
+  "key": "XSTR_82",
+  "jp": "ブラックパール賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128294,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_83": {
+  "grp": "xdbf360",
+  "key": "XSTR_83",
+  "jp": "ブラックパール賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128346,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_84": {
+  "grp": "xdbf360",
+  "key": "XSTR_84",
+  "jp": "オーシャンブルー賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128404,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_85": {
+  "grp": "xdbf360",
+  "key": "XSTR_85",
+  "jp": "オーシャンブルー賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128435,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_86": {
+  "grp": "xdbf360",
+  "key": "XSTR_86",
+  "jp": "オーシャンブルー賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128490,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_87": {
+  "grp": "xdbf360",
+  "key": "XSTR_87",
+  "jp": "ＩＡ大賞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128551,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_88": {
+  "grp": "xdbf360",
+  "key": "XSTR_88",
+  "jp": "ＩＡ大賞を受賞しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128567,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_89": {
+  "grp": "xdbf360",
+  "key": "XSTR_89",
+  "jp": "ＩＡ大賞を獲得してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128607,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_9": {
+  "grp": "xdbf360",
+  "key": "XSTR_9",
+  "jp": "待機中",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6125510,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_91": {
+  "grp": "xdbf360",
+  "key": "XSTR_91",
+  "jp": "ＩＡ大賞で全部門を制覇しました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128667,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_92": {
+  "grp": "xdbf360",
+  "key": "XSTR_92",
+  "jp": "ＩＡ大賞で全部門を制覇してください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128719,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_93": {
+  "grp": "xdbf360",
+  "key": "XSTR_93",
+  "jp": "駆け出しプロデューサー",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128777,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_94": {
+  "grp": "xdbf360",
+  "key": "XSTR_94",
+  "jp": "プロデューサーＬＶが０２になりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128814,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_95": {
+  "grp": "xdbf360",
+  "key": "XSTR_95",
+  "jp": "プロデューサーＬＶを０２以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128875,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_96": {
+  "grp": "xdbf360",
+  "key": "XSTR_96",
+  "jp": "新米プロデューサー",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128945,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_97": {
+  "grp": "xdbf360",
+  "key": "XSTR_97",
+  "jp": "プロデューサーＬＶが０３になりました。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6128976,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_98": {
+  "grp": "xdbf360",
+  "key": "XSTR_98",
+  "jp": "プロデューサーＬＶを０３以上にしてください。",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6129037,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xdbf360:XSTR_99": {
+  "grp": "xdbf360",
+  "key": "XSTR_99",
+  "jp": "普通プロデューサー",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 6129107,
+  "slot": null,
+  "cap": null,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0B8208": {
+  "grp": "xex360",
+  "key": "0x0B8208",
+  "jp": "[DLCコイン名]",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 754184,
+  "slot": 20,
+  "cap": 9,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0B821C": {
+  "grp": "xex360",
+  "key": "0x0B821C",
+  "jp": "[DLCコイン価格]",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 754204,
+  "slot": 4144,
+  "cap": 2071,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0B924C": {
+  "grp": "xex360",
+  "key": "0x0B924C",
+  "jp": "審査員",
+  "kr": "심사위원",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758348,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 12928,
+    "offset": 5785008
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9254": {
+  "grp": "xex360",
+  "key": "0x0B9254",
+  "jp": "店員",
+  "kr": "점원",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758356,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5785000
+   },
+   {
+    "enc": "u16",
+    "slot": 224,
+    "offset": 5845184
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B925C": {
+  "grp": "xex360",
+  "key": "0x0B925C",
+  "jp": "ヨド子",
+  "kr": "요도코",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758364,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784992
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9264": {
+  "grp": "xex360",
+  "key": "0x0B9264",
+  "jp": "ＢＫ",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 758372,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784984
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B926C": {
+  "grp": "xex360",
+  "key": "0x0B926C",
+  "jp": "ヤスコ",
+  "kr": "야스코",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758380,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784976
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9274": {
+  "grp": "xex360",
+  "key": "0x0B9274",
+  "jp": "山原記者",
+  "kr": "야마하라 기자",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758388,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784960
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9280": {
+  "grp": "xex360",
+  "key": "0x0B9280",
+  "jp": "金丸記者",
+  "kr": "카나마루 기자",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758400,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784944
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B928C": {
+  "grp": "xex360",
+  "key": "0x0B928C",
+  "jp": "小柴記者",
+  "kr": "코시바 기자",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758412,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784928
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9298": {
+  "grp": "xex360",
+  "key": "0x0B9298",
+  "jp": "有明記者",
+  "kr": "아리아케 기자",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758424,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784912
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B92A4": {
+  "grp": "xex360",
+  "key": "0x0B92A4",
+  "jp": "安宅記者",
+  "kr": "아타카 기자",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758436,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784896
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B92B0": {
+  "grp": "xex360",
+  "key": "0x0B92B0",
+  "jp": "カメラマン",
+  "kr": "카메라맨",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758448,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784880
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B92BC": {
+  "grp": "xex360",
+  "key": "0x0B92BC",
+  "jp": "スタッフ",
+  "kr": "스태프",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758460,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784864
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B92C8": {
+  "grp": "xex360",
+  "key": "0x0B92C8",
+  "jp": "ディレクター",
+  "kr": "디렉터",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758472,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784848
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B92D8": {
+  "grp": "xex360",
+  "key": "0x0B92D8",
+  "jp": "老医師",
+  "kr": "노의사",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758488,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784840
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B92E0": {
+  "grp": "xex360",
+  "key": "0x0B92E0",
+  "jp": "司会者",
+  "kr": "사회자",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758496,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784832
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B92E8": {
+  "grp": "xex360",
+  "key": "0x0B92E8",
+  "jp": "大富",
+  "kr": "오오토미",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758504,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784824
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B92F0": {
+  "grp": "xex360",
+  "key": "0x0B92F0",
+  "jp": "会長",
+  "kr": "회장",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758512,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784816
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B92F8": {
+  "grp": "xex360",
+  "key": "0x0B92F8",
+  "jp": "黒井社長",
+  "kr": "쿠로이 사장",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758520,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784800
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9304": {
+  "grp": "xex360",
+  "key": "0x0B9304",
+  "jp": "社長",
+  "kr": "사장",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758532,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784792
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845072
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845448
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B930C": {
+  "grp": "xex360",
+  "key": "0x0B930C",
+  "jp": "小鳥",
+  "kr": "코토리",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758540,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784784
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9314": {
+  "grp": "xex360",
+  "key": "0x0B9314",
+  "jp": "Ｐ",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 758548,
+  "slot": 4,
+  "cap": 1,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784640
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9318": {
+  "grp": "xex360",
+  "key": "0x0B9318",
+  "jp": "北斗",
+  "kr": "호쿠토",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758552,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784776
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9328": {
+  "grp": "xex360",
+  "key": "0x0B9328",
+  "jp": "冬馬",
+  "kr": "토우마",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758568,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5784760
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9330": {
+  "grp": "xex360",
+  "key": "0x0B9330",
+  "jp": "律子",
+  "kr": "리츠코",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758576,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784752
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845176
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845584
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9338": {
+  "grp": "xex360",
+  "key": "0x0B9338",
+  "jp": "あずさ",
+  "kr": "아즈사",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758584,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784744
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845168
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845576
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9340": {
+  "grp": "xex360",
+  "key": "0x0B9340",
+  "jp": "亜美",
+  "kr": "아미",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758592,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784736
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845160
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845568
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9348": {
+  "grp": "xex360",
+  "key": "0x0B9348",
+  "jp": "伊織",
+  "kr": "이오리",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758600,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784728
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845152
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845560
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9350": {
+  "grp": "xex360",
+  "key": "0x0B9350",
+  "jp": "響",
+  "kr": "히비키",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758608,
+  "slot": 4,
+  "cap": 1,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784720
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845144
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845520
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9354": {
+  "grp": "xex360",
+  "key": "0x0B9354",
+  "jp": "貴音",
+  "kr": "타카네",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758612,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784712
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845136
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845512
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B935C": {
+  "grp": "xex360",
+  "key": "0x0B935C",
+  "jp": "真美",
+  "kr": "마미",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758620,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784704
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845128
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845504
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9364": {
+  "grp": "xex360",
+  "key": "0x0B9364",
+  "jp": "真",
+  "kr": "마코토",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758628,
+  "slot": 4,
+  "cap": 1,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784696
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845120
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845496
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9368": {
+  "grp": "xex360",
+  "key": "0x0B9368",
+  "jp": "雪歩",
+  "kr": "유키호",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758632,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784688
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845112
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845488
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9370": {
+  "grp": "xex360",
+  "key": "0x0B9370",
+  "jp": "やよい",
+  "kr": "야요이",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758640,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784680
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845104
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845480
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9378": {
+  "grp": "xex360",
+  "key": "0x0B9378",
+  "jp": "千早",
+  "kr": "치하야",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758648,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784672
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845096
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845472
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9380": {
+  "grp": "xex360",
+  "key": "0x0B9380",
+  "jp": "美希",
+  "kr": "미키",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758656,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784664
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845088
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845464
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0B9388": {
+  "grp": "xex360",
+  "key": "0x0B9388",
+  "jp": "春香",
+  "kr": "하루카",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 758664,
+  "slot": 9760,
+  "cap": 4879,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5784656
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845080
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5845456
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BB9A8": {
+  "grp": "xex360",
+  "key": "0x0BB9A8",
+  "jp": "ルーム",
+  "kr": "룸",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768424,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5954208
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BB9B0": {
+  "grp": "xex360",
+  "key": "0x0BB9B0",
+  "jp": "ナムコエンジェル",
+  "kr": "남코 엔젤",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768432,
+  "slot": 20,
+  "cap": 9,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 3832,
+    "offset": 5800528
+   },
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5830840
+   },
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5954184
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BB9C4": {
+  "grp": "xex360",
+  "key": "0x0BB9C4",
+  "jp": "アイマス",
+  "kr": "아이마스",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768452,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5954168
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BB9D0": {
+  "grp": "xex360",
+  "key": "0x0BB9D0",
+  "jp": "\nその名前は使用できません。",
+  "kr": "\n그 이름은 사용할 수 없습니다.",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768464,
+  "slot": 32,
+  "cap": 15,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 32,
+    "offset": 5954136
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BB9F0": {
+  "grp": "xex360",
+  "key": "0x0BB9F0",
+  "jp": " プロデューサー\nその名前は使用できません。",
+  "kr": " 프로듀서\n그 이름은 사용할 수 없습니다.",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768496,
+  "slot": 48,
+  "cap": 23,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 48,
+    "offset": 5954088
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BBA20": {
+  "grp": "xex360",
+  "key": "0x0BBA20",
+  "jp": "\n　\nこれでよろしいですか？",
+  "kr": "\n　\n이대로 괜찮겠습니까？",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768544,
+  "slot": 32,
+  "cap": 15,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 32,
+    "offset": 5954056
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BBA40": {
+  "grp": "xex360",
+  "key": "0x0BBA40",
+  "jp": " プロデューサー\n　\nこれでよろしいですか？",
+  "kr": " 프로듀서\n　\n이대로 괜찮겠습니까？",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768576,
+  "slot": 48,
+  "cap": 23,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 48,
+    "offset": 5954008
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BBA70": {
+  "grp": "xex360",
+  "key": "0x0BBA70",
+  "jp": "ルーム名を入力して下さい。(10文字以内)",
+  "kr": "룸 이름을 입력해 주세요.(10자 이내)",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768624,
+  "slot": 44,
+  "cap": 21,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BBA9C": {
+  "grp": "xex360",
+  "key": "0x0BBA9C",
+  "jp": "ユニット名を入力して下さい。(10文字以内)",
+  "kr": "유닛 이름을 입력해 주세요.(10자 이내)",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768668,
+  "slot": 48,
+  "cap": 23,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BBACC": {
+  "grp": "xex360",
+  "key": "0x0BBACC",
+  "jp": "プロデューサー名を入力して下さい。(6文字以内)",
+  "kr": "프로듀서 이름을 입력해 주세요.(6자 이내)",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768716,
+  "slot": 52,
+  "cap": 25,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 56,
+    "offset": 5953920
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BBB00": {
+  "grp": "xex360",
+  "key": "0x0BBB00",
+  "jp": "ルーム名入力",
+  "kr": "룸 이름 입력",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768768,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5953992
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BBB10": {
+  "grp": "xex360",
+  "key": "0x0BBB10",
+  "jp": "ユニット名入力",
+  "kr": "유닛 이름 입력",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768784,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5953976
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BBB20": {
+  "grp": "xex360",
+  "key": "0x0BBB20",
+  "jp": "プロデューサー名入力",
+  "kr": "프로듀서 이름 입력",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 768800,
+  "slot": 764,
+  "cap": 381,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BBE1C": {
+  "grp": "xex360",
+  "key": "0x0BBE1C",
+  "jp": "創刊",
+  "kr": "창간",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 769564,
+  "slot": 792,
+  "cap": 395,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 872,
+    "offset": 5797936
+   },
+   {
+    "enc": "u16",
+    "slot": 64,
+    "offset": 5798808
+   },
+   {
+    "enc": "u16",
+    "slot": 72,
+    "offset": 5858712
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BC134": {
+  "grp": "xex360",
+  "key": "0x0BC134",
+  "jp": "「コイン名なし」",
+  "kr": "「코인 이름 없음」",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 770356,
+  "slot": 1052,
+  "cap": 525,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 320,
+    "offset": 5798872
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BC550": {
+  "grp": "xex360",
+  "key": "0x0BC550",
+  "jp": "アイドルマスター２のフォトデータ",
+  "kr": "아이돌 마스터 ２ 포토 데이터",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 771408,
+  "slot": 60,
+  "cap": 29,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BC58C": {
+  "grp": "xex360",
+  "key": "0x0BC58C",
+  "jp": "アイドルマスター２のセーブデータ",
+  "kr": "아이돌 마스터 ２ 세이브 데이터",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 771468,
+  "slot": 2366,
+  "cap": 1182,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BCECA": {
+  "grp": "xex360",
+  "key": "0x0BCECA",
+  "jp": "慮来",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 773834,
+  "slot": 778,
+  "cap": 388,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BD1D4": {
+  "grp": "xex360",
+  "key": "0x0BD1D4",
+  "jp": "女の子を選択してください。",
+  "kr": "아이돌을 선택해 주세요.",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 774612,
+  "slot": 28,
+  "cap": 13,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 32,
+    "offset": 5818144
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BD1F0": {
+  "grp": "xex360",
+  "key": "0x0BD1F0",
+  "jp": "意気込みを語ってもらう女の子を選んでください",
+  "kr": "포부를 말할 아이돌을 골라 주세요",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 774640,
+  "slot": 48,
+  "cap": 23,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 48,
+    "offset": 5817968
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BD220": {
+  "grp": "xex360",
+  "key": "0x0BD220",
+  "jp": "プロデュースに力を入れる女の子を選んでください",
+  "kr": "프로듀스에 힘을 쏟을 아이돌을 골라 주세요",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 774688,
+  "slot": 48,
+  "cap": 23,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 48,
+    "offset": 5818016
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BD250": {
+  "grp": "xex360",
+  "key": "0x0BD250",
+  "jp": "じゃんけんをする女の子を選んでください",
+  "kr": "가위바위보를 할 아이돌을 골라 주세요",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 774736,
+  "slot": 40,
+  "cap": 19,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 40,
+    "offset": 5818064
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BD278": {
+  "grp": "xex360",
+  "key": "0x0BD278",
+  "jp": "リーダーにする女の子を選んでください",
+  "kr": "리더로 삼을 아이돌을 골라 주세요",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 774776,
+  "slot": 64,
+  "cap": 31,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 40,
+    "offset": 5818104
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BD2B8": {
+  "grp": "xex360",
+  "key": "0x0BD2B8",
+  "jp": "をリーダーにします。\nよろしいですか？",
+  "kr": "을(를) 리더로 합니다.\n괜찮겠습니까？",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 774840,
+  "slot": 488,
+  "cap": 243,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 280,
+    "offset": 5818176
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BD4A0": {
+  "grp": "xex360",
+  "key": "0x0BD4A0",
+  "jp": "を選択して下さい",
+  "kr": "을(를) 선택해 주세요",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 775328,
+  "slot": 1808,
+  "cap": 903,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 1176,
+    "offset": 5818456
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BDBB0": {
+  "grp": "xex360",
+  "key": "0x0BDBB0",
+  "jp": "Ａ",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 777136,
+  "slot": 4,
+  "cap": 1,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BDBB4": {
+  "grp": "xex360",
+  "key": "0x0BDBB4",
+  "jp": "Ｂ",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 777140,
+  "slot": 4,
+  "cap": 1,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5819632
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BDBB8": {
+  "grp": "xex360",
+  "key": "0x0BDBB8",
+  "jp": "Ｏ",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 777144,
+  "slot": 4,
+  "cap": 1,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5819640
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BDBBC": {
+  "grp": "xex360",
+  "key": "0x0BDBBC",
+  "jp": "ＡＢ",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 777148,
+  "slot": 2132,
+  "cap": 1065,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 624,
+    "offset": 5819648
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE410": {
+  "grp": "xex360",
+  "key": "0x0BE410",
+  "jp": "ティンときたどっと！",
+  "kr": "팅 하고 왔닷톱！",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 779280,
+  "slot": 132,
+  "cap": 65,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 3368,
+    "offset": 5820352
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE494": {
+  "grp": "xex360",
+  "key": "0x0BE494",
+  "jp": "どっとっぷTVを終了します。\nよろしいですか？",
+  "kr": "닷톱 TV를 종료합니다.\n괜찮겠습니까？",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 779412,
+  "slot": 368,
+  "cap": 183,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BE604": {
+  "grp": "xex360",
+  "key": "0x0BE604",
+  "jp": "ミミヨリ",
+  "kr": "귀띔 정보",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 779780,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5820272
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE610": {
+  "grp": "xex360",
+  "key": "0x0BE610",
+  "jp": "登場回数",
+  "kr": "등장 횟수",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 779792,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5820288
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE61C": {
+  "grp": "xex360",
+  "key": "0x0BE61C",
+  "jp": "プロデューサー",
+  "kr": "프로듀서",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 779804,
+  "slot": 60,
+  "cap": 29,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5820304
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5858784
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE658": {
+  "grp": "xex360",
+  "key": "0x0BE658",
+  "jp": "スキップ",
+  "kr": "건너뛰기",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 779864,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5820328
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5837184
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE664": {
+  "grp": "xex360",
+  "key": "0x0BE664",
+  "jp": "終了",
+  "kr": "종료",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 779876,
+  "slot": 664,
+  "cap": 331,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5820344
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5858888
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE8FC": {
+  "grp": "xex360",
+  "key": "0x0BE8FC",
+  "jp": "捨父",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 780540,
+  "slot": 40,
+  "cap": 19,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BE924": {
+  "grp": "xex360",
+  "key": "0x0BE924",
+  "jp": "捨爵",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 780580,
+  "slot": 40,
+  "cap": 19,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BE94C": {
+  "grp": "xex360",
+  "key": "0x0BE94C",
+  "jp": "アイドラの視聴を終了します。\nよろしいですか？",
+  "kr": "아이드라 시청을 종료합니다.\n괜찮겠습니까？",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 780620,
+  "slot": 52,
+  "cap": 25,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 48,
+    "offset": 5823792
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE980": {
+  "grp": "xex360",
+  "key": "0x0BE980",
+  "jp": "タイトルに戻ります。\n保存していないデータは失われますが、\nよろしいですか？",
+  "kr": "타이틀로 돌아갑니다.\n저장하지 않은 데이터는 사라지는데,\n괜찮겠습니까？",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 780672,
+  "slot": 80,
+  "cap": 39,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 96,
+    "offset": 5823840
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE9D0": {
+  "grp": "xex360",
+  "key": "0x0BE9D0",
+  "jp": "ゲームに戻る",
+  "kr": "게임으로",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 780752,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5823720
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE9E0": {
+  "grp": "xex360",
+  "key": "0x0BE9E0",
+  "jp": "ユニット情報",
+  "kr": "유닛 정보",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 780768,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5823736
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE9F0": {
+  "grp": "xex360",
+  "key": "0x0BE9F0",
+  "jp": "楽曲情報",
+  "kr": "악곡 정보",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 780784,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5823752
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BE9FC": {
+  "grp": "xex360",
+  "key": "0x0BE9FC",
+  "jp": "タイトル画面へ戻る",
+  "kr": "타이틀 화면으로",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 780796,
+  "slot": 140,
+  "cap": 69,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5823768
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BEA88": {
+  "grp": "xex360",
+  "key": "0x0BEA88",
+  "jp": "記者",
+  "kr": "기자",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 780936,
+  "slot": 20,
+  "cap": 9,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5824056
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BEA9C": {
+  "grp": "xex360",
+  "key": "0x0BEA9C",
+  "jp": "なし",
+  "kr": "없음",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 780956,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5824064
+   },
+   {
+    "enc": "u16",
+    "slot": 32,
+    "offset": 5830784
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BEAA4": {
+  "grp": "xex360",
+  "key": "0x0BEAA4",
+  "jp": "万",
+  "kr": "만",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 780964,
+  "slot": 4,
+  "cap": 1,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5827120
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5850624
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BEAA8": {
+  "grp": "xex360",
+  "key": "0x0BEAA8",
+  "jp": "人",
+  "kr": "명",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 780968,
+  "slot": 1636,
+  "cap": 817,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5824048
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5827128
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5850664
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF10C": {
+  "grp": "xex360",
+  "key": "0x0BF10C",
+  "jp": "枚",
+  "kr": "장",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 782604,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5823936
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5850632
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF114": {
+  "grp": "xex360",
+  "key": "0x0BF114",
+  "jp": "位",
+  "kr": "위",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 782612,
+  "slot": 4,
+  "cap": 1,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5823944
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5850656
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF118": {
+  "grp": "xex360",
+  "key": "0x0BF118",
+  "jp": "ランク外",
+  "kr": "순위 밖",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 782616,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5823952
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5850640
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF124": {
+  "grp": "xex360",
+  "key": "0x0BF124",
+  "jp": "リリース",
+  "kr": "릴리스",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 782628,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5823992
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF130": {
+  "grp": "xex360",
+  "key": "0x0BF130",
+  "jp": "チャート",
+  "kr": "차트",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 782640,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5824008
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF13C": {
+  "grp": "xex360",
+  "key": "0x0BF13C",
+  "jp": "売上",
+  "kr": "매출",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 782652,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5824024
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF144": {
+  "grp": "xex360",
+  "key": "0x0BF144",
+  "jp": "ハイスコア",
+  "kr": "최고 득점",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 782660,
+  "slot": 48,
+  "cap": 23,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5824032
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF174": {
+  "grp": "xex360",
+  "key": "0x0BF174",
+  "jp": "週目",
+  "kr": "주차",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 782708,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5823976
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF17C": {
+  "grp": "xex360",
+  "key": "0x0BF17C",
+  "jp": "／最高",
+  "kr": "／최고",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 782716,
+  "slot": 752,
+  "cap": 375,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5823968
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF460": {
+  "grp": "xex360",
+  "key": "0x0BF460",
+  "jp": "南エリア",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 783456,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 3520,
+    "offset": 5827264
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF46C": {
+  "grp": "xex360",
+  "key": "0x0BF46C",
+  "jp": "西エリア",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 783468,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5827248
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF478": {
+  "grp": "xex360",
+  "key": "0x0BF478",
+  "jp": "上方エリア",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 783480,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5827232
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF484": {
+  "grp": "xex360",
+  "key": "0x0BF484",
+  "jp": "中央エリア",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 783492,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5827216
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF490": {
+  "grp": "xex360",
+  "key": "0x0BF490",
+  "jp": "首都エリア",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 783504,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5827200
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF49C": {
+  "grp": "xex360",
+  "key": "0x0BF49C",
+  "jp": "北東エリア",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 783516,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5827184
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF4A8": {
+  "grp": "xex360",
+  "key": "0x0BF4A8",
+  "jp": "全エリア",
+  "kr": "전 지역",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 783528,
+  "slot": 690,
+  "cap": 344,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5827168
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF75A": {
+  "grp": "xex360",
+  "key": "0x0BF75A",
+  "jp": "慮来",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 784218,
+  "slot": 298,
+  "cap": 148,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0BF884": {
+  "grp": "xex360",
+  "key": "0x0BF884",
+  "jp": "ファン人数",
+  "kr": "팬 수",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 784516,
+  "slot": 44,
+  "cap": 21,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5827104
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5839584
+   },
+   {
+    "enc": "u16",
+    "slot": 688,
+    "offset": 5842280
+   },
+   {
+    "enc": "u16",
+    "slot": 424,
+    "offset": 5844648
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF8B0": {
+  "grp": "xex360",
+  "key": "0x0BF8B0",
+  "jp": "ギャラ",
+  "kr": "개런티",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 784560,
+  "slot": 40,
+  "cap": 19,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5827136
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF8D0": {
+  "grp": "xex360",
+  "key": "0x0BF8D0",
+  "jp": "ファン",
+  "kr": "팬",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 784592,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5827144
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BF8D8": {
+  "grp": "xex360",
+  "key": "0x0BF8D8",
+  "jp": "全国ファン人数",
+  "kr": "전국 팬 수",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 784600,
+  "slot": 1360,
+  "cap": 679,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5827152
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BFE28": {
+  "grp": "xex360",
+  "key": "0x0BFE28",
+  "jp": "アイマスエンジェル",
+  "kr": "아이마스 엔젤",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 785960,
+  "slot": 320,
+  "cap": 159,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5830816
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0BFF68": {
+  "grp": "xex360",
+  "key": "0x0BFF68",
+  "jp": "設定を保存しますか？\n\n（設定を保存しない場合、タイトル画面に戻り、\nステージフォーユー！ で設定したデータは失われます。）",
+  "kr": "설정을 저장하시겠습니까？\n\n（저장하지 않으면 타이틀 화면으로 돌아가며,\n스테이지 포 유! 에서 설정한 데이터는 사라집니다.）",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 786280,
+  "slot": 1276,
+  "cap": 637,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 1760,
+    "offset": 5830864
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C0464": {
+  "grp": "xex360",
+  "key": "0x0C0464",
+  "jp": "タッチする場所を指定してください",
+  "kr": "터치할 곳을 지정해 주세요",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 787556,
+  "slot": 5256,
+  "cap": 2627,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 4456,
+    "offset": 5832624
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C18EC": {
+  "grp": "xex360",
+  "key": "0x0C18EC",
+  "jp": "カメラ切替",
+  "kr": "카메라 전환",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 792812,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5837200
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C18F8": {
+  "grp": "xex360",
+  "key": "0x0C18F8",
+  "jp": "アイドル切替",
+  "kr": "아이돌 전환",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 792824,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 2184,
+    "offset": 5837216
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1908": {
+  "grp": "xex360",
+  "key": "0x0C1908",
+  "jp": "カメラ操作",
+  "kr": "카메라 조작",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 792840,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5837104
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1914": {
+  "grp": "xex360",
+  "key": "0x0C1914",
+  "jp": "カーソル移動",
+  "kr": "커서 이동",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 792852,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5837120
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1924": {
+  "grp": "xex360",
+  "key": "0x0C1924",
+  "jp": "バースト",
+  "kr": "버스트",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 792868,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5837080
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1930": {
+  "grp": "xex360",
+  "key": "0x0C1930",
+  "jp": "アピール",
+  "kr": "어필",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 792880,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5837144
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C193C": {
+  "grp": "xex360",
+  "key": "0x0C193C",
+  "jp": "表示ON/OFF",
+  "kr": "표시 ON/OFF",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 792892,
+  "slot": 1444,
+  "cap": 721,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5837160
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1EE0": {
+  "grp": "xex360",
+  "key": "0x0C1EE0",
+  "jp": "嘘時嘘分",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 794336,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5839520
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1EEC": {
+  "grp": "xex360",
+  "key": "0x0C1EEC",
+  "jp": "だみーゆにっと",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 794348,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5839536
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1EFC": {
+  "grp": "xex360",
+  "key": "0x0C1EFC",
+  "jp": "撮影場所",
+  "kr": "촬영 장소",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 794364,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5839552
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5842200
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5844616
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1F08": {
+  "grp": "xex360",
+  "key": "0x0C1F08",
+  "jp": "曲名",
+  "kr": "곡명",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 794376,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5839568
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5844632
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1F10": {
+  "grp": "xex360",
+  "key": "0x0C1F10",
+  "jp": "スコア",
+  "kr": "스코어",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 794384,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5839576
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5842264
+   },
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5844640
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1F18": {
+  "grp": "xex360",
+  "key": "0x0C1F18",
+  "jp": "ダミー地点",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 794392,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5839600
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1F24": {
+  "grp": "xex360",
+  "key": "0x0C1F24",
+  "jp": "たぶんきょくめいの文字数やばい",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 794404,
+  "slot": 108,
+  "cap": 53,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 264,
+    "offset": 5839616
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1F90": {
+  "grp": "xex360",
+  "key": "0x0C1F90",
+  "jp": "ダウンロード コンテンツステージ",
+  "kr": "다운로드 콘텐츠 스테이지",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 794512,
+  "slot": 36,
+  "cap": 17,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 40,
+    "offset": 5839400
+   },
+   {
+    "enc": "u16",
+    "slot": 40,
+    "offset": 5844480
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1FB4": {
+  "grp": "xex360",
+  "key": "0x0C1FB4",
+  "jp": "ダウンロード コンテンツ曲",
+  "kr": "다운로드 콘텐츠 곡",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 794548,
+  "slot": 28,
+  "cap": 13,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 80,
+    "offset": 5839440
+   },
+   {
+    "enc": "u16",
+    "slot": 72,
+    "offset": 5844520
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C1FD0": {
+  "grp": "xex360",
+  "key": "0x0C1FD0",
+  "jp": "－－",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 794576,
+  "slot": 568,
+  "cap": 283,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2208": {
+  "grp": "xex360",
+  "key": "0x0C2208",
+  "jp": "サーチ３",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795144,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 1152,
+    "offset": 5840672
+   },
+   {
+    "enc": "u16",
+    "slot": 816,
+    "offset": 5843648
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2214": {
+  "grp": "xex360",
+  "key": "0x0C2214",
+  "jp": "サーチ２",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795156,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5840656
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5843632
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2220": {
+  "grp": "xex360",
+  "key": "0x0C2220",
+  "jp": "サーチ１",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795168,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5840640
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5843616
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C222C": {
+  "grp": "xex360",
+  "key": "0x0C222C",
+  "jp": "サブファン人数",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795180,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5840624
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5843600
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C223C": {
+  "grp": "xex360",
+  "key": "0x0C223C",
+  "jp": "サブスコア",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795196,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5840608
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5843584
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2248": {
+  "grp": "xex360",
+  "key": "0x0C2248",
+  "jp": "サブ曲名、衣装名",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795208,
+  "slot": 20,
+  "cap": 9,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5840584
+   },
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5843560
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C225C": {
+  "grp": "xex360",
+  "key": "0x0C225C",
+  "jp": "サブ撮影場所名",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795228,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5840568
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5843544
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C226C": {
+  "grp": "xex360",
+  "key": "0x0C226C",
+  "jp": "サブファン人数タイトル",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795244,
+  "slot": 24,
+  "cap": 11,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5840544
+   },
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5843520
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2284": {
+  "grp": "xex360",
+  "key": "0x0C2284",
+  "jp": "サブスコアタイトル",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795268,
+  "slot": 20,
+  "cap": 9,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5840520
+   },
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5843496
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2298": {
+  "grp": "xex360",
+  "key": "0x0C2298",
+  "jp": "サブ曲名タイトル",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795288,
+  "slot": 20,
+  "cap": 9,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5840496
+   },
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5843472
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C22AC": {
+  "grp": "xex360",
+  "key": "0x0C22AC",
+  "jp": "サブ撮影場所キャプション",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795308,
+  "slot": 28,
+  "cap": 13,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 32,
+    "offset": 5840464
+   },
+   {
+    "enc": "u16",
+    "slot": 32,
+    "offset": 5843440
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C22C8": {
+  "grp": "xex360",
+  "key": "0x0C22C8",
+  "jp": "サブユニット名",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795336,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5840448
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5843424
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C22D8": {
+  "grp": "xex360",
+  "key": "0x0C22D8",
+  "jp": "サブ時間",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795352,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5840432
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5843408
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C22E4": {
+  "grp": "xex360",
+  "key": "0x0C22E4",
+  "jp": "サブ日付",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795364,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5840416
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5843392
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C22F0": {
+  "grp": "xex360",
+  "key": "0x0C22F0",
+  "jp": "メニュー２－タイトル８",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795376,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2308": {
+  "grp": "xex360",
+  "key": "0x0C2308",
+  "jp": "メニュー２－タイトル７",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795400,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2320": {
+  "grp": "xex360",
+  "key": "0x0C2320",
+  "jp": "メニュー２－タイトル６",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795424,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2338": {
+  "grp": "xex360",
+  "key": "0x0C2338",
+  "jp": "メニュー２－タイトル５",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795448,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2350": {
+  "grp": "xex360",
+  "key": "0x0C2350",
+  "jp": "メニュー２－タイトル４",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795472,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2368": {
+  "grp": "xex360",
+  "key": "0x0C2368",
+  "jp": "メニュー２－タイトル３",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795496,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2380": {
+  "grp": "xex360",
+  "key": "0x0C2380",
+  "jp": "メニュー２－タイトル２",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795520,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2398": {
+  "grp": "xex360",
+  "key": "0x0C2398",
+  "jp": "メニュー２－タイトル１",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795544,
+  "slot": 24,
+  "cap": 11,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C23B0": {
+  "grp": "xex360",
+  "key": "0x0C23B0",
+  "jp": "メニュー２－８",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795568,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C23C0": {
+  "grp": "xex360",
+  "key": "0x0C23C0",
+  "jp": "メニュー２－７",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795584,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C23D0": {
+  "grp": "xex360",
+  "key": "0x0C23D0",
+  "jp": "メニュー２－６",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795600,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C23E0": {
+  "grp": "xex360",
+  "key": "0x0C23E0",
+  "jp": "メニュー２－５",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795616,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C23F0": {
+  "grp": "xex360",
+  "key": "0x0C23F0",
+  "jp": "メニュー２－４",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795632,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2400": {
+  "grp": "xex360",
+  "key": "0x0C2400",
+  "jp": "メニュー２－３",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795648,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2410": {
+  "grp": "xex360",
+  "key": "0x0C2410",
+  "jp": "メニュー２－２",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795664,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2420": {
+  "grp": "xex360",
+  "key": "0x0C2420",
+  "jp": "メニュー２－１",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795680,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2430": {
+  "grp": "xex360",
+  "key": "0x0C2430",
+  "jp": "メニュー１－４",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795696,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2440": {
+  "grp": "xex360",
+  "key": "0x0C2440",
+  "jp": "メニュー１－３",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795712,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2450": {
+  "grp": "xex360",
+  "key": "0x0C2450",
+  "jp": "メニュー１－２",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795728,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2460": {
+  "grp": "xex360",
+  "key": "0x0C2460",
+  "jp": "メニュー１－１",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795744,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C2470": {
+  "grp": "xex360",
+  "key": "0x0C2470",
+  "jp": "保存画面タイトル",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 795760,
+  "slot": 152,
+  "cap": 75,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 212,
+    "offset": 5840008
+   },
+   {
+    "enc": "u16",
+    "slot": 212,
+    "offset": 5842984
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2508": {
+  "grp": "xex360",
+  "key": "0x0C2508",
+  "jp": "サインインしてからもう一度選択してください。",
+  "kr": "로그인한 뒤 다시 선택해 주세요.",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 795912,
+  "slot": 78,
+  "cap": 38,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 48,
+    "offset": 5839880
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2556": {
+  "grp": "xex360",
+  "key": "0x0C2556",
+  "jp": "　選択した項目にアップロードできません。",
+  "kr": "　선택한 항목에 업로드할 수 없습니다.",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 795990,
+  "slot": 42,
+  "cap": 20,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 40,
+    "offset": 5839928
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2580": {
+  "grp": "xex360",
+  "key": "0x0C2580",
+  "jp": "ランキングにアップロードできません。",
+  "kr": "랭킹에 업로드할 수 없습니다.",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796032,
+  "slot": 408,
+  "cap": 203,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 40,
+    "offset": 5839968
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2704": {
+  "grp": "xex360",
+  "key": "0x0C2704",
+  "jp": "ランキングに登録",
+  "kr": "랭킹에 등록",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796420,
+  "slot": 20,
+  "cap": 9,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 272,
+    "offset": 5841896
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2718": {
+  "grp": "xex360",
+  "key": "0x0C2718",
+  "jp": "並び替え",
+  "kr": "정렬",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796440,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 32,
+    "offset": 5841864
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2724": {
+  "grp": "xex360",
+  "key": "0x0C2724",
+  "jp": "削除",
+  "kr": "삭제",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796452,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5841856
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C272C": {
+  "grp": "xex360",
+  "key": "0x0C272C",
+  "jp": "ストレージ選択",
+  "kr": "저장 장치 선택",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796460,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C273C": {
+  "grp": "xex360",
+  "key": "0x0C273C",
+  "jp": "フォトアルバムへ",
+  "kr": "포토 앨범으로",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796476,
+  "slot": 260,
+  "cap": 129,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 32,
+    "offset": 5841824
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2838": {
+  "grp": "xex360",
+  "key": "0x0C2838",
+  "jp": "楽曲",
+  "kr": "악곡",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796728,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5842232
+   },
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5858816
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2840": {
+  "grp": "xex360",
+  "key": "0x0C2840",
+  "jp": "日付",
+  "kr": "날짜",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796736,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5842168
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2848": {
+  "grp": "xex360",
+  "key": "0x0C2848",
+  "jp": "楽曲スコアランキング",
+  "kr": "악곡 스코어 랭킹",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796744,
+  "slot": 24,
+  "cap": 11,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5842240
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2860": {
+  "grp": "xex360",
+  "key": "0x0C2860",
+  "jp": "ＰＶ新着",
+  "kr": "PV 신착",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796768,
+  "slot": 12,
+  "cap": 5,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5842216
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C286C": {
+  "grp": "xex360",
+  "key": "0x0C286C",
+  "jp": "ファン人数ランキング",
+  "kr": "팬 수 랭킹",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 796780,
+  "slot": 616,
+  "cap": 307,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5842176
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2AD4": {
+  "grp": "xex360",
+  "key": "0x0C2AD4",
+  "jp": "ユニット名表示場所",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 797396,
+  "slot": 108,
+  "cap": 53,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5844592
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2B40": {
+  "grp": "xex360",
+  "key": "0x0C2B40",
+  "jp": "ダミーネーム",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 797504,
+  "slot": 600,
+  "cap": 299,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5844464
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2D78": {
+  "grp": "xex360",
+  "key": "0x0C2D78",
+  "jp": "受信メール",
+  "kr": "받은 메일",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 798072,
+  "slot": 32,
+  "cap": 15,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 2080,
+    "offset": 5845632
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2D98": {
+  "grp": "xex360",
+  "key": "0x0C2D98",
+  "jp": "メールフォルダ",
+  "kr": "메일 폴더",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 798104,
+  "slot": 16,
+  "cap": 7,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 40,
+    "offset": 5845592
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2DA8": {
+  "grp": "xex360",
+  "key": "0x0C2DA8",
+  "jp": "受信ボックス",
+  "kr": "받은 편지함",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 798120,
+  "slot": 96,
+  "cap": 47,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5845432
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C2E08": {
+  "grp": "xex360",
+  "key": "0x0C2E08",
+  "jp": "受信メールはありません",
+  "kr": "받은 메일이 없습니다",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 798216,
+  "slot": 2776,
+  "cap": 1387,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5845408
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C300A": {
+  "grp": "xex360",
+  "key": "0x0C300A",
+  "jp": "　＞",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 798730,
+  "slot": 6,
+  "cap": 2,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C3010": {
+  "grp": "xex360",
+  "key": "0x0C3010",
+  "jp": "＜",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 798736,
+  "slot": 2228,
+  "cap": 1113,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C38C4": {
+  "grp": "xex360",
+  "key": "0x0C38C4",
+  "jp": "衣装名が見つかりません",
+  "kr": "의상 이름을 찾을 수 없습니다",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 800964,
+  "slot": 28,
+  "cap": 13,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 2904,
+    "offset": 5847720
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C38E0": {
+  "grp": "xex360",
+  "key": "0x0C38E0",
+  "jp": "メーターが最大になるタイミングに合わせてＡボタンを押してください",
+  "kr": "미터가 최대가 될 때 맞춰 A 버튼을 눌러 주세요",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 800992,
+  "slot": 2488,
+  "cap": 1243,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C4298": {
+  "grp": "xex360",
+  "key": "0x0C4298",
+  "jp": "北東",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 803480,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5850680
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C42A0": {
+  "grp": "xex360",
+  "key": "0x0C42A0",
+  "jp": "首都",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 803488,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5850688
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C42A8": {
+  "grp": "xex360",
+  "key": "0x0C42A8",
+  "jp": "中央",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 803496,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5850696
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C42B0": {
+  "grp": "xex360",
+  "key": "0x0C42B0",
+  "jp": "上方",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 803504,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5850704
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C42B8": {
+  "grp": "xex360",
+  "key": "0x0C42B8",
+  "jp": "西",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 803512,
+  "slot": 4,
+  "cap": 1,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5850712
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C42BC": {
+  "grp": "xex360",
+  "key": "0x0C42BC",
+  "jp": "南",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 803516,
+  "slot": 1748,
+  "cap": 873,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 1408,
+    "offset": 5850720
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C4990": {
+  "grp": "xex360",
+  "key": "0x0C4990",
+  "jp": "呉低",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 805264,
+  "slot": 1350,
+  "cap": 674,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C4ED6": {
+  "grp": "xex360",
+  "key": "0x0C4ED6",
+  "jp": "慮来",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 806614,
+  "slot": 2454,
+  "cap": 1226,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C5858": {
+  "grp": "xex360",
+  "key": "0x0C5858",
+  "jp": "スピードを上げろ！",
+  "kr": "속도를 올려라！",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 809048,
+  "slot": 20,
+  "cap": 9,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 24,
+    "offset": 5804360
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C586C": {
+  "grp": "xex360",
+  "key": "0x0C586C",
+  "jp": "スピードを落とせ！",
+  "kr": "속도를 낮춰라！",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 809068,
+  "slot": 456,
+  "cap": 227,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8608,
+    "offset": 5804384
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C5A34": {
+  "grp": "xex360",
+  "key": "0x0C5A34",
+  "jp": "呉低",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 809524,
+  "slot": 6236,
+  "cap": 3117,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C7290": {
+  "grp": "xex360",
+  "key": "0x0C7290",
+  "jp": "竜宮小町",
+  "kr": "류구코마치",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 815760,
+  "slot": 5102,
+  "cap": 2550,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C867E": {
+  "grp": "xex360",
+  "key": "0x0C867E",
+  "jp": "摩湧",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 820862,
+  "slot": 3886,
+  "cap": 1942,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C95AC": {
+  "grp": "xex360",
+  "key": "0x0C95AC",
+  "jp": "ゲーマータグ",
+  "kr": "게이머 태그",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 824748,
+  "slot": 16,
+  "cap": 7,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C95BC": {
+  "grp": "xex360",
+  "key": "0x0C95BC",
+  "jp": "詳細不明",
+  "kr": "상세 불명",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 824764,
+  "slot": 236,
+  "cap": 117,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5858832
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C96A8": {
+  "grp": "xex360",
+  "key": "0x0C96A8",
+  "jp": "決定",
+  "kr": "결정",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 825000,
+  "slot": 8,
+  "cap": 3,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 8,
+    "offset": 5858848
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C96B0": {
+  "grp": "xex360",
+  "key": "0x0C96B0",
+  "jp": "ゲーマー カード",
+  "kr": "게이머 카드",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 825008,
+  "slot": 36,
+  "cap": 17,
+  "eboot": null,
+  "plat": "x360"
+ },
+ "exe:xex360:0x0C96D4": {
+  "grp": "xex360",
+  "key": "0x0C96D4",
+  "jp": "楽曲選択へ",
+  "kr": "악곡 선택으로",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 825044,
+  "slot": 28,
+  "cap": 13,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5858872
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C96F0": {
+  "grp": "xex360",
+  "key": "0x0C96F0",
+  "jp": "自分の順位へ",
+  "kr": "내 순위로",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 825072,
+  "slot": 32,
+  "cap": 15,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5858896
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C9710": {
+  "grp": "xex360",
+  "key": "0x0C9710",
+  "jp": "PV再生",
+  "kr": "PV 재생",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 825104,
+  "slot": 28,
+  "cap": 13,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5858912
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C972C": {
+  "grp": "xex360",
+  "key": "0x0C972C",
+  "jp": "次ランキングへ",
+  "kr": "다음 랭킹",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 825132,
+  "slot": 32,
+  "cap": 15,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5858928
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C974C": {
+  "grp": "xex360",
+  "key": "0x0C974C",
+  "jp": "前ランキングへ",
+  "kr": "이전 랭킹",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 825164,
+  "slot": 32,
+  "cap": 15,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5858944
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C976C": {
+  "grp": "xex360",
+  "key": "0x0C976C",
+  "jp": "次100位へ",
+  "kr": "다음 100위",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 825196,
+  "slot": 32,
+  "cap": 15,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 16,
+    "offset": 5858960
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C978C": {
+  "grp": "xex360",
+  "key": "0x0C978C",
+  "jp": "前100位へ",
+  "kr": "이전 100위",
+  "st": 1,
+  "src_tr": "claude",
+  "offset": 825228,
+  "slot": 64,
+  "cap": 31,
+  "eboot": [
+   {
+    "enc": "u16",
+    "slot": 91736,
+    "offset": 5858976
+   }
+  ],
+  "plat": "common"
+ },
+ "exe:xex360:0x0C97CC": {
+  "grp": "xex360",
+  "key": "0x0C97CC",
+  "jp": "卯杯",
+  "kr": "",
+  "st": 0,
+  "src_tr": "",
+  "offset": 825292,
+  "slot": 6,
+  "cap": 2,
+  "eboot": null,
+  "plat": "x360"
+ }
+}
