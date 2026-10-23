@@ -131,57 +131,76 @@ def rebuild_pac(data, ents, ds, lyr_ent, new_blob):
     return bytes(out)
 
 
+def song_kr(tr, song):
+    """xmb_translations.json에서 곡 가사 kr {LYR id: kr}."""
+    ents_tr = tr.get(f"songinfo/{song}/lyrics_{song}.xmb", {})
+    return {tid: v["kr"] for tid, v in ents_tr.items() if v.get("kr")}
+
+
+def patch_lyrics(data, kr, rel=""):
+    """dance pac 평문의 가사 XMB 엔트리만 kr로 교체 → (새 평문, 교체 attr 수, 없는 id).
+    검증: 재파싱 — 가사 kr 반영 + 비가사 엔트리 바이트 불변 + 크기 합 헤더 (PC 포트·PS3 공용, ps3_res_apply가 씀)."""
+    cnt, ents, ds, lyr_ent = parse_pac(data)
+    seg = data[ds + lyr_ent["ofs"]: ds + lyr_ent["ofs"] + lyr_ent["size"]]
+    base = find_xmb(seg)
+    by_id = {}
+    for t in collect_texts(parse_xmb(seg, base)):
+        by_id.setdefault(t["id"], []).append(t["attr"])
+    repl, miss = {}, []
+    for tid, s in kr.items():
+        if tid not in by_id:
+            miss.append(tid)
+            continue
+        for ai in by_id[tid]:
+            repl[ai] = s
+    if not repl:
+        return data, 0, miss
+    new_seg = rebuild_xmb(seg, base, repl, lambda *a: None, allow_grow=True)
+    out = rebuild_pac(data, ents, ds, lyr_ent, new_seg)
+    check_lyrics(data, out, kr, rel)
+    return out, len(repl), miss
+
+
+def check_lyrics(data, out, kr, rel=""):
+    cnt, ents, ds, lyr_ent = parse_pac(data)
+    cnt2, ents2, ds2, _lyr2 = parse_pac(out)
+    assert cnt2 == cnt and ds2 == ds, f"{rel}: pac 구조 변형"
+    ids = {t["id"] for t in collect_texts(parse_xmb(
+        data[ds + lyr_ent["ofs"]: ds + lyr_ent["ofs"] + lyr_ent["size"]],
+        find_xmb(data[ds + lyr_ent["ofs"]: ds + lyr_ent["ofs"] + lyr_ent["size"]])))}
+    for e, e2 in zip(sorted(ents, key=lambda x: x["i"]), sorted(ents2, key=lambda x: x["i"])):
+        a = data[ds + e["ofs"]: ds + e["ofs"] + e["size"]]
+        b = out[ds2 + e2["ofs"]: ds2 + e2["ofs"] + e2["size"]]
+        if e["i"] == lyr_ent["i"]:
+            got = {t["id"]: t["text"] for t in collect_texts(parse_xmb(b, find_xmb(b)))}
+            for tid, s in kr.items():
+                if tid in ids:
+                    assert got[tid] == s, f"{rel}: {tid} 불일치"
+        else:
+            assert a == b, f"{rel}: 엔트리 {e['i']} 변형"
+    assert struct.unpack_from(">I", out, 8)[0] == sum(e["size"] for e in ents2), f"{rel}: 크기 합 헤더"
+
+
 def build(songs):
     tr = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
     os.makedirs(PATCHED, exist_ok=True)
     done = []
-    for rel_key, ents_tr in sorted(tr.items()):
+    for rel_key in sorted(tr):
         if not rel_key.startswith("songinfo/"):
             continue
         song = rel_key.split("/")[1]
         if songs and song not in songs:
             continue
-        kr = {tid: v["kr"] for tid, v in ents_tr.items() if v.get("kr")}
+        kr = song_kr(tr, song)
         if not kr:
             continue
         for mpc in sorted(glob.glob(os.path.join(PORT_RES, "dance", f"dan_{song}_*.mpc"))):
             rel = os.path.join("dance", os.path.basename(mpc))
             data = decrypt_cached(rel)
-            cnt, ents, ds, lyr_ent = parse_pac(data)
-            seg = data[ds + lyr_ent["ofs"]: ds + lyr_ent["ofs"] + lyr_ent["size"]]
-            base = find_xmb(seg)
-            p = parse_xmb(seg, base)
-            texts = collect_texts(p)
-            by_id = {}
-            for t in texts:
-                by_id.setdefault(t["id"], []).append(t["attr"])
-            repl = {}
-            miss = []
-            for tid, s in kr.items():
-                if tid not in by_id:
-                    miss.append(tid)
-                    continue
-                for ai in by_id[tid]:
-                    repl[ai] = s
+            out, nrep, miss = patch_lyrics(data, kr, rel)
             if miss:
                 print(f"  [경고] {rel}: 없는 id {miss[:3]}…")
-            new_seg = rebuild_xmb(seg, base, repl, lambda *a: None, allow_grow=True)
-            out = rebuild_pac(data, ents, ds, lyr_ent, new_seg)
-            # 검증: 재파싱 — 가사 kr 반영 + 비가사 엔트리 바이트 불변
-            cnt2, ents2, ds2, lyr2 = parse_pac(out)
-            assert cnt2 == cnt and ds2 == ds
-            for e, e2 in zip(sorted(ents, key=lambda x: x["i"]), sorted(ents2, key=lambda x: x["i"])):
-                a = data[ds + e["ofs"]: ds + e["ofs"] + e["size"]]
-                b = out[ds2 + e2["ofs"]: ds2 + e2["ofs"] + e2["size"]]
-                if e["i"] == lyr_ent["i"]:
-                    t2 = collect_texts(parse_xmb(b, find_xmb(b)))
-                    got = {t["id"]: t["text"] for t in t2}
-                    for tid, s in kr.items():
-                        if tid in by_id:
-                            assert got[tid] == s, f"{rel}: {tid} 불일치"
-                else:
-                    assert a == b, f"{rel}: 엔트리 {e['i']} 변형"
-            assert struct.unpack_from(">I", out, 8)[0] == sum(e["size"] for e in ents2)
+            repl = range(nrep)
             dst = os.path.join(PATCHED, os.path.basename(mpc))
             open(dst, "wb").write(out)
             print(f"{rel}: 가사 {len(repl)}attr 교체, {len(data):,}→{len(out):,}B → {dst}")

@@ -62,6 +62,15 @@ for _p in _glob.glob(os.path.join(JP_ROOT, "songinfo", "*", "lyrics_*.xmb")):
     _rel = os.path.relpath(_p, JP_ROOT)
     if _rel.replace("\\", "/") in _XT:
         STANDALONE[_rel] = _rel.replace("\\", "/")
+# 라이브(스테이지) 가사 — dance pac 내장 XMB 사본을 읽는다(PC와 같음; 2026-10-23 ps3-360-pc RPCS3 S4U READY!!에서 일본어 확인).
+# 곡 가사 kr이 있는 곡의 dance\dan_<곡>_<n>.mpc 전부. 교체·검증은 dance_lyrics.patch_lyrics/check_lyrics 공용.
+import dance_lyrics as DL  # noqa: E402
+DANCE = {}
+for _p in _glob.glob(os.path.join(JP_ROOT, "dance", "dan_*_*.mpc")):
+    _song = os.path.basename(_p).split("_")[1]
+    _kr = DL.song_kr(_XT, _song)
+    if _kr:
+        DANCE[os.path.relpath(_p, JP_ROOT)] = _kr
 NPC_FILES = ["game\\alf\\alf_common.mpc", "interface\\NationwideRanking.mpc", "interface\\ScheduleSelect.mpc",
              "scene\\produce_etc.mpc", "scene\\exep_init.mpc", "scene\\exep_commu.mpc"]
 NEVER = re.compile(r"^(gscript|tools|_)|^scene\\attract\.mpc$|im2_font", re.I)
@@ -108,13 +117,14 @@ def candidates(rescan=False):
             for dp, _dn, fns in os.walk(PATCHED_IMG):
                 rels |= {os.path.relpath(os.path.join(dp, fn), PATCHED_IMG) for fn in fns}
         rels |= set(TB.RELS)          # 레슨 결과 배너 사본(gscript\adv_common 포함 — NEVER 예외)
+        rels |= set(DANCE)            # 라이브 가사 dance pac(매니페스트 이후 추가된 대상)
         return sorted(r for r in rels if (not NEVER.search(r) or r in TB.RELS) and os.path.exists(os.path.join(JP_ROOT, r)))
     rels = set(G.targets()) | set(NPC_FILES) | set(STANDALONE)
     if os.path.isdir(PATCHED_IMG):
         for dp, _dn, fns in os.walk(PATCHED_IMG):
             for fn in fns:
                 rels.add(os.path.relpath(os.path.join(dp, fn), PATCHED_IMG))
-    rels |= set(TB.RELS)
+    rels |= set(TB.RELS) | set(DANCE)
     return sorted(r for r in rels if (not NEVER.search(r) or r in TB.RELS) and os.path.exists(os.path.join(JP_ROOT, r)))
 
 
@@ -262,6 +272,9 @@ def build_one(rel, tr, st):
         st["banner"] += nb
     if rel in STANDALONE:
         out = standalone(rel, base, tr[3], st)
+    elif rel in DANCE:
+        out, n, _miss = DL.patch_lyrics(base, DANCE[rel], rel)
+        st["lyrics"] += n
     elif orig[:4] == b"pac\x00":
         out = G.walk(base, orig, tr, st, rel)
     else:
@@ -358,6 +371,8 @@ def validate_all(log=print):
                 pn, po = parse_xmb(out, 0), parse_xmb(orig, 0)
                 if [e.get("attrs") for e in pn["entries"]] != [e.get("attrs") for e in po["entries"]]:
                     raise ValueError("단독 XMB 비텍스트 값 변동")
+            elif rel in DANCE:
+                DL.check_lyrics(base, out, DANCE[rel], rel)
             elif orig[:4] == b"pac\x00":
                 G.check(out, base, orig, rel)
             for t in texts_of(out):

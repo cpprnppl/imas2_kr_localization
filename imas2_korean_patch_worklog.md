@@ -1621,6 +1621,15 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   - ad_bg(메인 메뉴 배너): PS3 18 + 360 14(pc-360-dlc가 1배 실행으로 덤프, 360은 Vol 번호·그림이 PS3와 다름) 행을 seed했다.
     - 글자는 영문 'Catalog Vol.NN' + 곡명 로고뿐이라 곡 로고 제외 방침에 따라 Claude 초벌을 하지 않는다(meta.note).
     - 의상명 로고(エクササイズウェアNEO: PS3 cp12, 360 Vol.08)는 팀 판단.
+- **PS3 라이브 가사(dance pac 내장 XMB)**(23시, ps3-360-pc RPCS3 S4U READY!!에서 일본어 가사 확인): PC와 같이 라이브는
+  dance\dan_<곡>_<n>.mpc 안 가사 XMB 사본을 읽는데 ps3_res_apply가 그 파일을 다루지 않았다.
+  - dance_lyrics.patch_lyrics/check_lyrics(가사 엔트리만 교체·비가사 엔트리 바이트 불변·크기 합 헤더)를 PC·PS3 공용으로 분리했다.
+  - ps3_res_apply DANCE: kr 있는 곡의 PS3 dance pac 50개(평문 pac, 한글 0 확인 뒤 순정 사본)를 처리한다.
+  - build 128개(가사 1,379 attr), validate 통과, deploy 23:26(_backup_ps3res_20261023_232656). dan_rdy_5 LYR_003/005/006/010 한글 확인.
+- **배너 의상명 로고 초벌**(adbg_logo.py, 사용자 "Make draft"): ad_bg 의상명 로고 「エクササイズウェアNEO」 → 「엑서사이즈 웨어 NEO」(PS3 cp12·360 Vol.08).
+  −11° 돌려 수평에서 가타카나를 통째 인페인트하고 Koverwatch 같은 양식(파랑+흰 외곽+남색 테, 전단)으로 쓴 뒤 바뀐 화소만 되돌려 페더 합성.
+  - 주의: 새 글자 밑 옛 파랑을 인페인트 출처로 남기면 파랗게 번진다. 회전 패치 경계는 페더해야 점선이 안 생긴다.
+- 메일 쪽 둘째 막대 줄(真/真美/貴音/響のメール) 누락 수정. 카탈로그 막대는 메일 쪽만 두 줄(5+4)이다.
   - 사고: `open(p,'w').write(open(p).read()…)` 한 줄짜리가 쓰기 열기를 먼저 해서 out_16/out_19가 비었다. 서브에이전트 전사본의 생성 스크립트로 복구했다.
     파일을 고칠 때는 읽기와 쓰기를 따로 할 것.
 
