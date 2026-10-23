@@ -1617,3 +1617,6 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   - 작업본이 없는 파일은 원본으로 원복한다.
   - PS3 그림 순정 백업은 별도 manifest_img.json(117개)이고, deploy-ps3·restore-ps3가 두 매니페스트를 합쳐 쓴다.
 - 자가 검증(원본 디코드 그림을 그대로 재주입): 360 텍스처 419장, PS3 677장, PS3 JPEG 18장 모두 통과. 최저 38.8dB(로고 DXT).
+- (추가) 360 ad_bg도 이번 범위(KOR 결정): imas2pc main 5bfa82c의 배너 훅(src/kernel/ps3feat.cpp, sub_823F4798 크기 조회·sub_823F43D8 디코드)이 'IM2PCRAW' + w,h(BE u32) + A,R,G,B 원시 픽셀을 그대로 복사한다(실제 PTC는 원래 경로).
+  - dlc_inject는 kr_dlc\<pkg6>\ad_bg_000.png(1280×720)를 이 형식으로 content_kor의 ad_bg.ptc 자리에 평문으로 쓴다(3.5MB, 비압축). 헤더·길이·픽셀을 다시 읽어 확인한다. 생성 바이트는 imas2pc tools/ps3feat/ps3_package.py banner()와 동일하다.
+  - 360 패키지 = 카탈로그 Vol.01–14(헤더 이름 앞 두 자리). 원본 PTC는 오프라인 디코드가 안 되므로, 초벌 원본은 같은 Vol의 PS3 cpNN ad_bg.jpg(1280×720)를 쓴다. 그림이 같다는 것은 1배 인게임 확인으로 검증한다.

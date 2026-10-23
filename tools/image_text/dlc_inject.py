@@ -343,8 +343,7 @@ KR_PS3 = os.path.join(OUT_DEFAULT, "kr_dlc_ps3")
 
 def image_targets(res_root, plat):
     pats = ["catalog_info.nut", os.path.join("songinfo", "*", "jacket_*.nut")]
-    if plat == "ps3":
-        pats.append("ad_bg.jpg")
+    pats.append("ad_bg.jpg" if plat == "ps3" else "ad_bg.ptc")
     out = []
     for pat in pats:
         out += [os.path.relpath(p, res_root) for p in glob.glob(os.path.join(res_root, pat))]
@@ -431,6 +430,32 @@ def ps3_decrypt_any(c, raw):
     return full[16:], {"key": key, "prefix": full[:16], "footer": raw[len(raw) - c.foot:]}
 
 
+# 360 ad_bg.ptc는 MS PTC 코덱이라 다시 인코드할 수 없다. imas2pc 배너 훅(src/kernel/ps3feat.cpp,
+# main 5bfa82c)이 'IM2PCRAW' + w,h(BE u32) + A,R,G,B 원시 픽셀을 받아 그대로 복사한다.
+RAW_MAGIC = b"IM2PCRAW"
+AD_BG_360 = (1280, 720)
+
+
+def _argb(img):
+    import numpy as np
+    return np.asarray(img.convert("RGBA"))[..., [3, 0, 1, 2]].tobytes()
+
+
+def im2pcraw(img):
+    import struct
+    w, h = img.size
+    return RAW_MAGIC + struct.pack(">II", w, h) + _argb(img)
+
+
+def im2pcraw_check(data, img):
+    import struct
+    assert data[:8] == RAW_MAGIC, "매직 불일치"
+    w, h = struct.unpack(">II", data[8:16])
+    assert (w, h) == img.size and 1 <= w <= 4096 and 1 <= h <= 4096, f"치수 {w}x{h}"
+    assert len(data) == 16 + w * h * 4, "길이 불일치"
+    assert data[16:] == _argb(img), "픽셀 불일치"
+
+
 def build_images(plat, src_root_iter, write, log):
     """src_root_iter: [(pkg, res_dir, raw_reader)]. write(pkg, rel, new_bytes, info). 반환 (교체 파일 수, 실패)."""
     import io
@@ -444,7 +469,15 @@ def build_images(plat, src_root_iter, write, log):
                 continue
             raw = read(rel)
             try:
-                if rel.endswith(".jpg"):
+                if rel.endswith(".ptc"):
+                    img = Image.open(jobs[0]).convert("RGBA")
+                    if img.size != AD_BG_360:
+                        raise ValueError(f"{rel}: 치수 {img.size} != {AD_BG_360}")
+                    new = im2pcraw(img)
+                    im2pcraw_check(new, img)
+                    log(f"  {pkg[:6]}/{rel}: PTC {len(raw):,}→IM2PCRAW {len(new):,}B")
+                    write(pkg, rel, new, {"im2pcraw": True})
+                elif rel.endswith(".jpg"):
                     dec, ctx = ps3_decrypt_any(c, raw)
                     jp = jpeg_plain(dec)
                     orig = Image.open(io.BytesIO(jp))
