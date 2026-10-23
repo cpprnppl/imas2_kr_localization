@@ -1496,6 +1496,13 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
 - 이미지 빈 라벨 Claude 초벌 79행(src_tr claude, st 1) + 렌더 후보(kr_claude/, kr/ 빈 자리만, tex_kr 'Claude 초벌' 79) —
   game_kor 메인 메뉴에 적용 확인(스타일은 원본과 다름: 흰 글자+외곽선 vs 원본 검은 글자+흰 글로). inject_image_text --exclude-src claude로
   배포판에서 제외 가능(빌드 로그에 초벌 수).
+- **PS3 리소스 배포(11:39, 사용자 직접 승인 "Ps3 배포 진행")**: ps3_res_apply deploy 51파일, 백업 USRDIR\_backup_ps3res_20261023_113931.
+  RPCS3 확인(tools/image_text/rpcs3_drive.py — gpu_run.lock·키보드 입력·창 캡처, 일본판 × 결정/○ 취소): 카탈로그 확인창·메인 메뉴(라벨
+  그림·설명줄·하단 버튼)·옵션(탭·항목·값·설명)·옵션 종료 확인 예/아니요·유닛 선택(프로듀서 카드)·난이도 확인·아이돌 선택(카드·버튼)·
+  ADV 대사 전부 한글 정상, '?' 없음. pc-360-dlc의 EBOOT 문구 패치가 일정 화면 UI에서 '?'(대사 폰트가 아닌 UI 폰트)로 나온 건과 달리
+  리소스 쪽 화면은 대사 폰트로 그려짐. 일정 화면은 미도달(다음 슬롯).
+- 사용자 결정 반영(KOR 전달): 上方=관서·エリア=지역·西/南=서부/남부 25행+exe 지역 12행, ちゃん=쨩(번역팀 표기, 기계 행 68행).
+  웹 KR의 일본어 잔재: 가나 523행(기계적 376 + 재번역 141, DLC 자리표시 6 유지), 한자 74행(재번역 66, 의도된 한자 8 유지) — 사람 번역 행 0.
 - 360 내장 SCB 시험 빌드: member_select 45/45, ScheduleSelect 107/121, dress_select 36/41, attract 10/12, mail_produce 3/3
   한국어(나머지는 같은 원문의 게임 스크립트 번역이 없음).
 
