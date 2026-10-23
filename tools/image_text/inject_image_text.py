@@ -45,7 +45,7 @@ PSNR_OVERRIDES = {
         "min": 32.5, "why": "회장 흥분도 라벨, 짙은 글로우 — 4배 확대 비교에서 원본과 구분 불가 (2026-10-22)"},
 }
 
-FMT_IDS = {"DXT1": 0, "DXT3": 1, "DXT5": 2, "RGB565": 6, "ARGB4444": 7,
+FMT_IDS = {"DXT1": 0, "DXT3": 1, "DXT5": 2, "ARGB1555": 6, "RGB565": 6, "ARGB4444": 7,
            "ARGB32": 14, "ARGB32L": 17}
 
 
@@ -240,8 +240,11 @@ def encode_texture(fmt_name: str, img: np.ndarray) -> bytes:
     h, w = img.shape[:2]
     if fmt_name in ("ARGB32", "ARGB32L"):
         return img[..., [3, 0, 1, 2]].tobytes()
-    if fmt_name == "RGB565":
-        return _to_565(img[..., :3].astype(np.float32)).astype(">u2").tobytes()
+    if fmt_name in ("ARGB1555", "RGB565"):   # fmt 6 — 'RGB565'는 옛 index 이름(실제 1555)
+        f = img.astype(np.float32)
+        r, g, b = (np.clip(np.round(f[..., c] * 31 / 255), 0, 31).astype(np.uint16) for c in range(3))
+        a = (img[..., 3] >= 128).astype(np.uint16)
+        return ((a << 15) | (r << 10) | (g << 5) | b).astype(">u2").tobytes()
     if fmt_name == "ARGB4444":
         q = np.clip(np.round(img.astype(np.float32) / 17), 0, 15).astype(np.uint16)
         v = (q[..., 3] << 12) | (q[..., 0] << 8) | (q[..., 1] << 4) | q[..., 2]

@@ -1613,6 +1613,14 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   - PS3 그림 행 154개(카탈로그 136 + ad_bg 18) 추가: webapp_seed dlc_image_groups가 dlc_tex_ps3/index.json도 읽는다. 키는 위치 문자열 md5 — 디코드를 다시 해도 안 바뀐다.
   - JP 썸네일은 service key가 있어야 올릴 수 있다(`--dlc-thumbs`).
   - 주의: PS3 fmt 6 디코드에 포스터화·마젠타 번짐이 보여 pc-360-dlc에 확인 요청. 글줄 부분은 깨끗하다.
+  - **PS3 텍스처 fmt 6 = ARGB1555 BE**(360 fmt10과 같은 비트, 최상위 비트 알파). 지금까지 FMT_NAMES·decode_texture·encode_texture가 RGB565로 처리했다.
+    - 증상: 포스터화·마젠타 번짐. pc-360-dlc가 cp01 #019를 8가지로 풀어 확인했고, 본편 16장(song_select·s4u_fullpack 재킷 4종, ranking·ranking_shop 32x32)도 1555 쪽 총변화량이 더 작아 재확인.
+    - 수정: extract/inject 코덱. 옛 index 이름 'RGB565'는 1555의 별칭으로 남긴다. pcport_apply의 RGB565 후보는 뺐다.
+    - 기존 PNG 16장은 565 역변환(무손실)으로 원값을 되살려 1555로 다시 풀었고, index.json 이름도 고쳤다(.bak_fmt6 백업).
+    - 이 그림들은 한글 작업본이 없어서 게임 쪽 영향은 없다. 웹앱 JP 썸네일은 예전 색 그대로라 service key가 있을 때 다시 올려야 한다.
+  - ad_bg(메인 메뉴 배너): PS3 18 + 360 14(pc-360-dlc가 1배 실행으로 덤프, 360은 Vol 번호·그림이 PS3와 다름) 행을 seed했다.
+    - 글자는 영문 'Catalog Vol.NN' + 곡명 로고뿐이라 곡 로고 제외 방침에 따라 Claude 초벌을 하지 않는다(meta.note).
+    - 의상명 로고(エクササイズウェアNEO: PS3 cp12, 360 Vol.08)는 팀 판단.
   - 사고: `open(p,'w').write(open(p).read()…)` 한 줄짜리가 쓰기 열기를 먼저 해서 out_16/out_19가 비었다. 서브에이전트 전사본의 생성 스크립트로 복구했다.
     파일을 고칠 때는 읽기와 쓰기를 따로 할 것.
 

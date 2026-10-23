@@ -59,7 +59,9 @@ EXCLUDE_DIRS = {"gscript"}
 EXCLUDE_FILES = {"initialfix.mpc", "initialtemp.mpc"}
 PLAIN_MAGICS = (b"pac\x00", b"NTP3", b"TSK ", b"XMB ")
 
-FMT_NAMES = {0: "DXT1", 1: "DXT3", 2: "DXT5", 6: "RGB565", 7: "ARGB4444",
+# fmt 6 = ARGB1555 BE(360 fmt10과 같은 비트). 예전엔 RGB565로 잘못 풀어 포스터화·마젠타 번짐 —
+# 2026-10-23 pc-360-dlc가 DLC 카탈로그로 확인, 본편 16장도 1555 쪽이 매끈함(총변화량)으로 재확인.
+FMT_NAMES = {0: "DXT1", 1: "DXT3", 2: "DXT5", 6: "ARGB1555", 7: "ARGB4444",
              14: "ARGB32", 17: "ARGB32L"}
 
 
@@ -145,11 +147,12 @@ def decode_texture(fmt: int, raw: bytes, w: int, h: int) -> np.ndarray:
         need = w * h * 2
         v = np.frombuffer(raw[:need], ">u2").reshape(h, w).astype(np.uint32)
         out = np.zeros((h, w, 4), np.uint8)
-        if fmt == 6:  # RGB565
-            out[..., 0] = ((v >> 11) & 31) * 255 // 31
-            out[..., 1] = ((v >> 5) & 63) * 255 // 63
+        if fmt == 6:  # ARGB1555 (최상위 비트 = 알파; 전부 0이면 불투명 취급)
+            out[..., 0] = ((v >> 10) & 31) * 255 // 31
+            out[..., 1] = ((v >> 5) & 31) * 255 // 31
             out[..., 2] = (v & 31) * 255 // 31
-            out[..., 3] = 255
+            a = np.where(v >> 15, 255, 0)
+            out[..., 3] = a if a.any() else 255
         else:  # ARGB4444
             out[..., 0] = ((v >> 8) & 15) * 17
             out[..., 1] = ((v >> 4) & 15) * 17

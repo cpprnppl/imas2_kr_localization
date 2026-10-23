@@ -135,9 +135,7 @@ def candidates(fmt):
                     lambda r, w, h: np.frombuffer(r[:w * h * 4], np.uint8).reshape(h, w, 4).copy(),
                     lambda im: im.tobytes()))
     if fmt in (6, 10):
-        out.append(("ARGB1555", _dec_1555, _enc_1555))
-        out.append(("RGB565", lambda r, w, h: decode_texture(6, r, w, h),
-                    lambda im: encode_texture("RGB565", im)))
+        out.append(("ARGB1555", _dec_1555, _enc_1555))   # PS3 fmt 6도 1555(RGB565 후보는 오판이라 뺌)
     if fmt in (7, 11):
         out.append(("ARGB4444", lambda r, w, h: decode_texture(7, r, w, h),
                     lambda im: encode_texture("ARGB4444", im)))

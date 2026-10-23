@@ -370,6 +370,15 @@ def dlc_image_groups():
                         "w": x["w"], "h": x["h"], "fmt": str(x.get("fmt", "jpg")), "text": kind,
                         "plat": "ps3", "locs_str": [loc]})
         out += sorted(ps3, key=lambda v: (v["text"], v["png"]))
+    # 360 ad_bg(메인 메뉴 배너): 원본 PTC는 오프라인 디코드 불가 → pc-360-dlc가 게임 자체 디코드를 1배 실행으로 덤프한
+    # dlc_tex/<pkg6>/ad_bg_000.png. 주입은 IM2PCRAW(dlc_inject). 키 = 위치 문자열 md5.
+    import hashlib
+    for pkg in sorted(os.listdir(DLC_TEX)) if os.path.isdir(DLC_TEX) else []:
+        png = os.path.join(pkg, "ad_bg_000.png")
+        if os.path.exists(os.path.join(DLC_TEX, png)):
+            loc = f"360:{pkg}/ad_bg.ptc#000"
+            out.append({"md5": hashlib.md5(loc.encode()).hexdigest(), "png": png.replace(os.sep, "/"), "root": DLC_TEX,
+                        "w": 1280, "h": 720, "fmt": "PTC", "text": "광고 배너", "plat": "x360", "locs_str": [loc]})
     return out
 
 
@@ -381,6 +390,11 @@ def rows_dlc_images():
         meta = {"w": g["w"], "h": g["h"], "fmt": g["fmt"], "locs": locs, "kind": g["text"], "mode": ""}
         if g.get("plat") == "ps3":
             meta.update(plat="ps3", plat_note="PS3판 DLC 카탈로그·광고 — 360판과 문구·그림이 다름")
+        elif g.get("plat") == "x360":
+            meta.update(plat="x360", plat_note="360판 DLC 메인 메뉴 배너 — PS3판과 Vol 번호·그림이 다름(따로 작업)")
+        if g["text"] == "광고 배너":
+            meta["note"] = ("글자는 영문 '765shop Catalog Vol.NN' + 곡명 로고 — 곡 로고 제외 방침이라 Claude 초벌 없음. "
+                            "의상명 로고(エクササイズウェアNEO 등)가 있는 판은 팀 판단")
         out.append({"id": f"image:dlc:{g['md5']}", "cat": "image", "grp": "dlc",
                     "seq": i, "key": g["md5"], "jp": "", "kr": "", "st": 0,
                     "ts": 0, "by": "", "meta": meta})
