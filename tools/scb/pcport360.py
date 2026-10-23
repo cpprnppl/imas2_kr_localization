@@ -420,6 +420,91 @@ def cmd_validate(_a):
     sys.exit(1)
 
 
+# ---------------------------------------------------------------- PS3 로직 오버레이 (ps3-360-pc 요청, KOR 승인 2026-10-23)
+
+def _clips(blob, base=0):
+    """blob 안 BNSF(IS14) 클립 목록 [(절대 위치, 크기)]."""
+    out, i = [], blob.find(b"BNSF")
+    while i >= 0:
+        size = struct.unpack_from(">I", blob, i + 4)[0] + 8
+        if blob[i + 8:i + 12] == b"IS14":
+            out.append((base + i, size))
+        i = blob.find(b"BNSF", i + max(size, 4))
+    return out
+
+
+def voice_to_360(dec_p, dec_x):
+    """PS3 dec의 컷씬 서브파일 음성 클립을 같은 대사의 360 클립으로 제자리 교체.
+    360 클립은 헤더·크기가 같고 sfmt 플래그(BNSF+0x14)만 0→2이며 페이로드 일부가 다르다(인코딩 변형) —
+    플래그만 바꾸면 안 되고 360 클립 바이트를 통째로 써야 한다. 짝 = 같은 크기·같은 헤더(플래그 제외) 중
+    바이트 일치가 가장 많은 것. 크기 불변이라 pac 재조립 없음."""
+    out = bytearray(dec_p)
+    xs = []
+    for blob in pac_subs(dec_x)[1:]:
+        xs += [blob[a:a + s] for a, s in _clips(blob)]
+    n = struct.unpack_from(">I", dec_p, 0x0C)[0]
+    done, miss = 0, 0
+    for k in range(1, n):
+        sz, of = struct.unpack_from(">II", dec_p, 0x40 + k * 0x20 + 8)
+        base = 0x80 + of
+        for a, s in _clips(dec_p[base:base + sz], base):
+            c = dec_p[a:a + s]
+            hdr = c[:0x14] + c[0x16:0x30]
+            cands = [x for x in xs if len(x) == s and x[:0x14] + x[0x16:0x30] == hdr]
+            if not cands:
+                miss += 1
+                continue
+            best = max(cands, key=lambda x: sum(1 for u, v in zip(x[0x30::7], c[0x30::7]) if u == v))
+            out[a:a + s] = best
+            done += 1
+    return bytes(out), {"voice_replaced": done, "voice_unmatched": miss}
+
+
+def build_ps3_logic(rel, out_dir, abs_map, font_map):
+    """PS3 로직(CMD/LBL/LBN/VCN = PS3 순정 백업) + 웹앱 PS3 행 한글 MSG + 360 음성 클립 → 평문 pac(360 엔진은 평문 pac 수용).
+    out_dir은 game_kor·공유 game·테스터 패키지 밖이어야 한다. → (out_path, report)"""
+    low = os.path.abspath(out_dir).lower()
+    if any(k in low for k in ("game_kor", "build_imas2_o2\\game", "tester", "dev_hdd0")):
+        raise ValueError(f"출력 폴더 거부(game_kor/공유 game/테스터/PS3 게임 폴더 금지): {out_dir}")
+    import validate_output as vo
+    p, x = load_ps3(rel), load_360(rel)
+    sp = common.parse_section_dir(p)
+    msg_abs, msg_size = sp["MSG"]
+    pp = e2s.parse_msg_table(p, msg_abs)
+    new_by_idx, recovered, misses, garbage = e2s.resolve_translations(pp, abs_map, e2s.choice_indices(p))
+    new_msg = e2s.build_msg_block(pp, new_by_idx, font_map, msg_size)
+    new_dec, _delta = e2s.replace_msg_section(p, msg_abs, msg_size, new_msg)
+    new_dec, vrep = voice_to_360(new_dec, x)
+    issues, _h = vo.validate_dec(new_dec, p)
+    if issues:
+        raise ValueError(f"{rel}: 구조 검증 실패 {issues[:3]}")
+    untr = [{"i": s_["index"], "jp": s_["text"]} for s_ in pp["strings"]
+            if s_["text"].strip() and s_["index"] not in new_by_idx]
+    dst = os.path.join(out_dir, rel)
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    open(dst, "wb").write(new_dec)
+    return dst, {"msg": len(pp["strings"]), "translated": len(new_by_idx), "untranslated": untr,
+                 "recovered": recovered, "misses": misses, "garbage": garbage, **vrep, "size": len(new_dec)}
+
+
+def cmd_ps3logic(a):
+    xl = a.excel or excel_path()
+    print(f"번역 엑셀: {xl}")
+    tr = e2s.load_translations(xl)
+    font_map = e2s.load_font_mapping()
+    by_low = {k.replace("/", "\\").lower(): v for k, v in tr.items()}
+    rep = {}
+    for rel in a.rels:
+        relw = rel.replace("/", "\\")
+        dst, r = build_ps3_logic(relw, a.out, by_low.get(relw.lower(), {}), font_map)
+        rep[relw] = r
+        print(f"  {relw}: MSG {r['translated']}/{r['msg']} 한글, 미번역 {len(r['untranslated'])}, "
+              f"음성 360 클립 {r['voice_replaced']} (짝 없음 {r['voice_unmatched']}) → {dst}")
+    json.dump({"excel": xl, "files": rep}, open(os.path.join(a.out, "ps3logic_report.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+    print(f"→ {os.path.join(a.out, 'ps3logic_report.json')}")
+
+
 GAME_KOR = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor"
 TEST_ROOT = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor360_test"
 
@@ -463,8 +548,13 @@ def main():
     sub.add_parser("validate")
     s = sub.add_parser("stage")
     s.add_argument("dest", nargs="?", default=TEST_ROOT)
+    q = sub.add_parser("ps3logic", help="PS3 로직 + 한글 MSG + 360 음성 평문 pac (PS3 오버레이용, game_kor 밖 출력)")
+    q.add_argument("rels", nargs="+")
+    q.add_argument("--out", required=True)
+    q.add_argument("--excel", help="번역 엑셀(기본: 최신 회수본/translation_2)")
     a = ap.parse_args()
-    {"classify": cmd_classify, "build": cmd_build, "validate": cmd_validate, "stage": cmd_stage}[a.cmd](a)
+    {"classify": cmd_classify, "build": cmd_build, "validate": cmd_validate, "stage": cmd_stage,
+     "ps3logic": cmd_ps3logic}[a.cmd](a)
 
 
 if __name__ == "__main__":

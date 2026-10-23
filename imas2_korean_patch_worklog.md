@@ -1595,3 +1595,8 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   - tex_kr 'Claude 초벌' 11장(360 7 + PS3 4), 행 문구 '필승 어드바이스⏎○○ 규칙 N'. 360은 ARGB32 무손실 주입. game_kor 18:06·PS3 18:07 배포.
   - S4U 가(仮) 재킷 2장(Alice or Guilty / 恋をはじめよう 'kari'): 개발용 대체 그림 — DLC 곡은 실제 재킷이 쓰여 정상 플레이에선 안 보인다고 판단, 보류(행 메모).
   - 디버그 메모: Pillow ImageFilter.MaxFilter(1)은 0 나누기로 인터프리터가 죽는다(Windows fatal exception) — 크기 1은 호출하지 말 것.
+- **PS3 로직 오버레이 빌드 pcport360.py ps3logic**(18시, ps3-360-pc 요청·KOR 승인): PS3 순정 백업의 로직(CMD/LBL/LBN/VCN) +
+  웹앱 PS3 행 한글 MSG(excel2scb 경로 그대로) + 360 음성 → 평문 pac(360 엔진 수용). 음성: PS3/360 BNSF 클립은 헤더·크기 같고 sfmt
+  플래그(+0x14)만 0→2인데 페이로드도 프레임 일부가 달라(인코딩 변형) 플래그만 바꾸면 안 됨 → 같은 크기·헤더 중 바이트 일치 최다 360 클립으로
+  제자리 교체(pac 재조립 없음). validate_dec 게이트, 출력은 game_kor·공유 game·테스터·PS3 게임 폴더 거부.
+  첫 묶음 11개(튜토리얼 라벨 파일): MSG 100% 한글, 음성 360 짝 없는 PS3 클립 3개(all_w02_05 1, all_w04_01 2 — PS3 인코딩 그대로).
