@@ -41,7 +41,8 @@ def fetch(ids, code):
     ids = list(ids)
     for i in range(0, len(ids), 80):
         chunk = ids[i:i + 80]
-        flt = ",".join('"' + x.replace('"', '\\"') + '"' for x in chunk)
+        # PostgREST in.("…") 안에서는 \ 와 " 를 이스케이프해야 한다(script 행 id에 경로 \ 포함)
+        flt = ",".join('"' + x.replace("\\", "\\\\").replace('"', '\\"') + '"' for x in chunk)
         q = "id=in.(" + urllib.parse.quote(flt, safe=",") + ")&select=id,cat,grp,key,kr,st,meta"
         for r in _req("GET", "/rest/v1/rows?" + q, code):
             out[r["id"]] = r
