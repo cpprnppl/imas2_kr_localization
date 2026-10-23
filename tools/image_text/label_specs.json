@@ -1019,6 +1019,528 @@
    "over": {},
    "mode": "text",
    "text": "아이돌마스터"
+  },
+  "bae472b97ba1c09edf9b8e66fcf02be3": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "페이스 DOWN 중"
+  },
+  "f91235dbdb787b0bdbe277f1184d4acb": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "페이스 UP 중"
+  },
+  "01a7f51dbdad190cf67bcf741ed27c17": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "765프로"
+  },
+  "banner_LesPer": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "퍼펙트 레슨"
+  },
+  "banner_LesGod": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "굿 레슨"
+  },
+  "banner_LesNor": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "노멀 레슨"
+  },
+  "banner_LesBad": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "배드 레슨"
+  },
+  "banner_ComPer": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "퍼펙트 커뮤니케이션"
+  },
+  "banner_ComGod": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "굿 커뮤니케이션"
+  },
+  "banner_ComNor": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "노멀 커뮤니케이션"
+  },
+  "banner_ComBad": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "배드 커뮤니케이션"
+  },
+  "e67f326fa506b4eb1d4d5e29fa839d79": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "예"
+  },
+  "9f0c7ce55dfc6e9d39b34d709b632af7": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아니요"
+  },
+  "c6a05b91e79668f86e719a9f6b3d0657": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "CV: 칸바라 다이치"
+  },
+  "4705b0aba2950364b433ed1cdacf61bd": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "CV: 시모다 아사미"
+  },
+  "2ca10e133f7203c5e2ad055299e02329": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "CV: 코야스 타케히토"
+  },
+  "7733765d37161f7e65d7491d287d69cd": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "CV: 오오츠카 호추"
+  },
+  "ebbd3e1b5278f5c2813dc7ae6c8a70e8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "CV: 히라타 히로미"
+  },
+  "0e0961fb4b2ea41de208917777c81b95": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "CV: 이마이 아사미"
+  },
+  "998ae92b9a8d26fb0eb37f2eb3e1a4ad": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "야마나시"
+  },
+  "7c15d587300586e1c1e9d8991b903f55": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "야마구치"
+  },
+  "818019ed666cbc15bf4fcef29f3cf73f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "야마가타"
+  },
+  "106ddd0c7b2bf71b1d2f19310706ce21": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "와카야마"
+  },
+  "50620c6dec741bfa6900c15b09fd5271": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "도야마"
+  },
+  "88f4bb81b95e69d0a43608abc0ac0c12": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "도치기"
+  },
+  "72ecc571c6bd770f92775b09ef8b5bde": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "사이타마"
+  },
+  "dc46f57fcf342d3a98019906e2f60d84": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "오사카"
+  },
+  "6b34f1082d48905d82abac031792e230": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "오이타"
+  },
+  "b5cde80ac2cad8032041c4f8ae380e27": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "비디오"
+  },
+  "58a009b7c0d84658381f9c8a01c1cfb5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "이어서"
+  },
+  "b87b8df48248501d506532a5654a939e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "니가타"
+  },
+  "58ab00e2ad47a4597a4cfb271676441e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "서포트 이력"
+  },
+  "1dbecfbb612ef1ad561af7666103bf06": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "나라"
+  },
+  "f84dde1900439ccdf0c7fe6805fa2bc9": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "스테이지 포 유!"
+  },
+  "13751d7816740811e041aba17d67ca1a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "스테이지 포 유!"
+  },
+  "92b1e49163f5c5a3827360b8db4c9fe7": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 보기"
+  },
+  "0108dd37b96288816cd8e1a1ecdc5a1a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 다운로드"
+  },
+  "d32ab8b1ebc455e3b904d6f8fb52e53a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "악곡 스코어 랭킹"
+  },
+  "77fb0f2e832bff41931be6f004f0c1a2": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "PV 신착"
+  },
+  "014f58a1b589c04c01004091213170de": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "팬 수 랭킹"
+  },
+  "4aa92b1c8c1b2b7f1087f9f4742cc4bf": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "미에"
+  },
+  "312000eddbc73f9a9a95a0376dccaddd": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "교토"
+  },
+  "c06c00c7c3a9582f568134f5a7266d0c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "랭킹"
+  },
+  "cdd443262cfba09c045764986a360a47": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "구마모토"
+  },
+  "ba5ed3733b1be7ff501d048f8e2f6517": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "랭킹"
+  },
+  "272f21c7437e5c437b049b56df5471af": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "고치"
+  },
+  "d72b0d48c533724bca71b5b98e1d355d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "프로듀스"
+  },
+  "1925b6d1dca6ce74b5eb6da7dcc715db": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "가나가와"
+  },
+  "dfca09d052822207f8bfa1993d04dd21": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "프로듀스"
+  },
+  "be874aa3b365027d301031c78793b49b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "활동 시작"
+  },
+  "3444db20949aed5e6c76dde9ad6b7448": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "활동 보고"
+  },
+  "82dab5da38d8b7f5cd62b4b7d9df9601": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "가가와"
+  },
+  "8f21f898d5d66234de65d77301419cc5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "포토"
+  },
+  "4935ca019f77101dc21a0936cee67403": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "옵션"
+  },
+  "873eac362352a2b3daa1f9d3b62cdaaf": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "이와테"
+  },
+  "bed3fef05cc8da2c3bd068105281978a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "옵션"
+  },
+  "4675110da364689730eb5d6c49cca66a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "이시카와"
+  },
+  "e3daba454329176d18bd21fa6aa187a5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "이바라키"
+  },
+  "9a045bf83ce6475e03b56ca5a2c6b56d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "메일"
+  },
+  "d4600ddfbdc78cd4a6ff463c247c12ee": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "메일"
+  },
+  "eb15773847b83ddc786570a8b8a7ae8b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "처음부터"
+  },
+  "150441153eb5193b94ee66ff31ed9167": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "엑스트라 에피소드"
+  },
+  "4d2a548af9dd88fdaf822878442e53ac": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "엑스트라 에피소드"
+  },
+  "239c4ad0931d0f12c469c24479964d36": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "앨범"
+  },
+  "5be508aff198b164d56395a3e5333e4a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "기후"
+  },
+  "9591ac953fb6df770bcb6f61455b3ecf": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "앨범"
+  },
+  "534c931bd854f25be338903361d4a9e5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "765 숍 카탈로그"
+  },
+  "f1c60fc8604a9f435216e36909d96f40": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "765 숍 카탈로그"
+  },
+  "1656c58117a602860d4ccf802b979533": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "후쿠이"
+  },
+  "4f125f7caac06a7129b227697734a1c8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "메인 메뉴"
+  },
+  "e719ded2f5e5b1f28992a264ff317977": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "옵션"
+  },
+  "fe490ed3f3151d18e0b7292814ebf9f4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "활동 보고"
+  },
+  "0645add098a5a1473a366fc61c86136e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아오모리"
+  },
+  "b1e51c6d9b77b53a0f0a85f474160ceb": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "유닛 선택"
+  },
+  "fab8f75519dbad7d9c103491b486def0": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아키타"
+  },
+  "a38c246087d80b3fe04e0cb17eda8988": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "서포트 이력"
+  },
+  "c9f99d82dabc9f110e342a8103202bf5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "모니터 표시 지연 설정"
+  },
+  "ffffa301ffacea2a30f3848a45b25866": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "시스템 설정 1"
+  },
+  "8bf54ce35a2c9cabef1e99116d7e6289": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "시스템 설정 2"
+  },
+  "d191dc602b1f4639583d293a2e0e59cc": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아이돌 프로듀스부 제1과\nhttp://765pro.jp"
+  },
+  "8d904964911d722f6941792575040124": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주식회사 765 프로덕션"
+  },
+  "37080166902cc66c3aa9e2b774b8d620": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "업무 활동 이력"
+  },
+  "6511654c1b705fd5c15a84b44717d38a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "레코드"
+  },
+  "f69ed5cdd74d5096812d46b7b0130cb5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아이돌과의 활동 이력"
+  },
+  "61c5c62e3289e68990a8d20425d01f42": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "부적 GET"
+  },
+  "7ac2f3e0527a74c015031ed6de7dee26": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "프로듀스 완료"
+  },
+  "0515e087aa55359c4ad25c588461779c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "이어서"
   }
  }
 }

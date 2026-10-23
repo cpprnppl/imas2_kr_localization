@@ -45,6 +45,7 @@ from extract_image_text import OUT_DEFAULT, IMAS2DEC, walk_nuts, decode_texture 
 from inject_image_text import encode_texture, psnr, PSNR_OVERRIDES  # noqa: E402
 from xmb_text import parse_xmb, collect_texts, rebuild_xmb  # noqa: E402
 from dlc_images import swap16  # noqa: E402
+import tile_banner as TB  # noqa: E402
 
 PORT = r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game\resource"   # 읽기 전용 원본
 KOR_ROOT = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor"                    # 배포 대상 사본
@@ -373,11 +374,14 @@ def build():
         print(f"▶ {rel}")
         try:
             data = decrypt_port(rel)
-            n_tex = n_x = 0
+            orig = data
+            n_tex = n_x = n_b = 0
             if rel in jobs:
                 data, n_tex = apply_textures(rel, data, jobs[rel], print, report["unmatched"])
+            if rel == TB.REL:      # 레슨·커뮤 결과 배너: 타일은 위 텍스처로, 칸 배정은 SWG(tile_banner.py)
+                data, n_b = TB.patch_container(data, orig=orig, log=print)
             data, n_x = apply_xmb(rel, data, tr, print)
-            if n_tex + n_x == 0:
+            if n_tex + n_x + n_b == 0:
                 report["skip"].append(f"{rel}: 적용할 번역 없음")
                 continue
             dst = os.path.join(OUT, rel)

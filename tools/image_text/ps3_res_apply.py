@@ -42,6 +42,7 @@ sys.path.insert(0, HERE)
 from extract_image_text import OUT_DEFAULT, JP_ROOT  # noqa: E402
 from xmb_text import parse_xmb, collect_texts, rebuild_xmb  # noqa: E402
 import gamedata_apply as G  # noqa: E402
+import tile_banner as TB  # noqa: E402
 from dlc_inject import Cipher, KEYDIR, MAGIC  # noqa: E402
 
 G.set_plat("ps3")
@@ -254,6 +255,9 @@ def build_one(rel, tr, st):
     orig, enc = pristine(rel)
     base, has_img = image_layer(rel, orig)
     st["img"] += has_img
+    if rel == TB.REL:      # 레슨·커뮤 결과 배너: 타일(이미지 층) + SWG 칸 배정(tile_banner.py)
+        base, nb = TB.patch_container(base, orig=orig, log=lambda *a: None)
+        st["banner"] += nb
     if rel in STANDALONE:
         out = standalone(rel, base, tr[3], st)
     elif orig[:4] == b"pac\x00":
@@ -346,6 +350,8 @@ def validate_all(log=print):
             if enc:
                 out = out[:v["size"][1]]
             base, _img = image_layer(rel, orig)
+            if rel == TB.REL:   # 배너 SWG 칸 배정도 기준에 포함(patch_container가 char 칸 밖 불변을 따로 검증)
+                base, _nb = TB.patch_container(base, orig=orig, log=lambda *a: None)
             if rel in STANDALONE:
                 pn, po = parse_xmb(out, 0), parse_xmb(orig, 0)
                 if [e.get("attrs") for e in pn["entries"]] != [e.get("attrs") for e in po["entries"]]:

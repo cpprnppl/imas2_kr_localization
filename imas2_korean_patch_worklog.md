@@ -1530,3 +1530,26 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
 
 ### 번역 갱신 절차
 웹앱 exe 번역이 바뀌면: ui-image-extract가 exe_translations.json 회수 → `build360` → `deploy360`(gpu_run.lock 없을 때) → `build-ps3` → `install-ps3`(RPCS3 종료 상태). 게이트(원본 바이트·용량·겹침·.reloc 범위·참조 경로 재읽기 시뮬레이션·폰트)가 실패하면 파일을 쓰지 않는다.
+
+## 42. 레슨·커뮤 결과 배너(「バッドレッスン」 등 8종) 글자 타일 한글화 — tile_banner.py (2026-10-23, ps3-360-pc 보고)
+- 배너는 그림 한 장이 아니라 game/les_com.mpc 안 **ProResult.swg**(플래시 계열 SWG, 빅엔디언)가 가타카나 한 글자짜리
+  64x64 타일(텍스처 #21~83, 4색: 퍼펙트 분홍·굿 주황·노멀 초록·배드 파랑)을 **56px 등간격 칸**에 하나씩 놓아 만든다.
+  CN 패치도 이 타일은 안 건드림(#106/107/118만). 타일은 색마다 레슨/커뮤 두 단어가 같이 쓰고 ッ는 バッドレッスン 안에서도 두 번 →
+  텍스처만 바꾸면 한글 불가. 심볼: LesPer/LesGod/LesNor/LesBad, ComPer/ComGod/ComNor/ComBad(_mc). 그 밖 WINNER!!/LOSER…/
+  FAILURE/CLEAR!는 영어 그림.
+- SWG 구조(해석분): 'SWG\0'+해시+이름 0x40, 헤더 +0x54 행렬표(4x4 float, 6,222개) +0x5C 색 변환표(32B, 1,348개) +0x64 비트맵표
+  (12B: id, w<<16|h, flag — id = 같은 TSK nut 순번) +0x7C 캐릭터표(8B: 종류 0=모양/버튼·5=스프라이트, 위치) +0x80 수(164 = 모양 72 +
+  버튼 14 + 스프라이트 78). 모양 40B(+16 비트맵), 스프라이트 20B(프레임 수, 라벨, ?, 프레임표, 명령 수), 프레임표 8B(명령 위치, 개수),
+  명령 F5=배치(depth, char, 행렬, 색) 20B / F4 16B / 그 밖 변경 12B. 글자 = 1프레임 스프라이트(모양 하나), 단어 = 그 글자들을 depth별로 배치.
+- 방식(크기·구조 불변): 색 세트별로 두 단어 한글 음절(공백 = 빈 칸, 짧으면 가운데 정렬)을 모아 그 세트 글자 스프라이트 하나에 음절
+  하나 배정 → 그 타일을 음절로 다시 그림(맑은 고딕 Bold, 원본 실측 스타일: 위→아래 밝은 그라데이션 + 1px 외곽 + 글로, 4배 렌더 후 축소)
+  → 단어 스프라이트 배치 명령 char id를 칸별 음절 스프라이트로(84칸). 위치·애니메이션 무수정. 세트의 두 단어가 다 번역돼야 적용,
+  서로 다른 글자 수 ≤ 타일 수(분홍 17·초록 15·주황 14·파랑 14).
+- 360 les_com의 ProResult.swg는 PS3와 바이트 동일(위치만 0x30 차이) → 같은 코드로 패치. 타일 텍스처는 kr/game/les_com_NNN.png
+  (PS3 번호)로 내보내 기존 경로(inject_image_text → PS3, pcport_apply 내용 짝짓기 → 360)로 들어감. patch_container(orig=)는
+  배정 타일이 전부 바뀌었는지 확인하고 아니면 거부(가타카나 뒤섞임 방지). ps3_res_apply validate는 배너 패치까지 기준에 포함.
+- 웹앱: 이미지 > game 그룹에 행 8개(id image:game:banner_<이름>, meta.slots 칸 수·kind '글자 타일 배너', 업로드 버튼 없음,
+  칸 초과 빨간 경고). Claude 초벌: 퍼펙트/굿/노멀/배드 레슨, 퍼펙트/굿/노멀/배드 커뮤니케이션(대사 쪽은 '소통'이지만 게임 판정 용어는
+  팬덤 표기 커뮤니케이션). 원본 썸네일(coverage/banner_jp/)은 저장소 업로드에 서비스 키가 필요해 아직 없음('원본 그림 준비 중 — 원문').
+- 절차: webapp_pull image → `tile_banner.py render`(타일 + coverage/banner_preview.png, 계획에서 빠진 이전 타일 삭제) →
+  inject_image_text → ps3_res_apply build/validate · pcport_apply build.
