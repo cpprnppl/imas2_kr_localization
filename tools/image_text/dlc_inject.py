@@ -377,6 +377,11 @@ def _codecs(plat, fmt):
             return (lambda r, w, h: decode_360(19, r, w, h)), (lambda im: encode_texture("ARGB32", im)), True
         nm = FMT_NAMES[fmt]
         return (lambda r, w, h: decode_360(fmt, r, w, h)), (lambda im: swap16(encode_texture(nm, im))), False
+    if fmt == 6:
+        # PS3 DLC 카탈로그 페이지: FMT_NAMES는 RGB565라 하지만 실제는 ARGB1555 BE(360 fmt10과 같은 비트).
+        # 565로 풀면 포스터화·마젠타 번짐(2026-10-23 cp01 #019 비교로 확인).
+        from pcport_apply import _enc_1555
+        return (lambda r, w, h: decode_360(10, r, w, h)), _enc_1555, False
     nm = FMT_NAMES[fmt]
     return (lambda r, w, h: decode_texture(fmt, r, w, h)), (lambda im: encode_texture(nm, im)), nm == "ARGB32"
 

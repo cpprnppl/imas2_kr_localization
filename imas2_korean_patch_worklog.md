@@ -1635,3 +1635,10 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
 - (추가) 360 ad_bg도 이번 범위(KOR 결정): imas2pc main 5bfa82c의 배너 훅(src/kernel/ps3feat.cpp, sub_823F4798 크기 조회·sub_823F43D8 디코드)이 'IM2PCRAW' + w,h(BE u32) + A,R,G,B 원시 픽셀을 그대로 복사한다(실제 PTC는 원래 경로).
   - dlc_inject는 kr_dlc\<pkg6>\ad_bg_000.png(1280×720)를 이 형식으로 content_kor의 ad_bg.ptc 자리에 평문으로 쓴다(3.5MB, 비압축). 헤더·길이·픽셀을 다시 읽어 확인한다. 생성 바이트는 imas2pc tools/ps3feat/ps3_package.py banner()와 동일하다.
   - 360 패키지 = 카탈로그 Vol.01–14(헤더 이름 앞 두 자리). 원본 PTC는 오프라인 디코드가 안 되므로, 초벌 원본은 같은 Vol의 PS3 cpNN ad_bg.jpg(1280×720)를 쓴다. 그림이 같다는 것은 1배 인게임 확인으로 검증한다.
+- (추가) 360 ad_bg 원본 14장 확보(2026-10-23, 1배 1회, ps3-360-pc 빌드 0ef2eb6의 IMAS2PC_DUMP_PTC).
+  - 타이틀에서 START → Xbox LIVE 확인창 LEFT+A(예) → 메인 메뉴로 간다. DLC 14개는 한꺼번에 마운트되고, 배너는 메인 메뉴에서 약 12초마다 Vol.14→01 내림차순으로 돌아가며 매번 디코드된다.
+  - 덤프 n ↔ Vol.(14−n). 그림의 Vol 글자로 확인했다.
+  - 원본은 Desktop\imas2_image_text\dlc_tex\<pkg6>\ad_bg_000.png에 두었다. dlc_inject의 im2pcraw(PNG) 결과가 덤프 바이트와 14장 모두 같다(왕복 확인).
+- (수정) PS3 DLC 카탈로그 1024×512의 fmt 6은 RGB565가 아니라 **ARGB1555 BE**(360 fmt10과 같은 비트)다. 565로 풀면 포스터화되고 마젠타·시안이 번진다(ui 보고 → cp01 #019를 8가지로 풀어 비교).
+  - dlc_inject._codecs의 PS3 fmt 6을 1555로 고치고 dlc_tex_ps3를 다시 내보냈다.
+  - 공용 extract_image_text.FMT_NAMES[6]="RGB565"는 그대로 두었다(본편 32장 song_select·ranking·s4u_fullpack, 한글 작업본 없음). 같은 오류일 가능성이 크다(후속 과제).
