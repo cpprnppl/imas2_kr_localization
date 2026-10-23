@@ -27,7 +27,7 @@ DLC 한글 주입기 — 360(PC 포트) 한글판 DLC 사본 + PS3(RPCS3) 재암
 
 원칙: DLC 원본(content, RPCS3 순정 백업)은 읽기 전용. 결과물·백업은 git·공유 폴더 금지.
 360은 평문(PC 포트 엔진이 평문 pac/XMB 수용) + 원시 한글(직접 등록 폰트).
-PS3는 font_mapping.json으로 한글→한자 슬롯 인코딩.
+PS3도 직접 등록 한글(§25, 2026-10-14 전환) — font_mapping 한자 슬롯은 쓰지 않는다.
 """
 import os
 import sys
@@ -232,10 +232,12 @@ class Translations:
                 self.lyrics[stem[len("lyrics_"):]].setdefault(tid.split(".")[0], (v["jp"], v["kr"]))
         self.missing = set()
 
-    def enc(self, s, plat):
-        if plat == "360":
-            return s                                  # PC 포트: 직접 등록 폰트 = 원시 한글
-        return encode_with_mapping(s, self.mapping, self.missing)
+    def enc(self, s, _plat):
+        """양 플랫폼 모두 직접 등록 폰트(§25, PS3도 2026-10-14부터) = 원시 한글.
+        font_mapping의 한자 슬롯은 PS3 폰트에서 이미 한글 코드로 바뀌어 없다 → 쓰면 '?'.
+        폰트에 없는 한글(매핑 키 2,359자 밖)만 기록한다."""
+        self.missing |= {c for c in s if "가" <= c <= "힣" and c not in self.mapping}
+        return s
 
     def plan(self, plat, pkg, rel, texts):
         """{(xi, attr): kr} + 통계. 원문(jp)이 일치할 때만 교체한다."""

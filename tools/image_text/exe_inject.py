@@ -21,7 +21,7 @@
   인코딩 = 직접 한글(UTF-16BE). 폰트(직접 등록 글자 집합 = font_mapping 키) 밖 한글이면 실패.
 
 PS3 (RPCS3 patch.yml, PPU 해시 키, 시험 때만 활성화):
-  EBOOT VA = 세그먼트 매핑. 데이터 포인터(TOC·표) 참조면 재배치 가능. 인코딩 = font_mapping.
+  EBOOT VA = 세그먼트 매핑. 데이터 포인터(TOC·표) 참조면 재배치 가능. 인코딩 = 직접 등록 한글(§25, 360과 동일).
 
   python exe_inject.py analyze                 # 참조 분석 보고 (번역 불필요)
   python exe_inject.py build360 [--tr F]       # out_exe\\kor_exe_strings.bin + 보고
@@ -367,7 +367,9 @@ def build_ps3(a):
                 rep["overflow"].append({"key": k, "why": "EBOOT 원문 불일치"})
                 continue
             jp, kr_src = jp2, kr_src.strip("　")
-        kr = encode_with_mapping(kr_src, mapping, missing)
+        # PS3 폰트도 직접 등록(§25: 한글 코드 2,359자, 매핑 한자 슬롯은 없음) → 원시 한글
+        missing |= {c for c in kr_src if "가" <= c <= "힣" and c not in mapping}
+        kr = kr_src
         new = u16z(kr)
         cap = len(orig)
         while cap % 4 and e[fo + cap] == 0:
@@ -389,7 +391,7 @@ def build_ps3(a):
     os.makedirs(OUT, exist_ok=True)
     lines = ["Version: 1.2", "", f"{PS3_PPU_HASH}:", '  "iM@S2 KOR exe strings (imas2_kr_localization exe_inject.py)":',
              "    Games:", '      "THE iDOLM@STER 2":', "        NPJB00337: [ All ]",
-             "    Author: \"imas2 KOR\"", "    Notes: \"실행 파일 하드코딩 문구 한글화 (font_mapping 인코딩)\"",
+             "    Author: \"imas2 KOR\"", "    Notes: \"실행 파일 하드코딩 문구 한글화 (직접 등록 한글)\"",
              "    Patch Version: 1.0", "    Patch:"]
     if cur > free_lo:
         lines.append(f"      - [ alloc, 0x{free_lo:08x}, 0x{a.alloc_size:x} ] # 재배치 문자열 블록")
