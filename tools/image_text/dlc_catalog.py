@@ -56,6 +56,13 @@ def specs(ps3=False):
         for page, labs in json.load(open(acc, encoding="utf-8")).items():
             if page in out and not out[page].get("labels"):
                 out[page]["labels"] = labs
+    # 메일 쪽은 막대가 두 줄(5 + 4, 둘째 줄 y≈302) — 판독은 첫 줄만 했으므로 둘째 줄은 고정 명단
+    # (2026-10-23 pc-360-dlc 지적: 真/真美/貴音/響のメール이 일본어로 남음)
+    for it in out.values():
+        labs = it.get("labels") or []
+        if len(labs) == 5 and all(l["jp"].endswith("のメール") for l in labs) and not it.get("labels2"):
+            it["labels2"] = [{"jp": j + "のメール", "kr": k + "의 메일"}
+                             for j, k in (("真", "마코토"), ("真美", "마미"), ("貴音", "타카네"), ("響", "히비키"))]
     return out
 
 
@@ -115,11 +122,11 @@ def find_bars(a, n=0):
     return bars
 
 
-def _find_bars(a, n, thr):
+def _find_bars(a, n, thr, y_from=100, y_to=420):
     L = lum_of(a)
     blk = (L < 45) & (a[..., 3] > 200)
     # 막대 안 흰 글자가 행을 끊으므로: 행 투영으로 막대 줄(y) → 그 줄의 열 투영으로 막대들(x)
-    rows = blk[100:420].sum(1) >= thr
+    rows = blk[y_from:y_to].sum(1) >= thr
     y0 = None
     for y in range(len(rows) + 1):
         on = y < len(rows) and (rows[y] or (y + 1 < len(rows) and rows[y + 1] and y0 is not None))
@@ -134,7 +141,7 @@ def _find_bars(a, n, thr):
     if y0 is None:
         return []
     y1 = y
-    col = blk[100 + y0:100 + y1].mean(0) > 0.3
+    col = blk[y_from + y0:y_from + y1].mean(0) > 0.3
     xs = np.nonzero(col)[0]
     out = []
     for x in xs:
@@ -142,7 +149,7 @@ def _find_bars(a, n, thr):
             out[-1][1] = x
         else:
             out.append([x, x])
-    bars = [(int(a_), 100 + y0, int(b_) + 1, 100 + y1) for a_, b_ in out if b_ - a_ >= 80]
+    bars = [(int(a_), y_from + y0, int(b_) + 1, y_from + y1) for a_, b_ in out if b_ - a_ >= 80]
     if n and len(bars) == 1 and n > 1:
         # 막대 사이 틈(5~13px)을 아이콘 원이 덮어 한 덩어리로 보임 — 막대는 등간격이라 n등분(틈 12px 가정)
         x0, y0_, x1, y1_ = bars[0]
@@ -193,9 +200,18 @@ def render(page, sp, root=None):
         out = draw_fit(out, sp["head"]["kr"], 200, 890, 68, 23, head_col, target_w=head_w)
     labels = sp.get("labels") or []
     bars = find_bars(a, len(labels))
-    if labels and len(bars) != len(labels):
-        notes.append(f"막대 {len(bars)}개 ≠ 문구 {len(labels)}개 — 품목명 그대로")
-    elif labels:
+    rows = [(bars, labels)]
+    labels2 = sp.get("labels2") or []
+    if labels2 and bars:                               # 둘째 줄(메일 쪽): 첫 줄 아래부터 다시 찾는다
+        n2 = len(labels2)
+        b2 = _find_bars(a, n2, 160, bars[0][3] + 20, 470)
+        if len(b2) != n2:
+            b2 = _find_bars(a, n2, 90, bars[0][3] + 20, 470) or b2
+        rows.append((b2, labels2))
+    for bars, labels in rows:
+        if labels and len(bars) != len(labels):
+            notes.append(f"막대 {len(bars)}개 ≠ 문구 {len(labels)}개 — 품목명 그대로")
+            continue
         for (x0, y0, x1, y1), lab in zip(bars, labels):
             if not lab.get("kr"):
                 continue                       # 곡명(팀 결정 대기) 등 — 그대로
@@ -254,9 +270,10 @@ def cmd_write(a):
             break
         off += 1000
     n = skip = files = 0
+    only = set(a.only.split(",")) if a.only else None
     for p in pages:
         sp = sps.get(p["page"])
-        if not sp:
+        if not sp or (only and p["page"] not in only and not ("mail" in only and sp.get("labels2"))):
             continue
         tk = json.load(urllib.request.urlopen(urllib.request.Request(
             f"{cfg['url']}/rest/v1/tex_kr?md5=eq.{p['md5']}&select=by", headers=H)))
@@ -293,6 +310,7 @@ def main():
     p = sub.add_parser("write")
     p.add_argument("--code", required=True)
     p.add_argument("--ps3", action="store_true")
+    p.add_argument("--only", help="쉼표로 쪽 이름(예: cp01/catalog_info_019), 또는 mail = 메일 쪽(막대 두 줄)만")
     p.set_defaults(fn=cmd_write)
     a = ap.parse_args()
     a.fn(a)
