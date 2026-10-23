@@ -490,13 +490,25 @@ def build_images(plat, src_root_iter, write, log):
                     img = Image.open(png).convert("RGB")
                     if img.size != orig.size:
                         raise ValueError(f"{rel}: 치수 {img.size} != {orig.size}")
-                    buf = io.BytesIO()
-                    img.save(buf, "JPEG", quality=92, subsampling=2)
-                    out = buf.getvalue()
+                    # 원본의 양자화 표·크로마 샘플링으로 시작해 화질을 원본 수준으로 유지하되,
+                    # 게임 쪽 버퍼가 원본 크기 기준일 수 있으므로 원본보다 커지면 표를 조금씩 거칠게 한다.
+                    from PIL import JpegImagePlugin
+                    samp = JpegImagePlugin.get_sampling(orig)
+                    samp = samp if samp >= 0 else 0
+                    for k in range(40):
+                        f = 1.0 + 0.05 * k
+                        qt = {i: [min(255, max(1, round(v * f))) for v in t] for i, t in orig.quantization.items()}
+                        buf = io.BytesIO()
+                        img.save(buf, "JPEG", qtables=qt, subsampling=samp)
+                        out = buf.getvalue()
+                        if len(out) <= len(jp):
+                            break
+                    else:
+                        raise ValueError(f"{rel}: 원본 크기 {len(jp):,}B 이하로 못 줄임")
                     new = Cipher.encrypt(out, ctx)
                     back, _ = ps3_decrypt_any(c, new)
                     assert jpeg_plain(back) == out, "재암호화 검증 실패"
-                    log(f"  {pkg}/{rel}: JPEG {len(jp):,}→{len(out):,}B")
+                    log(f"  {pkg}/{rel}: JPEG {len(jp):,}→{len(out):,}B (양자화 ×{f:.2f})")
                     write(pkg, rel, new, {"jpeg": True})
                 else:
                     plain, ctx = c.decrypt(raw)
