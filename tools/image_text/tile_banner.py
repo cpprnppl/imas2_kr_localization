@@ -70,9 +70,10 @@ STYLE = {"p": ((255, 123, 225), (255, 45, 181), (255, 212, 239), (255, 198, 234)
          "o": ((255, 163, 0), (239, 158, 12), (254, 239, 205), (255, 228, 149)),
          "b": ((0, 77, 200), (54, 109, 211), (159, 218, 240), (212, 230, 252))}
 GLOW = [255, 249, 228, 203, 152, 102, 61, 30, 10, 0]     # 외곽에서 거리(px)별 알파(원본 실측)
-FONT = "malgunbd.ttf"
+# 글꼴: Koverwatch(사용자 지시 "네가 이미지 만든거나 만들거는 이 폰트로", 라이선스 미상이라 git 밖 로컬 경로)
+FONT = os.path.join(os.path.expanduser("~"), "Desktop", "imas2_image_text", "fonts", "koverwatch", "koverwatch.ttf")
 BOX = 54                        # 음절 잉크 높이(원본 가타카나 채움+외곽 ≈ 50px)
-BOLD = 2.0                      # 획 굵히기(px, 지름) — 맑은 고딕 Bold만으론 원본보다 가늘다
+BOLD = 0.0                      # 획 굵히기(px, 지름) — Koverwatch는 그대로 굵다(굵히면 뭉개짐)
 EDGE = 1.0                      # 외곽선 두께(px)
 
 
@@ -266,7 +267,7 @@ def _font(SS):
     """글자 크기는 음절마다 맞추지 않고 하나로(크기·기준선이 고른 글줄). 기준 음절 '퍼한뷁'의 잉크
     높이가 BOX px이 되는 크기와, 그 잉크를 타일 세로 가운데에 놓는 위쪽 보정값."""
     if SS not in _FONT:
-        font_p = os.path.join(os.environ.get("WINDIR", r"C:\Windows"), "Fonts", FONT)
+        font_p = FONT
         sz = 40 * SS
         for _ in range(4):
             f = ImageFont.truetype(font_p, sz)
@@ -289,9 +290,12 @@ def render_tile(ch, s, size=64):
     f, top = _font(SS)
     tmp = Image.new("L", (S * 2, S * 2), 0)
     ImageDraw.Draw(tmp).text((S // 2, S - top), ch, font=f, fill=255)   # 잉크 세로 중심 = tmp 가운데
-    tmp = tmp.filter(ImageFilter.MaxFilter(_odd(BOLD * SS)))           # 획 두께를 원본(채움 ~8px)에 맞춤
+    if BOLD:
+        tmp = tmp.filter(ImageFilter.MaxFilter(_odd(BOLD * SS)))
     bb = tmp.getbbox()
     ink = tmp.crop((bb[0], 0, bb[2], tmp.height))                      # 가로만 잉크 기준, 세로는 공통 기준선
+    if ink.width < 44 * SS:                 # Koverwatch는 좁다 — 가타카나 타일 폭 쪽으로 가로 1.3배까지
+        ink = ink.resize((int(min(ink.width * 1.3, 44 * SS)), ink.height), Image.LANCZOS)
     if ink.width > (size - 10) * SS:
         ink = ink.resize(((size - 10) * SS, ink.height), Image.LANCZOS)
     fill_m = Image.new("L", (S, S), 0)
