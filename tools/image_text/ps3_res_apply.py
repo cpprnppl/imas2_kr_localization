@@ -54,6 +54,13 @@ REPORT = os.path.join(OUT, "report.json")
 USRDIR = os.path.dirname(JP_ROOT)
 FONT_INJECTED = {"initialfix.mpc", "initialtemp.mpc"}       # deploy_fonts가 폰트를 제자리 주입한 파일
 STANDALONE = {"text\\install.xmb": "text/install.xmb", "ranker\\ranker_npc.xmb": "ranker/ranker_npc.xmb"}
+# 곡 정보 가사 XMB — 레슨(가사 미니게임)이 이 사본을 읽는다(2026-10-23). xmb_translations.json에 키가 있는 곡만.
+import glob as _glob  # noqa: E402
+_XT = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
+for _p in _glob.glob(os.path.join(JP_ROOT, "songinfo", "*", "lyrics_*.xmb")):
+    _rel = os.path.relpath(_p, JP_ROOT)
+    if _rel.replace("\\", "/") in _XT:
+        STANDALONE[_rel] = _rel.replace("\\", "/")
 NPC_FILES = ["game\\alf\\alf_common.mpc", "interface\\NationwideRanking.mpc", "interface\\ScheduleSelect.mpc",
              "scene\\produce_etc.mpc", "scene\\exep_init.mpc", "scene\\exep_commu.mpc"]
 NEVER = re.compile(r"^(gscript|tools|_)|^scene\\attract\.mpc$|im2_font", re.I)
@@ -132,10 +139,19 @@ def cmd_snapshot(a=None, quiet=False):
             bad.append(f"{rel}: 기존 사본과 게임 폴더 파일이 다름 — 수동 확인 필요")
             continue
         plain, enc = open_raw(raw)
+        c = os.path.join(CACHE_JP, rel)
         if text_has_hangul(plain):
+            # 게임 폴더가 이미 (다른 도구로) 패치된 경우: 추출 캐시(별도 시점의 복호화 사본)가 한글 없는 원문이면 그것을 순정으로
+            cp = open(c, "rb").read() if os.path.exists(c) else b""
+            if cp[:4] in MAGIC and not text_has_hangul(cp):
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                open(dst, "wb").write(cp)
+                man[rel] = {"sha_raw": sha(cp), "sha_plain": sha(cp), "encrypted": False, "cache_match": True,
+                            "mtime": "", "at": time.strftime("%Y-%m-%d %H:%M"),
+                            "note": "게임 폴더는 이미 한글 패치본 — 추출 캐시 평문(일본어)을 순정으로, 평문 배포"}
+                continue
             bad.append(f"{rel}: 게임 폴더 파일에 이미 한글 — 순정 아님, 사본 거부")
             continue
-        c = os.path.join(CACHE_JP, rel)
         cache = sha(open(c, "rb").read()) == sha(plain) if os.path.exists(c) else None
         note = ""
         if rel.lower() in FONT_INJECTED:

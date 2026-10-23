@@ -37,7 +37,8 @@ IMAGE_GROUP_LABELS = {
     "bg2d": "배경 (bg2d)", "game": "레슨·ALF·앨범 (game)", "iface": "선택 화면 (iface)",
     "interface": "인터페이스 (interface)", "mail": "메일 (mail)",
     "s4u": "Stage For You (s4u)", "scene": "씬·메뉴 (scene)",
-    "initialFix.mpc": "공통 UI (확인창 はい/いいえ 등)"}
+    "initialFix.mpc": "공통 UI (확인창 はい/いいえ 등)",
+    "songinfo": "곡 재킷·제목 로고 (본편)"}
 
 
 def xmb_budgets():

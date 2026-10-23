@@ -348,6 +348,13 @@ def build():
     jobs = kr_jobs()
     targets = set(jobs)
     targets |= {"text\\install.xmb", "ranker\\ranker_npc.xmb"}
+    # 곡 정보 가사 XMB(songinfo/<곡>/lyrics_<곡>.xmb) — 레슨(가사 미니게임)이 dance pac이 아니라 이 사본을 읽는다
+    # (2026-10-23 ps3-360-pc 확인: 360 레슨 가사가 일본어). xmb_translations.json에 키가 있는 곡만.
+    import glob as _g
+    for p in _g.glob(os.path.join(PORT, "songinfo", "*", "lyrics_*.xmb")):
+        rel = os.path.relpath(p, PORT)
+        if rel.replace("\\", "/") in tr:
+            targets.add(rel)
     # NPC 명단 표가 들어있는 pac (PS3 전수 조사 기준 위치)
     targets |= {"game\\alf\\alf_common.mpc", "interface\\NationwideRanking.mpc",
                 "interface\\ScheduleSelect.mpc", "scene\\produce_etc.mpc",

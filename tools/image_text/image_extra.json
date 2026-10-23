@@ -423,6 +423,174 @@
    "fmt": "DXT5",
    "png": "initialFix_008.png",
    "note": "확인창 버튼 — initialFix는 폰트 주입 파일이라 이미지 추출 대상에서 빠져 있었다"
+  },
+  {
+   "rel": "songinfo\\ilh\\jacket_ilh.nut",
+   "n": 0,
+   "md5": "2e3c7183766c920f5a5931ca7b86e664",
+   "jp": "愛 LIKE ハンバーガー",
+   "locs": [
+    "songinfo\\ilh\\jacket_ilh.nut#000"
+   ],
+   "w": 256,
+   "h": 256,
+   "fmt": "DXT5",
+   "png": "jacket_ilh_000.png",
+   "note": "곡 재킷 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\ilh\\jacket_ilh_logo.nut",
+   "n": 0,
+   "md5": "2d5bfd2946743a9fa7592b1f06b43153",
+   "jp": "愛 LIKE ハンバーガー",
+   "locs": [
+    "songinfo\\ilh\\jacket_ilh_logo.nut#000"
+   ],
+   "w": 464,
+   "h": 48,
+   "fmt": "DXT5",
+   "png": "jacket_ilh_logo_000.png",
+   "note": "곡 제목 로고 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\kir\\jacket_kir.nut",
+   "n": 0,
+   "md5": "b92d2b09ef237c24d59c05a0a8bc3958",
+   "jp": "キラメキラリ",
+   "locs": [
+    "songinfo\\kir\\jacket_kir.nut#000"
+   ],
+   "w": 256,
+   "h": 256,
+   "fmt": "DXT5",
+   "png": "jacket_kir_000.png",
+   "note": "곡 재킷 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\kir\\jacket_kir_logo.nut",
+   "n": 0,
+   "md5": "cfb468944d23f7f9bbae08af58c38b3f",
+   "jp": "キラメキラリ",
+   "locs": [
+    "songinfo\\kir\\jacket_kir_logo.nut#000"
+   ],
+   "w": 464,
+   "h": 48,
+   "fmt": "DXT5",
+   "png": "jacket_kir_logo_000.png",
+   "note": "곡 제목 로고 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\koi\\jacket_koi.nut",
+   "n": 0,
+   "md5": "6fe175c87f81f875d75bf0eb52da441d",
+   "jp": "恋をはじめよう",
+   "locs": [
+    "songinfo\\koi\\jacket_koi.nut#000"
+   ],
+   "w": 256,
+   "h": 256,
+   "fmt": "DXT5",
+   "png": "jacket_koi_000.png",
+   "note": "곡 재킷 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\koi\\jacket_koi_logo.nut",
+   "n": 0,
+   "md5": "f1c6a9f6dd6f0e12f96218e396df63d8",
+   "jp": "恋をはじめよう",
+   "locs": [
+    "songinfo\\koi\\jacket_koi_logo.nut#000"
+   ],
+   "w": 464,
+   "h": 48,
+   "fmt": "DXT5",
+   "png": "jacket_koi_logo_000.png",
+   "note": "곡 제목 로고 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\meg\\jacket_meg.nut",
+   "n": 0,
+   "md5": "bb06f8270287464b8ddfff8503dcfcf8",
+   "jp": "目が逢う瞬間",
+   "locs": [
+    "songinfo\\meg\\jacket_meg.nut#000"
+   ],
+   "w": 256,
+   "h": 256,
+   "fmt": "DXT5",
+   "png": "jacket_meg_000.png",
+   "note": "곡 재킷 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\meg\\jacket_meg_logo.nut",
+   "n": 0,
+   "md5": "976db621095bd21ac0a453d7b6bb7207",
+   "jp": "目が逢う瞬間",
+   "locs": [
+    "songinfo\\meg\\jacket_meg_logo.nut#000"
+   ],
+   "w": 464,
+   "h": 48,
+   "fmt": "DXT5",
+   "png": "jacket_meg_logo_000.png",
+   "note": "곡 제목 로고 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\mei\\jacket_mei.nut",
+   "n": 0,
+   "md5": "874c496aa047b069767b414727307e97",
+   "jp": "迷走Mind",
+   "locs": [
+    "songinfo\\mei\\jacket_mei.nut#000"
+   ],
+   "w": 256,
+   "h": 256,
+   "fmt": "DXT5",
+   "png": "jacket_mei_000.png",
+   "note": "곡 재킷 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\mei\\jacket_mei_logo.nut",
+   "n": 0,
+   "md5": "454a0ae52667e0daf89daed69c181d9e",
+   "jp": "迷走Mind",
+   "locs": [
+    "songinfo\\mei\\jacket_mei_logo.nut#000"
+   ],
+   "w": 464,
+   "h": 48,
+   "fmt": "DXT5",
+   "png": "jacket_mei_logo_000.png",
+   "note": "곡 제목 로고 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\nan\\jacket_nan.nut",
+   "n": 0,
+   "md5": "26abc91d90fc033dcd4e05a8a7f01521",
+   "jp": "七彩ボタン",
+   "locs": [
+    "songinfo\\nan\\jacket_nan.nut#000"
+   ],
+   "w": 256,
+   "h": 256,
+   "fmt": "DXT5",
+   "png": "jacket_nan_000.png",
+   "note": "곡 재킷 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "songinfo\\nan\\jacket_nan_logo.nut",
+   "n": 0,
+   "md5": "6900b60ef0606e50a06633c34b682998",
+   "jp": "七彩ボタン",
+   "locs": [
+    "songinfo\\nan\\jacket_nan_logo.nut#000"
+   ],
+   "w": 464,
+   "h": 48,
+   "fmt": "DXT5",
+   "png": "jacket_nan_logo_000.png",
+   "note": "곡 제목 로고 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
   }
  ]
 }
