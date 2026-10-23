@@ -328,6 +328,157 @@ def apply(data, plan_repl, plat, tr):
     return out, len(plan_repl)
 
 
+# ---------------------------------------------------------------- 그림 (카탈로그 페이지·곡 로고·재킷·PS3 ad_bg)
+# 입력: 한글 PNG(원본과 같은 치수)
+#   360: <OUT>/kr_dlc/<pkg6>/<stem>_<nnn>.png       (webapp_pull image의 360: DLC 규칙)
+#   PS3: <OUT>/kr_dlc_ps3/<cpNN>/<stem>_<nnn>.png   (stem = rel의 / → _, 확장자 제외)
+# NUT 텍스처는 같은 포맷·같은 크기로 제자리 인코드(밉 이하 원본 유지) + 재디코드 게이트.
+# 360 NTXR: DXT/32bpp는 16비트 스왑, fmt10/11(ARGB1555/4444)은 BE 그대로(dlc_images.decode_360).
+# PS3 ad_bg.jpg(1280x720 메인 메뉴 배경+카탈로그 배너): JPEG 재인코드(길이 가변) 후 재암호화.
+# 360 ad_bg.ptc는 PTC 코덱이라 미지원(인코더 없음, 워크로그 §42).
+
+KR_360 = os.path.join(OUT_DEFAULT, "kr_dlc")
+KR_PS3 = os.path.join(OUT_DEFAULT, "kr_dlc_ps3")
+
+
+def image_targets(res_root, plat):
+    pats = ["catalog_info.nut", os.path.join("songinfo", "*", "jacket_*.nut")]
+    if plat == "ps3":
+        pats.append("ad_bg.jpg")
+    out = []
+    for pat in pats:
+        out += [os.path.relpath(p, res_root) for p in glob.glob(os.path.join(res_root, pat))]
+    return sorted(out)
+
+
+def kr_images(plat, pkg, rel):
+    """{n: png 경로} — 이 파일에 대한 한글 작업본."""
+    stem = rel.replace("\\", "/").replace("/", "_").rsplit(".", 1)[0]
+    d = os.path.join(KR_360, pkg[:6]) if plat == "360" else os.path.join(KR_PS3, pkg)
+    out = {}
+    if os.path.isdir(d):
+        for fn in os.listdir(d):
+            if fn.startswith(stem + "_") and fn.endswith(".png") and fn[len(stem) + 1:-4].isdigit():
+                out[int(fn[len(stem) + 1:-4])] = os.path.join(d, fn)
+    return out
+
+
+def _codecs(plat, fmt):
+    """(dec(raw,w,h)->RGBA, enc(RGBA)->bytes, 무손실?)"""
+    from extract_image_text import decode_texture, FMT_NAMES
+    from inject_image_text import encode_texture
+    from dlc_images import swap16, decode_360
+    if plat == "360":
+        if fmt == 10:
+            from pcport_apply import _enc_1555
+            return (lambda r, w, h: decode_360(10, r, w, h)), _enc_1555, False
+        if fmt == 11:
+            return (lambda r, w, h: decode_360(11, r, w, h)), (lambda im: encode_texture("ARGB4444", im)), False
+        if fmt == 19:
+            return (lambda r, w, h: decode_360(19, r, w, h)), (lambda im: encode_texture("ARGB32", im)), True
+        nm = FMT_NAMES[fmt]
+        return (lambda r, w, h: decode_360(fmt, r, w, h)), (lambda im: swap16(encode_texture(nm, im))), False
+    nm = FMT_NAMES[fmt]
+    return (lambda r, w, h: decode_texture(fmt, r, w, h)), (lambda im: encode_texture(nm, im)), nm == "ARGB32"
+
+
+def apply_images(plat, pkg, rel, plain, jobs, log):
+    """NUT 평문에 jobs {n: png} 적용 → (새 평문, 교체 수). 게이트: 치수·크기 일치, 재디코드 PSNR."""
+    import numpy as np
+    from PIL import Image
+    from extract_image_text import walk_nuts
+    from inject_image_text import psnr
+    data = bytearray(plain)
+    texs = walk_nuts(bytes(data).replace(b"NTXR", b"NTP3"), lambda *a: None)
+    done = 0
+    for n, png in sorted(jobs.items()):
+        if n >= len(texs):
+            raise ValueError(f"{rel}#{n:03d}: 텍스처 없음(파일에 {len(texs)}장)")
+        t = texs[n]
+        img = np.asarray(Image.open(png).convert("RGBA"), np.uint8)
+        if img.shape[:2] != (t["h"], t["w"]):
+            raise ValueError(f"{rel}#{n:03d}: 치수 {img.shape[1]}x{img.shape[0]} != {t['w']}x{t['h']}")
+        dec, enc, lossless = _codecs(plat, t["fmt"])
+        raw = bytes(data[t["data_off"]:t["data_off"] + t["data_size"]])
+        new = enc(img)
+        if len(new) < t["data_size"]:           # 밉 레벨은 원본 유지
+            new = new + raw[len(new):]
+        if len(new) != t["data_size"]:
+            raise ValueError(f"{rel}#{n:03d}: 인코드 {len(new)}B != {t['data_size']}B")
+        q = psnr(dec(new, t["w"], t["h"]), img)
+        lim = 60.0 if lossless else (28.0 if t["fmt"] in (10, 11) else 33.0)   # 16bpp는 양자화 손실 감안
+        if q < lim:
+            raise ValueError(f"{rel}#{n:03d}: 재디코드 {q:.1f}dB < {lim}")
+        data[t["data_off"]:t["data_off"] + t["data_size"]] = new
+        done += 1
+        log(f"    #{n:03d} {t['w']}x{t['h']} fmt{t['fmt']} 재디코드 {q:.1f}dB")
+    return bytes(data), done
+
+
+def jpeg_plain(raw_dec):
+    """복호화 평문에서 JPEG 본체(FFD8..FFD9)와 꼬리 패딩 길이."""
+    end = raw_dec.rfind(b"\xff\xd9") + 2
+    if raw_dec[:2] != b"\xff\xd8" or end < 4:
+        raise ValueError("JPEG 아님")
+    return raw_dec[:end]
+
+
+def ps3_decrypt_any(c, raw):
+    """dlc_inject.Cipher.decrypt는 알려진 매직만 허용 — JPEG(ad_bg.jpg)용."""
+    body = raw[:len(raw) - c.foot]
+    key = c._key(raw)
+    full = AES.new(key, AES.MODE_CBC, b"\x00" * 16).decrypt(body)
+    return full[16:], {"key": key, "prefix": full[:16], "footer": raw[len(raw) - c.foot:]}
+
+
+def build_images(plat, src_root_iter, write, log):
+    """src_root_iter: [(pkg, res_dir, raw_reader)]. write(pkg, rel, new_bytes, info). 반환 (교체 파일 수, 실패)."""
+    import io
+    from PIL import Image
+    c = ciphers()[plat]
+    nfile, fails = 0, []
+    for pkg, res, read in src_root_iter:
+        for rel in image_targets(res, plat):
+            jobs = kr_images(plat, pkg, rel)
+            if not jobs:
+                continue
+            raw = read(rel)
+            try:
+                if rel.endswith(".jpg"):
+                    dec, ctx = ps3_decrypt_any(c, raw)
+                    jp = jpeg_plain(dec)
+                    orig = Image.open(io.BytesIO(jp))
+                    png = jobs.get(0)
+                    img = Image.open(png).convert("RGB")
+                    if img.size != orig.size:
+                        raise ValueError(f"{rel}: 치수 {img.size} != {orig.size}")
+                    buf = io.BytesIO()
+                    img.save(buf, "JPEG", quality=92, subsampling=2)
+                    out = buf.getvalue()
+                    new = Cipher.encrypt(out, ctx)
+                    back, _ = ps3_decrypt_any(c, new)
+                    assert jpeg_plain(back) == out, "재암호화 검증 실패"
+                    log(f"  {pkg}/{rel}: JPEG {len(jp):,}→{len(out):,}B")
+                    write(pkg, rel, new, {"jpeg": True})
+                else:
+                    plain, ctx = c.decrypt(raw)
+                    out, n = apply_images(plat, pkg, rel, plain, jobs, log)
+                    if plat == "360":
+                        new = out                                  # PC 포트: 평문
+                    else:
+                        new = Cipher.encrypt(out, ctx) if ctx else out
+                        if ctx:
+                            back, _ = c.decrypt(new)
+                            assert back[:len(out)] == out, "재암호화 검증 실패"
+                    log(f"  {pkg[:6] if plat == '360' else pkg}/{rel}: 텍스처 {n}장")
+                    write(pkg, rel, new, {"tex": n})
+                nfile += 1
+            except Exception as e:  # noqa: BLE001
+                fails.append(f"{pkg}/{rel}: {e}")
+                log(f"  [실패] {pkg}/{rel}: {e}")
+    return nfile, fails
+
+
 # ---------------------------------------------------------------- 360
 
 def build360(_args):
@@ -364,6 +515,29 @@ def build360(_args):
                 report["files"].append({"pkg": pkg[:6], "rel": rel, "repl": n, "how": dict(st),
                                         "plain": True, "size": len(new), "sha256": sha(new)})
                 print(f"  {pkg[:6]}/{rel}: {n}칸 ({dict(st)}) {len(raw):,}→{len(new):,}B")
+    # 그림: 작업본 있는 파일만 평문 주입, 없는 파일은 원본 바이트로 원복
+    pkgs = [p for p in sorted(os.listdir(src_root)) if os.path.isdir(os.path.join(src_root, p, "resource"))]
+    touched = set()
+
+    def w360(pkg, rel, new, info):
+        dst = os.path.join(dst_root, pkg, "resource", rel)
+        open(dst, "wb").write(new)
+        touched.add((pkg, rel))
+        report["files"].append({"pkg": pkg[:6], "rel": rel, "image": info, "plain": True,
+                                "size": len(new), "sha256": sha(new)})
+    it = [(p, os.path.join(src_root, p, "resource"),
+           (lambda rel, p=p: open(os.path.join(src_root, p, "resource", rel), "rb").read())) for p in pkgs]
+    ni, fi = build_images("360", it, w360, print)
+    report["fail"] += fi
+    for p in pkgs:
+        res = os.path.join(src_root, p, "resource")
+        for rel in image_targets(res, "360"):
+            if (p, rel) not in touched:
+                dst = os.path.join(dst_root, p, "resource", rel)
+                raw = open(os.path.join(res, rel), "rb").read()
+                if open(dst, "rb").read() != raw:
+                    open(dst, "wb").write(raw)
+    tot["그림파일"] = ni
     os.makedirs(REPORT_DIR, exist_ok=True)
     json.dump(report, open(os.path.join(REPORT_DIR, "report_360.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
@@ -475,6 +649,33 @@ def ps3_snapshot():
     return mani
 
 
+def ps3_snapshot_img():
+    """그림 대상(카탈로그·재킷·로고 NUT, ad_bg.jpg) 순정 백업 — 텍스트와 별도 매니페스트."""
+    mani_p = os.path.join(PS3_ORIG, "manifest_img.json")
+    if os.path.exists(mani_p):
+        return json.load(open(mani_p, encoding="utf-8"))
+    mani = {}
+    for res in sorted(glob.glob(os.path.join(PS3_DLC, "cp*", "resource"))):
+        cp = os.path.basename(os.path.dirname(res))
+        for rel in image_targets(res, "ps3"):
+            raw = open(os.path.join(res, rel), "rb").read()
+            dst = os.path.join(PS3_ORIG, cp, "resource", rel)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            open(dst, "wb").write(raw)
+            mani[f"{cp}/{rel}"] = sha(raw)
+    json.dump(mani, open(mani_p, "w", encoding="utf-8"), indent=1)
+    print(f"PS3 그림 순정 백업 {len(mani)}개 → {PS3_ORIG}")
+    return mani
+
+
+def ps3_manifest():
+    m = dict(json.load(open(os.path.join(PS3_ORIG, "manifest.json"), encoding="utf-8")))
+    pi = os.path.join(PS3_ORIG, "manifest_img.json")
+    if os.path.exists(pi):
+        m.update(json.load(open(pi, encoding="utf-8")))
+    return m
+
+
 def build_ps3(args):
     tr = Translations()
     c = ciphers()["ps3"]
@@ -509,6 +710,27 @@ def build_ps3(args):
         report["files"].append({"key": key, "repl": n, "how": dict(st), "orig_sha256": mani[key],
                                 "new_sha256": sha(new), "size": len(new)})
         print(f"  {key}: {n}칸 ({dict(st)}) {len(raw):,}→{len(new):,}B")
+    mimg = ps3_snapshot_img()
+
+    def wps3(cp, rel, new, info):
+        dst = os.path.join(PS3_OUT, cp, "resource", rel)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        open(dst, "wb").write(new)
+        report["files"].append({"key": f"{cp}/{rel}", "image": info, "orig_sha256": mimg[f"{cp}/{rel}"],
+                                "new_sha256": sha(new), "size": len(new)})
+    cps = sorted({k.split("/", 1)[0] for k in mimg})
+    it = []
+    for cp in cps:
+        res = os.path.join(PS3_ORIG, cp, "resource")
+
+        def rd(rel, cp=cp):
+            raw = open(os.path.join(PS3_ORIG, cp, "resource", rel), "rb").read()
+            assert sha(raw) == mimg[f"{cp}/{rel}"], f"그림 순정 백업 변형: {cp}/{rel}"
+            return raw
+        it.append((cp, res, rd))
+    ni, fi = build_images("ps3", it, wps3, print)
+    report["fail"] += fi
+    tot["그림파일"] = ni
     report["font_missing"] = "".join(sorted(tr.missing))
     os.makedirs(PS3_OUT, exist_ok=True)
     json.dump(report, open(os.path.join(PS3_OUT, "_report.json"), "w", encoding="utf-8"),
@@ -532,7 +754,7 @@ def deploy_ps3(_args):
     rep = json.load(open(os.path.join(PS3_OUT, "_report.json"), encoding="utf-8"))
     if rep["fail"]:
         sys.exit("[중단] build-ps3 실패 항목 있음")
-    mani = json.load(open(os.path.join(PS3_ORIG, "manifest.json"), encoding="utf-8"))
+    mani = ps3_manifest()
     for it in rep["files"]:                       # 게이트: 대상이 순정이거나 이전 배포본일 것
         live = os.path.join(PS3_DLC, it["key"].split("/", 1)[0], "resource", it["key"].split("/", 1)[1])
         cur = sha(open(live, "rb").read())
@@ -551,7 +773,7 @@ def deploy_ps3(_args):
 def restore_ps3(_args):
     if rpcs3_running():
         sys.exit("[중단] RPCS3 실행 중 — 종료 후 다시")
-    mani = json.load(open(os.path.join(PS3_ORIG, "manifest.json"), encoding="utf-8"))
+    mani = ps3_manifest()
     n = 0
     for key, h in mani.items():
         cp, rel = key.split("/", 1)

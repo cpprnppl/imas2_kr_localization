@@ -1600,3 +1600,20 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   플래그(+0x14)만 0→2인데 페이로드도 프레임 일부가 달라(인코딩 변형) 플래그만 바꾸면 안 됨 → 같은 크기·헤더 중 바이트 일치 최다 360 클립으로
   제자리 교체(pac 재조립 없음). validate_dec 게이트, 출력은 game_kor·공유 game·테스터·PS3 게임 폴더 거부.
   첫 묶음 11개(튜토리얼 라벨 파일): MSG 100% 한글, 음성 360 짝 없는 PS3 클립 3개(all_w02_05 1, all_w04_01 2 — PS3 인코딩 그대로).
+
+## 42. DLC 그림 주입 경로 — 카탈로그·로고·재킷 + 메인 메뉴 배경 ad_bg (2026-10-23, KOR 지시)
+
+- 메인 메뉴의 「765shopCatalog Vol.NN + 곡명」 배너는 텍스처가 아니라 **패키지 resource\ad_bg 1280×720 전체 화면 배경 한 장**에 그려져 있다(아이돌 단체 그림 포함).
+  - PS3: `ad_bg.jpg` = 게임 AES로 암호화된 평문 JPEG.
+  - 360: `ad_bg.ptc` = Microsoft PTC(Progressive Transform Codec, 'PTC+MSHM').
+    - 게임은 sub_821B9590에서 이름 "ad_bg.ptc"로 읽는다.
+    - 디코더 sub_823FEE78는 매직이 다르면 −16을 돌려준다(JPEG 대체 불가).
+    - 게임 안에 PTC 인코더(헤더 작성 sub_823FB798)가 있으나 공개 인코더는 없다 → 360 ad_bg는 보류(KOR 결정 대기: imas2pc 디코드 훅 또는 게임 인코더 호출).
+- dlc_inject.py 그림 경로: 대상은 catalog_info.nut, songinfo\*\jacket_*.nut, PS3 ad_bg.jpg. 입력은 한글 PNG(원본과 같은 치수).
+  - 360: `kr_dlc\<pkg6>\<stem>_<nnn>.png`(webapp_pull 규칙)
+  - PS3: `kr_dlc_ps3\<cpNN>\<stem>_<nnn>.png`
+  - 같은 포맷·크기로 제자리 인코드(밉 이하 원본 유지)하고 재디코드 PSNR 게이트를 둔다(DXT ≥33dB, 16bpp ≥28dB, 32bpp ≥60dB).
+  - 360은 평문(content_kor), PS3는 재암호화한다. ad_bg.jpg는 quality 92로 재인코드(길이 가변)한 뒤 재암호화하고, 재복호화 = 주입 JPEG를 검사한다.
+  - 작업본이 없는 파일은 원본으로 원복한다.
+  - PS3 그림 순정 백업은 별도 manifest_img.json(117개)이고, deploy-ps3·restore-ps3가 두 매니페스트를 합쳐 쓴다.
+- 자가 검증(원본 디코드 그림을 그대로 재주입): 360 텍스처 419장, PS3 677장, PS3 JPEG 18장 모두 통과. 최저 38.8dB(로고 DXT).
