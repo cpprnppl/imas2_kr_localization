@@ -341,9 +341,9 @@ def build_ps3(a):
             words[w].append(o)
     missing = set()
     patches, rep = [], {"inplace": 0, "reloc": 0, "overflow": [], "skip_enc": []}
-    # 재배치 공간: 데이터 세그먼트 끝(파일 크기) 뒤 BSS가 아닌 별도 alloc 대신, 미사용 판정이 어려우므로
-    # RPCS3 patch의 alloc 대신 제자리 + 데이터 포인터는 EBOOT 문자열 영역 끝 뒤 0 영역을 쓴다(아래 탐색).
-    free_lo, free_hi = find_zero_run(eb)
+    # 재배치 공간: EBOOT 안에는 안전한 빈 영역이 없어(데이터 세그먼트의 0 구간은 0 초기화 변수일 수 있음)
+    # RPCS3 patch의 alloc으로 ELF·PRX가 쓰지 않는 메인 메모리 상단에 블록을 받는다(--alloc-at).
+    free_lo, free_hi = a.alloc_at, a.alloc_at + a.alloc_size
     cur = free_lo
     for va, (k, v, t, loc) in sorted(vas.items()):
         if loc.get("enc", "u16") != "u16":
@@ -379,8 +379,10 @@ def build_ps3(a):
              "    Games:", '      "THE iDOLM@STER 2":', "        NPJB00337: [ All ]",
              "    Author: \"imas2 KOR\"", "    Notes: \"실행 파일 하드코딩 문구 한글화 (font_mapping 인코딩)\"",
              "    Patch Version: 1.0", "    Patch:"]
+    if cur > free_lo:
+        lines.append(f"      - [ alloc, 0x{free_lo:08x}, 0x{a.alloc_size:x} ] # 재배치 문자열 블록")
     for va, b, note in patches:
-        lines.append(f"      - [ bytes, 0x{va:08x}, \"{b.hex()}\" ] # {note}")
+        lines += ps3_words(va, b, note)
     open(os.path.join(OUT, "imas2_kor_exe.yml"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
     rep["font_missing"] = "".join(sorted(missing))
     rep["free"] = [hex(free_lo), hex(free_hi), hex(cur)]
@@ -388,6 +390,20 @@ def build_ps3(a):
     print(f"PS3: 패치 {len(patches)}줄 (제자리 {rep['inplace']} · 재배치 {rep['reloc']} · 초과 {len(rep['overflow'])}"
           f" · SJIS 생략 {len(rep['skip_enc'])}) 폰트 매핑 누락 {len(missing)} → {OUT}\\imas2_kor_exe.yml")
     return 0
+
+
+def ps3_words(va, b, note):
+    """RPCS3 patch 타입에 bytes가 없다 → be32(4정렬)·be16 조각으로 쓴다."""
+    out, i = [], 0
+    while i < len(b):
+        if (va + i) % 4 == 0 and i + 4 <= len(b):
+            out.append(f"      - [ be32, 0x{va + i:08x}, 0x{b[i:i + 4].hex()} ]")
+            i += 4
+        else:
+            out.append(f"      - [ be16, 0x{va + i:08x}, 0x{b[i:i + 2].hex()} ]")
+            i += 2
+    out[0] += f" # {note}"
+    return out
 
 
 def find_zero_run(eb, need=0x4000):
@@ -422,6 +438,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["analyze", "build360", "deploy360", "build-ps3"])
     ap.add_argument("--tr", default=TR_DEFAULT)
+    ap.add_argument("--alloc-at", type=lambda x: int(x, 0), default=0x0F000000,
+                    help="build-ps3: RPCS3 alloc 블록 주소(64KB 정렬, 메인 메모리 미사용 영역)")
+    ap.add_argument("--alloc-size", type=lambda x: int(x, 0), default=0x10000)
     a = ap.parse_args()
     return {"analyze": analyze, "build360": build360, "deploy360": deploy360, "build-ps3": build_ps3}[a.cmd](a)
 
