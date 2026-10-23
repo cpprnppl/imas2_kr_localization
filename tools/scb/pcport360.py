@@ -488,7 +488,9 @@ def build_ps3_logic(rel, out_dir, abs_map, font_map):
 
 
 def cmd_ps3logic(a):
-    xl = a.excel or excel_path()
+    import glob
+    newest = max(glob.glob(os.path.join(GAME_TOOLS, "translation_webapp_*.xlsx")), key=os.path.getmtime, default=None)
+    xl = a.excel or newest or excel_path()      # 기본 = 최신 웹앱 회수본(translation_2는 미번역이 많다 — ps3-360-pc 지적)
     print(f"번역 엑셀: {xl}")
     tr = e2s.load_translations(xl)
     font_map = e2s.load_font_mapping()

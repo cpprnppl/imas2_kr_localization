@@ -345,25 +345,45 @@ def rows_gamedata():
              "ts": 0, "by": "", "meta": v.get("meta", {})} for rid, v in d.items()]
 
 
+DLC_TEX_PS3 = os.path.join(OUT_DEFAULT, "dlc_tex_ps3")
+
+
 def dlc_image_groups():
+    out = []
     p = os.path.join(DLC_TEX, "index.json")
-    if not os.path.exists(p):
-        return []
-    g = json.load(open(p, encoding="utf-8"))["groups"]
-    return sorted((v for v in g.values() if v.get("text")),
-                  key=lambda v: (v["text"], v["png"]))
+    if os.path.exists(p):
+        g = json.load(open(p, encoding="utf-8"))["groups"]
+        out = sorted((v for v in g.values() if v.get("text")),
+                     key=lambda v: (v["text"], v["png"]))
+    # PS3 DLC(pc-360-dlc가 디코드해 내보낸 dlc_tex_ps3/index.json): 카탈로그 1024x512 + ad_bg 1280x720.
+    # 키 = 위치 문자열 md5 — 디코드를 다시 해도 바뀌지 않게(그림 바이트 md5 아님). 썸네일 경로도 이 키.
+    p = os.path.join(DLC_TEX_PS3, "index.json")
+    if os.path.exists(p):
+        import hashlib
+        ps3 = []
+        for x in json.load(open(p, encoding="utf-8")):
+            kind = {(1024, 512): "카탈로그 페이지", (1280, 720): "광고 배너"}.get((x["w"], x["h"]))
+            if not kind:
+                continue
+            loc = f"ps3:{x['cp']}/{x['rel']}#{x['n']:03d}"
+            ps3.append({"md5": hashlib.md5(loc.encode()).hexdigest(), "png": x["png"], "root": DLC_TEX_PS3,
+                        "w": x["w"], "h": x["h"], "fmt": str(x.get("fmt", "jpg")), "text": kind,
+                        "plat": "ps3", "locs_str": [loc]})
+        out += sorted(ps3, key=lambda v: (v["text"], v["png"]))
+    return out
 
 
 def rows_dlc_images():
     """360 DLC 텍스처 중 텍스트 있는 것(dlc_images.py extract) → image/dlc 행."""
     out = []
     for i, g in enumerate(dlc_image_groups()):
-        locs = [f"360:{L['pkg'][:6]}/{L['rel']}#{L['n']:03d}" for L in g["locs"]]
+        locs = g.get("locs_str") or [f"360:{L['pkg'][:6]}/{L['rel']}#{L['n']:03d}" for L in g["locs"]]
+        meta = {"w": g["w"], "h": g["h"], "fmt": g["fmt"], "locs": locs, "kind": g["text"], "mode": ""}
+        if g.get("plat") == "ps3":
+            meta.update(plat="ps3", plat_note="PS3판 DLC 카탈로그·광고 — 360판과 문구·그림이 다름")
         out.append({"id": f"image:dlc:{g['md5']}", "cat": "image", "grp": "dlc",
                     "seq": i, "key": g["md5"], "jp": "", "kr": "", "st": 0,
-                    "ts": 0, "by": "",
-                    "meta": {"w": g["w"], "h": g["h"], "fmt": g["fmt"],
-                             "locs": locs, "kind": g["text"], "mode": ""}})
+                    "ts": 0, "by": "", "meta": meta})
     return out
 
 
@@ -371,7 +391,7 @@ def upload_dlc_thumbs(service_key):
     auth = {"apikey": service_key, "Authorization": f"Bearer {service_key}"}
     n = 0
     for g in dlc_image_groups():
-        data = open(os.path.join(DLC_TEX, g["png"]), "rb").read()
+        data = open(os.path.join(g.get("root", DLC_TEX), g["png"]), "rb").read()
         h = dict(auth)
         h["x-upsert"] = "true"
         st, body = req("POST", f"/storage/v1/object/tex/jp/{g['md5']}.png",
