@@ -14,7 +14,7 @@ import os, sys, shutil, filecmp
 HERE = os.path.dirname(os.path.abspath(__file__))
 GAME_TOOLS = r"C:\Users\jackfilm\Desktop\rpcs3-v0.0.39-18811-6bfb3327_win64_msvc\dev_hdd0\game\NPJB00337\USRDIR\resource\gscript\tools"
 FILES = ["scb_common.py", "excel2scb.py", "scb2excel.py", "validate_output.py", "deploy.py",
-         "patch_attract.py", "deploy_pcport.py", "pcport360.py"]
+         "patch_attract.py", "deploy_pcport.py", "pcport360.py", "build_state.py"]
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 pull = "--pull" in sys.argv

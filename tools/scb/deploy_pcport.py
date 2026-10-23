@@ -60,6 +60,11 @@ def main():
             print("❌ --src360은 game_kor 전용 (공유 기준선 동결)")
             sys.exit(1)
         sys.path.insert(0, HERE)
+        import build_state
+        why = build_state.check("x360", sys.argv)   # 빌드 중·이전 빌드 배포 방지
+        if why:
+            print(f"❌ {why} — 배포 중단 (우회: --allow-stale)")
+            sys.exit(1)
         import pcport360
         print(f"소스: {SRC} (360 원본 기반) — 검증 게이트 실행")
         if not pcport360.validate_all():

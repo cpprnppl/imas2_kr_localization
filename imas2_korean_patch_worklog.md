@@ -1571,3 +1571,11 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   kr/는 manifest sha(초벌 그대로)일 때만 덮음 — 77장 전부 Claude 초벌(tex_kr by 확인), tex_kr 77개 갱신. 폰트는 git 밖 로컬(라이선스 미상).
 - 표기 수정(사용자 지적): 香川 가가와 → 카가와, 大塚芳忠 오오츠카 호추 → 호츄(anibase 확인). 나머지 도도부현은 팀 기존 표기(도야마·교토·가나가와 등) 유지.
 - tile_banner도 Koverwatch(BOLD 0, 가로 1.3배까지).
+- **레슨 결과 배너 실제 출처 = gscript\adv_common.mpc**(16:4x, 포팅 Mac 파일 로그 + 360 이미지 유사도 스캔): 부팅 직후(49.8s) 열려 상주하는 세 번째
+  ProResult 사본. les_com·alf_common만 바꿨을 때 Mac에서 일본어 그대로였던 이유. PS3 전수 스캔이 gscript를 건너뛰었고 리소스 주입기(NEVER)도
+  gscript를 제외해 놓쳤다. tile_banner.RELS += adv_common(DIRECT: index 밖이라 타일을 patch_container(with_tiles)가 직접 DXT5 인코드,
+  360은 16비트 바이트스왑), ps3_res_apply 후보·배포 금지 규칙에서 배너 파일만 예외. game_kor 16:58·PS3 16:59 배포.
+- 배너 단어 간격: 공백 옆 글자를 타일 안에서 공백 쪽으로 8px(68→52px, KOR 지적).
+- **이전 빌드 배포 사고와 게이트**: 16:27 deploy_pcport --src360이 360 대본 빌드(16:28:54 완료)보다 먼저 돌아 이전 산출물을 배포(포팅이 gscript
+  무변화로 발견). tools/scb/build_state.py — excel2scb·pcport360 전체 빌드가 running/done + 쓴 엑셀을 남기고, deploy.py·deploy_pcport --src360은
+  빌드 중이거나 더 새 translation_webapp_*.xlsx가 있으면 거부(--allow-stale 우회). sync_to_game 목록에 추가.

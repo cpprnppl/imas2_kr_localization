@@ -19,6 +19,13 @@ OUT = os.path.join(TOOLS, "output")
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+sys.path.insert(0, HERE)
+import build_state  # noqa: E402
+why = build_state.check("ps3", sys.argv)       # 빌드 중·이전 빌드 배포 방지
+if why:
+    print(f"❌ {why} — 배포하지 않음 (우회: --allow-stale)")
+    sys.exit(1)
+
 print("=== 1/2 검증 게이트 ===")
 r = subprocess.run([sys.executable, os.path.join(HERE, "validate_output.py")])
 if r.returncode != 0:

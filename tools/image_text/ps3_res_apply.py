@@ -107,13 +107,15 @@ def candidates(rescan=False):
         if os.path.isdir(PATCHED_IMG):
             for dp, _dn, fns in os.walk(PATCHED_IMG):
                 rels |= {os.path.relpath(os.path.join(dp, fn), PATCHED_IMG) for fn in fns}
-        return sorted(r for r in rels if not NEVER.search(r) and os.path.exists(os.path.join(JP_ROOT, r)))
+        rels |= set(TB.RELS)          # 레슨 결과 배너 사본(gscript\adv_common 포함 — NEVER 예외)
+        return sorted(r for r in rels if (not NEVER.search(r) or r in TB.RELS) and os.path.exists(os.path.join(JP_ROOT, r)))
     rels = set(G.targets()) | set(NPC_FILES) | set(STANDALONE)
     if os.path.isdir(PATCHED_IMG):
         for dp, _dn, fns in os.walk(PATCHED_IMG):
             for fn in fns:
                 rels.add(os.path.relpath(os.path.join(dp, fn), PATCHED_IMG))
-    return sorted(r for r in rels if not NEVER.search(r) and os.path.exists(os.path.join(JP_ROOT, r)))
+    rels |= set(TB.RELS)
+    return sorted(r for r in rels if (not NEVER.search(r) or r in TB.RELS) and os.path.exists(os.path.join(JP_ROOT, r)))
 
 
 def text_has_hangul(plain):
@@ -256,7 +258,7 @@ def build_one(rel, tr, st):
     base, has_img = image_layer(rel, orig)
     st["img"] += has_img
     if rel in TB.RELS:      # 레슨·커뮤 결과 배너: 타일(이미지 층) + SWG 칸 배정(tile_banner.py)
-        base, nb = TB.patch_container(base, orig=orig, log=lambda *a: None)
+        base, nb = TB.patch_container(base, orig=orig, log=lambda *a: None, with_tiles=rel in TB.DIRECT)
         st["banner"] += nb
     if rel in STANDALONE:
         out = standalone(rel, base, tr[3], st)
@@ -351,7 +353,7 @@ def validate_all(log=print):
                 out = out[:v["size"][1]]
             base, _img = image_layer(rel, orig)
             if rel in TB.RELS:   # 배너 SWG 칸 배정도 기준에 포함(patch_container가 char 칸 밖 불변을 따로 검증)
-                base, _nb = TB.patch_container(base, orig=orig, log=lambda *a: None)
+                base, _nb = TB.patch_container(base, orig=orig, log=lambda *a: None, with_tiles=rel in TB.DIRECT)
             if rel in STANDALONE:
                 pn, po = parse_xmb(out, 0), parse_xmb(orig, 0)
                 if [e.get("attrs") for e in pn["entries"]] != [e.get("attrs") for e in po["entries"]]:
@@ -390,7 +392,7 @@ def cmd_deploy(_a):
     bdir = os.path.join(USRDIR, "_backup_ps3res_" + time.strftime("%Y%m%d_%H%M%S"))
     man = []
     for rel, v in rep["files"].items():
-        if NEVER.search(rel):
+        if NEVER.search(rel) and rel not in TB.RELS:      # 배너 사본(gscript\adv_common)만 예외 — SCB는 deploy.py 담당
             sys.exit(f"❌ 금지 대상 {rel}")
         dst = os.path.join(JP_ROOT, rel)
         b = os.path.join(bdir, rel)

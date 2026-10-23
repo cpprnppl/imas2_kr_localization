@@ -44,7 +44,11 @@ sys.path.insert(0, HERE)
 REL = "game\\les_com.mpc"
 # ProResult.swg 사본(SWG·타일 72장 바이트 동일)을 가진 파일. 실제 레슨 결과 화면은 alf_common 쪽을 쓴다
 # (2026-10-23 Mac 확인: les_com만 바꿨을 때 배너가 일본어로 남음).
-RELS = (REL, "game\\alf\\alf_common.mpc")
+RELS = (REL, "game\\alf\\alf_common.mpc", "gscript\\adv_common.mpc")
+# 이미지 추출(index.json) 밖 파일 — 타일을 kr/ PNG·inject_image_text가 아니라 patch_container(with_tiles)가 직접 인코드.
+# adv_common: 부팅 직후(49.8s) 열려 상주하는 ProResult 사본 — 실제 레슨 결과 배너는 이것(2026-10-23 Mac 파일 로그,
+# les_com·alf_common만 바꿨을 때 일본어 그대로). PS3 전수 스캔이 gscript를 건너뛰어 놓쳤다.
+DIRECT = ("gscript\\adv_common.mpc",)
 SWG_NAME = b"ProResult"
 PITCH = 56                      # 칸 간격(px) — 8단어 전부 56px 등간격(배치 행렬 실측)
 
@@ -245,7 +249,7 @@ def swg_textures(plain, base):
     return [t for t in after if t["nut_off"] == first]
 
 
-def patch_container(plain, texts=None, log=print, orig=None):
+def patch_container(plain, texts=None, log=print, orig=None, with_tiles=False):
     """복호 컨테이너(les_com.mpc)의 SWG 배치 char id만 제자리 교체. 텍스처는 kr/ PNG가 따로 들어간다.
     orig(같은 판의 원본 복호본)를 주면 배정된 타일 텍스처가 전부 바뀌었는지 확인 — 타일 없이 칸만
     바꾸면 가타카나가 뒤섞인 배너가 되므로 그때는 거부. → (새 바이트, 적용 단어 수)"""
@@ -254,6 +258,28 @@ def patch_container(plain, texts=None, log=print, orig=None):
     tiles, repl, base, applied = plan(plain, texts, log)
     if not repl:
         return plain, 0
+    if with_tiles:                       # 타일 텍스처도 여기서 직접(DXT5, 360 'NTXR'은 16비트 바이트스왑)
+        from inject_image_text import encode_texture, psnr
+        from extract_image_text import decode_texture
+        from dlc_images import swap16
+        x360 = b"NTXR" in plain
+        shifts = gap_shift(texts if texts is not None else kr_texts())
+        tx = swg_textures(plain, base)
+        buf = bytearray(plain)
+        for b, gch in tiles.items():
+            t = tx[b]
+            if (t["w"], t["h"], t["fmt"]) != (64, 64, 2):
+                raise ValueError(f"타일 비트맵 #{b}: 64x64 DXT5가 아님({t['w']}x{t['h']} fmt{t['fmt']})")
+            img = render_tile(gch, KANA[b][1], dx=shifts.get((KANA[b][1], gch), 0))
+            new = encode_texture("DXT5", img)
+            q = psnr(decode_texture(2, new, 64, 64), img)
+            if q < 33:
+                raise ValueError(f"타일 #{b} 재디코드 {q:.1f}dB < 33")
+            new = swap16(new) if x360 else new
+            if len(new) != t["data_size"]:
+                raise ValueError(f"타일 #{b} 인코드 크기 {len(new)} != {t['data_size']}")
+            buf[t["data_off"]:t["data_off"] + t["data_size"]] = new
+        plain = bytes(buf)
     if orig is not None:
         tp, to = swg_textures(plain, base), swg_textures(orig, base)
         same = [b for b in tiles if plain[tp[b]["data_off"]:tp[b]["data_off"] + tp[b]["data_size"]]
@@ -379,7 +405,7 @@ def cmd_render(_a):
     texts = kr_texts()
     shifts = gap_shift(texts)
     made = {}
-    for rel in RELS:                     # 같은 ProResult 사본을 가진 파일마다 그 파일 번호로 타일을 낸다
+    for rel in [r for r in RELS if r not in DIRECT]:   # 같은 ProResult 사본을 가진 파일마다 그 파일 번호로 타일(DIRECT는 patch_container가 직접)
         plain = _ps3_plain(rel)
         tiles, _repl, base, applied = plan(plain, texts, log=(print if rel == RELS[0] else lambda *a: None))
         t0, texs = _tex_base(plain, base)

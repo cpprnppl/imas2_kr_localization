@@ -306,6 +306,9 @@ def cmd_build(a):
     if xp:
         print(f"360 전용 대사 번역: {xp}")
     targets = {r.replace("/", "\\").lower() for r in a.rels} if a.rels else None
+    import build_state                      # 배포 게이트용 표식(빌드 중·이전 빌드 배포 방지)
+    if targets is None:
+        build_state.mark_running("x360", xl)
     report, ok, skipped, fail = {}, 0, [], []
     for rel, abs_map in sorted(tr.items()):
         relw = rel.replace("/", "\\")
@@ -362,6 +365,8 @@ def cmd_build(a):
     open(os.path.join(GAME_TOOLS, "pcport360_build_report.md"), "w", encoding="utf-8").write("\n".join(L) + "\n")
     print("\n".join(L[:12]))
     print(f"→ {os.path.join(GAME_TOOLS, 'pcport360_build_report.md')}")
+    if targets is None:
+        build_state.mark_done("x360", ok=not fail)
     if fail:
         sys.exit(1)
 

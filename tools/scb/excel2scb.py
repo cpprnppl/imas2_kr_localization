@@ -765,6 +765,10 @@ def main():
         sys.exit(0)
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+    full_build = targets is None
+    if full_build:                      # 단일 파일 패치는 상태 표식을 건드리지 않는다
+        import build_state
+        build_state.mark_running("ps3", excel_path)
 
     total_files = len(translations)
     total_lines = sum(len(v) for v in translations.values())
@@ -793,6 +797,8 @@ def main():
     print(f"\n{'='*60}")
     print(f"완료: 성공 {ok} / 실패 {fail}")
     print(f"출력 위치: {OUTPUT_DIR}")
+    if full_build:
+        build_state.mark_done("ps3")
 
     if all_warns:
         print(f"\n경고/정보({len(all_warns)}):")

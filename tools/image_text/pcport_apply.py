@@ -360,6 +360,7 @@ def build():
     targets |= {"game\\alf\\alf_common.mpc", "interface\\NationwideRanking.mpc",
                 "interface\\ScheduleSelect.mpc", "scene\\produce_etc.mpc",
                 "scene\\exep_commu.mpc", "scene\\exep_init.mpc"}
+    targets |= set(TB.DIRECT)            # 레슨 결과 배너 상주 사본(gscript\adv_common.mpc)
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
     report = {"ok": [], "skip": [], "fail": [], "unmatched": []}
@@ -379,7 +380,7 @@ def build():
             if rel in jobs:
                 data, n_tex = apply_textures(rel, data, jobs[rel], print, report["unmatched"])
             if rel in TB.RELS:      # 레슨·커뮤 결과 배너: 타일은 위 텍스처로, 칸 배정은 SWG(tile_banner.py)
-                data, n_b = TB.patch_container(data, orig=orig, log=print)
+                data, n_b = TB.patch_container(data, orig=orig, log=print, with_tiles=rel in TB.DIRECT)
             data, n_x = apply_xmb(rel, data, tr, print)
             if n_tex + n_x + n_b == 0:
                 report["skip"].append(f"{rel}: 적용할 번역 없음")
