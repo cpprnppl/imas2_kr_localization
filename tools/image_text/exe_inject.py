@@ -350,12 +350,18 @@ def build_ps3(a):
             rep["skip_enc"].append(k)
             continue
         jp = v["jp"]
-        orig = u16z(jp)
+        kr_src = t["kr"].replace("\r\n", "\n")
         fo = loc["offset"]
+        orig = u16z(jp)
         if e[fo:fo + len(orig)] != orig:
-            rep["overflow"].append({"key": k, "why": "EBOOT 원문 불일치"})
-            continue
-        kr = encode_with_mapping(t["kr"].replace("\r\n", "\n"), mapping, missing)
+            # xex와 EBOOT가 앞뒤 전각 공백(U+3000)만 다른 짝(ui 페어링 규칙): EBOOT 원문에 맞춰 kr에서도 뺀다
+            jp2 = jp.strip("　")
+            orig = u16z(jp2)
+            if jp2 == jp or e[fo:fo + len(orig)] != orig:
+                rep["overflow"].append({"key": k, "why": "EBOOT 원문 불일치"})
+                continue
+            jp, kr_src = jp2, kr_src.strip("　")
+        kr = encode_with_mapping(kr_src, mapping, missing)
         new = u16z(kr)
         cap = len(orig)
         while cap % 4 and e[fo + cap] == 0:
