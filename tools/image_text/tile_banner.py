@@ -178,6 +178,25 @@ def slot_glyphs(kr, n):
     return [""] * left + g + [""] * (n - len(g) - left)
 
 
+GAP_SHIFT = 8      # 공백 칸 옆 글자를 타일 안에서 공백 쪽으로 미는 양(px) — 공백이 한 칸(56px)이라 너무 넓다(KOR 지적)
+
+
+def gap_shift(texts):
+    """{(세트, 글자): dx} — 공백 앞 단어 글자는 오른쪽(+), 뒤 단어 글자는 왼쪽(−)으로. 타일은 세트 안에서
+    공유되므로 같은 글자가 두 방향에 다 쓰이면 0."""
+    out = {}
+    for k, (_jp, s) in BANNERS.items():
+        t = (texts or {}).get(k, "").strip()
+        if " " not in t:
+            continue
+        a, b = t.split(" ", 1)
+        for chs, dx in ((a, GAP_SHIFT), (b.replace(" ", ""), -GAP_SHIFT)):
+            for ch in chs:
+                key = (s, ch)
+                out[key] = dx if out.get(key, dx) == dx else 0
+    return out
+
+
 def kr_texts():
     p = os.path.join(HERE, "label_specs.json")
     items = json.load(open(p, encoding="utf-8")).get("items", {}) if os.path.exists(p) else {}
@@ -279,7 +298,7 @@ def _font(SS):
     return _FONT[SS]
 
 
-def render_tile(ch, s, size=64):
+def render_tile(ch, s, size=64, dx=0):
     """음절 하나 → 원본 가타카나 타일 스타일 RGBA(64x64). ''면 완전 투명."""
     out = np.zeros((size, size, 4), np.uint8)
     if not ch:
@@ -299,7 +318,9 @@ def render_tile(ch, s, size=64):
     if ink.width > (size - 10) * SS:
         ink = ink.resize(((size - 10) * SS, ink.height), Image.LANCZOS)
     fill_m = Image.new("L", (S, S), 0)
-    fill_m.paste(ink, ((S - ink.width) // 2, -S // 2))
+    room = (S - ink.width) // 2 - SS                 # 글자가 타일 밖으로 나가지 않게
+    dxs = max(-room, min(room, dx * SS))
+    fill_m.paste(ink, ((S - ink.width) // 2 + dxs, -S // 2))
     edge_m = fill_m.filter(ImageFilter.MaxFilter(_odd(2 * EDGE * SS)))     # 채움 + 외곽선 1px
     glow_m = edge_m.filter(ImageFilter.MaxFilter(_odd(2 * 2.5 * SS))).filter(
         ImageFilter.GaussianBlur(2.2 * SS))                                 # 원본 글로(거리 1→8px, 알파 249→10) 근사
@@ -356,6 +377,7 @@ def compose(plain, base, P, word, glyph_tex, letters):
 def cmd_render(_a):
     from extract_image_text import OUT_DEFAULT, decode_texture
     texts = kr_texts()
+    shifts = gap_shift(texts)
     made = {}
     for rel in RELS:                     # 같은 ProResult 사본을 가진 파일마다 그 파일 번호로 타일을 낸다
         plain = _ps3_plain(rel)
@@ -375,7 +397,7 @@ def cmd_render(_a):
             t = texs[n]
             if (t["w"], t["h"]) != tuple(P["bitmaps"][b]) or (t["w"], t["h"]) != (64, 64):
                 raise ValueError(f"{rel} 텍스처 #{n} 치수가 SWG 비트맵 #{b}와 다름")
-            Image.fromarray(render_tile(gch, KANA[b][1])).save(os.path.join(kr_dir, f"{stem}_{n:03d}.png"))
+            Image.fromarray(render_tile(gch, KANA[b][1], dx=shifts.get((KANA[b][1], gch), 0))).save(os.path.join(kr_dir, f"{stem}_{n:03d}.png"))
             made[f"{rel}#{n:03d}"] = gch
     plain = _ps3_plain()
     tiles, _repl, base, applied = plan(plain, texts, log=lambda *a: None)
@@ -392,7 +414,7 @@ def cmd_render(_a):
             t = texs[t0 + letters[ch]]
             jp_t.append(decode_texture(t["fmt"], plain[t["data_off"]:t["data_off"] + t["data_size"]], 64, 64))
         rows.append((compose(plain, base, P, k, jp_t, letters),
-                     compose(plain, base, P, k, [render_tile(g, BANNERS[k][1]) for g in lay], letters)))
+                     compose(plain, base, P, k, [render_tile(g, BANNERS[k][1], dx=shifts.get((BANNERS[k][1], g), 0)) for g in lay], letters)))
     if rows:
         W = max(r[0].width for r in rows) + 16
         sheet = Image.new("RGBA", (W, len(rows) * 140 + 8), (70, 60, 50, 255))
