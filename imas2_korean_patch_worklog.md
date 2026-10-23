@@ -1585,3 +1585,13 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   원본 스타일 Koverwatch로 kr_x360/에 그리고 tex_kr 'Claude 초벌'로 업서트(お守りGET은 PS3 produce_common_099 배치 SPEC 공유).
   초벌: mainmenu #6 アップロード → 업로드(행에 PS3 #6 'つづきから/이어서'가 잘못 들어가 있던 것 바로잡음), #98 시스템 설정, #100 복장 설정,
   les_com #106·alf_common #242 부적 GET. game_kor 17:39 배포. 남은 360 전용: 튜토리얼 카드 7장(Xbox 버튼 그림), S4U 가(仮) 재킷 2장.
+- **ALF 튜토리얼 카드(game/alf/alf_tut_*.nut, 1024x580) 초벌**(18시, KOR 결정): tools/image_text/tut_cards.py.
+  - reuse(360 aud_01·base_01·base_02): PS3판 팀 작업본 한글을 그대로 쓰고, PS3/360 원본 차이 중 큰 덩어리(화면 캡처 인셋)는 360 픽셀로,
+    본문 속 버튼 아이콘(□△○✕R1 → XYBA RB)은 작업본에서 형판 일치로 찾아 아이콘 픽셀만 교체(둘레 팀 글자 보존). 팀이 인셋 속 글자까지 번역한
+    aud_01은 팀 작업본 그대로(KEEP_TEAM), 줄이 밀린 R1은 ICON_SWAPS로 지정.
+  - draft(fes_01·fes_02·liv_01·liv_02, PS3·360 둘 다): 배지 아랫줄(必勝アドバイス)·부제·제목·머리띠·본문 글자만 확산 인페인트로 지우고
+    Koverwatch로 다시 씀(분홍·초록 강조색은 본문 줄에서 실측, 아이콘은 그 판 원본에서 잘라 새 줄에 배치). 용어는 팀 카드·웹앱 기존 번역
+    (필승 어드바이스, 스테이지 계열 업무, 추억 어필, 볼티지, 버스트 어필, ハコユレ震度 = 회장 흥분도). 화면 캡처 인셋 속 일본어는 그대로 — 행 메모 '수작업 권장'.
+  - tex_kr 'Claude 초벌' 11장(360 7 + PS3 4), 행 문구 '필승 어드바이스⏎○○ 규칙 N'. 360은 ARGB32 무손실 주입. game_kor 18:06·PS3 18:07 배포.
+  - S4U 가(仮) 재킷 2장(Alice or Guilty / 恋をはじめよう 'kari'): 개발용 대체 그림 — DLC 곡은 실제 재킷이 쓰여 정상 플레이에선 안 보인다고 판단, 보류(행 메모).
+  - 디버그 메모: Pillow ImageFilter.MaxFilter(1)은 0 나누기로 인터프리터가 죽는다(Windows fatal exception) — 크기 1은 호출하지 말 것.
