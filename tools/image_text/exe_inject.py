@@ -82,8 +82,14 @@ def u16z(s):
     return s.encode("utf-16-be") + b"\x00\x00"
 
 
+FONT_SET_PATH = os.path.join(os.path.dirname(os.path.dirname(HERE)), "font_patcher", "output", "font_mapping_v2.json")
+
+
 def font_set():
-    return set(json.load(open(MAPPING_PATH, encoding="utf-8")).keys())
+    """직접 등록 폰트의 한글 집합. 폰트 세션 기준 파일(repatch_fonts.py NEW_CHARS와 함께 갱신)을
+    우선 쓰고, 없으면 게임 tools의 font_mapping.json(같은 2,359 키)."""
+    p = FONT_SET_PATH if os.path.exists(FONT_SET_PATH) else MAPPING_PATH
+    return set(json.load(open(p, encoding="utf-8")).keys())
 
 
 # ---------------------------------------------------------------- 360 이미지 분석
@@ -325,7 +331,7 @@ class Eboot:
 def build_ps3(a):
     eb = Eboot()
     tr = load_tr(a.tr)
-    mapping = json.load(open(MAPPING_PATH, encoding="utf-8"))
+    mapping = font_set()
     rows = json.load(open(TEXTS, encoding="utf-8"))
     items = []
     for k, v in rows.items():

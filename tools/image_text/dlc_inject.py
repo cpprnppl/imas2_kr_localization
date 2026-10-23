@@ -194,7 +194,8 @@ def targets(res_root):
 
 class Translations:
     def __init__(self):
-        self.mapping = json.load(open(MAPPING_PATH, encoding="utf-8"))
+        from exe_inject import font_set
+        self.mapping = font_set()   # 직접 등록 폰트 한글 집합(폰트 세션 기준 파일)
         tr = json.load(open(os.path.join(HERE, "dlc_translations.json"), encoding="utf-8"))
         self.by_src = defaultdict(list)    # (plat, pkg, rel) → [(xi|None, tid, jp, kr)]
         self.jp_by_grp = defaultdict(lambda: defaultdict(Counter))
