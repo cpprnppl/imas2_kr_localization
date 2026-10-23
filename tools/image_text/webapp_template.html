@@ -61,6 +61,7 @@ textarea{font-family:"imas2emo",var(--pf-v5-global--FontFamily--text,"RedHatText
 .nl{color:var(--pf-v5-global--primary-color--100);opacity:.65;font-size:11px;
   user-select:none;margin:0 1px}
 .nl-hint{font-size:11px;color:var(--pf-v5-global--Color--200);margin-top:2px}
+.thumb-missing{display:inline-block;font-size:11px;padding:4px 6px;border:1px dashed var(--pf-v5-global--BorderColor--100);color:var(--pf-v5-global--Color--200)}
 .nl-hint.bad{color:var(--pf-v5-global--danger-color--100)}
 .fr-del{background:rgba(214,54,40,.22);text-decoration:line-through;border-radius:2px}
 .fr-add{background:rgba(62,163,90,.28);font-weight:600;border-radius:2px}
@@ -544,7 +545,22 @@ function warns(r) {
     if (pk > lim + 13.5)
       w.push([`칸 폭 초과 위험 — 원문 ${Math.round(lim)}px → 번역 ${Math.round(pk)}px`, pk > lim * 1.3 ? "red" : "orange"]);
   }
+  // 여러 줄 설명 칸(프로필 등): 한 줄 폭 상한. 프로필은 인게임 실측(치하야 549px 들어감·히비키 627px 넘침, 2026-10-23).
+  const lw = lineLimit(r);
+  if (lw) {
+    const ws = r.kr.split("\n").map(l => tWidth(l)), mx = Math.max(...ws);
+    if (mx > lw.px) w.push([`줄이 칸을 넘음${lw.src === "원문 기준" ? "(원문 폭 기준 추정)" : ""} — ${Math.round(mx)}/${lw.px}px (한 줄 한글 약 ${Math.floor(lw.px / 26)}자)`,
+                            lw.src === "원문 기준" ? "orange" : "red"]);
+  }
   return w;
+}
+/* 줄 폭 상한: meta.line_wpx(실측) > 알려진 칸(프로필 소개 549px) > 원문 최장 줄 폭(여러 줄 gamedata, +1자 여유) */
+function lineLimit(r) {
+  const m = r.meta || {};
+  if (m.line_wpx) return { px: m.line_wpx, src: "실측" };
+  if (/\.profiletext$/.test(r.key || "")) return { px: 549, src: "인게임 실측" };
+  if (r.cat === "gamedata" && /\n/.test(r.jp || "")) return { px: Math.round(Math.max(...r.jp.split("\n").map(l => tWidth(l))) + 13.5), src: "원문 기준" };
+  return null;
 }
 const isBlank = r => r.cat !== "image" && !r.jp;
 
@@ -718,7 +734,7 @@ function render() {
       const canCopy = pr && KRIMG[pr.key] && (pr.meta || {}).w === m.w && (pr.meta || {}).h === m.h;
       first = `${pairedImg ? `<div class="pair-lbl">${platOf(r) === "ps3" ? "PS3판" : "↳ 360판 (같은 그림의 360판 — 작업본은 판별로 따로)"}</div>` : ""}
         <div style="display:flex;gap:6px;align-items:flex-start;flex-wrap:wrap">
-        <div><div class="thumb thumb-click" data-act="view" title="클릭하면 크게 보기"><img loading="lazy" src="${CFG.texbase}/jp/${r.key}.png" alt=""></div>
+        <div><div class="thumb thumb-click" data-act="view" title="클릭하면 크게 보기"><img loading="lazy" src="${CFG.texbase}/jp/${r.key}.png" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'thumb-missing',textContent:'원본 그림 준비 중'+(${JSON.stringify(r.jp || '')}?' — '+${JSON.stringify(r.jp || '')}:'')}))"></div>
           <div class="pf-v5-u-color-200" style="font-size:10px">원본</div></div>
         ${img ? `<div><div class="thumb thumb-click" data-act="view"><img class="krimg-slot" data-md5="${esc(r.key)}" alt="작업본"></div>
           <div class="pf-v5-u-color-200" style="font-size:10px">작업본 · ${esc(img.by || "")}</div></div>` : ""}
@@ -1559,8 +1575,15 @@ function startEdit(r, td) {
       return;
     }
     const nk = (ta.value.match(/\n/g) || []).length;
-    hint.textContent = `개행 ${nk}/${nj}` + (nk === nj ? "" : " — 원문과 맞추세요 (Shift+Enter = 줄바꿈)");
-    hint.classList.toggle("bad", nk !== nj);
+    const lw = lineLimit(r);
+    let over = false, lwTxt = "";
+    if (lw) {
+      const ws = ta.value.replace(/\r/g, "").split("\n").map(l => tWidth(l));
+      over = ws.some(x => x > lw.px);
+      lwTxt = ` · 줄 폭 ${ws.map(x => Math.round(x)).join("/")} / 최대 ${lw.px}px (한글 약 ${Math.floor(lw.px / 26)}자)`;
+    }
+    hint.textContent = `개행 ${nk}/${nj}` + lwTxt + (nk === nj ? "" : " — 원문과 맞추세요 (Shift+Enter = 줄바꿈)") + (over ? " — 칸을 넘어요" : "");
+    hint.classList.toggle("bad", nk !== nj || over);
   };
   td.textContent = ""; td.appendChild(ta);
   if (r.cat !== "image") { td.appendChild(hint); updHint(); ta.addEventListener("input", updHint); }
