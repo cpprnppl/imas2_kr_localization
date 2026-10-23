@@ -378,7 +378,7 @@ def build():
             n_tex = n_x = n_b = 0
             if rel in jobs:
                 data, n_tex = apply_textures(rel, data, jobs[rel], print, report["unmatched"])
-            if rel == TB.REL:      # 레슨·커뮤 결과 배너: 타일은 위 텍스처로, 칸 배정은 SWG(tile_banner.py)
+            if rel in TB.RELS:      # 레슨·커뮤 결과 배너: 타일은 위 텍스처로, 칸 배정은 SWG(tile_banner.py)
                 data, n_b = TB.patch_container(data, orig=orig, log=print)
             data, n_x = apply_xmb(rel, data, tr, print)
             if n_tex + n_x + n_b == 0:

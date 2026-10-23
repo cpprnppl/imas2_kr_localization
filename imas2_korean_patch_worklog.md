@@ -1553,3 +1553,6 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   팬덤 표기 커뮤니케이션). 원본 썸네일(coverage/banner_jp/)은 저장소 업로드에 서비스 키가 필요해 아직 없음('원본 그림 준비 중 — 원문').
 - 절차: webapp_pull image → `tile_banner.py render`(타일 + coverage/banner_preview.png, 계획에서 빠진 이전 타일 삭제) →
   inject_image_text → ps3_res_apply build/validate · pcport_apply build.
+- **실제 레슨 결과 화면은 game/alf/alf_common.mpc의 ProResult 사본을 쓴다**(15:5x, 포팅 Mac 1023j: les_com 15:01판으로도 배드 레슨 배너가
+  일본어). alf_common에 SWG·타일 72장 바이트 동일 사본(PS3 텍스처 #132~, 360도 같음) → tile_banner.RELS = (les_com, alf_common), 두 파일 다 타일+칸
+  배정. 같은 런의 미번역 대사 9행(*_les_common 「初めてで、ちょっと難しかったな…」 8 + all_arr_11:7086) Claude 초벌 → 15:36 회수 빌드.

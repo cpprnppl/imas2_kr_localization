@@ -232,7 +232,7 @@ def rows_image():
                     "seq": i, "key": g["md5"], "jp": g.get("jp", ""), "kr": kr,
                     "st": 1 if kr else 0, "ts": 0, "by": "", "meta": meta})
     # 레슨·커뮤 결과 배너(글자 타일 조립식 — tile_banner.py): 그림이 아니라 문구 행. 썸네일 = 칸 합성 PNG
-    from tile_banner import BANNERS, SET_LABEL, PITCH, REL as BREL
+    from tile_banner import BANNERS, SET_LABEL, PITCH, RELS as BRELS
     for j, (name, (jp, s)) in enumerate(BANNERS.items()):
         n = len(jp)
         it = specs.get(f"banner:{name}", {})
@@ -241,7 +241,7 @@ def rows_image():
                     "seq": len(ordered) + j, "key": f"banner_{name}", "jp": jp, "kr": kr,
                     "st": 1 if kr else 0, "ts": 0, "by": "",
                     "meta": {"kind": "글자 타일 배너", "w": PITCH * (n - 1) + 64, "h": 64, "fmt": "타일 조립",
-                             "slots": n, "locs": [f"{BREL} ProResult/{name}_mc"],
+                             "slots": n, "locs": [f"{r} ProResult/{name}_mc" for r in BRELS],
                              "note": f"레슨·커뮤 결과 배너 — 글자 타일 {n}칸(56px 간격)에 한 글자씩. 공백도 한 칸, "
                                      f"짧으면 가운데 정렬. {SET_LABEL[s]} 색 세트는 레슨/커뮤 두 단어가 타일을 같이 쓰므로 "
                                      f"둘 다 번역돼야 적용되고, 두 단어의 서로 다른 글자 합이 타일 수를 넘으면 안 됨"}})

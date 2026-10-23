@@ -24,7 +24,7 @@ SWG(빅엔디언, 'SWG\\0'+해시+이름 0x40) 헤더 +0x54 행렬표(4x4 float)
 번역 출처: label_specs.json items["banner_<이름>"].text (webapp_pull image가 채움).
 색 세트의 두 단어가 다 번역돼야 그 세트를 적용(타일을 같이 쓰므로).
 
-  python tile_banner.py render     # kr/game/les_com_NNN.png 타일 + 미리보기(coverage/)
+  python tile_banner.py render     # RELS 파일마다 kr/<경로>/<이름>_NNN.png 타일 + 미리보기(coverage/)
   python tile_banner.py thumbs     # 원본 배너 합성 PNG(웹앱 썸네일용, coverage/banner_jp/)
   (패치는 ps3_res_apply / pcport_apply가 patch_container()를 부른다)
 """
@@ -42,6 +42,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 REL = "game\\les_com.mpc"
+# ProResult.swg 사본(SWG·타일 72장 바이트 동일)을 가진 파일. 실제 레슨 결과 화면은 alf_common 쪽을 쓴다
+# (2026-10-23 Mac 확인: les_com만 바꿨을 때 배너가 일본어로 남음).
+RELS = (REL, "game\\alf\\alf_common.mpc")
 SWG_NAME = b"ProResult"
 PITCH = 56                      # 칸 간격(px) — 8단어 전부 56px 등간격(배치 행렬 실측)
 
@@ -324,10 +327,10 @@ def _odd(px):
 
 
 # ---------------------------------------------------------------- CLI
-def _ps3_plain():
+def _ps3_plain(rel=REL):
     from extract_image_text import ps3_src
     from platform_audit import dec_any
-    return dec_any(open(ps3_src(REL), "rb").read(), "ps3")
+    return dec_any(open(ps3_src(rel), "rb").read(), "ps3")
 
 
 def _tex_base(plain, base):
@@ -348,27 +351,32 @@ def compose(plain, base, P, word, glyph_tex, letters):
 
 def cmd_render(_a):
     from extract_image_text import OUT_DEFAULT, decode_texture
-    plain = _ps3_plain()
     texts = kr_texts()
-    tiles, _repl, base, applied = plan(plain, texts)
+    made = {}
+    for rel in RELS:                     # 같은 ProResult 사본을 가진 파일마다 그 파일 번호로 타일을 낸다
+        plain = _ps3_plain(rel)
+        tiles, _repl, base, applied = plan(plain, texts, log=(print if rel == RELS[0] else lambda *a: None))
+        t0, texs = _tex_base(plain, base)
+        _b, P, letters, words = analyze(plain)
+        kr_dir = os.path.join(OUT_DEFAULT, "kr", os.path.dirname(rel))
+        stem = os.path.splitext(os.path.basename(rel))[0]
+        os.makedirs(kr_dir, exist_ok=True)
+        for b in KANA:                   # 지난 렌더의 타일 중 이번 계획에 없는 것은 지운다(반쪽 적용 방지)
+            p = os.path.join(kr_dir, f"{stem}_{t0 + b:03d}.png")
+            if b not in tiles and os.path.exists(p):
+                os.remove(p)
+                print(f"  이전 타일 삭제: {os.path.basename(p)}")
+        for b, gch in sorted(tiles.items()):
+            n = t0 + b
+            t = texs[n]
+            if (t["w"], t["h"]) != tuple(P["bitmaps"][b]) or (t["w"], t["h"]) != (64, 64):
+                raise ValueError(f"{rel} 텍스처 #{n} 치수가 SWG 비트맵 #{b}와 다름")
+            Image.fromarray(render_tile(gch, KANA[b][1])).save(os.path.join(kr_dir, f"{stem}_{n:03d}.png"))
+            made[f"{rel}#{n:03d}"] = gch
+    plain = _ps3_plain()
+    tiles, _repl, base, applied = plan(plain, texts, log=lambda *a: None)
     t0, texs = _tex_base(plain, base)
     _b, P, letters, words = analyze(plain)
-    kr_dir = os.path.join(OUT_DEFAULT, "kr", "game")
-    os.makedirs(kr_dir, exist_ok=True)
-    made = {}
-    for b in KANA:                       # 지난 렌더의 타일 중 이번 계획에 없는 것은 지운다(반쪽 적용 방지)
-        p = os.path.join(kr_dir, f"les_com_{t0 + b:03d}.png")
-        if b not in tiles and os.path.exists(p):
-            os.remove(p)
-            print(f"  이전 타일 삭제: {os.path.basename(p)}")
-    for b, gch in sorted(tiles.items()):
-        n = t0 + b
-        t = texs[n]
-        if (t["w"], t["h"]) != tuple(P["bitmaps"][b]) or (t["w"], t["h"]) != (64, 64):
-            raise ValueError(f"텍스처 #{n} 치수가 SWG 비트맵 #{b}와 다름")
-        a = render_tile(gch, KANA[b][1])
-        Image.fromarray(a).save(os.path.join(kr_dir, f"les_com_{n:03d}.png"))
-        made[n] = gch
     # 미리보기: 단어별 원본 / 한글
     rows = []
     for k in BANNERS:
@@ -390,7 +398,7 @@ def cmd_render(_a):
         p = os.path.join(OUT_DEFAULT, "coverage", "banner_preview.png")
         sheet.save(p)
         print(f"미리보기: {p}")
-    print(f"타일 {len(made)}장 → {kr_dir} (les_com_NNN.png), 적용 단어 {applied}")
+    print(f"타일 {len(made)}장 ({', '.join(RELS)}) → kr/, 적용 단어 {applied}")
     return made
 
 

@@ -255,7 +255,7 @@ def build_one(rel, tr, st):
     orig, enc = pristine(rel)
     base, has_img = image_layer(rel, orig)
     st["img"] += has_img
-    if rel == TB.REL:      # 레슨·커뮤 결과 배너: 타일(이미지 층) + SWG 칸 배정(tile_banner.py)
+    if rel in TB.RELS:      # 레슨·커뮤 결과 배너: 타일(이미지 층) + SWG 칸 배정(tile_banner.py)
         base, nb = TB.patch_container(base, orig=orig, log=lambda *a: None)
         st["banner"] += nb
     if rel in STANDALONE:
@@ -350,7 +350,7 @@ def validate_all(log=print):
             if enc:
                 out = out[:v["size"][1]]
             base, _img = image_layer(rel, orig)
-            if rel == TB.REL:   # 배너 SWG 칸 배정도 기준에 포함(patch_container가 char 칸 밖 불변을 따로 검증)
+            if rel in TB.RELS:   # 배너 SWG 칸 배정도 기준에 포함(patch_container가 char 칸 밖 불변을 따로 검증)
                 base, _nb = TB.patch_container(base, orig=orig, log=lambda *a: None)
             if rel in STANDALONE:
                 pn, po = parse_xmb(out, 0), parse_xmb(orig, 0)
