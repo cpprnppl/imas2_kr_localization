@@ -106,11 +106,20 @@ def draw_fit(img, text, x0, x1, y_top, h, fill, align="left", stroke=0, target_w
 
 def find_bars(a, n=0):
     """품목 이름 막대: y 100~420에서 검은 덩어리 중 폭 80+·높이 10~30 — 가장 위 줄의 것들 (x0, y0, x1, y1) 왼→오.
-    의상 쪽은 y≈128, 액세서리 쪽은 y≈208에 한 줄."""
+    의상 쪽은 y≈128, 액세서리 쪽은 y≈208에 한 줄.
+    행 문턱 160px로 먼저 찾고, 막대 하나짜리 쪽(PS3 무료 액세서리, 폭 220)처럼 글자 행이 문턱 밑으로 떨어져
+    개수가 안 맞으면 90px로 다시(처음부터 90이면 메일 쪽 막대가 아래 액자 테두리까지 6px 늘어남)."""
+    bars = _find_bars(a, n, 160)
+    if n and len(bars) != n:
+        bars = _find_bars(a, n, 90) or bars
+    return bars
+
+
+def _find_bars(a, n, thr):
     L = lum_of(a)
     blk = (L < 45) & (a[..., 3] > 200)
     # 막대 안 흰 글자가 행을 끊으므로: 행 투영으로 막대 줄(y) → 그 줄의 열 투영으로 막대들(x)
-    rows = blk[100:420].sum(1) >= 160
+    rows = blk[100:420].sum(1) >= thr
     y0 = None
     for y in range(len(rows) + 1):
         on = y < len(rows) and (rows[y] or (y + 1 < len(rows) and rows[y + 1] and y0 is not None))
