@@ -16,6 +16,8 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+from gen_patch import WHOLE_SRC  # noqa: E402
 
 
 def sha_file(p):
@@ -53,7 +55,8 @@ def main():
         for fn in fs:
             rel = os.path.relpath(os.path.join(d, fn), game).replace(os.sep, "/")
             n += 1
-            if sha_file(os.path.join(d, fn)) != sha_file(os.path.join(a.game, *rel.split("/"))):
+            ref = WHOLE_SRC.get(rel, os.path.join(a.game, *rel.split("/")))
+            if sha_file(os.path.join(d, fn)) != sha_file(ref):
                 mism.append(rel)
     nd = 0
     sub = os.path.join("4E4D0817", "00000002")

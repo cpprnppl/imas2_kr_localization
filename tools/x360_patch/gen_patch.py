@@ -28,6 +28,12 @@ WHOLE = {                                     # our own files at disc root: name
     "retry_text.bin": "exe_inject port-texts, webapp row gamedata:system:initialFix#x3:retry_001_pc",
     "difficulty_text.bin": "exe_inject port-texts, webapp row gamedata:system:initialFix#x14:war_144_pc",
     "kor_exe_strings.bin": "exe_inject build360, KXS2 (addr/len/sha256 prefix/new only, no original bytes)",
+    "ps3_revive.bin": "imas2pc tools/ps3feat/ps3_overlay.py stage_retry (b341c9d): schedule_id + revive_type as decimal "
+                      "text, derived from PS3 NPJB00337 game/produce/difficulty_nor.mpc schedule_info/schedule.xmb; "
+                      "no PS3 bytes copied",
+}
+WHOLE_SRC = {                                 # whole files that do not live in game_kor
+    "ps3_revive.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\stage_retry\ps3_revive.bin",
 }
 EXCLUDED = {}                                 # held until their rulings land
 
@@ -100,7 +106,7 @@ def main():
                 man["files"].append(diff_entry(p, orig, new, table, a.out))
     os.makedirs(os.path.join(a.out, "w"), exist_ok=True)
     for name, origin in WHOLE.items():
-        b = open(os.path.join(a.game, name), "rb").read()
+        b = open(WHOLE_SRC.get(name, os.path.join(a.game, name)), "rb").read()
         open(os.path.join(a.out, "w", name), "wb").write(b)
         man["whole"].append({"target": name, "kind": "whole", "data": f"w/{name}", "out_sha256": sha256(b),
                              "out_size": len(b), "origin": origin})
