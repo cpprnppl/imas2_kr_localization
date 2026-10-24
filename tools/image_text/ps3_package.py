@@ -56,6 +56,8 @@ def collect():
             if not fn.lower().endswith(".scb"):
                 continue
             rel = os.path.relpath(os.path.join(dp, fn), GS_ORIG)
+            if rel.lower().startswith("tools"):        # 백업에 딸려 온 excel2scb 산출물(tools\output) — 게임 파일 아님
+                continue
             live = os.path.join(JP_ROOT, "gscript", rel)
             if os.path.exists(live) and sha(live) != sha(os.path.join(dp, fn)):
                 items.append(("scb", os.path.join("gscript", rel), live))
