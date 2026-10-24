@@ -17,7 +17,8 @@
   넘치고 데이터 참조만 있으면 → .reloc(RVA 0x6D0200, 277,096B: 고정 베이스라 로더·게임이 안 읽음)에 쓰고
   포인터 워드를 옮긴다. .reloc을 가리키는 우연 일치 데이터 워드의 목표 주소는 할당에서 피한다.
   넘치고 코드 참조가 있으면 → 일본어 유지 + 단축 요청 목록.
-  파일 KXS1: u32 count, (u32 addr, u32 len, orig[len], new[len])* — 전부 일치할 때만 전부 적용.
+  파일 KXS2: u32 count, (u32 addr, u32 len, sha256(orig)[:8], new[len])* — 전부 일치할 때만 전부 적용.
+  원본 바이트는 싣지 않는다(배포 규칙: 원본 360 바이트 미포함).
   인코딩 = 직접 한글(UTF-16BE). 폰트(직접 등록 글자 집합 = font_mapping 키) 밖 한글이면 실패.
 
 PS3 (RPCS3 patch.yml, PPU 해시 키, 시험 때만 활성화):
@@ -41,6 +42,7 @@ import json
 import time
 import shutil
 import struct
+import hashlib
 import argparse
 from collections import Counter, defaultdict
 
@@ -278,8 +280,8 @@ def build360(a):
                 e += 2
             assert sim[o:e].decode("utf-16-be") == it["kr"], f"시뮬 불일치 {it['key']}"
     os.makedirs(OUT, exist_ok=True)
-    blob = b"KXS1" + struct.pack(">I", len(recs)) + b"".join(
-        struct.pack(">II", a_, len(o)) + o + n for a_, o, n in recs)
+    blob = b"KXS2" + struct.pack(">I", len(recs)) + b"".join(
+        struct.pack(">II", a_, len(o)) + hashlib.sha256(o).digest()[:8] + n for a_, o, n in recs)
     open(os.path.join(OUT, "kor_exe_strings.bin"), "wb").write(blob)
     json.dump(rep, open(os.path.join(OUT, "report_360.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"360: 번역 있음 {len(rows) - rep['no_kr']}/{len(rows)} → 제자리 {len(rep['inplace'])} · 재배치 {len(rep['reloc'])}"
