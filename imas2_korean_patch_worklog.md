@@ -1639,6 +1639,7 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   - 결론: 설정으로 없어지지 않는다(차이는 n=5 잡음 수준). `--no-gui`는 게임이 빨리 떠서 경합에서 진다 — 실행은 GUI 모드로.
   - 커스텀(Interpreter)을 둘 이유가 없어 전역 LLVM을 권고(파일 변경은 KOR/사용자 결정). 근본 해결은 게임 코드 null 검사 패치뿐(별도 결정).
   - 설치기 시험 트리는 RAP(라이선스)가 없어 EBOOT 복호화 실패로 부팅 불가 — 감독 세션에 전달.
+  - 적용(KOR 지시): custom_configs\config_NPJB00337.yml → .disabled_20261025로 이름 변경(sha256 0D6DF527… 전후 동일, .boottest.bak 그대로) → RPCS3는 전역 LLVM 설정을 쓴다.
   - 사고: `open(p,'w').write(open(p).read()…)` 한 줄짜리가 쓰기 열기를 먼저 해서 out_16/out_19가 비었다. 서브에이전트 전사본의 생성 스크립트로 복구했다.
     파일을 고칠 때는 읽기와 쓰기를 따로 할 것.
 
