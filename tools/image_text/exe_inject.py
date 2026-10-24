@@ -293,12 +293,15 @@ def build360(a):
 def deploy360(_a):
     if os.path.exists(LOCK):
         sys.exit(f"[중단] {LOCK} 존재 — 게임 실행 중")
-    src = os.path.join(OUT, "kor_exe_strings.bin")
-    dst = os.path.join(GAME_KOR, "kor_exe_strings.bin")
-    if os.path.exists(dst):
-        shutil.copy2(dst, dst + time.strftime(".bak_%Y%m%d_%H%M%S"))
-    shutil.copy2(src, dst)
-    print(f"배포: {dst} (실행: IMAS2PC_DISC_ROOT={GAME_KOR})")
+    for fn in ("kor_exe_strings.bin", "retry_text.bin"):    # retry_text.bin: PS3 기능 이식 리트라이 문구(<disc_root>에서 읽음)
+        src = os.path.join(OUT, fn)
+        if fn == "retry_text.bin" and not os.path.exists(src):
+            continue
+        dst = os.path.join(GAME_KOR, fn)
+        if os.path.exists(dst):
+            shutil.copy2(dst, dst + time.strftime(".bak_%Y%m%d_%H%M%S"))
+        shutil.copy2(src, dst)
+        print(f"배포: {dst} (실행: IMAS2PC_DISC_ROOT={GAME_KOR})")
 
 
 # ---------------------------------------------------------------- PS3
@@ -499,7 +502,7 @@ def uninstall_ps3(_a):
 
 
 # ---------------------------------------------------------------- PS3 기능 이식: 리트라이 확인 문구 (ps3-360-pc 요청)
-RETRY_ROW = "gamedata:system:initialFix#x3:retry_001"
+RETRY_ROW = "gamedata:system:initialFix#x3:retry_001_pc"   # PC 포트 문구(스테이지 전 대화부터 재시작) — PS3 retry_001과 별도 행
 
 
 def retry_text(a):
