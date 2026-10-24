@@ -32,9 +32,13 @@ WHOLE = {                                     # our own files at disc root: name
     "ps3_revive.bin": "imas2pc tools/ps3feat/ps3_overlay.py stage_retry (b341c9d): schedule_id + revive_type as decimal "
                       "text, derived from PS3 NPJB00337 game/produce/difficulty_nor.mpc schedule_info/schedule.xmb; "
                       "no PS3 bytes copied",
+    "ps3_special_sets.bin": "imas2pc tools/ps3feat/ps3_overlay.py special_sets (d4f034e): unit/song/character/costume "
+                            "ids as decimal text, derived from PS3 NPJB00337 ranker/setup_param_ranker.xmb "
+                            "enemy_cd_sales + weekly_param; no PS3 bytes copied",
 }
 WHOLE_SRC = {                                 # whole files that do not live in game_kor
     "ps3_revive.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\stage_retry\ps3_revive.bin",
+    "ps3_special_sets.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\special_idol\ps3_special_sets.bin",
 }
 EXCLUDED = {}                                 # held until their rulings land
 
