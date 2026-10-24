@@ -27,6 +27,7 @@ TABLE_RVA, TABLE_LEN = 0xB5430, 384           # found once in the dev basefile (
 WHOLE = {                                     # our own files at disc root: name -> origin
     "retry_text.bin": "exe_inject port-texts, webapp row gamedata:system:initialFix#x3:retry_001_pc",
     "difficulty_text.bin": "exe_inject port-texts, webapp row gamedata:system:initialFix#x14:war_144_pc",
+    "special_text.bin": "exe_inject port-texts, S4U special idol set selection (10 Korean sentences, UTF-16BE + NUL)",
     "kor_exe_strings.bin": "exe_inject build360, KXS2 (addr/len/sha256 prefix/new only, no original bytes)",
     "ps3_revive.bin": "imas2pc tools/ps3feat/ps3_overlay.py stage_retry (b341c9d): schedule_id + revive_type as decimal "
                       "text, derived from PS3 NPJB00337 game/produce/difficulty_nor.mpc schedule_info/schedule.xmb; "
