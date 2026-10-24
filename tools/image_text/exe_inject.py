@@ -508,6 +508,9 @@ def uninstall_ps3(_a):
 PORT_TEXTS = {
     "retry_text.bin": "gamedata:system:initialFix#x3:retry_001_pc",        # 리트라이(스테이지 전 대화부터 재시작)
     "difficulty_text.bin": "gamedata:system:initialFix#x14:war_144_pc",   # 새 게임 난이도(예 = HYPER, 아니요 = NORMAL)
+    # S4U 스페셜 아이돌(주피터) 세트 1~8 + 팀 번역 hel_142(키 라벨)·war_967(진입 확인) — 문장마다 UTF-16BE+NUL을 이어 붙임
+    "special_text.bin": [f"gamedata:system:pc:special_set_{i:02d}" for i in range(1, 9)]
+                        + ["gamedata:system:game_iface_album_album_common#x12:hel_142", "gamedata:system:initialFix#x14:war_967"],
 }
 
 
@@ -520,24 +523,27 @@ def port_texts(a):
     cfg = json.load(open(os.path.join(HERE, "webapp_config.json"), encoding="utf-8"))
     h = {"apikey": cfg["anon_key"], "Authorization": f"Bearer {cfg['anon_key']}", "x-team-code": a.code}
     fs = font_set()
-    for fn, rid in PORT_TEXTS.items():
-        r = json.load(urllib.request.urlopen(urllib.request.Request(
-            f"{cfg['url']}/rest/v1/rows?id=eq.{urllib.parse.quote(rid, safe='')}&select=kr,st,by", headers=h)))
-        if not r or not r[0]["kr"]:
-            sys.exit(f"❌ 웹앱 행 {rid} 없음/미번역")
-        kr = r[0]["kr"].replace("\r\n", "\n")
-        if kr.count("\n") > 2:
-            sys.exit(f"❌ {rid}: {kr.count(chr(10)) + 1}줄 — 3줄 이하여야 함")
-        miss = sorted({c for c in kr if "가" <= c <= "힣" and c not in fs})
-        if miss:
-            sys.exit(f"❌ {rid}: 폰트에 없는 한글 {''.join(miss)}")
-        blob = u16z(kr)
-        assert blob[:-2].decode("utf-16-be") == kr
+    for fn, rids in PORT_TEXTS.items():
+        blob = b""
+        for rid in ([rids] if isinstance(rids, str) else rids):
+            r = json.load(urllib.request.urlopen(urllib.request.Request(
+                f"{cfg['url']}/rest/v1/rows?id=eq.{urllib.parse.quote(rid, safe='')}&select=kr,st,by", headers=h)))
+            if not r or not r[0]["kr"]:
+                sys.exit(f"❌ 웹앱 행 {rid} 없음/미번역")
+            kr = r[0]["kr"].replace("\r\n", "\n")
+            if kr.count("\n") > 2:
+                sys.exit(f"❌ {rid}: {kr.count(chr(10)) + 1}줄 — 3줄 이하여야 함")
+            miss = sorted({c for c in kr if "가" <= c <= "힣" and c not in fs})
+            if miss:
+                sys.exit(f"❌ {rid}: 폰트에 없는 한글 {''.join(miss)}")
+            assert u16z(kr)[:-2].decode("utf-16-be") == kr
+            blob += u16z(kr)
+            print(f"  {fn} ← {rid} (by {r[0]['by']}, st {r[0]['st']}) {kr.count(chr(10)) + 1}줄")
         outs = [os.path.join(OUT, fn)] + ([os.path.join(a.out, fn)] if a.out else [])
         for o in outs:
             os.makedirs(os.path.dirname(o), exist_ok=True)
             open(o, "wb").write(blob)
-        print(f"{fn} ← {rid} (by {r[0]['by']}, st {r[0]['st']}) {len(kr)}자 {kr.count(chr(10)) + 1}줄 → {len(blob)}B")
+        print(f"{fn}: {len(blob)}B")
         for o in outs:
             print("  →", o)
 
