@@ -9,7 +9,8 @@ exe 하드코딩 문구 222개는 RPCS3 patch(exe_inject install-ps3)로만 들�
 담는 것 (원본과 다른 파일만):
   res    ps3_res_apply 산출 out_ps3res\ (report.json sha) — 배포본 sha와 같아야 함
   scb    resource\gscript\*.scb 중 순정 백업(USRDIR\gscript - 복사본)과 다른 것
-  font   resource\im2_font(.nfh/.nut), im2_font_l(.nfh/.nut) — 순정 md5(repatch_fonts 기준)와 다른 것
+  font   resource\initialTemp.mpc — deploy_fonts가 NUT을 주입(initialFix.mpc의 NFH 주입은 res에 포함).
+         loose im2_font*.nfh/nut은 넣지 않는다 — 원본 pkg에 없고 게임이 읽지 않음(RPCS3 로그, 2026-10-25 KOR 결정)
   attract resource\scene\attract.mpc — attract.mpc.orig와 다른 것
 출력: Desktop\imas2_ps3_kr_patch_<날짜>\USRDIR\resource\… + manifest.json + SHA256SUMS.txt (복사 뒤 다시 해시)
       + 설치안내.md (PS3_REAL_HW_GUIDE_KO.md 사본)
@@ -32,8 +33,6 @@ from extract_image_text import JP_ROOT, OUT_DEFAULT  # noqa: E402
 USRDIR = os.path.dirname(JP_ROOT)
 GS_ORIG = os.path.join(USRDIR, "gscript - 복사본")
 OUT_RES = os.path.join(OUT_DEFAULT, "out_ps3res")
-FONT_ORIG_MD5 = {"im2_font.nut": "f5451c353daf35d1867bfd16cdd2cc8f", "im2_font.nfh": "da99834ce4a0846f9bdd22b4e584bfee",
-                 "im2_font_l.nut": "e94c9af9db807530e69101542f7139a2", "im2_font_l.nfh": "d772158afc8fe74a7aa7e12e071fada5"}
 
 
 def sha(p):
@@ -61,10 +60,6 @@ def collect():
             live = os.path.join(JP_ROOT, "gscript", rel)
             if os.path.exists(live) and sha(live) != sha(os.path.join(dp, fn)):
                 items.append(("scb", os.path.join("gscript", rel), live))
-    for fn, md5 in FONT_ORIG_MD5.items():
-        p = os.path.join(JP_ROOT, fn)
-        if hashlib.md5(open(p, "rb").read()).hexdigest() != md5:
-            items.append(("font", fn, p))
     # deploy_fonts가 폰트 NUT을 제자리 주입한 initialTemp.mpc(텍스트 대상이 아니라 ps3_res 산출에는 없다) — 게임이 실제로 쓰는 폰트
     if "initialTemp.mpc" not in {r for _c, r, _s in items}:
         items.append(("font", "initialTemp.mpc", os.path.join(JP_ROOT, "initialTemp.mpc")))
