@@ -38,11 +38,15 @@ WHOLE = {                                     # our own files at disc root: name
     "ps3_profit_coeff.bin": "imas2pc tools/ps3feat/ps3_overlay.py profit_coeff (ef73cd0): coin/fun/cost coefficients as "
                             "decimal text, derived from PS3 NPJB00337 game/produce/difficulty_{nor,hyp}.mpc "
                             "schedule_profit_coeff_{nor,hyp}.xmb; no PS3 bytes copied",
+    "ps3_rival_sales.bin": "imas2pc tools/ps3feat/ps3_overlay.py rival_sales (5be6d3c): rows differing from the 360 rival "
+                           "list as numbers + NPC name keys, derived from PS3 NPJB00337 game/produce/difficulty_{nor,hyp}"
+                           ".mpc rank_*_{nor,hyp}.xmb; no PS3 bytes copied",
 }
 WHOLE_SRC = {                                 # whole files that do not live in game_kor
     "ps3_revive.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\stage_retry\ps3_revive.bin",
     "ps3_special_sets.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\special_idol\ps3_special_sets.bin",
     "ps3_profit_coeff.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\profit_coeff\ps3_profit_coeff.bin",
+    "ps3_rival_sales.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\rival_sales\ps3_rival_sales.bin",
 }
 EXCLUDED = {}                                 # held until their rulings land
 
