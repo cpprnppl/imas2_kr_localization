@@ -508,6 +508,7 @@ def uninstall_ps3(_a):
 PORT_TEXTS = {
     "retry_text.bin": "gamedata:system:initialFix#x3:retry_001_pc",        # 리트라이(스테이지 전 대화부터 재시작)
     "difficulty_text.bin": "gamedata:system:initialFix#x14:war_144_pc",   # 새 게임 난이도(예 = HYPER, 아니요 = NORMAL)
+    "omi_home_text.bin": "gamedata:system:pc:omi_home_pc",                # 부적 외출 시작(예 = 자유 행동, 아니요 = 바로 돌아간다)
     # S4U 스페셜 아이돌(주피터) 세트 1~8 + 팀 번역 hel_142(키 라벨)·war_967(진입 확인)
     # + 11~14 라이브 타이틀 유닛 이름(ranker NPCU_002~005, 이름 칸 11자 이하) — 문장마다 UTF-16BE+NUL을 이어 붙임
     "special_text.bin": [f"gamedata:system:pc:special_set_{i:02d}" for i in range(1, 9)]
