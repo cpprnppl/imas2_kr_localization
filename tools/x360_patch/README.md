@@ -77,3 +77,12 @@ python -I tools/x360_patch/build_iso.py "C:\Users\jackfilm\Desktop\imas2_360\Ido
 - `apply_patch.py`: 참조 적용기(실제 설치기는 imas2pc 공유 코어). 원본 해시 확인 → 적용 → 결과 해시 확인.
 - `verify_patch.py`: 원본 ISO 해시 → 생성 → 원본 ISO를 임시 폴더에 풀고 DLC 사본을 만듦 → 적용 → game_kor·content_kor와 전수 sha256 비교 → 원본 ISO 해시.
 - 무거운 작업: `gpu_run.lock`이 없고 game_kor가 2분 이상 조용할 때만, 시작 직전에 잠금을 다시 확인한다.
+
+## PS3 (RPCS3) 패치 데이터 (gen_patch_ps3.py, 배포 전 · 빌드만)
+- 사용자 결정(2026-10-25 "B"): PS3 한글 패치도 diff 패처로 배포한다. 대상은 PSN NPJB00337이다. 디스크판 BLJS10083은 매니페스트에 자리만 두고(`versions.disc = null`), 디스크 표본이 생기면 채운다.
+- diff 원본(순정 참조): `Desktop\rpcs3_pristine`. RPCS3 프로그램만 복사한 곳에 원본 PKG 2개를 RPCS3 설치기로 깔았다. 해시 목록은 `pristine_sha256.json`이다. 읽기 전용으로 둔다.
+- 대상은 순정 설치 파일 가운데 배포 상태에서 **내용**이 바뀐 것뿐이다. 암호화 원본의 평문 사본에 불과한 파일은 제외한다. 순정에 없는 파일(백업, 도구 산출물, 낱개 폰트)은 읽지 않는다.
+- 변환: `src_transform`(none|xcrypt, 표 조각 `table_slice`)으로 원본을 풀고 KDF1 diff를 적용한다. `dst_transform`(none|xcrypt, `dst_prefix` orig|zero)으로 원본의 키와 풋터를 써서 다시 암호화한다. 원본 바이트와 키 표는 출력에 넣지 않는다. 키 표는 사용자 EBOOT.elf의 위치·길이·sha256만 적는다(`table_source: "TBD"`).
+- **DLC 주의**: DLC 원본 해시는 개발팀이 제공한 패키지 `THE iDOLM@STER 2 ALL DLC.pkg`(PSN 판매 다운로드 아님)에서 뽑았다. 다른 경로로 받은 DLC 파일은 해시가 다를 수 있고, 그런 파일은 건너뛴다.
+- 낱개 폰트(`resource\im2_font*`)는 넣지 않는다(`excluded`). 순정 PKG에 없는 파일이고 게임도 읽지 않는다. 게임이 쓰는 폰트는 initialFix.mpc와 initialTemp.mpc에 넣은 것이고, 이 두 파일은 diff로 들어간다.
+- exe 문자열은 `imas2_kor_exe.yml`(RPCS3 패치, PSN PPU 해시 전용)을 통째로 싣는다. 새 값만 들어 있다.
