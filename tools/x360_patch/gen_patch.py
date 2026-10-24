@@ -119,7 +119,7 @@ def main():
                     continue
                 if rel.endswith("ad_bg.ptc") and new[:8] == b"IM2PCRAW":
                     man["excluded"].append({"target": f"dlc:{pkg}/{rel}", "reason":
-                                            "IM2PCRAW banner = raw pixels incl. original art; needs supervisor ruling"})
+                                            "IM2PCRAW banner = raw pixels incl. original art; left out (supervisor 2026-10-24: banner stays Japanese; revisit only with a ptc_decode src_transform)"})
                     continue
                 man["dlc"].append(diff_entry(rel, orig, new, table, a.out, {"pkg": pkg}))
     json.dump(man, open(os.path.join(a.out, "manifest.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
