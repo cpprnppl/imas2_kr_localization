@@ -35,10 +35,14 @@ WHOLE = {                                     # our own files at disc root: name
     "ps3_special_sets.bin": "imas2pc tools/ps3feat/ps3_overlay.py special_sets (d4f034e): unit/song/character/costume "
                             "ids as decimal text, derived from PS3 NPJB00337 ranker/setup_param_ranker.xmb "
                             "enemy_cd_sales + weekly_param; no PS3 bytes copied",
+    "ps3_profit_coeff.bin": "imas2pc tools/ps3feat/ps3_overlay.py profit_coeff (ef73cd0): coin/fun/cost coefficients as "
+                            "decimal text, derived from PS3 NPJB00337 game/produce/difficulty_{nor,hyp}.mpc "
+                            "schedule_profit_coeff_{nor,hyp}.xmb; no PS3 bytes copied",
 }
 WHOLE_SRC = {                                 # whole files that do not live in game_kor
     "ps3_revive.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\stage_retry\ps3_revive.bin",
     "ps3_special_sets.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\special_idol\ps3_special_sets.bin",
+    "ps3_profit_coeff.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\profit_coeff\ps3_profit_coeff.bin",
 }
 EXCLUDED = {}                                 # held until their rulings land
 
