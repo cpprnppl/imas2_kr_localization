@@ -38,3 +38,12 @@ python -I tools/x360_patch/build_iso.py "C:\Users\jackfilm\Desktop\imas2_360\Ido
 ## 출처
 - 방식 참고: iM@S1 360 한글 패처 https://github.com/rnrmfdlapdlf/xbox360-idolmaster-korean-patcher (MIT, © 2026 Gideon). 원본 ISO → `_repacked` ISO를 만드는 흐름과 XISO(exiso `-c`) 출력 형식을 참고했다. 코드는 복사하지 않았다.
 - XDVDFS 형식: 공개된 형식 설명(extract-xiso 등이 쓰는 것)을 보고 새로 작성했다.
+
+## PC 포트 최종 패치 데이터 (gen_patch.py, 배포 전 · 빌드만)
+- `gen_patch.py`: 사용자 원본 360 파일에 대한 KDF1 diff(`kd.py`) + 우리 파일 통째(`retry_text.bin`, `difficulty_text.bin`, `kor_exe_strings.bin` KXS2) + `manifest.json`.
+  - 디스크 항목은 원본 ISO 파일 목록에서, DLC는 원본 패키지 파일 목록에서만 만든다(game_kor·content_kor 폴더를 훑지 않음 → 백업 파일이 섞이지 않음).
+  - 원본이 암호화돼 있으면 복호화본을 diff 원본으로 쓴다(`src_transform: "xcrypt"`). 384바이트 표는 `--table`로 로컬에서만 받고, 매니페스트에는 rva·len·sha256만 적는다(`table_source: "TBD"`, 사용자 결정 대기). 출력·로그·커밋에 표 바이트를 넣지 않는다.
+  - 모든 해시는 SHA-256. ADD 감사: 원본과 2×BLOCK 이상 겹치는 ADD 실행이 있으면 표시한다(0이어야 함).
+- `apply_patch.py`: 참조 적용기(실제 설치기는 imas2pc 공유 코어). 원본 해시 확인 → 적용 → 결과 해시 확인.
+- `verify_patch.py`: 원본 ISO 해시 → 생성 → 원본 ISO를 임시 폴더에 풀고 DLC 사본을 만듦 → 적용 → game_kor·content_kor와 전수 sha256 비교 → 원본 ISO 해시.
+- 무거운 작업: `gpu_run.lock`이 없고 game_kor가 2분 이상 조용할 때만, 시작 직전에 잠금을 다시 확인한다.
