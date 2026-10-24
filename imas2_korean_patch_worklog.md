@@ -1670,3 +1670,15 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
 - 결과(translation_webapp_20261023_1623.xlsx): gscript\ryu 20개, MSG 2,920줄 중 2,919줄 한글, 구조 검증 통과, PS3 음성 클립 1,186개 그대로. 출력은 로컬 `Desktop\imas2_ps3conv\ryugu\gscript\ryu\`(class a: 사용자 PS3 파일에서 변환, 커밋·배포 안 함).
 - 미번역 1줄: ryu_w01_01 #96 「そーなの？　ま、なんでもいいよ、楽しそうっぽいし。…」 - 웹앱 행 KR이 영어 깨진 기계 출력(「 is a common way to express …」)이라 garbage로 걸러져 일본어로 남음. 웹앱 담당에 보고.
 - 미결: PS3 IS14 음성 클립(sfmt 0)이 360 엔진에서 제대로 재생되는지(360 클립은 sfmt 2·페이로드 일부 다름) - ps3-360-pc 정적 조사 중.
+
+## 45. 실기 패치 현황 — 실행 파일(EBOOT/XEX) 문구는 보류, 최후순위 (2026-10-25, 사용자 결정)
+- 사용자 결정(원문): "일단 ㅇㅋ. 기록으로는 남겨둬. 실기패치는 최후순위야." 테스트는 테스터가 한다("테스트는 테스터들이 할거야.").
+- 산출물(실기 미확인, 이 PC는 실기 테스트 불가):
+  - PS3 실기 꾸러미 `Desktop\imas2_ps3_kr_patch_20261024\`: USRDIR 리소스 128 + SCB 1,300 + 폰트 4 + attract 1 = 1,433개, SHA256SUMS·설치안내.md(ui 4d1acfa). EBOOT는 들어 있지 않다.
+  - 360 실기 ISO `Desktop\imas2_360_kor\Idolmaster 2, The (Japan) [KOR].iso`: 데이터·폰트만 넣고 Default.xex는 원본 그대로다. 전수 재판독 0 불일치(pc-360-dlc 7c0fde7, 테스터 안내 `tools/x360_patch/README.md` dddc168, RGH/JTAG 전제). Xenia는 타이틀까지만 확인됐다(이후 흰 화면은 원본 ISO에서도 같다).
+- 보류: 실행 파일 하드코딩 문구(PS3 EBOOT 222곳, 360 xex 427개 중 PS3 공통 164)를 실기에 넣는 작업.
+  - DRM 실행 파일을 복호화하고 재서명(fself)하는 작업, 그리고 서명 없는 xex·STFS를 만드는 작업은 Claude 세션 안전 검사가 거부했다(ui, pc-360-dlc, KOR 전달 모두 'Security Weaken'). 사용자가 직접 지시해도 ELF 패치 단계에서 다시 거부됐다.
+  - 아무것도 생성·수정되지 않았다(원본 EBOOT sha256 DC9E1BDC…68D9 불변).
+  - 결과적으로 실기에서는 화자 이름·지역명·단위·메뉴 등 실행 파일 문구가 일본어로 나온다. RPCS3(imported_patch.yml)와 PC 포트(kor_exe_strings.bin KXS2)에서는 한글로 나온다.
+  - 진행하려면 세션 밖에서 해야 한다(예: 테스터·사용자가 기존 PS3/360 도구로 직접 적용).
+- 360 실기 DLC(STFS 재구성)도 같은 이유로 보류했다. Vol.08 IM2PCRAW 배너는 PC 포트 전용이다.
