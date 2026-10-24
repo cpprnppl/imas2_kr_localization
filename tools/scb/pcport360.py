@@ -540,25 +540,34 @@ def button_lines_360(rel, pp, px_texts, x360_tr, choices):
     return out, miss
 
 
-def build_ps3_logic(rel, out_dir, abs_map, font_map, x360_tr=None):
+def build_ps3_logic(rel, out_dir, abs_map, font_map, x360_tr=None, ps3_only=False):
     """PS3 로직(CMD/LBL/LBN/VCN = PS3 순정 백업) + 웹앱 PS3 행 한글 MSG + 360 음성 클립 → 평문 pac(360 엔진은 평문 pac 수용).
+    ps3_only: 360 원본이 없는 PS3 전용 SCB(ryu 등, KOR ④ 2026-10-24) - 음성 클립·버튼 줄은 PS3 그대로 두고 보고만 한다.
     out_dir은 game_kor·공유 game·테스터 패키지 밖이어야 한다. → (out_path, report)"""
     low = os.path.abspath(out_dir).lower()
     if any(k in low for k in ("game_kor", "build_imas2_o2\\game", "tester", "dev_hdd0")):
         raise ValueError(f"출력 폴더 거부(game_kor/공유 game/테스터/PS3 게임 폴더 금지): {out_dir}")
     import validate_output as vo
-    p, x = load_ps3(rel), load_360(rel)
+    p = load_ps3(rel)
+    x = None if ps3_only else load_360(rel)
     sp = common.parse_section_dir(p)
     msg_abs, msg_size = sp["MSG"]
     pp = e2s.parse_msg_table(p, msg_abs)
     choices = e2s.choice_indices(p)
     new_by_idx, recovered, misses, garbage = e2s.resolve_translations(pp, abs_map, choices)
-    btn, btn_miss = button_lines_360(rel, pp, msg_texts(x), x360_tr or {}, choices)
+    if x is None:   # 360 짝이 없음: PS3 버튼 이름 줄은 그대로(보고), 음성은 PS3 클립 그대로
+        btn = {}
+        btn_miss = [s_["index"] for s_ in pp["strings"] if PS3_BUTTON.search(s_["text"])]
+    else:
+        btn, btn_miss = button_lines_360(rel, pp, msg_texts(x), x360_tr or {}, choices)
     new_by_idx.update(btn)                      # PS3 버튼 대사 → 360 문구(LB/RB·A)의 한글
     new_msg = e2s.build_msg_block(pp, new_by_idx, font_map, msg_size)
     new_dec, _delta = e2s.replace_msg_section(p, msg_abs, msg_size, new_msg)
-    new_dec, vrep = voice_to_360(new_dec, x)
-    new_dec, swapped = clips_by_index_360(new_dec, x)   # 그 대사의 음성도 360 클립(길이 다름 → pac 재조립)
+    if x is None:
+        vrep, swapped = {"voice_replaced": 0, "voice_unmatched": 0, "voice_ps3_clips": len(_clips(new_dec))}, []
+    else:
+        new_dec, vrep = voice_to_360(new_dec, x)
+        new_dec, swapped = clips_by_index_360(new_dec, x)   # 그 대사의 음성도 360 클립(길이 다름 → pac 재조립)
     vrep.update(button_lines=sorted(btn), button_missing=btn_miss, clips_swapped_by_index=swapped)
     issues, _h = vo.validate_dec(new_dec, p)
     if issues:
@@ -587,7 +596,7 @@ def cmd_ps3logic(a):
     for rel in a.rels:
         relw = rel.replace("/", "\\")
         dst, r = build_ps3_logic(relw, a.out, by_low.get(relw.lower(), {}), font_map,
-                                 {relw: x360_tr.get(relw.lower(), {})})
+                                 {relw: x360_tr.get(relw.lower(), {})}, ps3_only=a.ps3_only)
         rep[relw] = r
         print(f"  {relw}: MSG {r['translated']}/{r['msg']} 한글, 미번역 {len(r['untranslated'])}, "
               f"음성 360 클립 {r['voice_replaced']} (짝 없음 {r['voice_unmatched']}), "
@@ -645,6 +654,8 @@ def main():
     q.add_argument("rels", nargs="+")
     q.add_argument("--out", required=True)
     q.add_argument("--excel", help="번역 엑셀(기본: 최신 회수본/translation_2)")
+    q.add_argument("--ps3-only", action="store_true",
+                   help="360 원본이 없는 PS3 전용 SCB(gscript/ryu 등): 음성·버튼 줄은 PS3 그대로")
     a = ap.parse_args()
     {"classify": cmd_classify, "build": cmd_build, "validate": cmd_validate, "stage": cmd_stage,
      "ps3logic": cmd_ps3logic}[a.cmd](a)
