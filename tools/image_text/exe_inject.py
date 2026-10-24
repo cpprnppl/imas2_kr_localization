@@ -514,6 +514,8 @@ PORT_TEXTS = {
     "special_text.bin": [f"gamedata:system:pc:special_set_{i:02d}" for i in range(1, 9)]
                         + ["gamedata:system:game_iface_album_album_common#x12:hel_142", "gamedata:system:initialFix#x14:war_967"]
                         + [f"xmb:ranker:NPCU_00{i}" for i in (2, 3, 4, 5)],
+    # 류구코마치 모드 A1 진입 예/아니요 창: 0 처음 시작 / 1 이어서 / 2 처음부터 다시(진행 삭제 경고)
+    "ryugu_text.bin": [f"gamedata:system:pc:ryugu_entry_{k}" for k in ("new", "continue", "restart")],
 }
 
 
