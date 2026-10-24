@@ -65,6 +65,9 @@ def collect():
         p = os.path.join(JP_ROOT, fn)
         if hashlib.md5(open(p, "rb").read()).hexdigest() != md5:
             items.append(("font", fn, p))
+    # deploy_fonts가 폰트 NUT을 제자리 주입한 initialTemp.mpc(텍스트 대상이 아니라 ps3_res 산출에는 없다) — 게임이 실제로 쓰는 폰트
+    if "initialTemp.mpc" not in {r for _c, r, _s in items}:
+        items.append(("font", "initialTemp.mpc", os.path.join(JP_ROOT, "initialTemp.mpc")))
     att = os.path.join(JP_ROOT, "scene", "attract.mpc")
     if os.path.exists(att + ".orig") and sha(att) != sha(att + ".orig"):
         items.append(("attract", os.path.join("scene", "attract.mpc"), att))
