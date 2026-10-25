@@ -90,3 +90,9 @@ python -I tools/x360_patch/build_iso.py "C:\Users\jackfilm\Desktop\imas2_360\Ido
 - exe 문자열은 `imas2_kor_exe.yml`(RPCS3 패치, PSN PPU 해시 전용)을 통째로 싣는다. 새 값만 들어 있다.
 - **RPCS3 실행 안내(테스터)**: RPCS3는 `--no-gui`로 실행하지 않는다(부팅 직후 거의 항상 멈춤). 일반(GUI) 모드로 실행하고, 부팅 직후(약 3~4초) 멈추면 1~2분 기다렸다가 다시 실행한다. 성공률은 약 50%다. 게임별 커스텀 설정은 필요 없고, 전역 LLVM 설정을 권장한다.
   - 근거(ui 부팅 시험): `--no-gui` 0/4, GUI 전역 LLVM 4/7. 멈춤 원인은 게임 그리기 스레드의 null 읽기 경합이라 설정으로는 고칠 수 없다.
+- **디스크판 BLJS10083 (VERSION 01.01 / APP_VER 01.00)**: 디스크 USRDIR은 EBOOT.BIN만 빼고 PSN 순정과 같다(3,480/3,481 바이트 일치). 그래서 diff는 두 판에 공통(`edition: "both"`)이다.
+  - 판 구분: 설치기가 PARAM.SFO TITLE_ID로 판을 고른다.
+  - 키 표: 디스크 EBOOT.elf에서는 위치가 0x574f18이다(sha256은 같음).
+  - exe 문자열: 디스크용 RPCS3 패치(PPU-85a362f4…)를 따로 싣는다.
+  - 디스크 게임 폴더는 Joliet 이름(소문자)으로 풀어야 RPCS3가 파일을 찾는다.
+  - 첫 실행 때 `dev_hdd0\game\BLJS10083DATA`(약 3.8 GB 설치 캐시)가 생긴다.

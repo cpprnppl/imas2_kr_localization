@@ -2,6 +2,8 @@
 
   python gen_patch_ps3.py gen    --pristine <USRDIR> --pristine-dlc <dlc dir> --deployed <USRDIR> \
                                  --table <table.bin, local dev copy> --exe-yml <imas2_kor_exe.yml> --out <dir>
+                                 [--disc-hashes <disc USRDIR sha256 json from iso9660.py> --disc-offset 0x...
+                                  --disc-yml <disc RPCS3 patch yml>]       # adds the disc edition BLJS10083
   python gen_patch_ps3.py verify --pristine <USRDIR> --pristine-dlc <dlc dir> --deployed <USRDIR> \
                                  --table <table.bin> --patch <dir> --work <empty dir>
 
@@ -129,6 +131,20 @@ def rebuild(orig, e, kdbytes, table):
     return out
 
 
+def yml_entry(path, edition, out):
+    """Our RPCS3 patch file for one edition: copied to w/, hash key and patch names read from the yml."""
+    y = open(path, "rb").read()
+    name = f"imas2_kor_exe_{edition}.yml"
+    open(os.path.join(out, "w", name), "wb").write(y)
+    lines = y.decode("utf-8").splitlines()
+    keys = [l[:-1] for l in lines if l.startswith("PPU-") and l.endswith(":")]
+    names = [l.strip()[1:-2] for l in lines if l.startswith('  "') and l.endswith('":')]
+    if len(keys) != 1 or not names:
+        sys.exit(f"{path}: expected one PPU key and patch names")
+    return {"edition": edition, "file": f"w/{name}", "sha256": sha256(y), "size": len(y), "schema": "Version: 1.2",
+            "hash_key": keys[0], "patch_names": names, "origin": "exe_inject build-ps3: new values only"}
+
+
 def files_of(root):
     out = {}
     for d, ds, fs in os.walk(root):
@@ -150,9 +166,9 @@ def gen(a):
            "image": [{"edition": "psn", "title_id": "NPJB00337", "pkg_content_id": "JP0700-NPJB00337_00-IMAS2HDDBOOT0000",
                       "usrdir_marker": marker, "marker_sha256": sha256(open(pr[marker], "rb").read())}],
            "key_table": {"source": "eboot_elf", "len": TABLE_LEN, "sha256": sha256(table),
-                         "offset_hint": f"0x{TABLE_OFF:X}",
-                         "table_source": "the user's own RPCS3-decrypted EBOOT.elf: 1152 B at offset_hint or found by "
-                                         "scan, accepted only on a sha256 match; never cached or shipped"},
+                         "offset_hints": {"psn": f"0x{TABLE_OFF:X}"},
+                         "table_source": "the user's own RPCS3-decrypted EBOOT.elf: 1152 B at the edition's offset hint "
+                                         "or found by scan, accepted only on a sha256 match; never cached or shipped"},
            "dlc_roots": ["<NPJB00337 USRDIR>/dlc", "<dev_hdd0/game>/BLJS10083/USRDIR/dlc"],
            "files": [], "whole": [],
            "excluded": [{"target": "resource/im2_font*.nut|nfh (loose)",
@@ -190,17 +206,28 @@ def gen(a):
                 {"src_origin": "THE iDOLM@STER 2 ALL DLC.pkg (BLJS10083 DLC; package provided by the dev team, "
                                "not a PSN retail download)"})
     os.makedirs(os.path.join(a.out, "w"))
-    y = open(a.exe_yml, "rb").read()
-    open(os.path.join(a.out, "w", "imas2_kor_exe.yml"), "wb").write(y)
-    man["rpcs3_patch"] = {"file": "w/imas2_kor_exe.yml", "sha256": sha256(y), "size": len(y), "schema": "Version: 1.2",
-                          "hash_key": "PPU-f942422316f63af3d64dc940b35ec8fddade0f44",
-                          "patch_names": ["iM@S2 KOR exe strings (imas2_kr_localization exe_inject.py)"],
-                          "edition": "psn", "origin": "exe_inject build-ps3: alloc + be32/be16 new values only"}
+    man["rpcs3_patch"] = [yml_entry(a.exe_yml, "psn", a.out)]
+    if a.disc_hashes:                                             # disc edition BLJS10083 (same data as PSN)
+        disc = {k.lower(): v for k, v in json.load(open(a.disc_hashes, encoding="utf-8")).items()}
+        dm = disc[marker]["sha256"]
+        if dm != man["image"][0]["marker_sha256"]:
+            sys.exit("disc marker differs from PSN - the disc data is not the PSN data")
+        man["image"].append({"edition": "disc", "title_id": "BLJS10083", "usrdir_marker": marker, "marker_sha256": dm,
+                             "label": "BLJS10083 (disc, VERSION 01.01 / APP_VER 01.00)"})
+        man["key_table"]["offset_hints"]["disc"] = a.disc_offset
+        both = 0
+        for e in man["files"]:
+            t = e["target"].lower()
+            if t.startswith("dlc/") or disc.get(t, {}).get("sha256") == e["src_sha256"]:
+                e["edition"] = "both"                             # DLC: one BLJS10083 package for both editions
+                both += 1
+        print(f"disc: {both}/{len(man['files'])} entries have the same source in the disc USRDIR")
+        man["rpcs3_patch"].append(yml_entry(a.disc_yml, "disc", a.out))
     json.dump(man, open(os.path.join(a.out, "manifest.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     allf = man["files"]
     from collections import Counter
     print(f"files {len(allf)} (dlc {sum(1 for e in allf if e['target'].startswith('dlc/'))}) "
-          f"rpcs3_patch {man['rpcs3_patch']['size']} B")
+          f"rpcs3_patch {[(r['edition'], r['size']) for r in man['rpcs3_patch']]}")
     print("transforms:", Counter((e["src_transform"], e["out_transform"], e.get("out_prefix")) for e in allf))
     print(f"ADD bytes {sum(e['add_bytes'] for e in allf):,} / out {sum(e['out_size'] for e in allf):,}; "
           f"flagged runs {sum(e['add_flagged_runs'] for e in allf)}")
@@ -258,7 +285,8 @@ def verify(a):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=("gen", "verify"))
-    for o in ("--pristine", "--pristine-dlc", "--deployed", "--table", "--out", "--patch", "--work", "--exe-yml"):
+    for o in ("--pristine", "--pristine-dlc", "--deployed", "--table", "--out", "--patch", "--work", "--exe-yml",
+              "--disc-hashes", "--disc-offset", "--disc-yml"):
         ap.add_argument(o)
     a = ap.parse_args()
     (gen if a.cmd == "gen" else verify)(a)
