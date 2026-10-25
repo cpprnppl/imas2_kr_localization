@@ -131,17 +131,18 @@ def rebuild(orig, e, kdbytes, table):
     return out
 
 
-def yml_entry(path, edition, out):
+def yml_entry(path, edition, out, variant=None):
     """Our RPCS3 patch file for one edition: copied to w/, hash key and patch names read from the yml."""
     y = open(path, "rb").read()
-    name = f"imas2_kor_exe_{edition}.yml"
+    name = f"imas2_kor_exe_{edition}{'_' + variant if variant else ''}.yml"
     open(os.path.join(out, "w", name), "wb").write(y)
     lines = y.decode("utf-8").splitlines()
     keys = [l[:-1] for l in lines if l.startswith("PPU-") and l.endswith(":")]
     names = [l.strip()[1:-2] for l in lines if l.startswith('  "') and l.endswith('":')]
     if len(keys) != 1 or not names:
         sys.exit(f"{path}: expected one PPU key and patch names")
-    return {"edition": edition, "file": f"w/{name}", "sha256": sha256(y), "size": len(y), "schema": "Version: 1.2",
+    return {"edition": edition, **({"variant": variant} if variant else {}),
+            "file": f"w/{name}", "sha256": sha256(y), "size": len(y), "schema": "Version: 1.2",
             "hash_key": keys[0], "patch_names": names, "origin": "exe_inject build-ps3: new values only"}
 
 
@@ -212,8 +213,8 @@ def gen(a):
         dm = disc[marker]["sha256"]
         if dm != man["image"][0]["marker_sha256"]:
             sys.exit("disc marker differs from PSN - the disc data is not the PSN data")
-        man["image"].append({"edition": "disc", "title_id": "BLJS10083", "usrdir_marker": marker, "marker_sha256": dm,
-                             "label": "BLJS10083 (disc, VERSION 01.01 / APP_VER 01.00)"})
+        man["image"].append({"edition": "disc", "title_id": "BLJS10083", "app_ver": "01.00", "usrdir_marker": marker,
+                             "marker_sha256": dm, "label": "BLJS10083 (disc, VERSION 01.01 / APP_VER 01.00)"})
         man["key_table"]["offset_hints"]["disc"] = a.disc_offset
         both = 0
         for e in man["files"]:
@@ -223,6 +224,12 @@ def gen(a):
                 both += 1
         print(f"disc: {both}/{len(man['files'])} entries have the same source in the disc USRDIR")
         man["rpcs3_patch"].append(yml_entry(a.disc_yml, "disc", a.out))
+        if a.update_yml:              # disc + HDD update 01.02: same game data, own EBOOT (dev_hdd0/game/BLJS10083)
+            man["image"].append({"edition": "disc_upd", "title_id": "BLJS10083", "app_ver": "01.02",
+                                 "usrdir_marker": marker, "marker_sha256": dm,
+                                 "label": "BLJS10083 (disc + HDD update, APP_VER 01.02)"})
+            man["key_table"]["offset_hints"]["disc_upd"] = a.update_offset
+            man["rpcs3_patch"].append(yml_entry(a.update_yml, "disc_upd", a.out))
     json.dump(man, open(os.path.join(a.out, "manifest.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     allf = man["files"]
     from collections import Counter
@@ -286,7 +293,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=("gen", "verify"))
     for o in ("--pristine", "--pristine-dlc", "--deployed", "--table", "--out", "--patch", "--work", "--exe-yml",
-              "--disc-hashes", "--disc-offset", "--disc-yml"):
+              "--disc-hashes", "--disc-offset", "--disc-yml", "--update-offset", "--update-yml"):
         ap.add_argument(o)
     a = ap.parse_args()
     (gen if a.cmd == "gen" else verify)(a)

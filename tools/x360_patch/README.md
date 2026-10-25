@@ -96,3 +96,6 @@ python -I tools/x360_patch/build_iso.py "C:\Users\jackfilm\Desktop\imas2_360\Ido
   - exe 문자열: 디스크용 RPCS3 패치(PPU-85a362f4…)를 따로 싣는다.
   - 디스크 게임 폴더는 Joliet 이름(소문자)으로 풀어야 RPCS3가 파일을 찾는다.
   - 첫 실행 때 `dev_hdd0\game\BLJS10083DATA`(약 3.8 GB 설치 캐시)가 생긴다.
+- **디스크 + HDD 업데이트 01.02 (`disc_upd`)**: 업데이트(`dev_hdd0\game\BLJS10083`)에는 EBOOT.BIN·PARAM.SFO·아이콘과 USRDIR/dlc만 있고 게임 데이터 파일은 없다. 업데이트의 DLC 2,950개는 개발팀 DLC 패키지와 전부 같다. 그래서 diff는 그대로 적용된다.
+  - 판 구분: 설치기가 APP_VER(업데이트가 있으면 HDD 쪽 PARAM.SFO)로 `disc`와 `disc_upd`를 구분한다.
+  - 업데이트를 깐 경우 테스터가 복호화할 EBOOT는 `dev_hdd0\game\BLJS10083\USRDIR\EBOOT.BIN`(업데이트판)이다. 디스크 것이 아니다.
