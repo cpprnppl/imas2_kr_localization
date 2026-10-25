@@ -72,7 +72,8 @@ python -I tools/x360_patch/build_iso.py "C:\Users\jackfilm\Desktop\imas2_360\Ido
 ## PC 포트 최종 패치 데이터 (gen_patch.py, 배포 전 · 빌드만)
 - `gen_patch.py`: 사용자 원본 360 파일에 대한 KDF1 diff(`kd.py`) + 우리 파일 통째(`retry_text.bin`, `difficulty_text.bin`, `kor_exe_strings.bin` KXS2) + `manifest.json`.
   - 디스크 항목은 원본 ISO 파일 목록에서, DLC는 원본 패키지 파일 목록에서만 만든다(game_kor·content_kor 폴더를 훑지 않음 → 백업 파일이 섞이지 않음).
-  - 원본이 암호화돼 있으면 복호화본을 diff 원본으로 쓴다(`src_transform: "xcrypt"`). 384바이트 표는 `--table`로 로컬에서만 받고, 매니페스트에는 rva·len·sha256만 적는다(`table_source: "TBD"`, 사용자 결정 대기). 출력·로그·커밋에 표 바이트를 넣지 않는다.
+  - 원본이 암호화돼 있으면 복호화본을 diff 원본으로 쓴다(`src_transform: "xcrypt"`). 384바이트 표는 `--table`로 로컬에서만 받고, 매니페스트에는 rva·len·sha256만 적는다. 출력·로그·커밋에 표 바이트를 넣지 않는다.
+  - **표 출처(확정)**: 설치기가 사용자 본인의 default.xex 복호화 이미지에서 RVA 0xB5430의 384바이트를 읽는다. sha256이 맞을 때만 쓴다.
   - 모든 해시는 SHA-256. ADD 감사: 원본과 2×BLOCK 이상 겹치는 ADD 실행이 있으면 표시한다(0이어야 함).
 - `apply_patch.py`: 참조 적용기(실제 설치기는 imas2pc 공유 코어). 원본 해시 확인 → 적용 → 결과 해시 확인.
 - `verify_patch.py`: 원본 ISO 해시 → 생성 → 원본 ISO를 임시 폴더에 풀고 DLC 사본을 만듦 → 적용 → game_kor·content_kor와 전수 sha256 비교 → 원본 ISO 해시.
@@ -82,7 +83,10 @@ python -I tools/x360_patch/build_iso.py "C:\Users\jackfilm\Desktop\imas2_360\Ido
 - 사용자 결정(2026-10-25 "B"): PS3 한글 패치도 diff 패처로 배포한다. 대상은 PSN NPJB00337이다. 디스크판 BLJS10083은 매니페스트에 자리만 두고(`versions.disc = null`), 디스크 표본이 생기면 채운다.
 - diff 원본(순정 참조): `Desktop\rpcs3_pristine`. RPCS3 프로그램만 복사한 곳에 원본 PKG 2개를 RPCS3 설치기로 깔았다. 해시 목록은 `pristine_sha256.json`이다. 읽기 전용으로 둔다.
 - 대상은 순정 설치 파일 가운데 배포 상태에서 **내용**이 바뀐 것뿐이다. 암호화 원본의 평문 사본에 불과한 파일은 제외한다. 순정에 없는 파일(백업, 도구 산출물, 낱개 폰트)은 읽지 않는다.
-- 변환: `src_transform`(none|xcrypt, 표 조각 `table_slice`)으로 원본을 풀고 KDF1 diff를 적용한다. `dst_transform`(none|xcrypt, `dst_prefix` orig|zero)으로 원본의 키와 풋터를 써서 다시 암호화한다. 원본 바이트와 키 표는 출력에 넣지 않는다. 키 표는 사용자 EBOOT.elf의 위치·길이·sha256만 적는다(`table_source: "TBD"`).
+- 변환: `src_transform`(none|xcrypt_ps3:n, 1,152바이트 표의 n번째 384바이트 조각)으로 원본을 풀고 KDF1 diff를 적용한다. `out_transform`(none|xcrypt_ps3, `out_prefix` orig|zero)으로 원본의 키와 풋터를 써서 다시 암호화한다. 원본 바이트와 키 표는 출력에 넣지 않는다.
+  - **표 출처(확정)**: 설치기가 사용자 본인이 RPCS3로 복호화한 EBOOT.elf에서 0x575698의 1,152바이트를 읽는다(없으면 스캔). sha256 9678f64b…와 맞을 때만 쓰고, 캐시하지 않는다.
 - **DLC 주의**: DLC 원본 해시는 개발팀이 제공한 패키지 `THE iDOLM@STER 2 ALL DLC.pkg`(PSN 판매 다운로드 아님)에서 뽑았다. 다른 경로로 받은 DLC 파일은 해시가 다를 수 있고, 그런 파일은 건너뛴다.
 - 낱개 폰트(`resource\im2_font*`)는 넣지 않는다(`excluded`). 순정 PKG에 없는 파일이고 게임도 읽지 않는다. 게임이 쓰는 폰트는 initialFix.mpc와 initialTemp.mpc에 넣은 것이고, 이 두 파일은 diff로 들어간다.
 - exe 문자열은 `imas2_kor_exe.yml`(RPCS3 패치, PSN PPU 해시 전용)을 통째로 싣는다. 새 값만 들어 있다.
+- **RPCS3 실행 안내(테스터)**: RPCS3는 `--no-gui`로 실행하지 않는다(부팅 직후 거의 항상 멈춤). 일반(GUI) 모드로 실행하고, 부팅 직후(약 3~4초) 멈추면 1~2분 기다렸다가 다시 실행한다. 성공률은 약 50%다. 게임별 커스텀 설정은 필요 없고, 전역 LLVM 설정을 권장한다.
+  - 근거(ui 부팅 시험): `--no-gui` 0/4, GUI 전역 LLVM 4/7. 멈춤 원인은 게임 그리기 스레드의 null 읽기 경합이라 설정으로는 고칠 수 없다.

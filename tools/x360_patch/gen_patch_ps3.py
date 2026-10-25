@@ -150,7 +150,9 @@ def gen(a):
            "image": [{"edition": "psn", "title_id": "NPJB00337", "pkg_content_id": "JP0700-NPJB00337_00-IMAS2HDDBOOT0000",
                       "usrdir_marker": marker, "marker_sha256": sha256(open(pr[marker], "rb").read())}],
            "key_table": {"source": "eboot_elf", "len": TABLE_LEN, "sha256": sha256(table),
-                         "offset_hint": f"0x{TABLE_OFF:X}", "table_source": "TBD"},
+                         "offset_hint": f"0x{TABLE_OFF:X}",
+                         "table_source": "the user's own RPCS3-decrypted EBOOT.elf: 1152 B at offset_hint or found by "
+                                         "scan, accepted only on a sha256 match; never cached or shipped"},
            "dlc_roots": ["<NPJB00337 USRDIR>/dlc", "<dev_hdd0/game>/BLJS10083/USRDIR/dlc"],
            "files": [], "whole": [],
            "excluded": [{"target": "resource/im2_font*.nut|nfh (loose)",

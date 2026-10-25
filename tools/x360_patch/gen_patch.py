@@ -29,6 +29,7 @@ WHOLE = {                                     # our own files at disc root: name
     "difficulty_text.bin": "exe_inject port-texts, webapp row gamedata:system:initialFix#x14:war_144_pc",
     "special_text.bin": "exe_inject port-texts, S4U special idol set selection (Korean sentences, UTF-16BE + NUL)",
     "omi_home_text.bin": "exe_inject port-texts, amulet outing go-home question (Korean, UTF-16BE + NUL)",
+    "ryugu_text.bin": "exe_inject port-texts, Ryugu A1 entry yes/no (3 Korean sentences, UTF-16BE + NUL)",
     "kor_exe_strings.bin": "exe_inject build360, KXS2 (addr/len/sha256 prefix/new only, no original bytes)",
     "ps3_revive.bin": "imas2pc tools/ps3feat/ps3_overlay.py stage_retry (b341c9d): schedule_id + revive_type as decimal "
                       "text, derived from PS3 NPJB00337 game/produce/difficulty_nor.mpc schedule_info/schedule.xmb; "
@@ -86,7 +87,7 @@ def diff_entry(target, orig, new, table, out, extra=None):
          "src_transform": name, "diff": f"d/{osha}.kd", "out_sha256": osha, "out_size": len(new),
          "add_bytes": add, "add_flagged_runs": len(flagged)}
     if name == "xcrypt":
-        e["table_source"] = "TBD"
+        e["table_source"] = "cipher_table"
     if extra:
         e.update(extra)
     return e
@@ -104,7 +105,8 @@ def main():
     man = {"format": "imas2kor-patch/1",
            "image": {"title_id": "4E4D0817"},
            "cipher_table": {"rva": f"0x{TABLE_RVA:X}", "len": TABLE_LEN, "sha256": sha256(table),
-                            "table_source": "TBD"},
+                            "table_source": "the user's own default.xex (decrypted image): 384 B at this RVA, "
+                                            "accepted only on a sha256 match; never shipped"},
            "files": [], "whole": [], "dlc": [],
            "excluded": [{"target": k, "reason": v} for k, v in EXCLUDED.items()]}
     with open(a.iso, "rb") as f:
