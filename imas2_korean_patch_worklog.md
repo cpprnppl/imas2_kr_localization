@@ -1661,6 +1661,19 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
     그 루틴이 그리기 스레드를 기다리게 하거나 요청을 큐에서 빼는 수정. 1일 추정을 넘는 작업.
   - 부수: 시험 도구 rpcs3_drive.py(잠금 안에서 yml 설치 → GUI 부팅 → 명령 파일로 SendInput·F12 스크린숏, 끝나면 복원) — RPCS3 F12 스크린숏은 데스크톱 캡처와 달리 정상 화면이 찍힌다.
     키 입력은 창이 전면일 때만 보내며, 윈도 전면 제한으로 가끔 건너뛴다. 타이틀 대기 화면은 일정 시간 뒤 어트랙트 데모(아이돌 프로필 카드, 일본어 — 웹앱 행 없음)로 넘어간다.
+- **PS3 디스크판(BLJS10083) EBOOT 한글 문자열 패치**(2026-10-25, KOR 지시 — 사용자 제공 Downloads\[BLJS10083].iso, ISO·PSN 설치본 불변):
+  - 추출: 읽기 전용 ISO9660 추출기(스크래치패드 iso_extract.py)로 Desktop\imas2_disc_BLJS10083에 풀었다. **파일명은 Joliet에서 읽어야 한다** —
+    ISO9660 기본 이름(대문자)으로 풀면 RPCS3가 resource/scene/boot.mpc를 못 찾아(ENOENT 반복) 검은 화면에서 멈춘다.
+  - 복호화: `rpcs3 --no-gui --decrypt`로 사본 EBOOT.BIN → EBOOT.elf(6,845,440B, sha256 6526dc6f…). PPU 해시 PPU-85a362f44bcf1d0a748838496476d88045f2fe84,
+    Category DG, APP_VER=01.00 VERSION=01.01.
+  - PSN과 **다른 빌드**: 코드·데이터 모두 다름(세그먼트0 0x580 작음). 키 테이블 1,152B는 바이트 동일(sha256 9678f64b…)하나 위치 0x574f18(PSN 0x575698).
+    PSN yml 자리 810곳 중 780곳의 원본 바이트가 다름 → PSN yml을 그대로 쓰면 안 된다.
+  - exe_inject build-ps3 --disc-elf/--disc-ppu 추가: PSN 문자열 위치마다 디스크판에서 같은 원문 UTF-16 문자열(앞 2바이트까지 일치)을 찾고,
+    여러 곳이면 가장 가까운 단일 대응 항목의 이동량으로 고른다(중복 대응 거부). 228곳 중 222곳 대응(나머지 6곳은 PSN도 건너뛰는 SJIS).
+    → out_exe\imas2_kor_exe_disc.yml(sha256 fde58423…, 949항목 — PSN yml과 값 집합 동일, 주소만 다름, 제자리 198·재배치 24).
+  - 검증(§41 방식, 디스크 섹션을 imported_patch·patch_config에 덧붙였다가 복원): "Applied … (<- 811)" 매회. 타이틀 GUI 2/3·--no-gui 0/1 —
+    실패는 모두 기존 부팅 경합(디스크판 PC 0x44b338 = 같은 함수, PSN 대비 −0x720). 디스크판은 첫 실행 때 dev_hdd0\game\BLJS10083DATA(설치 캐시 3.8GB)를 만든다 —
+    시험 산출물이라 삭제했다. pc-360-dlc에 해시·키 테이블·yml 전달(PS3 패처 디스크 슬롯).
 
 ## 42. DLC 그림 주입 경로 — 카탈로그·로고·재킷 + 메인 메뉴 배경 ad_bg (2026-10-23, KOR 지시)
 

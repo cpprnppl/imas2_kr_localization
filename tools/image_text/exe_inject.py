@@ -334,8 +334,28 @@ class Eboot:
                 return off + v - va
 
 
+def disc_hits(psn, disc, fo, jp):
+    """PSN EBOOT 파일 오프셋 fo의 원문 문자열이 디스크판 EBOOT에 있는 오프셋 전부.
+    앞 2바이트까지 같아야 한다(더 긴 문자열의 꼬리와 혼동 방지)."""
+    for s in (jp, jp.strip("　")):
+        pat = u16z(s)
+        if psn[fo:fo + len(pat)] != pat:
+            continue
+        hits, i = [], disc.find(pat)
+        while i >= 0:
+            if i % 2 == 0 and disc[i - 2:i] == psn[fo - 2:fo]:
+                hits.append(i)
+            i = disc.find(pat, i + 2)
+        return hits
+    return []
+
+
 def build_ps3(a):
-    eb = Eboot()
+    disc = bool(a.disc_elf)
+    if disc and not a.disc_ppu:
+        sys.exit("--disc-elf에는 --disc-ppu(디스크판 PPU 해시, RPCS3 로그의 'PPU executable hash')가 필요")
+    eb = Eboot(a.disc_elf) if disc else Eboot()
+    psn = Eboot().d if disc else None
     tr = load_tr(a.tr)
     mapping = font_set()
     rows = json.load(open(TEXTS, encoding="utf-8"))
@@ -348,6 +368,28 @@ def build_ps3(a):
                                           if v["grp"] == "eboot_ps3" else [])
         for loc in locs:
             items.append((k, v, t, loc))
+    if disc:   # 디스크판(BLJS10083)은 빌드가 달라 오프셋이 다르다 → 같은 원문 문자열 위치로 옮긴다
+        hits = {id(loc): disc_hits(psn, eb.d, loc["offset"], v["jp"]) if loc.get("enc", "u16") == "u16" else []
+                for k, v, t, loc in items}
+        # 1차: 디스크판에 한 군데만 있는 문자열 → 그 위치. 2차: 여러 군데면 가장 가까운 1차 항목의 이동량을 기준으로 고른다
+        delta = sorted((loc["offset"], hits[id(loc)][0] - loc["offset"]) for _k, _v, _t, loc in items if len(hits[id(loc)]) == 1)
+
+        def pick(loc):
+            h = hits[id(loc)]
+            if len(h) <= 1:
+                return h[0] if h else None
+            d = min(delta, key=lambda x: abs(x[0] - loc["offset"]))[1] if delta else 0
+            return min(h, key=lambda x: abs(x - (loc["offset"] + d)))
+        moved, seen = [], {}
+        for k, v, t, loc in items:
+            do = pick(loc)
+            if do is None or do in seen:
+                print(f"  [디스크판 위치 없음/중복] {k} (PSN 0x{loc['offset']:x}{', 겹침 ' + seen[do] if do in seen else ''})")
+                continue
+            seen[do] = k
+            moved.append((k, v, t, {**loc, "offset": do}))
+        print(f"디스크판 위치 대응: {len(moved)}/{len(items)}")
+        items = moved
     vas = {}
     for k, v, t, loc in items:
         vas[eb.f2v(loc["offset"])] = (k, v, t, loc)
@@ -401,20 +443,21 @@ def build_ps3(a):
             patches.append((eb.f2v(w), struct.pack(">I", at), f"{k} 포인터"))
         rep["reloc"] += 1
     os.makedirs(OUT, exist_ok=True)
-    lines = ["Version: 1.2", "", f"{PS3_PPU_HASH}:", '  "iM@S2 KOR exe strings (imas2_kr_localization exe_inject.py)":',
-             "    Games:", '      "THE iDOLM@STER 2":', "        NPJB00337: [ All ]",
+    ppu, serial, sfx = (a.disc_ppu, "BLJS10083", "_disc") if disc else (PS3_PPU_HASH, "NPJB00337", "")
+    lines = ["Version: 1.2", "", f"{ppu}:", '  "iM@S2 KOR exe strings (imas2_kr_localization exe_inject.py)":',
+             "    Games:", '      "THE iDOLM@STER 2":', f"        {serial}: [ All ]",
              "    Author: \"imas2 KOR\"", "    Notes: \"실행 파일 하드코딩 문구 한글화 (직접 등록 한글)\"",
              "    Patch Version: 1.0", "    Patch:"]
     if cur > free_lo:
         lines.append(f"      - [ alloc, 0x{free_lo:08x}, 0x{a.alloc_size:x} ] # 재배치 문자열 블록")
     for va, b, note in patches:
         lines += ps3_words(va, b, note)
-    open(os.path.join(OUT, "imas2_kor_exe.yml"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
+    open(os.path.join(OUT, f"imas2_kor_exe{sfx}.yml"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
     rep["font_missing"] = "".join(sorted(missing))
     rep["free"] = [hex(free_lo), hex(free_hi), hex(cur)]
-    json.dump(rep, open(os.path.join(OUT, "report_ps3.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"PS3: 패치 {len(patches)}줄 (제자리 {rep['inplace']} · 재배치 {rep['reloc']} · 초과 {len(rep['overflow'])}"
-          f" · SJIS 생략 {len(rep['skip_enc'])}) 폰트 매핑 누락 {len(missing)} → {OUT}\\imas2_kor_exe.yml")
+    json.dump(rep, open(os.path.join(OUT, f"report_ps3{sfx}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"PS3{sfx}: 패치 {len(patches)}줄 (제자리 {rep['inplace']} · 재배치 {rep['reloc']} · 초과 {len(rep['overflow'])}"
+          f" · SJIS 생략 {len(rep['skip_enc'])}) 폰트 매핑 누락 {len(missing)} → {OUT}\\imas2_kor_exe{sfx}.yml")
     return 0
 
 
@@ -565,6 +608,8 @@ def main():
     ap.add_argument("--alloc-at", type=lambda x: int(x, 0), default=0x0F000000,
                     help="build-ps3: RPCS3 alloc 블록 주소(64KB 정렬, 메인 메모리 미사용 영역)")
     ap.add_argument("--alloc-size", type=lambda x: int(x, 0), default=0x10000)
+    ap.add_argument("--disc-elf", help="build-ps3: 디스크판(BLJS10083) RPCS3 복호 EBOOT.elf → imas2_kor_exe_disc.yml")
+    ap.add_argument("--disc-ppu", help="build-ps3 --disc-elf: 디스크판 PPU 해시(PPU-…)")
     a = ap.parse_args()
     return {"analyze": analyze, "build360": build360, "deploy360": deploy360, "build-ps3": build_ps3,
             "install-ps3": install_ps3, "uninstall-ps3": uninstall_ps3, "port-texts": port_texts, "retry-text": port_texts}[a.cmd](a)
