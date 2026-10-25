@@ -443,7 +443,7 @@ def build_ps3(a):
             patches.append((eb.f2v(w), struct.pack(">I", at), f"{k} 포인터"))
         rep["reloc"] += 1
     os.makedirs(OUT, exist_ok=True)
-    ppu, serial, sfx = (a.disc_ppu, "BLJS10083", "_disc") if disc else (PS3_PPU_HASH, "NPJB00337", "")
+    ppu, serial, sfx = (a.disc_ppu, "BLJS10083", a.disc_tag) if disc else (PS3_PPU_HASH, "NPJB00337", "")
     lines = ["Version: 1.2", "", f"{ppu}:", '  "iM@S2 KOR exe strings (imas2_kr_localization exe_inject.py)":',
              "    Games:", '      "THE iDOLM@STER 2":', f"        {serial}: [ All ]",
              "    Author: \"imas2 KOR\"", "    Notes: \"실행 파일 하드코딩 문구 한글화 (직접 등록 한글)\"",
@@ -610,6 +610,7 @@ def main():
     ap.add_argument("--alloc-size", type=lambda x: int(x, 0), default=0x10000)
     ap.add_argument("--disc-elf", help="build-ps3: 디스크판(BLJS10083) RPCS3 복호 EBOOT.elf → imas2_kor_exe_disc.yml")
     ap.add_argument("--disc-ppu", help="build-ps3 --disc-elf: 디스크판 PPU 해시(PPU-…)")
+    ap.add_argument("--disc-tag", default="_disc", help="build-ps3 --disc-elf: 출력 이름 꼬리(01.02 업데이트판은 _disc102)")
     a = ap.parse_args()
     return {"analyze": analyze, "build360": build360, "deploy360": deploy360, "build-ps3": build_ps3,
             "install-ps3": install_ps3, "uninstall-ps3": uninstall_ps3, "port-texts": port_texts, "retry-text": port_texts}[a.cmd](a)

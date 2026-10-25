@@ -1674,6 +1674,13 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   - 검증(§41 방식, 디스크 섹션을 imported_patch·patch_config에 덧붙였다가 복원): "Applied … (<- 811)" 매회. 타이틀 GUI 2/3·--no-gui 0/1 —
     실패는 모두 기존 부팅 경합(디스크판 PC 0x44b338 = 같은 함수, PSN 대비 −0x720). 디스크판은 첫 실행 때 dev_hdd0\game\BLJS10083DATA(설치 캐시 3.8GB)를 만든다 —
     시험 산출물이라 삭제했다. pc-360-dlc에 해시·키 테이블·yml 전달(PS3 패처 디스크 슬롯).
+  - **디스크 + 01.02 업데이트**(KOR 지시 — 사용자 Downloads\BLJS10083.zip = HDD 게임 데이터 폴더, CATEGORY=GD, APP_VER=01.02):
+    dev_hdd0\game\BLJS10083\USRDIR\EBOOT.BIN이 있으면 RPCS3는 디스크 대신 그것을 부팅한다 → DLC·업데이트를 받은 디스크 사용자는 세 번째 빌드.
+    - zip에서 EBOOT.BIN(6,848,224B, sha256 88053426…)·PARAM.SFO만 읽어 사본으로 복호화 → EBOOT.elf 6,845,488B(sha256 3bdb775b…), PSN·01.01 디스크와 모두 다른 빌드.
+      PPU 해시 PPU-a7b5556e5981e04d43313cc59badc78786ebd6a1, 키 테이블 바이트 동일(sha256 9678f64b…) 위치 0x575ac8.
+    - build-ps3 --disc-tag 추가(같은 시리얼이라 출력 이름 분리) → out_exe\imas2_kor_exe_disc102.yml(sha256 e12e12da…, 222/228 대응, 949항목 값 PSN과 동일).
+    - 검증: 디스크(Joliet 추출) + dev_hdd0\game\BLJS10083에 01.02 EBOOT·PARAM.SFO를 시험 중에만 두고 GUI 2/2 타이틀, "Applied … (<- 811)" 업데이트 해시로 확인.
+      시험 뒤 BLJS10083·BLJS10083DATA 삭제(시험 전 둘 다 없었음).
 
 ## 42. DLC 그림 주입 경로 — 카탈로그·로고·재킷 + 메인 메뉴 배경 ad_bg (2026-10-23, KOR 지시)
 
