@@ -1681,6 +1681,15 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
     - build-ps3 --disc-tag 추가(같은 시리얼이라 출력 이름 분리) → out_exe\imas2_kor_exe_disc102.yml(sha256 e12e12da…, 222/228 대응, 949항목 값 PSN과 동일).
     - 검증: 디스크(Joliet 추출) + dev_hdd0\game\BLJS10083에 01.02 EBOOT·PARAM.SFO를 시험 중에만 두고 GUI 2/2 타이틀, "Applied … (<- 811)" 업데이트 해시로 확인.
       시험 뒤 BLJS10083·BLJS10083DATA 삭제(시험 전 둘 다 없었음).
+- **PS3 디스크판 S4U 튕김 조사**(2026-10-26~28, 테스터 ssanman 보고 — 스페셜 아이돌 아마가세 토우마/블래키시 961 SP/Alice or Guilty/후지산 엔젤 → □ 스테이지로):
+  - 테스터 로그: 게임 자체 abort(01.02 0x492f30 = PSN 0x492b28과 같은 힙 리스트 무결성 검사, 호출 사슬도 null 검사 시험 때와 같음) 뒤 _sys_process_exit(1). 3회 모두 S4U 곡 선택 진입·미리듣기 중.
+  - 테스터 캐시의 s4u_fullpack.mpc(7,452,688)·produce_common.mpc(2,401,328)·title.mpc(4,103,776)는 test-4 패치 출력과 크기 일치 → 패치본이 실제로 읽힘.
+  - 정적 조사: s4u_fullpack은 키 도움말·세이브 문구·TIPS뿐(스페셜 세트 데이터 없음, 문자열 합계 −48B) → 가능성 낮음. □ 때 읽는 AoG 파일 3개(dance\dan_aog_1/3.mpc 평문, songinfo\aog\lyrics_aog.xmb +64B)가 남은 용의자.
+    세트 이름 길이(유닛 이름 16B, 의상·스테이지 이름 같거나 짧음)는 고정 필드 넘침 후보 아님.
+  - **설치기 캐시 누락**: 디스크판은 첫 실행 때 dev_hdd0\game\BLJS10083DATA(약 3.8GB)에 리소스를 복사해 거기서 읽는데, 설치기(kor_patch.cpp:602)는 디스크 USRDIR·DLC만 패치·백업(PS3_GAME\imas2kor_backup)한다.
+    → 패치 전에 한 번 실행한 사용자는 캐시 파일이 일본어로 남고, [원래대로 되돌리기]도 캐시를 되돌리지 않는다(KOR·감독에 보고).
+  - A/B 재현은 보류: 키 입력은 RPCS3 창이 전면이어야 게임 패드에 들어간다(PostMessage는 F12 단축키만 통함, Background input 켜도 동일). 사용자가 PC를 쓰는 중에는 전면 전환이 막힌다.
+    테스터용 확인 절차(전체 원래대로 + 캐시 폴더 이름 바꾸기 → AoG 3개만 원래대로)는 KOR에 전달.
 
 ## 42. DLC 그림 주입 경로 — 카탈로그·로고·재킷 + 메인 메뉴 배경 ad_bg (2026-10-23, KOR 지시)
 
