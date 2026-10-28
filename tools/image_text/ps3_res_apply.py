@@ -44,6 +44,7 @@ from xmb_text import parse_xmb, collect_texts, rebuild_xmb  # noqa: E402
 import gamedata_apply as G  # noqa: E402
 import tile_banner as TB  # noqa: E402
 import staffroll_layout as SL  # noqa: E402
+import profile_card as PCARD  # noqa: E402
 from dlc_inject import Cipher, KEYDIR, MAGIC  # noqa: E402
 
 G.set_plat("ps3")
@@ -121,14 +122,14 @@ def candidates(rescan=False):
                 rels |= {os.path.relpath(os.path.join(dp, fn), PATCHED_IMG) for fn in fns}
         rels |= set(TB.RELS)          # 레슨 결과 배너 사본(gscript\adv_common 포함 — NEVER 예외)
         rels |= set(DANCE)            # 라이브 가사 dance pac(매니페스트 이후 추가된 대상)
-        rels |= set(STAFFROLL)
+        rels |= set(STAFFROLL) | {PCARD.REL}
         return sorted(r for r in rels if (not NEVER.search(r) or r in TB.RELS) and os.path.exists(os.path.join(JP_ROOT, r)))
     rels = set(G.targets()) | set(NPC_FILES) | set(STANDALONE)
     if os.path.isdir(PATCHED_IMG):
         for dp, _dn, fns in os.walk(PATCHED_IMG):
             for fn in fns:
                 rels.add(os.path.relpath(os.path.join(dp, fn), PATCHED_IMG))
-    rels |= set(TB.RELS) | set(DANCE) | set(STAFFROLL)
+    rels |= set(TB.RELS) | set(DANCE) | set(STAFFROLL) | {PCARD.REL}
     return sorted(r for r in rels if (not NEVER.search(r) or r in TB.RELS) and os.path.exists(os.path.join(JP_ROOT, r)))
 
 
@@ -275,6 +276,10 @@ def build_one(rel, tr, st):
         new = SL.relayout(base, STAFFROLL[rel])
         st["staffroll"] += new != base
         base = new
+    if rel == PCARD.REL:    # 멤버 선택 카드 이름 글자 크기 30→26(profile_card.py, 풀네임용)
+        new = PCARD.name_size(base)
+        st["profile"] += new != base
+        base = new
     if rel in TB.RELS:      # 레슨·커뮤 결과 배너: 타일(이미지 층) + SWG 칸 배정(tile_banner.py)
         base, nb = TB.patch_container(base, orig=orig, log=lambda *a: None, with_tiles=rel in TB.DIRECT)
         st["banner"] += nb
@@ -375,6 +380,8 @@ def validate_all(log=print):
             base, _img = image_layer(rel, orig)
             if rel in STAFFROLL:
                 base = SL.relayout(base, STAFFROLL[rel])
+            if rel == PCARD.REL:
+                base = PCARD.name_size(base)
             if rel in TB.RELS:   # 배너 SWG 칸 배정도 기준에 포함(patch_container가 char 칸 밖 불변을 따로 검증)
                 base, _nb = TB.patch_container(base, orig=orig, log=lambda *a: None, with_tiles=rel in TB.DIRECT)
             if rel in STANDALONE:

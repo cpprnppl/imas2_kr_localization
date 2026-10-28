@@ -422,6 +422,7 @@ def build():
                 "scene\\exep_commu.mpc", "scene\\exep_init.mpc"}
     targets |= set(TB.DIRECT)            # 레슨 결과 배너 상주 사본(gscript\adv_common.mpc)
     targets |= set(SR_LAYOUT)            # 스태프롤 이름 칸 틈 0(staffroll_layout.py, SWG 행렬 제자리)
+    targets |= {"iface\\member_select.mpc"}  # 멤버 선택 카드 이름 크기 26(profile_card.py)
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
     report = {"ok": [], "skip": [], "fail": [], "unmatched": []}
@@ -451,6 +452,12 @@ def build():
                 new = SL.relayout(data, SR_LAYOUT[rel])
                 n_l, data = int(new != data), new
                 print(f"    스태프롤 칸 간격 재배치 {'적용' if n_l else '변경 없음'}")
+            if rel == "iface\\member_select.mpc":   # 멤버 선택 카드 이름 크기 30→26(같은 크기 4바이트)
+                import profile_card as PCARD
+                new = PCARD.name_size(data)
+                ch = new != data
+                n_l, data = n_l + int(ch), new
+                print(f"    프로필 이름 크기 26 {'적용' if ch else '변경 없음'}")
             data, n_x = apply_xmb(rel, data, tr, print)
             if n_tex + n_x + n_b + n_l == 0:
                 report["skip"].append(f"{rel}: 적용할 번역 없음")

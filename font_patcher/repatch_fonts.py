@@ -42,7 +42,11 @@ OUT_DIR = os.path.join(SCRIPT_DIR, "output")
 
 USR = r"C:\Users\jackfilm\Desktop\rpcs3-v0.0.39-18811-6bfb3327_win64_msvc\dev_hdd0\game\NPJB00337\USRDIR"
 FONT_PATH = r"C:\Users\jackfilm\Desktop\xenia\NotoSansCJKjp-Medium.otf"
-MAPPING_PATH = os.path.join(USR, r"resource\gscript\tools\font_mapping.json")
+# 매핑 원천 = 레포 font_mapping_src.json (2026-10-29: 뒨의 희생 슬롯을 翔→眥로 — 御手洗翔太 '翔'이 빈칸이던 문제, 사용자 요청).
+# 직접 등록판 배포(deploy_fonts --direct)는 게임 폴더 매핑 json을 동기화하지 않으므로, 게임 폴더 쪽을 기본으로 읽으면 옛 매핑으로 돌아간다.
+MAPPING_PATH = os.path.join(SCRIPT_DIR, "font_mapping_src.json")
+if not os.path.exists(MAPPING_PATH):
+    MAPPING_PATH = os.path.join(USR, r"resource\gscript\tools\font_mapping.json")
 
 # 순정 백업 (읽기 전용) — 타임스탬프 백업 전체가 동일 해시임을 확인한 원본
 PRISTINE = {

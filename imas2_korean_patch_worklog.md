@@ -1769,6 +1769,26 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
     가사는 파일이 커져 끝 여유가 생겨 무사 — READY!!(원본 끝보다 134B 밀림) 마지막 4줄 RPCS3에서 정상 표시(처음 "가사 20곡 잘림" 추정은 철회).
   - 위험 전수(새 내용이 원본 끝 0 바이트 수 안쪽까지 닿는 암호화 출력): 본편 ranker_npc, 가사 koi·mei(끝 줄 끝, 예측), PS3 DLC npc_001/003/004/007·가사 mlt·ove.
     PC 배포본은 평문 XMB라 해당 구조 없음(모델상 무관, 화면 미확인). 고칠 곳 = 재암호화 직전 끝 0 바이트를 원본 이상으로(도구, KOR 결정 대기).
+- **끝 패딩 보정 반영**(10-29, KOR (a), ebdcce6): dlc_inject.Cipher가 원본 평문 끝 0 수(tail0)를 기록하고 재암호화 때 모자란 만큼 0을 덧붙임.
+  게이트 배포 뒤 RPCS3 격리: 원래 순서 세트리스트 "미타라이 쇼타"·"이쥬인 호쿠토" 온전, 恋をはじめよう 끝 가사·곡 제목 칸(SONG 이쥬인 호쿠토) 정상.
+- **프로필 카드 풀네임 + 읽기 칸 원문 한자 + 翔 복원**(10-29, 사용자 "풀네임으로 바꾸고", "1b", "읽기칸에는 이름 원문 ㄱ", "翔 빈칸 안 나오게"):
+  - 웹앱: profile fullname 16행 = 한글 풀네임(같은 행 fullname_h에 팀이 넣은 값), fullname_h 16행 = 원문 한자 이름(天海 春香 …).
+    이력 by "Claude (사용자 결정 10-29: …)". 한자 이름은 16명 모두 원래 읽기(히라가나)보다 짧거나 같음(합 120→84 UTF-16) → 끝 패딩 문제 없음.
+  - 이름 글자 크기 30→26: tools/image_text/profile_card.py(ProCharaSelect.swg TEXT1 +8, SWG +0x15c10, 크기 30·상자 420×40 확인 후 4바이트),
+    ps3_res_apply·pcport_apply 층(빌드·검증 같은 기준). PS3 시험: "키사라기 치하야 (16)"이 "(" 앞에서 끝남.
+  - 翔: 한글 '뒨'의 희생 슬롯이 翔이었음(그래서 빈칸). 게임 원문 전체(웹앱 gamedata·xmb·dlc·exe·image + 대사 엑셀 52,255행)에 없는 한자 중
+    두 폰트 다 넓은 슬롯(25×26/25×25)인 眥(U+7725)로 뒨을 옮김. 매핑 2,359자 유지·다른 한글 슬롯 희생 0.
+    매핑 원천을 레포 font_patcher/font_mapping_src.json으로(직접 등록판 배포는 게임 폴더 매핑 json을 동기화하지 않아, 게임 쪽을 기본으로 읽으면 옛 매핑으로 돌아감).
+    repatch_fonts → nfh_convert_direct → validate_fonts PASS(비타깃 픽셀 보존·겹침 0) → deploy_fonts --direct(PS3) / deploy_pcport --font-only(PC).
+    im2_font에서 한글 42자가 아틀라스 자리만 옮겨짐(재배치, 모양 동일). qa_render의 font_l 시트 모서리 글자(斗 등)는 원본에서도 틀리게 그리는 도구 문제.
+  - 함정 2개: (1) ps3_res_apply 순정 사본 ps3_res_orig/initialFix.mpc는 폰트 주입 상태가 기준 → 새 NFH를 같은 방식으로 넣고 매니페스트 sha 갱신
+    (차이는 NFH 표 안 4,010B뿐, 텍스트 한글 0 확인). (2) pcport_apply의 원본은 동결된 build_imas2_o2\game의 복호화 캐시(_cache/pcport, 10-16 옛 폰트 주입본)
+    → 빌드할 때마다 PC initialFix/initialTemp가 옛 폰트로 되돌아감. 캐시 2개에 deploy_pcport와 같은 방식으로 새 NFH·NUT 주입.
+- **bg2d·PC 미반영 그림 전수**(10-29, 포팅 세션·사용자 지적 "타루키정·라멘집 사무소 전경"):
+  - bg2d_0003/0006(사무소 전경 낮·밤)·0155~0157(자판기) 한글판은 PS3에만 들어감. 360 s2d는 파일 전체 XCompress(0x0FF512ED, LZX)라 pcport_apply가 건너뜀.
+    360 게임은 그 머리인 파일만 풀고 나머지는 그대로 읽음(imas2pc stubs.cpp) → 해제 후 평문 s2d 배포 방식으로 test-6 예정(LZX 해제기 필요).
+  - pcport 보고 "360판에 같은 그림 없음" 33장 분류: (가) 이미 PC 한글(PS3 중복 텍스처) 8, (나) 360 그림 다름 8(튜토리얼 7은 kr_x360 작업본으로 이미 반영,
+    jacket_koi 360 임시 "仮" 재킷 1은 웹앱 행 없음), (다) 360에서 안 쓰임 17(お守りINFO·스페셜 아이돌·PS3 메뉴 항목·NationwideRanking 버튼). 목록: 공유 노트.
 - **프로필 이름 칸 크기 시험**(10-29, 사용자 "ㄱㄱ"): ProCharaSelect.swg TEXT1 크기 30→26(member_select +0x16570, SWG +0x15c10, PS3·360 같은 SWG).
   PS3 격리: "키사라기 치하야 (16)" 8자 전체가 "(" 앞 ~6px에서 끝남, 잘림·글자 모양 정상, "하루카 (17)" 정상. 시험본만, 원복 sha 확인. 근거: 공유 노트 profile_name_box_research.md.
 
