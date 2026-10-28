@@ -144,6 +144,15 @@ def main():
     }
     pc = os.path.join(HERE, "platform_counts.json")     # platform_audit.py counts
     meta["plat_counts"] = json.load(open(pc, encoding="utf-8")) if os.path.exists(pc) else {}
+    gt = os.path.join(HERE, "gamedata_texts.json")      # 필드 묶음(파일#XMB · chain)별 원문 최대 UTF-16 길이 — 웹앱 경고
+    if os.path.exists(gt):
+        fm = {}
+        for v in json.load(open(gt, encoding="utf-8")).values():
+            ch = (v.get("meta") or {}).get("chain")
+            if ch and v.get("jp"):
+                g = f"{v['key'].rsplit(':', 1)[0]} · {ch}"
+                fm[g] = max(fm.get(g, 0), len(v["jp"].encode("utf-16-be")) // 2)
+        meta["fieldmax"] = fm
     sr = os.path.join(HERE, "staffroll_names.json")     # staffroll_names.py — 「스태프롤 이름」 메뉴
     if os.path.exists(sr):
         s = json.load(open(sr, encoding="utf-8"))

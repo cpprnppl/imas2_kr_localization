@@ -543,6 +543,14 @@ function warns(r) {
     w.push([nj2 === nk2 ? "이모티콘 종류 다름" : `이모티콘 개수 다름 (KR ${nk2} · JP ${nj2})`, "orange"]);
   }
   if (phSig(r.jp) !== phSig(r.kr)) w.push(["치환 코드 다름", "red"]);
+  // 원문 필드 최대 길이 초과: 게임이 칸을 그 필드 원문 최대 길이의 고정 버퍼로 복사할 수 있다
+  // (2026-10-28 S4U 튕김 = 스테이지 설명 63자 > 원문 최대 48자). 막지 않고 경고만. 묶음 = 파일#XMB · meta.chain
+  if (r.cat === "gamedata" && META.fieldmax) {
+    const fm = META.fieldmax[`${r.key.slice(0, r.key.lastIndexOf(":"))} · ${(r.meta || {}).chain || ""}`];
+    if (fm && U16(r.kr) > fm)
+      w.push([`원문 필드 최대 길이 초과 ${U16(r.kr)}/${fm}자 — 게임 버퍼 넘침 위험`,
+              (r.meta || {}).chain === "stage_info/caption" ? "red" : "orange"]);
+  }
   const cap = (r.meta || {}).cap;     // 실행 파일 문자열 슬롯(글자 수, 다음 문자열까지 기준 추정)
   if (r.cat === "exe" && cap && [...r.kr].length > cap) w.push([`슬롯 초과 ${[...r.kr].length}/${cap}자`, "red"]);
   // 글자 타일 배너(레슨·커뮤 결과): 한 칸에 한 글자, 공백도 한 칸. 칸 수가 상한(tile_banner.py)
