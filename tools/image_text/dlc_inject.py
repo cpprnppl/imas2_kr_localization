@@ -66,6 +66,11 @@ def sha(b):
 
 # ---------------------------------------------------------------- 암호
 
+def tail0(b):
+    """끝의 0 바이트 수."""
+    return len(b) - len(b.rstrip(b"\x00"))
+
+
 class Cipher:
     def __init__(self, table, foot):
         self.table, self.foot = table, foot
@@ -92,11 +97,15 @@ class Cipher:
         full = AES.new(key, AES.MODE_CBC, b"\x00" * 16).decrypt(body)
         if full[16:20] not in MAGIC:
             raise ValueError("복호화 결과 시그니처 없음")
-        return full[16:], {"key": key, "prefix": full[:16], "footer": raw[len(raw) - self.foot:]}
+        return full[16:], {"key": key, "prefix": full[:16], "footer": raw[len(raw) - self.foot:], "tail0": tail0(full[16:])}
 
     @staticmethod
     def encrypt(plain, ctx):
-        """원본 prefix·풋터 유지. 길이가 변하면 0 패딩(게임 디코더는 컨테이너 크기를 따름)."""
+        """원본 prefix·풋터 유지. 길이가 변하면 0 패딩(게임 디코더는 컨테이너 크기를 따름).
+        게임은 '평문 길이 − 원본 끝 패딩'까지만 읽는다(원본 풋터 유지 탓, 2026-10-29 RPCS3 확인: ranker_npc 528B 그대로 →
+        끝 12B의 '이쥬인 호쿠토' 뒷부분이 0). 새 평문 끝의 0 바이트가 원본(tail0)보다 적으면 모자란 만큼 0을 덧붙여 여유를 둔다
+        (JPEG처럼 원본 이하로 맞춘 평문은 원본 컨테이너 크기를 넘지 않는다). 무수정 평문은 tail0가 같아 그대로 — 바이트 동일 왕복 유지."""
+        plain += b"\x00" * max(0, ctx.get("tail0", 0) - tail0(plain))
         buf = ctx["prefix"] + plain
         buf += b"\x00" * ((-len(buf)) % 16)
         return AES.new(ctx["key"], AES.MODE_CBC, b"\x00" * 16).encrypt(buf) + ctx["footer"]
@@ -432,7 +441,7 @@ def ps3_decrypt_any(c, raw):
     body = raw[:len(raw) - c.foot]
     key = c._key(raw)
     full = AES.new(key, AES.MODE_CBC, b"\x00" * 16).decrypt(body)
-    return full[16:], {"key": key, "prefix": full[:16], "footer": raw[len(raw) - c.foot:]}
+    return full[16:], {"key": key, "prefix": full[:16], "footer": raw[len(raw) - c.foot:], "tail0": tail0(full[16:])}
 
 
 # 360 ad_bg.ptc는 MS PTC 코덱이라 다시 인코드할 수 없다. imas2pc 배너 훅(src/kernel/ps3feat.cpp,
