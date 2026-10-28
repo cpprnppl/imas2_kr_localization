@@ -1690,6 +1690,14 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
     → 패치 전에 한 번 실행한 사용자는 캐시 파일이 일본어로 남고, [원래대로 되돌리기]도 캐시를 되돌리지 않는다(KOR·감독에 보고).
   - A/B 재현은 보류: 키 입력은 RPCS3 창이 전면이어야 게임 패드에 들어간다(PostMessage는 F12 단축키만 통함, Background input 켜도 동일). 사용자가 PC를 쓰는 중에는 전면 전환이 막힌다.
     테스터용 확인 절차(전체 원래대로 + 캐시 폴더 이름 바꾸기 → AoG 3개만 원래대로)는 KOR에 전달.
+- **스태프롤 그림 전수 점검**(10-28, 테스터 보고): staff_roll·exep_staff_roll·ProStaffRoll 텍스처 281장 중 웹앱 47장뿐(CN 수정분만 시드) →
+  글자 그림 93장 image_extra 추가(한자 이름 타일 52·영문 이름판 38+CAST+조각·저작권 문구 2, 로고·손글씨·그림 제외), 썸네일 업로드(서비스 키 환경변수). 웹앱 140행.
+- **test-5 재빌드**(10-28 18:1x~18:54, KOR GO): 회수(script translation_webapp_20261028_1812.xlsx·dlc 2,510·이미지 547업로드→807PNG) →
+  PS3: ps3_res_apply 129(검증 0·폰트 누락 0) 배포, excel2scb→validate 0→deploy 1,181, attract 배포 /
+  PC: pcport360 1,157→deploy_pcport 1,157, pcport_apply 105, gamedata_apply 23(검증 0). s4u_fullpack·dan_aog_1은 test-4와 바이트 동일, produce_common만 그림 변경.
+  - 고친 것: webapp_pull image tex_kr 100행 페이지가 서버 500 → 20행·md5 정렬. ps3_res_apply·gamedata_apply 배포 가드의 `tasklist | find /I`가
+    Git Bash에서 GNU find로 풀려 항상 "안 돎" → tasklist 출력을 파이썬에서 검사.
+  - 남은 경고: excel2scb "LLM 쓰레기 번역" 11줄 원문 유지(재번역 필요), yuk_scs_02 entry 77 3줄 초과.
 
 ## 42. DLC 그림 주입 경로 — 카탈로그·로고·재킷 + 메인 메뉴 배경 ad_bg (2026-10-23, KOR 지시)
 
