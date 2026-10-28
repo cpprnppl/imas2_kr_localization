@@ -421,7 +421,7 @@ def build():
                 "interface\\ScheduleSelect.mpc", "scene\\produce_etc.mpc",
                 "scene\\exep_commu.mpc", "scene\\exep_init.mpc"}
     targets |= set(TB.DIRECT)            # 레슨 결과 배너 상주 사본(gscript\adv_common.mpc)
-    targets |= set(SR_LAYOUT)            # 스태프롤 이름 칸 간격(staffroll_layout.py, SWG 행렬 제자리)
+    targets |= set(SR_LAYOUT)            # 스태프롤 이름 칸 틈 0(staffroll_layout.py, SWG 행렬 제자리)
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
     report = {"ok": [], "skip": [], "fail": [], "unmatched": []}
@@ -446,7 +446,7 @@ def build():
             if rel in TB.RELS:      # 레슨·커뮤 결과 배너: 타일은 위 텍스처로, 칸 배정은 SWG(tile_banner.py)
                 data, n_b = TB.patch_container(data, orig=orig, log=print, with_tiles=rel in TB.DIRECT)
             n_l = 0
-            if rel in SR_LAYOUT:    # 스태프롤 이름 칸 간격 10px(행렬 x만, 같은 크기)
+            if rel in SR_LAYOUT:    # 스태프롤 이름 칸 틈 0(행렬 x만, 같은 크기)
                 import staffroll_layout as SL
                 new = SL.relayout(data, SR_LAYOUT[rel])
                 n_l, data = int(new != data), new

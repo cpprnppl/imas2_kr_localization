@@ -56,7 +56,7 @@ REPORT = os.path.join(OUT, "report.json")
 USRDIR = os.path.dirname(JP_ROOT)
 FONT_INJECTED = {"initialfix.mpc", "initialtemp.mpc"}       # deploy_fonts가 폰트를 제자리 주입한 파일
 STANDALONE = {"text\\install.xmb": "text/install.xmb", "ranker\\ranker_npc.xmb": "ranker/ranker_npc.xmb"}
-# 스태프롤 이름 칸 간격 10px(staffroll_layout.py — SWG 행렬 x만 제자리, 사용자 결정 2026-10-28)
+# 스태프롤 이름 칸 틈 0(staffroll_layout.py — SWG 행렬 x만 제자리, 사용자 결정 2026-10-29)
 STAFFROLL = {"interface\\swg\\ProStaffRoll.tsk": "main", "interface\\exep_staff_roll.mpc": "ryu"}
 # 곡 정보 가사 XMB — 레슨(가사 미니게임)이 이 사본을 읽는다(2026-10-23). xmb_translations.json에 키가 있는 곡만.
 import glob as _glob  # noqa: E402
