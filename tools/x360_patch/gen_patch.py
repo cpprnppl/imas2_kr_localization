@@ -15,7 +15,9 @@ import argparse
 import hashlib
 import json
 import os
+import subprocess
 import sys
+import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -24,6 +26,8 @@ import xdvdfs
 
 FOOTER_360 = 32
 XCOMPRESS = b"\x0f\xf5\x12\xed"               # 360 XCompress (LZX) file header, e.g. bg2d_*.s2d
+# same decoder as the installer core (kor_patch xcompress); ui's image_text/xcomp/xcomp_ed_unpack.exe gives identical output
+XCOMP_CMD = [r"C:\Users\jackfilm\Desktop\imas2pc\build_launcher\imas2pc_kor_patch.exe", "--xctd-unpack"]
 TABLE_RVA, TABLE_LEN = 0xB5430, 384           # found once in the dev basefile (unpack\imas2\default.exe)
 WHOLE = {                                     # our own files at disc root: name -> origin
     "retry_text.bin": "exe_inject port-texts, webapp row gamedata:system:initialFix#x3:retry_001_pc",
@@ -66,12 +70,32 @@ def xdecrypt(raw, table):
     return plain
 
 
+def xdecompress(raw):
+    """360 XCompress (0x0FF512ED) -> plain, via the installer's own decoder (XCOMP_CMD)."""
+    if not os.path.exists(XCOMP_CMD[0]):
+        raise RuntimeError(f"XCompress unpacker missing: {XCOMP_CMD[0]}")
+    with tempfile.TemporaryDirectory() as td:
+        src, dst = os.path.join(td, "in.bin"), os.path.join(td, "out.bin")
+        open(src, "wb").write(raw)
+        r = subprocess.run(XCOMP_CMD + [src, dst], capture_output=True, text=True)
+        if r.returncode or not os.path.exists(dst):
+            raise RuntimeError(f"XCompress unpack failed: {r.stderr.strip()[:200]}")
+        return open(dst, "rb").read()
+
+
 def diff_entry(target, orig, new, table, out, extra=None):
-    cands = [("none", orig)]
-    try:
-        cands.append(("xcrypt", xdecrypt(orig, table)))
-    except Exception:  # noqa: BLE001  (not an encrypted file)
-        pass
+    if orig[:4] == XCOMPRESS and new[:4] != XCOMPRESS:
+        # compressed original vs plain result: diff against the decompressed original only (a diff against the
+        # compressed bytes would carry the whole file, original content included)
+        plain = xdecompress(orig)
+        cands = [("xcompress", plain)]
+        extra = dict(extra or {}, src_plain_sha256=sha256(plain), src_plain_size=len(plain))
+    else:
+        cands = [("none", orig)]
+        try:
+            cands.append(("xcrypt", xdecrypt(orig, table)))
+        except Exception:  # noqa: BLE001  (not an encrypted file)
+            pass
     best = None
     for name, src in cands:
         d = kd.make(src, new)
@@ -120,12 +144,6 @@ def main():
                 man["image"]["xex_size"] = len(orig)
             new = open(os.path.join(a.game, *p.split("/")), "rb").read()
             if new != orig:
-                if orig[:4] == XCOMPRESS and new[:4] != XCOMPRESS:
-                    # XCompress original vs decompressed result: a diff would carry the whole file (original
-                    # content). Held until the installer can decompress the user's file (src_transform).
-                    man["excluded"].append({"target": p, "reason": "XCompress original (0x0FF512ED) vs plaintext "
-                                            "result; needs an xcompress src_transform in the installer"})
-                    continue
                 man["files"].append(diff_entry(p, orig, new, table, a.out))
     os.makedirs(os.path.join(a.out, "w"), exist_ok=True)
     for name, origin in WHOLE.items():

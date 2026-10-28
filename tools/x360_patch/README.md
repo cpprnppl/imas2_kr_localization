@@ -73,6 +73,7 @@ python -I tools/x360_patch/build_iso.py "C:\Users\jackfilm\Desktop\imas2_360\Ido
 - `gen_patch.py`: 사용자 원본 360 파일에 대한 KDF1 diff(`kd.py`) + 우리 파일 통째(`retry_text.bin`, `difficulty_text.bin`, `kor_exe_strings.bin` KXS2) + `manifest.json`.
   - 디스크 항목은 원본 ISO 파일 목록에서, DLC는 원본 패키지 파일 목록에서만 만든다(game_kor·content_kor 폴더를 훑지 않음 → 백업 파일이 섞이지 않음).
   - 원본이 암호화돼 있으면 복호화본을 diff 원본으로 쓴다(`src_transform: "xcrypt"`). 384바이트 표는 `--table`로 로컬에서만 받고, 매니페스트에는 rva·len·sha256만 적는다. 출력·로그·커밋에 표 바이트를 넣지 않는다.
+  - 원본이 XCompress(`0x0FF512ED`, bg2d `*.s2d`)이고 결과가 평문이면 해제본을 diff 원본으로 쓴다(`src_transform: "xcompress"`). 매니페스트에 해제본의 `src_plain_sha256`·`src_plain_size`를 함께 적는다. 설치기는 해제 직후 이 값을 확인한다(다르면 "decompression mismatch"). 해제는 설치기 코어와 같은 디코더로 한다: `imas2pc_kor_patch.exe --xctd-unpack <in> <out>`(imas2pc build_launcher, libmspack lzxd). ui의 `../image_text/xcomp/xcomp_ed_unpack.exe`도 같은 결과를 낸다. `verify_patch.py`는 이 항목의 원본을 따로 해제해 해시를 확인하고, diff를 해제본과 압축본 양쪽에 대고 ADD 감사를 다시 한다.
   - **표 출처(확정)**: 설치기가 사용자 본인의 default.xex 복호화 이미지에서 RVA 0xB5430의 384바이트를 읽는다. sha256이 맞을 때만 쓴다.
   - 모든 해시는 SHA-256. ADD 감사: 원본과 2×BLOCK 이상 겹치는 ADD 실행이 있으면 표시한다(0이어야 함).
 - `apply_patch.py`: 참조 적용기(실제 설치기는 imas2pc 공유 코어). 원본 해시 확인 → 적용 → 결과 해시 확인.

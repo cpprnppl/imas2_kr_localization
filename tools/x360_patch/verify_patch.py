@@ -17,7 +17,8 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from gen_patch import WHOLE_SRC  # noqa: E402
+import kd  # noqa: E402
+from gen_patch import WHOLE_SRC, xdecompress  # noqa: E402
 
 
 def sha_file(p):
@@ -47,8 +48,30 @@ def main():
          "--dlc-kor", a.dlc_kor, "--table", a.table, "--out", patch])
     run([os.path.join(HERE, "xdvdfs.py"), "extract", a.iso, game])
     shutil.copytree(a.dlc, dlc)
-    run([os.path.join(HERE, "apply_patch.py"), "--patch", patch, "--game", game, "--dlc", dlc, "--table", a.table])
     man = json.load(open(os.path.join(patch, "manifest.json"), encoding="utf-8"))
+    # original-bytes-0: no ADD run of 64+ bytes may share a 32-byte block with the source. gen_patch audits every
+    # diff against its transformed source; xcompress entries are re-audited here against both the decompressed
+    # and the compressed original (decompressed independently from the extracted disc copy).
+    flagged = sum(e["add_flagged_runs"] for e in man["files"] + man["dlc"])
+    nx, xbad = 0, []
+    for e in man["files"]:
+        if e["src_transform"] != "xcompress":
+            continue
+        nx += 1
+        raw = open(os.path.join(game, *e["target"].split("/")), "rb").read()
+        plain = xdecompress(raw)
+        if hashlib.sha256(plain).hexdigest() != e["src_plain_sha256"] or len(plain) != e["src_plain_size"]:
+            xbad.append((e["target"], "decompression mismatch"))
+            continue
+        d = open(os.path.join(patch, e["diff"]), "rb").read()
+        for name, src in (("plain", plain), ("compressed", raw)):
+            if kd.audit(src, d)[1]:
+                xbad.append((e["target"], f"ADD run shares bytes with the {name} original"))
+    print(f"original-bytes check: flagged ADD runs in manifest {flagged}; xcompress entries re-audited {nx}, "
+          f"failures {len(xbad)}")
+    for t, why in xbad:
+        print("  ORIGINAL BYTES", t, why)
+    run([os.path.join(HERE, "apply_patch.py"), "--patch", patch, "--game", game, "--dlc", dlc, "--table", a.table])
     excluded = {e["target"] for e in man["excluded"]}
     mism, n = [], 0
     for d, ds, fs in os.walk(game):
@@ -76,7 +99,7 @@ def main():
     for m in mism[:20]:
         print("  MISMATCH", m)
     print(f"original ISO sha256 before {before} after {after} ({'unchanged' if before == after else 'CHANGED'})")
-    sys.exit(1 if mism or before != after else 0)
+    sys.exit(1 if mism or flagged or xbad or before != after else 0)
 
 
 if __name__ == "__main__":

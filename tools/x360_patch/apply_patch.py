@@ -15,7 +15,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import kd
-from gen_patch import xdecrypt, sha256
+from gen_patch import xdecrypt, xdecompress, sha256
 
 
 def main():
@@ -38,7 +38,13 @@ def main():
         if len(orig) != e["src_size"] or sha256(orig) != e["src_sha256"]:
             bad.append((e["target"], "source hash"))
             return
-        src = xdecrypt(orig, table) if e["src_transform"] == "xcrypt" else orig
+        if e["src_transform"] == "xcompress":
+            src = xdecompress(orig)
+            if len(src) != e["src_plain_size"] or sha256(src) != e["src_plain_sha256"]:
+                bad.append((e["target"], "decompression mismatch"))
+                return
+        else:
+            src = xdecrypt(orig, table) if e["src_transform"] == "xcrypt" else orig
         out = kd.apply(src, open(os.path.join(a.patch, e["diff"]), "rb").read())
         if sha256(out) != e["out_sha256"]:
             bad.append((e["target"], "result hash"))
