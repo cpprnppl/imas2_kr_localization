@@ -117,6 +117,76 @@ def pull_script(rows, reviewed_only):
     print("excel2scb 전환은 scb-excel 파이프라인에서 이 파일로 교체 후 실행")
 
 
+def staffroll_gate(imgs, out_root):
+    """스태프롤 이름 칸 회수 게이트 (KOR 10-29). 이름 단위로 전부 반영 / 전부 보류.
+    보류 = 칸 글자 높이 40px 미만, 첫 칸 왼쪽·끝 칸 오른쪽 가장자리에 잉크(편집기 점검과 같은 기준, 알파 > 64).
+    빈 칸·작업본 없는 칸은 주의만. 보류 이름과 같은 위치를 쓰는 이름(쌍둥이 双海)도 같이 보류.
+    반환: 쓰지 않을 위치 집합. 예전 회수가 그 위치에 남긴 PNG는 지워 원본 한자로 둔다."""
+    import io
+    import base64
+    from PIL import Image
+    sp = os.path.join(HERE, "staffroll_names.json")
+    if not os.path.exists(sp):
+        return set()
+    names = json.load(open(sp, encoding="utf-8"))["names"]
+    by = {im["md5"]: im for im in imgs}
+    reason, note, used = {}, {}, {}
+    for nm in names:
+        tiles = [by.get(f"{sl['md5']}@{sl['loc']}") or by.get(sl["md5"]) for sl in nm["slots"]]
+        if not any(tiles):
+            continue
+        used[nm["id"]] = nm
+        bad, warn, last = [], [], len(tiles) - 1
+        for k, im in enumerate(tiles):
+            if im is None:
+                warn.append(f"칸 {k + 1} 작업본 없음")
+                continue
+            a = Image.open(io.BytesIO(base64.b64decode(im["data"]))).convert("RGBA").getchannel("A")
+            w, h = a.size
+            px = a.load()
+            ink = [(x, y) for y in range(h) for x in range(w) if px[x, y] > 64]
+            if not ink:
+                warn.append(f"칸 {k + 1} 빈 칸")
+                continue
+            ys = [y for _x, y in ink]
+            if max(ys) - min(ys) + 1 < 40:
+                bad.append(f"칸 {k + 1} 글자 높이 {max(ys) - min(ys) + 1}px")
+            if (k == 0 and any(x == 0 for x, _y in ink)) or (k == last and any(x == w - 1 for x, _y in ink)):
+                bad.append(f"칸 {k + 1} {'왼' if k == 0 else '오른'}쪽 가장자리")
+        if bad:
+            reason[nm["id"]] = bad
+        if warn:
+            note[nm["id"]] = warn
+    users = {}
+    for nm in names:
+        for sl in nm["slots"]:
+            users.setdefault(sl["loc"], set()).add(nm["id"])
+    changed = True
+    while changed:                       # 위치를 같이 쓰는 이름은 같이 보류(이름 단위 전부/전부)
+        changed = False
+        for loc, ids in users.items():
+            if ids & set(reason):
+                for i in ids - set(reason):
+                    if i in used:
+                        reason[i] = ["보류 이름과 같은 칸을 씀"]
+                        changed = True
+    held = {sl["loc"] for nm in names if nm["id"] in reason for sl in nm["slots"]}
+    gone = 0
+    for loc in held:
+        rel, nn = loc.rsplit("#", 1)
+        p = os.path.join(out_root, "kr", os.path.dirname(rel), f"{os.path.splitext(os.path.basename(rel))[0]}_{nn}.png")
+        if os.path.exists(p):
+            os.remove(p)
+            gone += 1
+    jp = {nm["id"]: nm["jp"] for nm in names}
+    print(f"스태프롤: 반영 {len(used) - len(set(reason) & set(used))}명 / 보류 {len(set(reason) & set(used))}명"
+          + (f"({'; '.join(f'{jp[i]}: ' + ', '.join(v[:2]) + (' 외' if len(v) > 2 else '') for i, v in reason.items() if i in used)})" if reason else "")
+          + (f" — 예전 PNG {gone}장 치움" if gone else ""))
+    for i, v in note.items():
+        print(f"  주의 {jp[i]}: {', '.join(v)}")
+    return held
+
+
 def pull_image(rows, reviewed_only, code=None):
     import base64
     from extract_image_text import OUT_DEFAULT
@@ -152,6 +222,7 @@ def pull_image(rows, reviewed_only, code=None):
             break
         offset += 20
     m = 0
+    held = staffroll_gate(imgs, OUT_DEFAULT)
     # 키 "md5@위치" = 그 위치에만 쓰는 작업본(스태프롤 이름: 같은 그림을 다른 이름 칸이 따로 씀) — md5 키 뒤에 써서 우선
     for im in sorted(imgs, key=lambda v: "@" in v["md5"]):
         md5, _, only = im["md5"].partition("@")
@@ -163,6 +234,8 @@ def pull_image(rows, reviewed_only, code=None):
         png = base64.b64decode(im["data"])
         for loc in (r.get("meta") or {}).get("locs", []):
             if only and loc != only:
+                continue
+            if loc in held:          # 스태프롤 보류 이름의 칸: 원본 한자 유지
                 continue
             rel, nn = loc.rsplit("#", 1)
             if loc.startswith("x360:"):  # 360 본편 전용 그림: kr_x360/<상대경로>_<n>.png

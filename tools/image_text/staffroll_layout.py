@@ -100,8 +100,19 @@ def plan(plain, kind, pitch=PITCH):
         if fixed and fixed != list(range(len(fixed))):
             raise ValueError(f"공유 행렬이 궤적 앞쪽이 아님: {fixed}")
         p, n = len(fixed) - 1, len(t)
+        # 늘리는 비율은 원래 궤적의 진행도(x가 출발점에서 정지점까지 간 비율)를 따른다 — 키프레임 수에 선형으로 늘리면
+        # 원래 움직임이 감속하는 끝 구간에서 더한 이동만 남아 정지 직전 ~10px 되밀림이 생겼다(10-29 PC 1배 확인 중 발견).
+        xs = [mx(m) for m in t]
+        span = xs[-1] - xs[p] if p >= 0 else 0.0
         for i, m in enumerate(t):
-            off = 0.0 if i <= p else (dx if p < 0 else dx * (i - p) / (n - 1 - p))
+            if i <= p:
+                off = 0.0
+            elif p < 0:
+                off = dx
+            elif abs(span) > 1.0:
+                off = dx * (xs[i] - xs[p]) / span
+            else:
+                off = dx * (i - p) / (n - 1 - p)
             if m in per_matrix and abs(per_matrix[m] - off) > 1e-6:
                 raise ValueError(f"행렬 {m} 오프셋 불일치 {per_matrix[m]} / {off}")
             per_matrix[m] = off

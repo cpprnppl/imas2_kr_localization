@@ -2035,8 +2035,8 @@ async function srLoadCand(nm, file) {
       im.blob = bl; res(im);
     }, "image/png");
   })));
-  // 칸별 점검: 빈 칸 / 글자 높이(원본 한자 약 62px) / 그림 양 끝 가장자리 잉크(칸 사이는 틈 0이라 넘어가도 됨)
-  const warn = [], last = nm.slots.length - 1;
+  // 칸별 점검: 빈 칸(주의) / 글자 높이 40px 미만·그림 양 끝 가장자리 잉크(회수 보류). 칸 사이는 틈 0이라 넘어가도 됨
+  const warn = [], hold = [], last = nm.slots.length - 1;
   nm.slots.forEach((sl, k) => {
     const d = full.getContext("2d").getImageData(sl.x - x0, 0, 64, 64).data;
     let top = 64, bot = -1, edge = false;
@@ -2046,13 +2046,15 @@ async function srLoadCand(nm, file) {
         if ((k === 0 && x === 0) || (k === last && x === 63)) edge = true;
       }
     }
-    if (bot < 0) warn.push(`칸 ${k + 1}: 비어 있음`);
+    if (bot < 0) warn.push(`주의 — 칸 ${k + 1}: 비어 있음(짧은 이름이면 괜찮음)`);
     else {
-      if (bot - top + 1 < 40) warn.push(`칸 ${k + 1}: 글자가 작음(높이 ${bot - top + 1}px — 원본 약 62px, 56~60px 권장)`);
-      if (edge) warn.push(`칸 ${k + 1}: 글자가 그림 ${k === 0 ? "왼" : "오른"}쪽 끝에 닿음 — 잘려 보일 수 있음`);
+      if (bot - top + 1 < 40) hold.push(`칸 ${k + 1}: 글자가 작음(높이 ${bot - top + 1}px — 40px 미만, 원본 약 62px, 56~60px 권장)`);
+      if (edge) hold.push(`칸 ${k + 1}: 글자가 그림 ${k === 0 ? "왼" : "오른"}쪽 끝에 닿음`);
     }
   });
-  if (warn.length) note = (note ? note + " " : "") + "점검: " + warn.join(" / ");
+  // 회수(webapp_pull)와 같은 기준: 높이·가장자리 = 이 이름 전체가 회수에서 보류(원본 한자 유지), 빈 칸 = 주의만
+  if (hold.length) note = (note ? note + " " : "") + "회수 보류 — 이대로 저장하면 이 이름은 게임에 들어가지 않고 원본 한자로 남습니다: " + hold.join(" / ");
+  if (warn.length) note = (note ? note + " " : "") + warn.join(" / ");
   SR.cand = { id: nm.id, tiles, note };
   SR.view = "cand";
   srEditor();
