@@ -57,13 +57,20 @@ def main():
     ap.add_argument("--st", type=int, default=1, choices=[0, 1])
     ap.add_argument("--src", default="claude", help="meta.src_tr 출처 배지 (빈 문자열이면 안 붙임)")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--replace", action="store_true",
+                    help="기존 번역도 바꾼다(KOR 결정이 있을 때만) — 읽은 값 그대로일 때만 PATCH(kr=eq.<읽은 값>)")
     a = ap.parse_args()
     want = {k: v for k, v in json.load(open(a.input, encoding="utf-8")).items() if v}
     srv = fetch(want, a.code)
     missing = [k for k in want if k not in srv]
-    filled = [k for k in want if k in srv and srv[k]["kr"]]
-    todo = [k for k in want if k in srv and not srv[k]["kr"]]
-    print(f"입력 {len(want)}행 / 서버에 없음 {len(missing)} / 이미 번역 있음(건너뜀) {len(filled)} / 채울 행 {len(todo)}")
+    if a.replace:
+        filled = [k for k in want if k in srv and srv[k]["kr"] == want[k]]
+        todo = [k for k in want if k in srv and srv[k]["kr"] != want[k]]
+    else:
+        filled = [k for k in want if k in srv and srv[k]["kr"]]
+        todo = [k for k in want if k in srv and not srv[k]["kr"]]
+    print(f"입력 {len(want)}행 / 서버에 없음 {len(missing)} / {'이미 같음' if a.replace else '이미 번역 있음'}(건너뜀) {len(filled)} / "
+          f"{'바꿀' if a.replace else '채울'} 행 {len(todo)}")
     for k in missing[:10]:
         print("  서버에 없음:", k)
     if a.dry_run:
@@ -73,6 +80,8 @@ def main():
     for k in todo:
         ts = int(time.time() * 1000)
         q = f"/rest/v1/rows?id=eq.{urllib.parse.quote(k, safe='')}&kr=eq."
+        if a.replace:   # 그 사이 누가 바꿨으면 서버가 거부(빈 결과) — 남의 새 입력을 덮지 않는다
+            q += urllib.parse.quote(srv[k]["kr"] or "", safe="")
         body = {"kr": want[k], "st": a.st, "ts": ts, "by": a.by}
         if a.src:                       # 출처 배지(meta.src_tr) — 다른 meta 키는 그대로
             body["meta"] = {**(srv[k].get("meta") or {}), "src_tr": a.src}

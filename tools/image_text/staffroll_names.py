@@ -37,8 +37,9 @@ MAIN = [(231, "天海春香", "아이돌"), (244, "星井美希", "아이돌"), 
         (318, "秋月律子", "아이돌"), (328, "天ヶ瀬冬馬", "Jupiter"), (336, "御手洗翔太", "Jupiter"),
         (341, "伊集院北斗", "Jupiter"), (347, "音無小鳥", "사무원"), (354, "高木順二朗", "765 사장"),
         (361, "黒井崇男", "961 사장")]
-RYU = [(124, "水瀬伊織"), (137, "双海亜美"), (144, "三浦あずさ"), (151, "秋月律子"),
-       (159, "伊集院北斗"), (160, "御手洗翔太"), (162, "天ヶ瀬冬馬")]
+RYU = [(124, "水瀬伊織", "竜宮小町"), (137, "双海亜美", "竜宮小町"), (144, "三浦あずさ", "竜宮小町"),
+       (151, "秋月律子", "竜宮小町 프로듀서"),
+       (159, "伊集院北斗", "Jupiter"), (160, "御手洗翔太", "Jupiter"), (162, "天ヶ瀬冬馬", "Jupiter")]
 FILES = {"main": "swg\\ProStaffRoll.tsk", "ryu": "exep_staff_roll.mpc"}
 
 # 이름 로컬 좌표 → 화면: 칸 중심(로컬 x+32, y+32)을 frame_006 실측 중심에 맞춘 회전+이동(배율 1.0)
@@ -159,7 +160,7 @@ def main():
                 for sl in uniq:
                     sl["x"] += dx; sl["y"] += dy
             names.append({"id": f"{tag}{sp}", "file": rel.split("\\")[-1], "sprite": sp, "jp": jp,
-                          "role": ent[2] if tag == "main" else "", "plat": "ps3" if tag == "ryu" else "both",
+                          "role": ent[2], "plat": "ps3" if tag == "ryu" else "both",
                           "slots": uniq, "shadow": len(slots) > len(uniq), "approx": approx})
     # 류구 이름 → 칸 md5가 전부 같은 본편 이름 (작업 단위는 본편 쪽)
     for nm in names:

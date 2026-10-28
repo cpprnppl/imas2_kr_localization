@@ -1878,6 +1878,16 @@ function srRender() {
         : '<span class="pf-v5-c-label pf-m-compact"><span class="pf-v5-c-label__content">PS3·360</span></span>'}</td>
       <td class="pf-v5-c-table__td num-td">${nm.same_as ? "—" : `${d}/${n}`}</td></tr>`;
   };
+  // 류구코마치 스태프롤에는 Jupiter 3명도 같이 나온다 — 유닛별로 나눠 보여 준다(혼동 방지)
+  const isJup = n => n.role === "Jupiter", isRyu = n => (n.role || "").startsWith("竜宮小町");
+  const main = names.filter(n => n.plat === "both"), ryu = names.filter(n => n.plat === "ps3");
+  const groups = [
+    ["본편 스태프롤", "765프로 아이돌", main.filter(n => n.role === "아이돌")],
+    ["", "Jupiter (961프로)", main.filter(isJup)],
+    ["", "그 밖의 인물", main.filter(n => n.role !== "아이돌" && !isJup(n))],
+    ["류구코마치 스태프롤 (PS3 전용)", "竜宮小町", ryu.filter(isRyu)],
+    ["", "Jupiter (961프로) — 류구 스태프롤에 함께 나옴", ryu.filter(isJup)],
+  ];
   const tbl = (title, list) => `<h3 class="pf-v5-c-title pf-m-md pf-v5-u-mt-md pf-v5-u-mb-sm">${title}</h3>
     <table class="pf-v5-c-table pf-m-compact"><thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">
       <th class="pf-v5-c-table__th">이름</th><th class="pf-v5-c-table__th">판</th><th class="pf-v5-c-table__th">작업 칸</th></tr></thead>
@@ -1886,8 +1896,8 @@ function srRender() {
     <div style="flex:0 1 22rem;min-width:18rem">
       <p class="pf-v5-u-color-200" style="font-size:13px">스태프롤의 한자 이름은 글자 타일(64×64)을 칸마다 따로 붙여 만듭니다.
         이름을 한 장 그림으로 올리면 칸별로 잘라 저장합니다.</p>
-      ${tbl(`본편 스태프롤 (${names.filter(n => n.plat === "both").length}명)`, names.filter(n => n.plat === "both"))}
-      ${tbl(`류구코마치 스태프롤 (${names.filter(n => n.plat === "ps3").length}명)`, names.filter(n => n.plat === "ps3"))}
+      ${groups.map(([sec, sub, list]) => (sec ? `<h2 class="pf-v5-c-title pf-m-lg pf-v5-u-mt-lg">${sec}</h2>` : "")
+        + tbl(`${sub} (${list.length}명)`, list)).join("")}
     </div>
     <div style="flex:1 1 40rem;min-width:20rem" id="srEd"></div></div>`;
   $("#content").querySelectorAll("[data-sr]").forEach(tr => tr.onclick = () => {
