@@ -591,6 +591,1342 @@
    "fmt": "DXT5",
    "png": "jacket_nan_logo_000.png",
    "note": "곡 제목 로고 — songinfo는 이미지 추출 대상 밖이라 빠져 있었다(2026-10-23). 곡 제목 한글 표기 여부는 팀 결정"
+  },
+  {
+   "rel": "interface\\staff_roll.mpc",
+   "n": 2,
+   "md5": "117199b15cbecddd781138e61e0738c1",
+   "w": 512,
+   "h": 128,
+   "fmt": "2",
+   "png": "staff_roll_002.png",
+   "locs": [
+    "interface\\staff_roll.mpc#002"
+   ],
+   "jp": "Part of this software is based on Lua / Lua Copyright © 1994-2011 Lua.org, PUC-Rio. / Polycom® G.722.1 Annex C audio coding technology",
+   "kind": "스태프롤 저작권 문구(영문)"
+  },
+  {
+   "rel": "interface\\staff_roll.mpc",
+   "n": 6,
+   "md5": "c77545b66bea0c9e09ff8fdd5b7c2094",
+   "w": 512,
+   "h": 128,
+   "fmt": "2",
+   "png": "staff_roll_006.png",
+   "locs": [
+    "interface\\staff_roll.mpc#006"
+   ],
+   "jp": "Part of this software is based on Lua / Lua Copyright © 1994-2011 Lua.org, PUC-Rio. / Polycom® G.722.1 Annex C audio coding technology",
+   "kind": "스태프롤 저작권 문구(영문)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 25,
+   "md5": "8d6a69b9d0f2fb451326436f0b09a4e8",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_025.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#025",
+    "interface\\swg\\ProStaffRoll.tsk#056"
+   ],
+   "jp": "WAKABAYASHI NAOMI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 31,
+   "md5": "8a6e0823142774fc9037018ac7facf21",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "exep_staff_roll_031.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#031",
+    "interface\\swg\\ProStaffRoll.tsk#062"
+   ],
+   "jp": "AKIZUKI RITSUKO",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 32,
+   "md5": "e318b441734890855b349f3c1361ddb0",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_032.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#032",
+    "interface\\swg\\ProStaffRoll.tsk#063"
+   ],
+   "jp": "TAKAHASHI CHIAKI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 39,
+   "md5": "12fffe2e4242a37d1c21e1a4a6914a5a",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "exep_staff_roll_039.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#039",
+    "interface\\swg\\ProStaffRoll.tsk#070"
+   ],
+   "jp": "MIURA AZUSA",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 41,
+   "md5": "d3f3904cf9193c56c6ad993ed5a44e26",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "exep_staff_roll_041.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#041",
+    "interface\\swg\\ProStaffRoll.tsk#072"
+   ],
+   "jp": "FUTAMI AMI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 42,
+   "md5": "d76e37ee998ee7547c775f3734a3f838",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_042.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#042",
+    "interface\\swg\\ProStaffRoll.tsk#073"
+   ],
+   "jp": "KUGIMIYA RIE",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 48,
+   "md5": "0cebf0d1fdeffb58e6501e960b255fc8",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "exep_staff_roll_048.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#048",
+    "interface\\swg\\ProStaffRoll.tsk#079"
+   ],
+   "jp": "MINASE IORI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 49,
+   "md5": "98e184fd90ab3c56771e9bcc5c4b035e",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_049.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#049",
+    "interface\\swg\\ProStaffRoll.tsk#094"
+   ],
+   "jp": "SHIMODA ASAMI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 81,
+   "md5": "6b66aeeaeffc8ac46788b78d87d7d4b0",
+   "w": 128,
+   "h": 32,
+   "fmt": "2",
+   "png": "exep_staff_roll_081.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#081",
+    "interface\\swg\\ProStaffRoll.tsk#213"
+   ],
+   "jp": "CAST",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 9,
+   "md5": "32f05033e5a1159ca44c89a8701a154e",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_009.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#009"
+   ],
+   "jp": "KOYASU TAKEHITO",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 15,
+   "md5": "73fa7769fb5239e5c5cf6d2b0b42f82d",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_015.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#015"
+   ],
+   "jp": "KUROI TAKAO",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 16,
+   "md5": "bf58cffdbb1bb18430d20a0128ce21a0",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_016.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#016"
+   ],
+   "jp": "OTSUKA HOCHU",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 23,
+   "md5": "97f78d9402277beb938b167098ccfcf2",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_023.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#023"
+   ],
+   "jp": "TAKAGI JUNJIRO",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 24,
+   "md5": "6403a6b1a97e401c90f8365182c7b0ea",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_024.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#024"
+   ],
+   "jp": "TAKITA JURI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 30,
+   "md5": "6a89f95a8bfca89d1d93ac32b8f774f8",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_030.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#030"
+   ],
+   "jp": "OTONASHI KOTORI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 31,
+   "md5": "c66795fe1388f04a21af0938609c5759",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_031.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#031"
+   ],
+   "jp": "KANBARA DAICHI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 38,
+   "md5": "9712839153a5e7264b0126ba982d6dfa",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_038.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#038"
+   ],
+   "jp": "IJUUIN HOKUTO",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 39,
+   "md5": "8565489492c056717e174539825d0d40",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_039.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#039"
+   ],
+   "jp": "MATSUOKA YOSHITSUGU",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 46,
+   "md5": "19c19585c3abc50720689f0d6c5849e4",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_046.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#046"
+   ],
+   "jp": "MITARAI SHOUTA",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 47,
+   "md5": "1c96f9e7665b2e6ca4ee155e9eb277ca",
+   "w": 128,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_047.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#047"
+   ],
+   "jp": "GU (MATSUOKA YOSHITSUGU 뒷부분 조각)",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 48,
+   "md5": "d818d5d81b2ff4382605fe5b310deac8",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_048.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#048"
+   ],
+   "jp": "TERASHIMA TAKUMA",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 55,
+   "md5": "e055a1dc1f2933ed5ad19687f5e949c9",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_055.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#055"
+   ],
+   "jp": "AMAGASE TOUMA",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 80,
+   "md5": "6e6e1871049cb78b4499406c0520cf0b",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_080.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#080"
+   ],
+   "jp": "NUMAKURA MANAMI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 86,
+   "md5": "23f251b1165c4de1b0f3726cdb024e5b",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_086.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#086"
+   ],
+   "jp": "GANAHA HIBIKI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 87,
+   "md5": "5f8554bf78c276f27587dcfe49d89503",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_087.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#087"
+   ],
+   "jp": "HARA YUMI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 93,
+   "md5": "84bbde62248441488fd35eae5c39e4c7",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_093.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#093"
+   ],
+   "jp": "SHIJOU TAKANE",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 100,
+   "md5": "43a14e31d23f3a97ed277dacdfbb127c",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_100.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#100"
+   ],
+   "jp": "FUTAMI MAMI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 101,
+   "md5": "84a700f80c6e008d74bae938a27574d8",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_101.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#101"
+   ],
+   "jp": "HIRATA HIROMI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 106,
+   "md5": "5c7d0dc5fa99e548869d5c5a91415e7e",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_106.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#106"
+   ],
+   "jp": "KIKUCHI MAKOTO",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 107,
+   "md5": "2bb6278f6c0736cc4a0ef1bd196ad5c0",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_107.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#107"
+   ],
+   "jp": "ASAKURA AZUMI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 113,
+   "md5": "2272f2f1772e89700cef4ec16762fb5d",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_113.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#113"
+   ],
+   "jp": "HAGIWARA YUKIHO",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 114,
+   "md5": "05213b65ba3ffbe2ea6dddf24de4a2e1",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_114.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#114"
+   ],
+   "jp": "NIGO MAYAKO",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 121,
+   "md5": "0b9c31e1f7526e8315f82186ffe30985",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_121.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#121"
+   ],
+   "jp": "TAKATSUKI YAYOI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 122,
+   "md5": "7283be8b42b91f8da3572c777d32590b",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_122.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#122"
+   ],
+   "jp": "IMAI ASAMI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 128,
+   "md5": "fd970f95f9448423a35d999d313b9373",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_128.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#128"
+   ],
+   "jp": "KISARAGI CHIHAYA",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 129,
+   "md5": "e55b4b245eb69e8d8e2dd19fcf15781a",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_129.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#129"
+   ],
+   "jp": "HASEGAWA AKIKO",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 135,
+   "md5": "8b1f0bb8ddb50e7ad734ce3b153216f1",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_135.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#135"
+   ],
+   "jp": "HOSHII MIKI",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 136,
+   "md5": "db732265a04d7304174e0cdd3adbfe39",
+   "w": 512,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_136.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#136"
+   ],
+   "jp": "NAKAMURA ERIKO",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 142,
+   "md5": "d73959c9681ffceeb080af905b7e9f5f",
+   "w": 512,
+   "h": 32,
+   "fmt": "2",
+   "png": "ProStaffRoll_142.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#142"
+   ],
+   "jp": "AMAMI HARUKA",
+   "kind": "스태프롤 영문 이름판/문구"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 7,
+   "md5": "0d1db3677e344c8508b2a65fe22f8fd5",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_007.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#007",
+    "interface\\swg\\ProStaffRoll.tsk#032"
+   ],
+   "jp": "斗",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 8,
+   "md5": "6ab0dd4654a0d5068af0d201c205194c",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_008.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#008",
+    "interface\\swg\\ProStaffRoll.tsk#033"
+   ],
+   "jp": "北",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 9,
+   "md5": "0f7910bd9557955a0cc72ea844d96e97",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_009.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#009",
+    "interface\\swg\\ProStaffRoll.tsk#034"
+   ],
+   "jp": "院",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 10,
+   "md5": "5cf2db0791d25c470a017a071365ce52",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_010.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#010",
+    "interface\\swg\\ProStaffRoll.tsk#035"
+   ],
+   "jp": "集",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 11,
+   "md5": "4a79e7c0e9235da87a0c09fc8b21433b",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_011.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#011",
+    "interface\\swg\\ProStaffRoll.tsk#036"
+   ],
+   "jp": "伊",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 13,
+   "md5": "50be766aaca2dbf16ad2df1ad8c83fad",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_013.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#013",
+    "interface\\swg\\ProStaffRoll.tsk#040"
+   ],
+   "jp": "太",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 14,
+   "md5": "bad2a01a5e14e97d93208cbb8fb4a016",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_014.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#014",
+    "interface\\swg\\ProStaffRoll.tsk#041"
+   ],
+   "jp": "翔",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 15,
+   "md5": "d251dca1a898c56219dc9502209ab9d9",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_015.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#015",
+    "interface\\swg\\ProStaffRoll.tsk#042"
+   ],
+   "jp": "洗",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 16,
+   "md5": "1aaa409f1025d9342d7e3028e802df6e",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_016.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#016",
+    "interface\\swg\\ProStaffRoll.tsk#043"
+   ],
+   "jp": "手",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 17,
+   "md5": "f39786041218d9fbe99e989a6ce00dfa",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_017.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#017",
+    "interface\\swg\\ProStaffRoll.tsk#044"
+   ],
+   "jp": "御",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 20,
+   "md5": "29802508555f716838527167ad495b7b",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_020.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#020",
+    "interface\\swg\\ProStaffRoll.tsk#050"
+   ],
+   "jp": "冬",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 23,
+   "md5": "4f453dc155ef4da6c38e09a95fd6fbc5",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_023.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#023",
+    "interface\\swg\\ProStaffRoll.tsk#053"
+   ],
+   "jp": "天",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 26,
+   "md5": "40c23a0e6ad6b9b5afa2dbcc0ceeef69",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_026.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#026",
+    "interface\\swg\\ProStaffRoll.tsk#057"
+   ],
+   "jp": "子",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 27,
+   "md5": "f0c955ff7894f5d5665e141199e53778",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_027.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#027",
+    "interface\\swg\\ProStaffRoll.tsk#058"
+   ],
+   "jp": "律",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 28,
+   "md5": "aab88d7d05b7cb025b06c5d2dd08e7ce",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_028.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#028",
+    "interface\\swg\\ProStaffRoll.tsk#059",
+    "interface\\swg\\ProStaffRoll.tsk#125"
+   ],
+   "jp": "月",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 29,
+   "md5": "95438e46f4e44160811806a5ebba7da5",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_029.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#029",
+    "interface\\swg\\ProStaffRoll.tsk#060"
+   ],
+   "jp": "秋",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 36,
+   "md5": "f34a85589699c480b4b695d08bc7463e",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_036.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#036",
+    "interface\\swg\\ProStaffRoll.tsk#067"
+   ],
+   "jp": "浦",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 37,
+   "md5": "c42a2b750b82f2d27e0ada8970faef71",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_037.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#037",
+    "interface\\swg\\ProStaffRoll.tsk#068"
+   ],
+   "jp": "三",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 44,
+   "md5": "8eab2f4f19c0c15eb0a5d19580c69df2",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_044.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#044",
+    "interface\\swg\\ProStaffRoll.tsk#075"
+   ],
+   "jp": "伊",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 46,
+   "md5": "3ca8e70c653ed78197413458601ad494",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_046.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#046",
+    "interface\\swg\\ProStaffRoll.tsk#077"
+   ],
+   "jp": "水",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 50,
+   "md5": "36d1fa6f95499eb2c32f2cec8735fb0a",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_050.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#050",
+    "interface\\swg\\ProStaffRoll.tsk#095"
+   ],
+   "jp": "美",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\exep_staff_roll.mpc",
+   "n": 52,
+   "md5": "24567ba55da52875e084e27dd8db1fd3",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "exep_staff_roll_052.png",
+   "locs": [
+    "interface\\exep_staff_roll.mpc#052",
+    "interface\\swg\\ProStaffRoll.tsk#098"
+   ],
+   "jp": "双",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 10,
+   "md5": "8228d964fc94f6d1ecb55d79b0608747",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_010.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#010"
+   ],
+   "jp": "男",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 11,
+   "md5": "c0a1fee1c8d972890f5c1b3a124a6861",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_011.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#011"
+   ],
+   "jp": "崇",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 12,
+   "md5": "2bdb48f138d9d93423a197c79d2d5612",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_012.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#012",
+    "interface\\swg\\ProStaffRoll.tsk#132"
+   ],
+   "jp": "井",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 17,
+   "md5": "0e2adb7ff32e0c7051e4a18c491adc00",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_017.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#017"
+   ],
+   "jp": "朗",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 18,
+   "md5": "09f2a26790bc21ccf36933a338ec9080",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_018.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#018"
+   ],
+   "jp": "二",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 20,
+   "md5": "449393f55c18435b9e599f6c90cc53b4",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_020.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#020"
+   ],
+   "jp": "木",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 21,
+   "md5": "8cc0304a3528ec658a123ba1ce76db85",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_021.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#021"
+   ],
+   "jp": "高",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 26,
+   "md5": "dd0d21102d420620b5a0213ef626becc",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_026.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#026"
+   ],
+   "jp": "小",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 28,
+   "md5": "42d439883063affe66b1e1b59f14ed29",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_028.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#028"
+   ],
+   "jp": "音",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 82,
+   "md5": "dbcfecb1f2ea0c59266b8d6ba9e40c0d",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_082.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#082"
+   ],
+   "jp": "覇",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 83,
+   "md5": "7feb2d66c424521fa8b56c8f373a9579",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_083.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#083"
+   ],
+   "jp": "那",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 84,
+   "md5": "2f38fbcdfbfa7ba12946197395f58069",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_084.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#084"
+   ],
+   "jp": "我",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 88,
+   "md5": "85ebe9eb5de3efffcfde1ce5da6be405",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_088.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#088"
+   ],
+   "jp": "音",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 91,
+   "md5": "ac6820867121592dd62a5619a5f78f67",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_091.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#091"
+   ],
+   "jp": "四",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 103,
+   "md5": "0087228cf926b2d6261f2fbe73a6874f",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_103.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#103"
+   ],
+   "jp": "地",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 104,
+   "md5": "8acccf3acd2aa032753cdae7ec537f6b",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_104.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#104"
+   ],
+   "jp": "菊",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 109,
+   "md5": "025219c6d54c96443225dae8e0c2fea6",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_109.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#109"
+   ],
+   "jp": "雪",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 110,
+   "md5": "cf401be41421daec92bcc7321cf736c3",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_110.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#110"
+   ],
+   "jp": "原",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 111,
+   "md5": "37b97a4d968bed915164f63ae487a368",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_111.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#111"
+   ],
+   "jp": "萩",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 118,
+   "md5": "1a89e1d4cd321c121c7e616fb37a9a1a",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_118.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#118"
+   ],
+   "jp": "槻",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 119,
+   "md5": "85ce4ae51f8e92de54d1d1105454462b",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_119.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#119"
+   ],
+   "jp": "高",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 123,
+   "md5": "2a47266ec183ce17ef74ca28f9163349",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_123.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#123"
+   ],
+   "jp": "早",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 124,
+   "md5": "2a48ab901bd3e39c5835a0ff85f6766a",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_124.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#124"
+   ],
+   "jp": "千",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 126,
+   "md5": "952e25e03154eb0fcbf39590455b29b2",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_126.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#126"
+   ],
+   "jp": "如",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 130,
+   "md5": "f1e7dc8154a31756c6d31542c196831b",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_130.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#130"
+   ],
+   "jp": "希",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 131,
+   "md5": "bb23ab2cee7f93f74c15aaeacaf3c196",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_131.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#131"
+   ],
+   "jp": "美",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 133,
+   "md5": "8afeb6023d5a6bdb8e766dd707a99401",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_133.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#133"
+   ],
+   "jp": "星",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 137,
+   "md5": "2777dde8035c954c636fe420ac069405",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_137.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#137"
+   ],
+   "jp": "香",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 138,
+   "md5": "16f87b09ec70e7b2a45ecf60c711655f",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_138.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#138"
+   ],
+   "jp": "春",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
+  },
+  {
+   "rel": "interface\\swg\\ProStaffRoll.tsk",
+   "n": 140,
+   "md5": "e4031077b6427e1d2031525d8c9d3659",
+   "w": 64,
+   "h": 64,
+   "fmt": "2",
+   "png": "ProStaffRoll_140.png",
+   "locs": [
+    "interface\\swg\\ProStaffRoll.tsk#140"
+   ],
+   "jp": "天",
+   "kind": "스태프롤 한자 이름 글자 타일(한 칸 한 글자)"
   }
- ]
+ ],
+ "_doc_staffroll": "2026-10-28 스태프롤 전수 점검(테스터 보고): staff_roll.mpc·exep_staff_roll.mpc·swg/ProStaffRoll.tsk에서 CN 패치가 안 건드린 글자 그림 94장 — 한자 이름 글자 타일 52, 영문 이름판 38+CAST+GU 조각, 저작권 문구 2. 로고(Dolby·namco·PROJECT IM@S)와 손글씨 영문 조각·그림·효과는 제외."
 }
