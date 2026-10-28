@@ -1812,6 +1812,15 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
     initialFix의 NFH 2개가 repo output_direct와 바이트 동일(XMB 증가로 +0x480/+0x470 밀린 자리), member_select 이름 크기 26.
   - pcport_apply deploy가 shutil.copy2로 제자리 쓰기를 해서 game_kor를 하드링크한 mkroot 시험 루트(imas2pc_ps3feat_game_*, 링크 225)까지 같이 바뀌었다.
     공유 원본 game은 별도 파일이라 불변(bg2d_0003 0x0FF512ED 그대로). 임시 파일 + os.replace로 고침(gamedata_apply와 같은 방식).
+- **test-6 재빌드**(10-29 04:36~04:51, KOR 점검표): 점검에서 빠진 것 = 대사 줄 폭 수정 뒤 SCB 재빌드(PS3·PC SCB가 10-28 18:2x 그대로),
+  최신 회수(마지막 대본 회수 10-28 18:12), PS3 DLC(10-28 22:41 빌드 = 끝 패딩 보정 전).
+  - 회수 04:36: 대본 translation_webapp_20261029_0436.xlsx(52,656행, 갱신 8,707셀; 첫 시도 서버 500 → 재시도 통과), xmb 변경 0, dlc 2,546,
+    그림 807PNG, 스태프롤 게이트 반영 0명·보류 26명(글자 높이 20~22px < 40) → 원본 한자.
+  - 게이트 체인 전 단계 exit 0: ps3_res_apply 129(검증 0·폰트 누락 0) → excel2scb → validate → deploy 1,181 → attract → pcport360 → deploy_pcport --src360 →
+    dance_lyrics → pcport_apply(새 os.replace 배포) → gamedata_apply 23(검증 0) → dlc_inject build360(82파일) → build-ps3(124) → deploy-ps3(170).
+  - 배포본 확인: PS3 폰트 4개(initialFix NFH 2·initialTemp NUT 2)·PC initialFix NFH 2 = repo output_direct 바이트 동일, 이름 크기 26(PS3·PC),
+    bg2d 5장 평문·블록 비율 같음, PS3 DLC 170개 모두 평문 끝 0 수 ≥ 원본(부족 0). 'jp불일치 24'는 예전 PS3 DLC 빌드부터 같은 수.
+  - excel2scb "2줄 초과" 경고는 번역을 줄여야 하는 행(dialogue_3lines_20261029.md) — 사용자 확인 전이라 test-6에 넣지 않음(KOR).
 - **프로필 카드 확인**(10-29): 이름 크기 26 + 풀네임 + 위 작은 줄 원문 한자(웹앱 fullname_h). PC 1배·PS3 격리 모두 "天海 春香 / 아마미 하루카 (17)",
   "如月 千早 / 키사라기 치하야 (16)", "萩原 雪歩 / 하기와라 유키호 (17)" 정상, 나이와 겹치지 않음. 캡처: 공유 노트 pc1x_profile_cards_test6.png·ps3_profile_cards_test6.png.
 

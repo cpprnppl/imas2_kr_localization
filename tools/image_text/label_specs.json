@@ -766,7 +766,7 @@
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "나카무라 에리고"
+   "text": "나카무라 에리코"
   },
   "af03018aae26f69cbc2a6cf102579a77": {
    "preset": "기본",
@@ -1120,7 +1120,7 @@
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "CV: 오오츠카 호추"
+   "text": "CV: 오오츠카 호츄"
   },
   "ebbd3e1b5278f5c2813dc7ae6c8a70e8": {
    "preset": "기본",
@@ -1192,19 +1192,19 @@
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "비디오"
+   "text": "영상"
   },
   "58a009b7c0d84658381f9c8a01c1cfb5": {
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "이어서"
+   "text": "이어서 하기"
   },
   "b87b8df48248501d506532a5654a939e": {
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "니가타"
+   "text": "니이가타"
   },
   "58ab00e2ad47a4597a4cfb271676441e": {
    "preset": "기본",
@@ -1246,13 +1246,13 @@
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "악곡 스코어 랭킹"
+   "text": "곡 점수 랭킹"
   },
   "77fb0f2e832bff41931be6f004f0c1a2": {
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "PV 신착"
+   "text": "PV신작"
   },
   "014f58a1b589c04c01004091213170de": {
    "preset": "기본",
@@ -1336,7 +1336,7 @@
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "포토"
+   "text": "사진"
   },
   "4935ca019f77101dc21a0936cee67403": {
    "preset": "기본",
@@ -1420,13 +1420,13 @@
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "765 숍 카탈로그"
+   "text": "765 상점 카탈로그"
   },
   "f1c60fc8604a9f435216e36909d96f40": {
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "765 숍 카탈로그"
+   "text": "765 상점 카탈로그"
   },
   "1656c58117a602860d4ccf802b979533": {
    "preset": "기본",
@@ -1540,7 +1540,1729 @@
    "preset": "기본",
    "over": {},
    "mode": "text",
-   "text": "이어서"
+   "text": "업로드"
+  },
+  "00ffc6d3e89c06cc5e83c89ab77dda62": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "L･O･B･M"
+  },
+  "61f089584142c1d9336ca85a427bce16": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "신SUMMER!!"
+  },
+  "d413a5612b7d7846fd752c01cfe7e040": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "I Want"
+  },
+  "83c03724bb3fb7d764d58d5170983572": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "CHANGE!!!!"
+  },
+  "2a5920383005f3812f3304038c67e704": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "Brand New Day!"
+  },
+  "fb4776be6c47a73fea207e5a6788f129": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아이 LIKE 햄버거"
+  },
+  "c47f2973151e3bc2396df2a93e200e25": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "마리오네트의 마음"
+  },
+  "f5455d17a99a40f7a4f5359f3b9cc488": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "Honey Heartbeat"
+  },
+  "e08e78cd4ef4f06e7c0b4b19556f1302": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "우리들은 계속… 그렇죠?"
+  },
+  "cfa5963f9779a81ea07676692080a5a3": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "오버마스터"
+  },
+  "c1b7afb95dbb43642f0d2834cdd8c8c0": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "Colorful Days"
+  },
+  "c6861eb230995baeea17d5a165b55696": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "두근! 뱀파이어 걸"
+  },
+  "5eba5c30a7394d8d5db1b95635fab3d9": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "Little Match Girl"
+  },
+  "278109532b7a2b064e8b8ac57dbd8f8c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "자신 REST@RT"
+  },
+  "876bd9f5ed6cdf1193d9bbf139698b01": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "하느님의 Birthday"
+  },
+  "e3bf4b2ab48ab5940dfcc3a36bf71515": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "L･O･B･M"
+  },
+  "ef12ccaeba3cf92b06e8299e3df1c523": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "신SUMMER!!"
+  },
+  "be660b8158a9480ca17ce9399c37def8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "I Want"
+  },
+  "32d39444a8730c41aae915d8a81ae7d4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "CHANGE!!!!"
+  },
+  "e5fe957bf7398056075720a290a11985": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "Brand New Day!"
+  },
+  "75ccbfe937c8eccf4f158b0e98f10122": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아이 LIKE 햄버거"
+  },
+  "3fb01fd129e92361ce663f38ff57d848": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "마리오네트의 마음"
+  },
+  "8a09f0c1af8114ebb3b845b83ae9c3f2": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "Honey Heartbeat"
+  },
+  "d772244869ad68e6c2fcef8e8bc6df8d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "우리들은 계속… 그렇죠?"
+  },
+  "6d0e345b768d06b31bf469842bdfdfab": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "오버마스터"
+  },
+  "2868c53ffd169deb3bbd0beb79ebfeef": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "Colorful Days"
+  },
+  "8854bbe0a251137a67f29f7aa573d376": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "Little Match Girl"
+  },
+  "cb26b64ada238be69e9ea948ae60808e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "자신 REST@RT"
+  },
+  "2baa280481cde922033b7bb4648d72bd": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "하느님의 Birthday"
+  },
+  "c4c5bfd73c4591b4fd8793f88a8079d2": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 5호 (Xbox 360)"
+  },
+  "170c3827b03db9bccc24a08d40d245d4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 5호 (Xbox 360)"
+  },
+  "8186fa5f9f9dd36e067b4eac77b9e155": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 5호 (Xbox 360)"
+  },
+  "89fd99a8467f2aaf14c140576b29aac3": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 5호 (Xbox 360)"
+  },
+  "5a3a5a493adfc06dcebd2c085699a24a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 5호 (Xbox 360)"
+  },
+  "9f3fd820f78800ca5f81be2af129622d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 5호 (Xbox 360)"
+  },
+  "399cdd56262ff18cbb7008503a523a40": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 9호 (Xbox 360)"
+  },
+  "1408f2a174bf3f69baa357385bd1b5e3": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 9호 (Xbox 360)"
+  },
+  "0f558a3e5840edafbcb193c97ad0e663": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 9호 (Xbox 360)"
+  },
+  "0fe6dc5f230d5b896d084bdef1e53099": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 9호 (Xbox 360)"
+  },
+  "d6e3553ba3d4df4e474cc74fda1b3eec": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 9호 (Xbox 360)"
+  },
+  "e84b2e07232887910c83d985b3c19f72": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 9호 (Xbox 360)"
+  },
+  "8c8cfce4477c068e450dceaa06d30d5d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 7호 (Xbox 360)"
+  },
+  "33e070f4ee21b65cc6534c19cfbcb5af": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 7호 (Xbox 360)"
+  },
+  "323fff89757e8643ed0b625015f0b0b5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 7호 (Xbox 360)"
+  },
+  "45fea17f0f34f9dc1175323eebc44a7b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 7호 (Xbox 360)"
+  },
+  "d54eb59f6e8f87fa487748c0addc3aaa": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 7호 (Xbox 360)"
+  },
+  "413c381c8662cb9d5a40e2895b423cfc": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 12호 (Xbox 360)"
+  },
+  "44a5d0ff4996fbf6acf2fc7d84858220": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 12호 (Xbox 360)"
+  },
+  "59754881ff1a94c61e1d6d1cdea10bad": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 12호 (Xbox 360)"
+  },
+  "e908fd1ccd03192870b667208c14bc39": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 12호 (Xbox 360)"
+  },
+  "fff540bb9e05eda37a010aa9cdecb3bb": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 12호 (Xbox 360)"
+  },
+  "570931ac7e52a0aab4ab4b7d6c6956b0": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 12호 (Xbox 360)"
+  },
+  "3cbbd10fe30ce614acec0363eb1354f9": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 13호 (Xbox 360)"
+  },
+  "8df4ba759039ce7405f6edaedb6be41f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 13호 (Xbox 360)"
+  },
+  "42e170e800a6382471350ecf899314da": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 13호 (Xbox 360)"
+  },
+  "a455e88e87afd592c4b7bd35675228df": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 13호 (Xbox 360)"
+  },
+  "98495506ce2335c50531de94793b4865": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 13호 (Xbox 360)"
+  },
+  "74977138a6d919d85583b43b715875a5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 13호 (Xbox 360)"
+  },
+  "e845d58ea39af36a54c55b12e35019d9": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 3호 (Xbox 360)"
+  },
+  "ee02523c5ae8e1e29c7460af54ef66e6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 3호 (Xbox 360)"
+  },
+  "0ff05622a28742fd52e67341ee56ec97": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 3호 (Xbox 360)"
+  },
+  "1536e669882858b6b093f03d7264d11d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 3호 (Xbox 360)"
+  },
+  "bc2b5f6401ac1901303fd294c0dcf1a7": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 3호 (Xbox 360)"
+  },
+  "71ce5fe5a15b4eb80ec1c363f4b321b9": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 11호 (Xbox 360)"
+  },
+  "fadfac7bfbb32ee06f915c17af680f72": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 11호 (Xbox 360)"
+  },
+  "8f47b3d0ed1cef8b4e15dc97a8306d1e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 11호 (Xbox 360)"
+  },
+  "25f7e047646f247edb364bbd012977c6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 11호 (Xbox 360)"
+  },
+  "44944a6ac968c48ac5319b11e478e831": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 11호 (Xbox 360)"
+  },
+  "2de403c22808411179ad97199c7ee699": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 2호 (Xbox 360)"
+  },
+  "b5cacb6b2d753b0dcd2d34efbbb63985": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 2호 (Xbox 360)"
+  },
+  "131268c8b9c99a5b211f51260b4aeb44": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 2호 (Xbox 360)"
+  },
+  "df8409cf38eee8c4a653ab73dd5502c0": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 2호 (Xbox 360)"
+  },
+  "0179a8de7df78521ceec6820ef8cee57": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 2호 (Xbox 360)"
+  },
+  "a7d170e320d20d867196c3be472d5a77": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 14호 (Xbox 360)"
+  },
+  "67a71bdf066dfefce1a094355d989d55": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 14호 (Xbox 360)"
+  },
+  "786d297b192a802936eb7b318778e441": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 14호 (Xbox 360)"
+  },
+  "2440bb817d10d6951688206c188e46fc": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 14호 (Xbox 360)"
+  },
+  "5495681974a4e77c08b3b3ae0eb6c74d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 14호 (Xbox 360)"
+  },
+  "d2d26fd2df0ef4475c90067e8482514b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 14호 (Xbox 360)"
+  },
+  "93b1bf7b2d000d2e66dc2bc5e6c623c5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 8호 (Xbox 360)"
+  },
+  "f275decc65a10d652ac0246d34efadc2": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 8호 (Xbox 360)"
+  },
+  "8f7ca116dbf915a2b13ad894e9a17342": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 8호 (Xbox 360)"
+  },
+  "b89fbb69ba8a895d92036b0b73f97f41": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 8호 (Xbox 360)"
+  },
+  "0735f7848b856d8432135827ecff2b19": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 8호 (Xbox 360)"
+  },
+  "d1cb369e8e728221e1b65134b8084448": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 6호 (Xbox 360)"
+  },
+  "1a97fb3e9e04b04d78a76a6ed537c762": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 6호 (Xbox 360)"
+  },
+  "8205a5ec5387f3c675accf88dd24fded": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 6호 (Xbox 360)"
+  },
+  "2e2ef39182b930a8041dacf5c7b4a177": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 6호 (Xbox 360)"
+  },
+  "2ec250c893a4b6c028767b3e1dc9dc9c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 6호 (Xbox 360)"
+  },
+  "509e083fe260e4cfc0fd4f841d720c69": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 6호 (Xbox 360)"
+  },
+  "8b30ee491ab491b092640fba15c278d2": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 4호 (Xbox 360)"
+  },
+  "40f1565c1af8cde54eb0c22e94340999": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 4호 (Xbox 360)"
+  },
+  "443231614b3815bab5956d49704ec6ac": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 4호 (Xbox 360)"
+  },
+  "583f91d5ce96f3ef14d550cda61ff320": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 4호 (Xbox 360)"
+  },
+  "0aa428702130c08de1b2f9161043821d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 4호 (Xbox 360)"
+  },
+  "2a1f306addfadc9de23073213996db51": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 4호 (Xbox 360)"
+  },
+  "f74fbd121ea6af9426907794134cb2af": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 창간호 (Xbox 360)"
+  },
+  "83845d09b95eca40c3dbc9fba6c8361f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 창간호 (Xbox 360)"
+  },
+  "b01c5aca0e0e8428cbf7433139f6c9fa": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 창간호 (Xbox 360)"
+  },
+  "7e2ae2695c96998a0b79c479efbd1968": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 창간호 (Xbox 360)"
+  },
+  "142a4635a5710ad3e2c9fd4f9419f288": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 창간호 (Xbox 360)"
+  },
+  "d749f9a4770a733ea8899add964cbd97": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 창간호 (Xbox 360)"
+  },
+  "411a387cd65b911834ced28c85d01fbb": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 10호 (Xbox 360)"
+  },
+  "53a0cd0a9fff9d143f63f36cc8cc678c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 10호 (Xbox 360)"
+  },
+  "353fdd6660a68f107154480fef106d8a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 10호 (Xbox 360)"
+  },
+  "4fca4c050ec2e54ea8ae952129ddf663": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 10호 (Xbox 360)"
+  },
+  "4e6d11ec64ac6268a4fbca00ef4c4364": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 10호 (Xbox 360)"
+  },
+  "d5d43bf34f73462f6ea0c63be95aa323": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 10호 (Xbox 360)"
+  },
+  "d07a7387972d72a98c45895a1953a840": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 창간호 (PS3)"
+  },
+  "2c4c64816834e9d3a59441f66daae05a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "카탈로그 4호 (PS3)"
+  },
+  "abe5a0831e66e673244598bf000d5cfa": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "월드 이즈 마인"
+  },
+  "f3e982bea61ae2dca639e68898139f8c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "월드 이즈 마인"
+  },
+  "6634e5b3c3fbec30df9c76126b7fe695": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "ALIVE"
+  },
+  "b3e7e297c41f6aeb197a318ae9210cbf": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "ALIVE"
+  },
+  "d1d85ca4a9d0d83472a2a9ba2b08c39c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "GO MY WAY!!"
+  },
+  "b6a9d9351df660da3c2c54cbdeceb7b6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "GO MY WAY!!"
+  },
+  "7e5ee87eb647759e49ce1fb73974041e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "멜트"
+  },
+  "71ce15950c47ba2ed3246f48843668bc": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "멜트"
+  },
+  "c5ea8d89ad1330fc2411d3a186fa0a0e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "프리코그"
+  },
+  "b53f10962cb80aec62b5cbd5c673baed": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "프리코그"
+  },
+  "8610caa1622466ed02124bb3f0bade9a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "shiny smile"
+  },
+  "28c2ec7f5ee4d84194785d1856b3cf5a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "shiny smile"
+  },
+  "cd7433ade83e74ed7e6bc224b55b377b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "Dazzling World"
+  },
+  "03ab178235c7336b78b25ea79e3f2a51": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "Dazzling World"
+  },
+  "5a459554cc47b996c7edf2705fd6a795": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "키라메키라리"
+  },
+  "0a04ceab6ed927b691dce8c897e1cc15": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "키라메키라리"
+  },
+  "cd6c846c2ab0ba3f3bb65cb8ea313330": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "흔들흔들 퓨처☆"
+  },
+  "078df0895095882b9429c6db325e9430": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "흔들흔들 퓨처☆"
+  },
+  "0aa5889b2b42d2ffd807e8f127845927": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "마법을 걸어줘!"
+  },
+  "5954c9e59477774e11c51627800aa4d7": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "마법을 걸어줘!"
+  },
+  "2b52110af551c935faae15c9b96f5697": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "에이전트 밤을 가다"
+  },
+  "2f365aa6e0f8f1c24bee3f5bd5aec488": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "에이전트 밤을 가다"
+  },
+  "b67e726f4702c3a99e2258e230163bc5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "나는 아이돌♡"
+  },
+  "75708d25686eb238b49bc4760233803e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "나는 아이돌♡"
+  },
+  "614aa2e1a2271726853df6246e8c5c84": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "추억을 줘서 고마워"
+  },
+  "002625feb554442eccc4c35c928b5b28": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "추억을 줘서 고마워"
+  },
+  "b462e2b5ff04ac445dac205f1ad698db": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "9:02pm"
+  },
+  "b64ea9d83d764aacd4d10fdadaa16541": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "9:02pm"
+  },
+  "7d51fe9354c64beac970171814a831f1": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "포지티브!"
+  },
+  "5975e4f60ad27c997064b29d04fc5fb8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "포지티브!"
+  },
+  "1895d4b5888932966fff867ad818cc03": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n페스티벌 규칙 1"
+  },
+  "3fe08d0697d37ff2c378755161fe29bc": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n페스티벌 규칙 2"
+  },
+  "e971d99cbf01e8c0d18cc04b8762d134": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n라이브 규칙 1"
+  },
+  "64521d65aead462db3deb3587995dd5a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n라이브 규칙 2"
+  },
+  "ede3ea944b726f4fc9cf3654716f3e94": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "부적 GET"
+  },
+  "5c8b8e81b4c4e9f8488783eaa38e8cc7": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n오디션 규칙 1"
+  },
+  "0b673911177f4292700001993b109cef": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n기본 규칙 1"
+  },
+  "a29c33925496163090be513a2a5b9417": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n기본 규칙 2"
+  },
+  "1125f35eb97ea1d6f8c59aeb02a45228": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n페스티벌 규칙 1"
+  },
+  "dc8d663af6fbc2b05b68009a54586043": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n페스티벌 규칙 2"
+  },
+  "a692ca05f4093a44a854f5f59c47cd7d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n라이브 규칙 1"
+  },
+  "57ac606ae1d918998beda64cfcd432b8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "필승 어드바이스\n라이브 규칙 2"
+  },
+  "d7d7f50edb2255f06a63f0eb41542bd6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "馬"
+  },
+  "db5aab5ac94661f14a96fadae1450f04": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "瀬"
+  },
+  "46558c9be109da62514abfa349f10192": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "ヶ"
+  },
+  "82823c0b426c95bac6784e4e07289f11": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "さ"
+  },
+  "0b77cf587f1a7449c876991c5273c138": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "ず"
+  },
+  "266e5d7b9174ffc0a8f77f93f236ca2e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "あ"
+  },
+  "88ca5c9281935278778501eae3e7bdc8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "亜"
+  },
+  "f4183be9935f69ee126d4992cb6b7449": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "織"
+  },
+  "8d56aa84af3819e24825b84471e98509": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "瀬"
+  },
+  "f29dbf9cdc3af6e9ae5bcdfe10bc0e28": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "海?"
+  },
+  "031a4e8b7755f1cc40931e8c120d8e14": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "黒"
+  },
+  "bc28cd96b0fa575d5486e8d74c22c3c5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "順"
+  },
+  "5bec997faeaba557534699d2f249dd24": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "鳥"
+  },
+  "4f214d17f9d58e7b6a678890fca1622a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "無"
+  },
+  "193066c5f715582bf7bb3eea1236caaf": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "響"
+  },
+  "9a30d057b38c41566c2cf905f96d795f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "貴"
+  },
+  "9d4de875a22f6a9015c4d21d489e4e75": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "条"
+  },
+  "d4af3f2c1c92697c6baae90db895e2e5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "真"
+  },
+  "b26404f7fd65b34a2ffdd2ea4f05681b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "真"
+  },
+  "005e24629629ae5ac1b089669c27f008": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "歩"
+  },
+  "34c0ec600f97b5f8a48cf34ef58cb4b1": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "い"
+  },
+  "9d71141a24b71196270e6b0ad350d799": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "よ"
+  },
+  "4c22d21d186f06e7408a477029db2898": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "や"
+  },
+  "9055166c61d575adb0ac663b753c2999": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "임시"
+  },
+  "e9db6b9afcff0914127549967ade708f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "임시"
+  },
+  "5c63987193f32cd34f66cb320ac8e851": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "주의"
+  },
+  "317e1d7a65dfdde29cf5ce531ad05c82": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "앞으로\n회"
+  },
+  "75e629da3308826350f3b39bc71f847e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "e04b77cddb7590ab28257a59e45c0b6e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "4cf963ccf2b158f9e80c3e4ab63602d6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "7a77b02bc5bf930043841586200b6ea0": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "24cd59fc1d06ce7afad6a8208aae38b6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "eba9637ab9c48c05fe6344bead33e435": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "5bea581fd6a6c2b1a15976ac03d81463": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "244e96b7f865edf87836a14325c60820": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "85556ad06629619c45565934f97d0de1": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "9630b00a997a16e2de252d1fa2c611d6": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "296a467471a2c9091b1bc1e1fa300373": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "707bb00ad03dbaa3fb8c31af6c588730": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "5aa8adced735a660c2d05684097b7e29": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "5ccfcc504c96169de8fa64636f571439": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "d7b0042df61d2ab24af54df88df08db4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "161aa1cff9b1e61905697e53d56e4698": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "580746b9934c159cfdd9049bf09c8432": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "5688599e27a8604a794a061a2845ccaf": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "92b1b0c6082ef635719093eda809fe22": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "d970d4233ad1d9a85019a0856fef4356": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "0eb0662abdd8d6f0e53a72c0bfbba6df": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "be5b06a29f192566a1e8cf2e644de5fb": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "b8de40db193c5fb13abe967d70f8568d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "099691eae5b2b6ff6e28908086db11a1": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "9899148b679c0114656edcc74671a422": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "23f2fe7db6c9be843294ae7bbd3814de": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "188961c1f355434efe86c8ce78aea86a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "7c1facd24378d65fd4125c052a37eeaa": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "1b1b3446a906f0475bb56b0385a27201": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "5d7008efa8102a4ecbe66b420193bdbe": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "8d90fbf0150882faaa413a9f7a4e7618": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "fb60c4975231a0ebbbbe7bb5c2b374b5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "ad6bfdaadc4bc8d7cd41c4b49692f486": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "9d8d10f998fc05b530d583e909eb8508": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "56407441991b0aa66f83f9ad20d055b9": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "b571813b517659ff2a776d0b16fd8b56": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "cbf68aed9d0c44aa8d8378fffcd76718": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "85dafdbcfe281b5e8c0d282bbadc247a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "c35c951dfa6256146291d8566135fd9d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "2596ba1a9cfb04d5f555e93b81d25f16": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "dedda6b0e9d17b5eddae9ef6d95f53e1": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "f4e07357b369ef2b721d0c778f1c2c07": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "93b1a4b266ea40b70f1f7666fd592e5f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "6bae686de48c80abc64c505d5179c2ce": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "39bd60e18675b0a7b20f6646c277ddcb": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "65d82cd52d75628d97e0a4fce91cea9e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "8e672ec0884a3475fdedd1816095157c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "44f6fbe7651db91a646ad4624564979b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "455d642a56b8d206f296a34488b756c9": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "019516a5fb70da4d4025211fc670792a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "5d392a55d77e97104d9627abf3583e91": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "7c2e5247db28a7feb7588f511fc1aa95": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "285b6eceaf6f9dbba34bea49753a5602": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "43153f0c8fc0e74879b95b0f6940fc2f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "5fb9b07e2dc24d92865f46d03c86e770": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "6bb66ed25e02a2916ba4d91c877a17e3": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "c185f78b5a2091ff04fc7626af928e8a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "da97b1d6b201a357c0e1f61d222d6422": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "78655b63d7bfdccb65e2df1d979cc24c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "425fd6f760befb801905f019b0f91cee": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "391c43469069117910ceaab64dd2ecab": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "e94bf8e305e6905d0d4a0033c9186d6e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "273659c41dd49112453409c612a8a824": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "313421f138bed7b55247d58491ffedb5": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "dcb44441338e691b7c44ecad02eda19d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "6d9847737a483bf50b682e3c33523d7b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "8252f85fdb32138302152272ca613c86": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "11042dd3b22165801ef64404375124d4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "8812cb7058f2157ca9e3f6e6848220b9": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "ad9ff8a00ba1dbc27780f7ec3a086479": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "d90095a5ef1d37a8136ddaa2f7aa7e93": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "049591849d7b2ec9387da2c7836e9210": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "53306be7908910b7e0cfe25d99cf49cd": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "446e89de9a14c908bedc1d8a1d7c31f3": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "ba73d86c7b9d2186687d815133cb5078": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "7249ed26e30ff76a2d802cf91d3d06bd": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "a4ec6b88c5415751e2b8e733d7d9c473": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "588a6481ec537153a6df7bfd5edc60fe": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "fd7d9ce5fb8bcdde1d02e3c1ed5fac11": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "a706624d2fa030f7836a1f8032e9fefc": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "5f0c93d43746a4d757699c822ebea90c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "ccca1b5cfad6c0db30db8a55db858814": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "e1ead0d152daf76da01d06b15ebabbac": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "c260960cd64458491a8183ed8831da8f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "50ec88e61f3800e9fb383d99ab68854a": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "c966472077ceefbf6518c2b14565d54e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "86a2945ff4d4223cd34aaef9c6b81982": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "f3281c3a15b3c52493ac374adc00bb87": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "90947f32a9b2e7dd08e82d9d5a369b5e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "d99b448ae5231cf7d0469e5652d8941b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "8291c6ea10029754bcf1043d9031da8c": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "85644b8a751af8701f54fd0454bf33e4": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "89328a0462f5f212543da768aaaabcf8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "c84a2d56edc67e2c09f3d1e5b7e1a440": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "지도 퀴즈"
+  },
+  "43e5655cc81d549f3b75f3b34da6b412": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "시스템 설정"
+  },
+  "0e3e89e39e383d49d1d0f362ab81761b": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "의상 설정"
+  },
+  "2e3c7183766c920f5a5931ca7b86e664": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아이 LIKE 햄버거"
+  },
+  "2d5bfd2946743a9fa7592b1f06b43153": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "아이 LIKE 햄버거"
+  },
+  "b92d2b09ef237c24d59c05a0a8bc3958": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "키라메키라리"
+  },
+  "cfb468944d23f7f9bbae08af58c38b3f": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "키라메키라리"
+  },
+  "6fe175c87f81f875d75bf0eb52da441d": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "사랑을 시작하자"
+  },
+  "f1c6a9f6dd6f0e12f96218e396df63d8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "사랑을 시작하자"
+  },
+  "bb06f8270287464b8ddfff8503dcfcf8": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "눈이 마주친 순간"
+  },
+  "976db621095bd21ac0a453d7b6bb7207": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "눈이 마주친 순간"
+  },
+  "874c496aa047b069767b414727307e97": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "미주 Mind"
+  },
+  "454a0ae52667e0daf89daed69c181d9e": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "미주 Mind"
+  },
+  "26abc91d90fc033dcd4e05a8a7f01521": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "일곱 빛깔 버튼"
+  },
+  "6900b60ef0606e50a06633c34b682998": {
+   "preset": "기본",
+   "over": {},
+   "mode": "text",
+   "text": "일곱 빛깔 버튼"
   }
  }
 }
