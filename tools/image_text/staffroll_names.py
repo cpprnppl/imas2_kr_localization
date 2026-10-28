@@ -4,6 +4,7 @@
 스태프롤 한자 이름(64×64 글자 타일 조립) → 웹앱 「스태프롤 이름」 메뉴용 메타 (staffroll_names.json)
 
 이름 하나 = SWG 스프라이트 하나. 칸마다 타일 비트맵 1장(md5 = 웹앱 이미지 행 키 = tex_kr 키).
+칸 좌표는 staffroll_layout.py 재배치(칸 사이 10px, 첫 칸 고정) 뒤의 정지 자세 — 패치된 게임 화면과 같다.
 칸 위치는 스프라이트 마지막 프레임 레코드의 이동 명령이 가리키는 행렬(=정지 자세)에서 읽는다.
   · 본편 ProStaffRoll.tsk 19명(PS3·360 공통 — 데이터 동일), 류구코마치 exep_staff_roll.mpc 7명(PS3 전용)
   · 류구 타일은 본편 타일과 md5가 같아(45/45) 작업 단위는 본편 이름 하나로 묶인다
@@ -140,8 +141,10 @@ def main():
     names = []
     for tag, rel in FILES.items():
         plain = open(os.path.join(CACHE, rel), "rb").read()
+        md5 = tile_md5s(plain, plain.find(b"SWG\x00"))      # 타일 키 = 순정 텍스처 md5
+        import staffroll_layout as SL                       # 칸 위치는 한글 패치의 재배치(10px 간격) 뒤 기준
+        plain = SL.relayout(plain, tag)
         base = plain.find(b"SWG\x00")
-        md5 = tile_md5s(plain, base)
         for ent in (MAIN if tag == "main" else RYU):
             sp, jp = ent[0], ent[1]
             slots = name_slots(plain, base, sp)

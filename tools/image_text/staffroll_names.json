@@ -28,7 +28,7 @@
     {
      "md5": "f29dbf9cdc3af6e9ae5bcdfe10bc0e28",
      "loc": "interface\\swg\\ProStaffRoll.tsk#139",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "f29dbf9cdc3af6e9ae5bcdfe10bc0e28@interface\\swg\\ProStaffRoll.tsk#139"
@@ -38,7 +38,7 @@
     {
      "md5": "16f87b09ec70e7b2a45ecf60c711655f",
      "loc": "interface\\swg\\ProStaffRoll.tsk#138",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "16f87b09ec70e7b2a45ecf60c711655f"
@@ -48,7 +48,7 @@
     {
      "md5": "2777dde8035c954c636fe420ac069405",
      "loc": "interface\\swg\\ProStaffRoll.tsk#137",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "2777dde8035c954c636fe420ac069405"
@@ -81,7 +81,7 @@
     {
      "md5": "2bdb48f138d9d93423a197c79d2d5612",
      "loc": "interface\\swg\\ProStaffRoll.tsk#132",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "2bdb48f138d9d93423a197c79d2d5612@interface\\swg\\ProStaffRoll.tsk#132"
@@ -91,7 +91,7 @@
     {
      "md5": "bb23ab2cee7f93f74c15aaeacaf3c196",
      "loc": "interface\\swg\\ProStaffRoll.tsk#131",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "bb23ab2cee7f93f74c15aaeacaf3c196"
@@ -101,7 +101,7 @@
     {
      "md5": "f1e7dc8154a31756c6d31542c196831b",
      "loc": "interface\\swg\\ProStaffRoll.tsk#130",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "f1e7dc8154a31756c6d31542c196831b"
@@ -134,7 +134,7 @@
     {
      "md5": "aab88d7d05b7cb025b06c5d2dd08e7ce",
      "loc": "interface\\swg\\ProStaffRoll.tsk#125",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "aab88d7d05b7cb025b06c5d2dd08e7ce@interface\\swg\\ProStaffRoll.tsk#125"
@@ -144,7 +144,7 @@
     {
      "md5": "2a48ab901bd3e39c5835a0ff85f6766a",
      "loc": "interface\\swg\\ProStaffRoll.tsk#124",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "2a48ab901bd3e39c5835a0ff85f6766a"
@@ -154,7 +154,7 @@
     {
      "md5": "2a47266ec183ce17ef74ca28f9163349",
      "loc": "interface\\swg\\ProStaffRoll.tsk#123",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "2a47266ec183ce17ef74ca28f9163349"
@@ -187,7 +187,7 @@
     {
      "md5": "1a89e1d4cd321c121c7e616fb37a9a1a",
      "loc": "interface\\swg\\ProStaffRoll.tsk#118",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "1a89e1d4cd321c121c7e616fb37a9a1a"
@@ -197,7 +197,7 @@
     {
      "md5": "4c22d21d186f06e7408a477029db2898",
      "loc": "interface\\swg\\ProStaffRoll.tsk#117",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "4c22d21d186f06e7408a477029db2898"
@@ -207,7 +207,7 @@
     {
      "md5": "9d71141a24b71196270e6b0ad350d799",
      "loc": "interface\\swg\\ProStaffRoll.tsk#116",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "9d71141a24b71196270e6b0ad350d799"
@@ -217,7 +217,7 @@
     {
      "md5": "34c0ec600f97b5f8a48cf34ef58cb4b1",
      "loc": "interface\\swg\\ProStaffRoll.tsk#115",
-     "x": 515.0,
+     "x": 500.0,
      "y": 7.0,
      "keys": [
       "34c0ec600f97b5f8a48cf34ef58cb4b1"
@@ -250,7 +250,7 @@
     {
      "md5": "cf401be41421daec92bcc7321cf736c3",
      "loc": "interface\\swg\\ProStaffRoll.tsk#110",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "cf401be41421daec92bcc7321cf736c3"
@@ -260,7 +260,7 @@
     {
      "md5": "025219c6d54c96443225dae8e0c2fea6",
      "loc": "interface\\swg\\ProStaffRoll.tsk#109",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "025219c6d54c96443225dae8e0c2fea6"
@@ -270,7 +270,7 @@
     {
      "md5": "005e24629629ae5ac1b089669c27f008",
      "loc": "interface\\swg\\ProStaffRoll.tsk#108",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "005e24629629ae5ac1b089669c27f008"
@@ -303,7 +303,7 @@
     {
      "md5": "0087228cf926b2d6261f2fbe73a6874f",
      "loc": "interface\\swg\\ProStaffRoll.tsk#103",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "0087228cf926b2d6261f2fbe73a6874f"
@@ -313,7 +313,7 @@
     {
      "md5": "b26404f7fd65b34a2ffdd2ea4f05681b",
      "loc": "interface\\swg\\ProStaffRoll.tsk#102",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "b26404f7fd65b34a2ffdd2ea4f05681b"
@@ -349,7 +349,7 @@
     {
      "md5": "f29dbf9cdc3af6e9ae5bcdfe10bc0e28",
      "loc": "interface\\swg\\ProStaffRoll.tsk#097",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "f29dbf9cdc3af6e9ae5bcdfe10bc0e28@interface\\exep_staff_roll.mpc#051",
@@ -363,7 +363,7 @@
     {
      "md5": "d4af3f2c1c92697c6baae90db895e2e5",
      "loc": "interface\\swg\\ProStaffRoll.tsk#096",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "d4af3f2c1c92697c6baae90db895e2e5"
@@ -373,7 +373,7 @@
     {
      "md5": "36d1fa6f95499eb2c32f2cec8735fb0a",
      "loc": "interface\\swg\\ProStaffRoll.tsk#095",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "36d1fa6f95499eb2c32f2cec8735fb0a"
@@ -409,7 +409,7 @@
     {
      "md5": "9d4de875a22f6a9015c4d21d489e4e75",
      "loc": "interface\\swg\\ProStaffRoll.tsk#090",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "9d4de875a22f6a9015c4d21d489e4e75"
@@ -419,7 +419,7 @@
     {
      "md5": "9a30d057b38c41566c2cf905f96d795f",
      "loc": "interface\\swg\\ProStaffRoll.tsk#089",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "9a30d057b38c41566c2cf905f96d795f"
@@ -429,7 +429,7 @@
     {
      "md5": "85ebe9eb5de3efffcfde1ce5da6be405",
      "loc": "interface\\swg\\ProStaffRoll.tsk#088",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "85ebe9eb5de3efffcfde1ce5da6be405"
@@ -462,7 +462,7 @@
     {
      "md5": "7feb2d66c424521fa8b56c8f373a9579",
      "loc": "interface\\swg\\ProStaffRoll.tsk#083",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "7feb2d66c424521fa8b56c8f373a9579"
@@ -472,7 +472,7 @@
     {
      "md5": "dbcfecb1f2ea0c59266b8d6ba9e40c0d",
      "loc": "interface\\swg\\ProStaffRoll.tsk#082",
-     "x": 344.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "dbcfecb1f2ea0c59266b8d6ba9e40c0d"
@@ -482,7 +482,7 @@
     {
      "md5": "193066c5f715582bf7bb3eea1236caaf",
      "loc": "interface\\swg\\ProStaffRoll.tsk#081",
-     "x": 444.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "193066c5f715582bf7bb3eea1236caaf"
@@ -515,7 +515,7 @@
     {
      "md5": "8d56aa84af3819e24825b84471e98509",
      "loc": "interface\\swg\\ProStaffRoll.tsk#076",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "8d56aa84af3819e24825b84471e98509"
@@ -525,7 +525,7 @@
     {
      "md5": "8eab2f4f19c0c15eb0a5d19580c69df2",
      "loc": "interface\\swg\\ProStaffRoll.tsk#075",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "8eab2f4f19c0c15eb0a5d19580c69df2"
@@ -535,7 +535,7 @@
     {
      "md5": "f4183be9935f69ee126d4992cb6b7449",
      "loc": "interface\\swg\\ProStaffRoll.tsk#074",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "f4183be9935f69ee126d4992cb6b7449"
@@ -570,7 +570,7 @@
     {
      "md5": "f29dbf9cdc3af6e9ae5bcdfe10bc0e28",
      "loc": "interface\\swg\\ProStaffRoll.tsk#097",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "f29dbf9cdc3af6e9ae5bcdfe10bc0e28@interface\\exep_staff_roll.mpc#051",
@@ -583,7 +583,7 @@
     {
      "md5": "88ca5c9281935278778501eae3e7bdc8",
      "loc": "interface\\swg\\ProStaffRoll.tsk#071",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "88ca5c9281935278778501eae3e7bdc8"
@@ -593,7 +593,7 @@
     {
      "md5": "36d1fa6f95499eb2c32f2cec8735fb0a",
      "loc": "interface\\swg\\ProStaffRoll.tsk#095",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "36d1fa6f95499eb2c32f2cec8735fb0a"
@@ -628,7 +628,7 @@
     {
      "md5": "f34a85589699c480b4b695d08bc7463e",
      "loc": "interface\\swg\\ProStaffRoll.tsk#067",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "f34a85589699c480b4b695d08bc7463e"
@@ -638,7 +638,7 @@
     {
      "md5": "266e5d7b9174ffc0a8f77f93f236ca2e",
      "loc": "interface\\swg\\ProStaffRoll.tsk#066",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "266e5d7b9174ffc0a8f77f93f236ca2e"
@@ -648,7 +648,7 @@
     {
      "md5": "0b77cf587f1a7449c876991c5273c138",
      "loc": "interface\\swg\\ProStaffRoll.tsk#065",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "0b77cf587f1a7449c876991c5273c138"
@@ -658,7 +658,7 @@
     {
      "md5": "82823c0b426c95bac6784e4e07289f11",
      "loc": "interface\\swg\\ProStaffRoll.tsk#064",
-     "x": 515.0,
+     "x": 500.0,
      "y": 7.0,
      "keys": [
       "82823c0b426c95bac6784e4e07289f11"
@@ -691,7 +691,7 @@
     {
      "md5": "aab88d7d05b7cb025b06c5d2dd08e7ce",
      "loc": "interface\\swg\\ProStaffRoll.tsk#059",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "aab88d7d05b7cb025b06c5d2dd08e7ce@interface\\exep_staff_roll.mpc#028",
@@ -702,7 +702,7 @@
     {
      "md5": "f0c955ff7894f5d5665e141199e53778",
      "loc": "interface\\swg\\ProStaffRoll.tsk#058",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "f0c955ff7894f5d5665e141199e53778"
@@ -712,7 +712,7 @@
     {
      "md5": "40c23a0e6ad6b9b5afa2dbcc0ceeef69",
      "loc": "interface\\swg\\ProStaffRoll.tsk#057",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "40c23a0e6ad6b9b5afa2dbcc0ceeef69"
@@ -745,7 +745,7 @@
     {
      "md5": "46558c9be109da62514abfa349f10192",
      "loc": "interface\\swg\\ProStaffRoll.tsk#052",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "46558c9be109da62514abfa349f10192"
@@ -755,7 +755,7 @@
     {
      "md5": "db5aab5ac94661f14a96fadae1450f04",
      "loc": "interface\\swg\\ProStaffRoll.tsk#051",
-     "x": 339.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "db5aab5ac94661f14a96fadae1450f04"
@@ -765,7 +765,7 @@
     {
      "md5": "29802508555f716838527167ad495b7b",
      "loc": "interface\\swg\\ProStaffRoll.tsk#050",
-     "x": 436.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "29802508555f716838527167ad495b7b"
@@ -775,7 +775,7 @@
     {
      "md5": "d7d7f50edb2255f06a63f0eb41542bd6",
      "loc": "interface\\swg\\ProStaffRoll.tsk#049",
-     "x": 506.0,
+     "x": 500.0,
      "y": 7.0,
      "keys": [
       "d7d7f50edb2255f06a63f0eb41542bd6"
@@ -808,7 +808,7 @@
     {
      "md5": "1aaa409f1025d9342d7e3028e802df6e",
      "loc": "interface\\swg\\ProStaffRoll.tsk#043",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "1aaa409f1025d9342d7e3028e802df6e"
@@ -818,7 +818,7 @@
     {
      "md5": "d251dca1a898c56219dc9502209ab9d9",
      "loc": "interface\\swg\\ProStaffRoll.tsk#042",
-     "x": 339.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "d251dca1a898c56219dc9502209ab9d9"
@@ -828,7 +828,7 @@
     {
      "md5": "bad2a01a5e14e97d93208cbb8fb4a016",
      "loc": "interface\\swg\\ProStaffRoll.tsk#041",
-     "x": 436.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "bad2a01a5e14e97d93208cbb8fb4a016"
@@ -838,7 +838,7 @@
     {
      "md5": "50be766aaca2dbf16ad2df1ad8c83fad",
      "loc": "interface\\swg\\ProStaffRoll.tsk#040",
-     "x": 506.0,
+     "x": 500.0,
      "y": 7.0,
      "keys": [
       "50be766aaca2dbf16ad2df1ad8c83fad"
@@ -871,7 +871,7 @@
     {
      "md5": "5cf2db0791d25c470a017a071365ce52",
      "loc": "interface\\swg\\ProStaffRoll.tsk#035",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "5cf2db0791d25c470a017a071365ce52"
@@ -881,7 +881,7 @@
     {
      "md5": "0f7910bd9557955a0cc72ea844d96e97",
      "loc": "interface\\swg\\ProStaffRoll.tsk#034",
-     "x": 339.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "0f7910bd9557955a0cc72ea844d96e97"
@@ -891,7 +891,7 @@
     {
      "md5": "6ab0dd4654a0d5068af0d201c205194c",
      "loc": "interface\\swg\\ProStaffRoll.tsk#033",
-     "x": 436.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "6ab0dd4654a0d5068af0d201c205194c"
@@ -901,7 +901,7 @@
     {
      "md5": "0d1db3677e344c8508b2a65fe22f8fd5",
      "loc": "interface\\swg\\ProStaffRoll.tsk#032",
-     "x": 506.0,
+     "x": 500.0,
      "y": 7.0,
      "keys": [
       "0d1db3677e344c8508b2a65fe22f8fd5"
@@ -934,7 +934,7 @@
     {
      "md5": "4f214d17f9d58e7b6a678890fca1622a",
      "loc": "interface\\swg\\ProStaffRoll.tsk#027",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "4f214d17f9d58e7b6a678890fca1622a"
@@ -944,7 +944,7 @@
     {
      "md5": "dd0d21102d420620b5a0213ef626becc",
      "loc": "interface\\swg\\ProStaffRoll.tsk#026",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "dd0d21102d420620b5a0213ef626becc"
@@ -954,7 +954,7 @@
     {
      "md5": "5bec997faeaba557534699d2f249dd24",
      "loc": "interface\\swg\\ProStaffRoll.tsk#025",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "5bec997faeaba557534699d2f249dd24"
@@ -987,7 +987,7 @@
     {
      "md5": "449393f55c18435b9e599f6c90cc53b4",
      "loc": "interface\\swg\\ProStaffRoll.tsk#020",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "449393f55c18435b9e599f6c90cc53b4"
@@ -997,7 +997,7 @@
     {
      "md5": "bc28cd96b0fa575d5486e8d74c22c3c5",
      "loc": "interface\\swg\\ProStaffRoll.tsk#019",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "bc28cd96b0fa575d5486e8d74c22c3c5"
@@ -1007,7 +1007,7 @@
     {
      "md5": "09f2a26790bc21ccf36933a338ec9080",
      "loc": "interface\\swg\\ProStaffRoll.tsk#018",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "09f2a26790bc21ccf36933a338ec9080"
@@ -1017,7 +1017,7 @@
     {
      "md5": "0e2adb7ff32e0c7051e4a18c491adc00",
      "loc": "interface\\swg\\ProStaffRoll.tsk#017",
-     "x": 515.0,
+     "x": 500.0,
      "y": 7.0,
      "keys": [
       "0e2adb7ff32e0c7051e4a18c491adc00"
@@ -1050,7 +1050,7 @@
     {
      "md5": "2bdb48f138d9d93423a197c79d2d5612",
      "loc": "interface\\swg\\ProStaffRoll.tsk#012",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "2bdb48f138d9d93423a197c79d2d5612@interface\\swg\\ProStaffRoll.tsk#012"
@@ -1060,7 +1060,7 @@
     {
      "md5": "c0a1fee1c8d972890f5c1b3a124a6861",
      "loc": "interface\\swg\\ProStaffRoll.tsk#011",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "c0a1fee1c8d972890f5c1b3a124a6861"
@@ -1070,7 +1070,7 @@
     {
      "md5": "8228d964fc94f6d1ecb55d79b0608747",
      "loc": "interface\\swg\\ProStaffRoll.tsk#010",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "8228d964fc94f6d1ecb55d79b0608747"
@@ -1103,7 +1103,7 @@
     {
      "md5": "8d56aa84af3819e24825b84471e98509",
      "loc": "interface\\exep_staff_roll.mpc#045",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "8d56aa84af3819e24825b84471e98509"
@@ -1113,7 +1113,7 @@
     {
      "md5": "8eab2f4f19c0c15eb0a5d19580c69df2",
      "loc": "interface\\exep_staff_roll.mpc#044",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "8eab2f4f19c0c15eb0a5d19580c69df2"
@@ -1123,7 +1123,7 @@
     {
      "md5": "f4183be9935f69ee126d4992cb6b7449",
      "loc": "interface\\exep_staff_roll.mpc#043",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "f4183be9935f69ee126d4992cb6b7449"
@@ -1158,7 +1158,7 @@
     {
      "md5": "f29dbf9cdc3af6e9ae5bcdfe10bc0e28",
      "loc": "interface\\exep_staff_roll.mpc#051",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "f29dbf9cdc3af6e9ae5bcdfe10bc0e28@interface\\exep_staff_roll.mpc#051",
@@ -1171,7 +1171,7 @@
     {
      "md5": "88ca5c9281935278778501eae3e7bdc8",
      "loc": "interface\\exep_staff_roll.mpc#040",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "88ca5c9281935278778501eae3e7bdc8"
@@ -1181,7 +1181,7 @@
     {
      "md5": "36d1fa6f95499eb2c32f2cec8735fb0a",
      "loc": "interface\\exep_staff_roll.mpc#050",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "36d1fa6f95499eb2c32f2cec8735fb0a"
@@ -1216,7 +1216,7 @@
     {
      "md5": "f34a85589699c480b4b695d08bc7463e",
      "loc": "interface\\exep_staff_roll.mpc#036",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "f34a85589699c480b4b695d08bc7463e"
@@ -1226,7 +1226,7 @@
     {
      "md5": "266e5d7b9174ffc0a8f77f93f236ca2e",
      "loc": "interface\\exep_staff_roll.mpc#035",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "266e5d7b9174ffc0a8f77f93f236ca2e"
@@ -1236,7 +1236,7 @@
     {
      "md5": "0b77cf587f1a7449c876991c5273c138",
      "loc": "interface\\exep_staff_roll.mpc#034",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "0b77cf587f1a7449c876991c5273c138"
@@ -1246,7 +1246,7 @@
     {
      "md5": "82823c0b426c95bac6784e4e07289f11",
      "loc": "interface\\exep_staff_roll.mpc#033",
-     "x": 515.0,
+     "x": 500.0,
      "y": 7.0,
      "keys": [
       "82823c0b426c95bac6784e4e07289f11"
@@ -1279,7 +1279,7 @@
     {
      "md5": "aab88d7d05b7cb025b06c5d2dd08e7ce",
      "loc": "interface\\exep_staff_roll.mpc#028",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "aab88d7d05b7cb025b06c5d2dd08e7ce@interface\\exep_staff_roll.mpc#028",
@@ -1290,7 +1290,7 @@
     {
      "md5": "f0c955ff7894f5d5665e141199e53778",
      "loc": "interface\\exep_staff_roll.mpc#027",
-     "x": 377.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "f0c955ff7894f5d5665e141199e53778"
@@ -1300,7 +1300,7 @@
     {
      "md5": "40c23a0e6ad6b9b5afa2dbcc0ceeef69",
      "loc": "interface\\exep_staff_roll.mpc#026",
-     "x": 447.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "40c23a0e6ad6b9b5afa2dbcc0ceeef69"
@@ -1333,7 +1333,7 @@
     {
      "md5": "5cf2db0791d25c470a017a071365ce52",
      "loc": "interface\\exep_staff_roll.mpc#010",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "5cf2db0791d25c470a017a071365ce52"
@@ -1343,7 +1343,7 @@
     {
      "md5": "0f7910bd9557955a0cc72ea844d96e97",
      "loc": "interface\\exep_staff_roll.mpc#009",
-     "x": 339.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "0f7910bd9557955a0cc72ea844d96e97"
@@ -1353,7 +1353,7 @@
     {
      "md5": "6ab0dd4654a0d5068af0d201c205194c",
      "loc": "interface\\exep_staff_roll.mpc#008",
-     "x": 436.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "6ab0dd4654a0d5068af0d201c205194c"
@@ -1363,7 +1363,7 @@
     {
      "md5": "0d1db3677e344c8508b2a65fe22f8fd5",
      "loc": "interface\\exep_staff_roll.mpc#007",
-     "x": 506.0,
+     "x": 500.0,
      "y": 7.0,
      "keys": [
       "0d1db3677e344c8508b2a65fe22f8fd5"
@@ -1396,7 +1396,7 @@
     {
      "md5": "1aaa409f1025d9342d7e3028e802df6e",
      "loc": "interface\\exep_staff_roll.mpc#016",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "1aaa409f1025d9342d7e3028e802df6e"
@@ -1406,7 +1406,7 @@
     {
      "md5": "d251dca1a898c56219dc9502209ab9d9",
      "loc": "interface\\exep_staff_roll.mpc#015",
-     "x": 339.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "d251dca1a898c56219dc9502209ab9d9"
@@ -1416,7 +1416,7 @@
     {
      "md5": "bad2a01a5e14e97d93208cbb8fb4a016",
      "loc": "interface\\exep_staff_roll.mpc#014",
-     "x": 436.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "bad2a01a5e14e97d93208cbb8fb4a016"
@@ -1426,7 +1426,7 @@
     {
      "md5": "50be766aaca2dbf16ad2df1ad8c83fad",
      "loc": "interface\\exep_staff_roll.mpc#013",
-     "x": 506.0,
+     "x": 500.0,
      "y": 7.0,
      "keys": [
       "50be766aaca2dbf16ad2df1ad8c83fad"
@@ -1459,7 +1459,7 @@
     {
      "md5": "46558c9be109da62514abfa349f10192",
      "loc": "interface\\exep_staff_roll.mpc#022",
-     "x": 273.0,
+     "x": 278.0,
      "y": 7.0,
      "keys": [
       "46558c9be109da62514abfa349f10192"
@@ -1469,7 +1469,7 @@
     {
      "md5": "db5aab5ac94661f14a96fadae1450f04",
      "loc": "interface\\exep_staff_roll.mpc#021",
-     "x": 339.0,
+     "x": 352.0,
      "y": 7.0,
      "keys": [
       "db5aab5ac94661f14a96fadae1450f04"
@@ -1479,7 +1479,7 @@
     {
      "md5": "29802508555f716838527167ad495b7b",
      "loc": "interface\\exep_staff_roll.mpc#020",
-     "x": 436.0,
+     "x": 426.0,
      "y": 7.0,
      "keys": [
       "29802508555f716838527167ad495b7b"
@@ -1489,7 +1489,7 @@
     {
      "md5": "d7d7f50edb2255f06a63f0eb41542bd6",
      "loc": "interface\\exep_staff_roll.mpc#019",
-     "x": 508.0,
+     "x": 500.0,
      "y": 7.0,
      "keys": [
       "d7d7f50edb2255f06a63f0eb41542bd6"

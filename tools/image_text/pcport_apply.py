@@ -57,6 +57,7 @@ OUT = os.path.join(OUT_DEFAULT, "out_pcport")
 KR = os.path.join(OUT_DEFAULT, "kr")
 JPD = os.path.join(OUT_DEFAULT, "jp")
 NPC_PREFIX = ("NPCP_", "NPCU_", "NPCS_", "PROD_")
+SR_LAYOUT = {"interface\\swg\\ProStaffRoll.tsk": "main"}     # 360판엔 류구 스태프롤(exep_staff_roll) 없음
 
 
 def sha(b):
@@ -420,6 +421,7 @@ def build():
                 "interface\\ScheduleSelect.mpc", "scene\\produce_etc.mpc",
                 "scene\\exep_commu.mpc", "scene\\exep_init.mpc"}
     targets |= set(TB.DIRECT)            # 레슨 결과 배너 상주 사본(gscript\adv_common.mpc)
+    targets |= set(SR_LAYOUT)            # 스태프롤 이름 칸 간격(staffroll_layout.py, SWG 행렬 제자리)
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
     report = {"ok": [], "skip": [], "fail": [], "unmatched": []}
@@ -443,8 +445,14 @@ def build():
                 n_tex += n_xt
             if rel in TB.RELS:      # 레슨·커뮤 결과 배너: 타일은 위 텍스처로, 칸 배정은 SWG(tile_banner.py)
                 data, n_b = TB.patch_container(data, orig=orig, log=print, with_tiles=rel in TB.DIRECT)
+            n_l = 0
+            if rel in SR_LAYOUT:    # 스태프롤 이름 칸 간격 10px(행렬 x만, 같은 크기)
+                import staffroll_layout as SL
+                new = SL.relayout(data, SR_LAYOUT[rel])
+                n_l, data = int(new != data), new
+                print(f"    스태프롤 칸 간격 재배치 {'적용' if n_l else '변경 없음'}")
             data, n_x = apply_xmb(rel, data, tr, print)
-            if n_tex + n_x + n_b == 0:
+            if n_tex + n_x + n_b + n_l == 0:
                 report["skip"].append(f"{rel}: 적용할 번역 없음")
                 continue
             dst = os.path.join(OUT, rel)

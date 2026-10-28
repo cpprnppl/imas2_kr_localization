@@ -43,6 +43,7 @@ from extract_image_text import OUT_DEFAULT, JP_ROOT  # noqa: E402
 from xmb_text import parse_xmb, collect_texts, rebuild_xmb  # noqa: E402
 import gamedata_apply as G  # noqa: E402
 import tile_banner as TB  # noqa: E402
+import staffroll_layout as SL  # noqa: E402
 from dlc_inject import Cipher, KEYDIR, MAGIC  # noqa: E402
 
 G.set_plat("ps3")
@@ -55,6 +56,8 @@ REPORT = os.path.join(OUT, "report.json")
 USRDIR = os.path.dirname(JP_ROOT)
 FONT_INJECTED = {"initialfix.mpc", "initialtemp.mpc"}       # deploy_fonts가 폰트를 제자리 주입한 파일
 STANDALONE = {"text\\install.xmb": "text/install.xmb", "ranker\\ranker_npc.xmb": "ranker/ranker_npc.xmb"}
+# 스태프롤 이름 칸 간격 10px(staffroll_layout.py — SWG 행렬 x만 제자리, 사용자 결정 2026-10-28)
+STAFFROLL = {"interface\\swg\\ProStaffRoll.tsk": "main", "interface\\exep_staff_roll.mpc": "ryu"}
 # 곡 정보 가사 XMB — 레슨(가사 미니게임)이 이 사본을 읽는다(2026-10-23). xmb_translations.json에 키가 있는 곡만.
 import glob as _glob  # noqa: E402
 _XT = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
@@ -118,13 +121,14 @@ def candidates(rescan=False):
                 rels |= {os.path.relpath(os.path.join(dp, fn), PATCHED_IMG) for fn in fns}
         rels |= set(TB.RELS)          # 레슨 결과 배너 사본(gscript\adv_common 포함 — NEVER 예외)
         rels |= set(DANCE)            # 라이브 가사 dance pac(매니페스트 이후 추가된 대상)
+        rels |= set(STAFFROLL)
         return sorted(r for r in rels if (not NEVER.search(r) or r in TB.RELS) and os.path.exists(os.path.join(JP_ROOT, r)))
     rels = set(G.targets()) | set(NPC_FILES) | set(STANDALONE)
     if os.path.isdir(PATCHED_IMG):
         for dp, _dn, fns in os.walk(PATCHED_IMG):
             for fn in fns:
                 rels.add(os.path.relpath(os.path.join(dp, fn), PATCHED_IMG))
-    rels |= set(TB.RELS) | set(DANCE)
+    rels |= set(TB.RELS) | set(DANCE) | set(STAFFROLL)
     return sorted(r for r in rels if (not NEVER.search(r) or r in TB.RELS) and os.path.exists(os.path.join(JP_ROOT, r)))
 
 
@@ -267,6 +271,10 @@ def build_one(rel, tr, st):
     orig, enc = pristine(rel)
     base, has_img = image_layer(rel, orig)
     st["img"] += has_img
+    if rel in STAFFROLL:
+        new = SL.relayout(base, STAFFROLL[rel])
+        st["staffroll"] += new != base
+        base = new
     if rel in TB.RELS:      # 레슨·커뮤 결과 배너: 타일(이미지 층) + SWG 칸 배정(tile_banner.py)
         base, nb = TB.patch_container(base, orig=orig, log=lambda *a: None, with_tiles=rel in TB.DIRECT)
         st["banner"] += nb
@@ -365,6 +373,8 @@ def validate_all(log=print):
             if enc:
                 out = out[:v["size"][1]]
             base, _img = image_layer(rel, orig)
+            if rel in STAFFROLL:
+                base = SL.relayout(base, STAFFROLL[rel])
             if rel in TB.RELS:   # 배너 SWG 칸 배정도 기준에 포함(patch_container가 char 칸 밖 불변을 따로 검증)
                 base, _nb = TB.patch_container(base, orig=orig, log=lambda *a: None, with_tiles=rel in TB.DIRECT)
             if rel in STANDALONE:
