@@ -116,7 +116,7 @@ def apply_font_mapping(text: str, mapping: dict) -> str:
 # 줄폭은 픽셀 기준 (2026-10-15 폰트 세션 실측: 대사창 가용 702px,
 # 한글 advance 26px 균일, 일어 전각 27px → 한글 27자/줄 = 702px 정확히)
 WRAP_WIDTH = 702.0   # px
-WRAP_WARN_LINES = 3  # 이 줄 수 초과 시 경고(수동 축약 대상)
+WRAP_WARN_LINES = 2  # 이 줄 수 초과 시 경고(수동 축약 대상) — 대사창은 2줄만 보인다(3줄째는 상자 밖, 2026-10-29 폴드8 보고)
 
 # 게임 엔진의 대사 버퍼 하드 캡 (2026-10-15 확정):
 #   원본 전 파일의 MSG 엔트리 최대가 116바이트(널 포함)로 딱 잘려 있고,
@@ -126,9 +126,37 @@ MAX_ENTRY_BYTES = 116                     # UTF-16BE + 널(2B) 포함
 MAX_TEXT_UNITS = (MAX_ENTRY_BYTES - 2) // 2   # = 57 코드유닛 (\n 포함)
 MAX_CHAR_RUN = 6                          # 반복 문자 런 압축 한도 (비명 대사 등)
 
+# 글자 폭 = 배포 폰트(im2_font.nfh) 레코드의 advance (2026-10-29). 예전 추정값(ASCII·공백 13.5, 전각 문장부호 27)은
+# 실제(공백·쉼표·마침표 9, …「」 26)보다 커서, 2줄에 들어가는 대사 197행을 3줄로 만들었다(대사창 밖으로 넘침).
+_ADV = None
+
+
+def _font_adv():
+    global _ADV
+    if _ADV is None:
+        _ADV = {}
+        here = os.path.dirname(os.path.abspath(__file__))
+        for p in (os.path.join(TOOLS_DIR, "..", "..", "im2_font.nfh"),                       # 게임 tools 폴더에서: resource\im2_font.nfh
+                  os.path.join(here, "..", "..", "font_patcher", "output_direct", "im2_font.nfh")):   # 레포에서
+            if os.path.exists(p):
+                b = open(p, "rb").read()
+                for i in range((len(b) - 0x450) // 32):       # 게임 프레이밍 레코드: +12 advance<<6, +22 코드
+                    o = 0x450 + i * 32
+                    _ADV[struct.unpack_from(">H", b, o + 22)[0]] = struct.unpack_from(">H", b, o + 12)[0] / 64
+                break
+        if not _ADV:
+            print("⚠ im2_font.nfh 없음 — 글자 폭 추정값 사용")
+    return _ADV
+
+
 def _char_width(ch: str) -> float:
-    """글자 폭(px). 폰트 세션 실측 advance 기준."""
+    """글자 폭(px). 배포 폰트 advance, 없으면 추정값."""
     o = ord(ch)
+    if 0xE000 <= o <= 0xF8FF:    # PUA 플레이스홀더(유닛명 등, 런타임 확장) — 여유폭
+        return 162.0
+    a = _font_adv().get(o)
+    if a:
+        return a
     if o < 0x2E80:               # ASCII/반각
         return 13.5
     if 0xE000 <= o <= 0xF8FF:    # PUA 플레이스홀더(유닛명 등, 런타임 확장) — 여유폭

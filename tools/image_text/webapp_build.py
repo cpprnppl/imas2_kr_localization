@@ -153,6 +153,18 @@ def main():
                 g = f"{v['key'].rsplit(':', 1)[0]} · {ch}"
                 fm[g] = max(fm.get(g, 0), len(v["jp"].encode("utf-16-be")) // 2)
         meta["fieldmax"] = fm
+    # 글자 폭 = 배포 폰트 advance(excel2scb._char_width와 같은 값) — 기본값(반각 13.5·한글 26·전각 27)과 다른 글자만 (2026-10-29)
+    nf = os.path.join(os.path.dirname(os.path.dirname(HERE)), "font_patcher", "output_direct", "im2_font.nfh")
+    if os.path.exists(nf):
+        import struct
+        b, adv = open(nf, "rb").read(), {}
+        for i in range((len(b) - 0x450) // 32):
+            o = 0x450 + i * 32
+            c, a = struct.unpack_from(">H", b, o + 22)[0], struct.unpack_from(">H", b, o + 12)[0] / 64
+            d = 13.5 if c < 0x2E80 else (26 if 0xAC00 <= c <= 0xD7A3 else 27)
+            if a and a != d and not 0xE000 <= c <= 0xF8FF:
+                adv[str(c)] = a
+        meta["adv"] = adv
     sr = os.path.join(HERE, "staffroll_names.json")     # staffroll_names.py — 「스태프롤 이름」 메뉴
     if os.path.exists(sr):
         s = json.load(open(sr, encoding="utf-8"))

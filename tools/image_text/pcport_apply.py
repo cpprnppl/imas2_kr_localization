@@ -47,12 +47,16 @@ from xmb_text import parse_xmb, collect_texts, rebuild_xmb  # noqa: E402
 from dlc_images import swap16  # noqa: E402
 import tile_banner as TB  # noqa: E402
 
-PORT = r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game\resource"   # 읽기 전용 원본
+# 원본 = 360 순정 추출본(읽기 전용, 메모리 복호화). 2026-10-29까지는 공유 build_imas2_o2\game을 원본으로 읽었는데, 그 폴더는
+# 10-14~16 폰트 주입(initialFix/initialTemp 평문)·twi 가사 시험 한글판이 들어간 상태라 PC 빌드마다 옛 폰트로 돌아갔다(翔 복원이 되돌아감).
+PORT = r"C:\Users\jackfilm\Desktop\unpack\imas2\resource"
+FONT_LAYER = ("initialFix.mpc", "initialTemp.mpc")     # 직접 등록 한글 폰트 층(font_patcher/output_direct) — 순정 위에 매 빌드 적용
+FONT_DIR = os.path.join(os.path.dirname(os.path.dirname(HERE)), "font_patcher")
 KOR_ROOT = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor"                    # 배포 대상 사본
 KOR_RES = os.path.join(KOR_ROOT, "resource")
 LOCK = r"C:\Users\jackfilm\Desktop\imas2pc\gpu_run.lock"
 PATCHED_DANCE = os.path.join(OUT_DEFAULT, "patched_dance")
-CACHE = os.path.join(OUT_DEFAULT, "_cache", "pcport")
+CACHE = os.path.join(OUT_DEFAULT, "_cache", "pcport_x360")    # 순정 복호화본만 (옛 _cache/pcport = 공유 game 주입본, 쓰지 않음)
 OUT = os.path.join(OUT_DEFAULT, "out_pcport")
 KR = os.path.join(OUT_DEFAULT, "kr")
 JPD = os.path.join(OUT_DEFAULT, "jp")
@@ -65,28 +69,40 @@ def sha(b):
 
 
 def decrypt_port(rel):
-    """PC 포트 원본 사본을 복호화(캐시). 원본 불변."""
-    src = os.path.join(PORT, rel)
+    """360 순정 원본을 메모리에서 복호화(캐시). 원본 불변."""
+    import platform_audit as PAU      # 360 표 복호화(dec_any) — 원본 sha 대조로 검증된 경로
     dst = os.path.join(CACHE, rel.replace("\\", "__"))
     if not os.path.exists(dst):
+        raw = open(os.path.join(PORT, rel), "rb").read()
+        d = raw if raw[:4] in (b"pac\x00", b"XMB ", b"TSK ", b"NTXR", b"NTP3") else PAU.dec_any(raw, "x360")
+        if d is None:
+            raise RuntimeError(f"복호화 실패: {rel}")
         os.makedirs(CACHE, exist_ok=True)
-        shutil.copy2(src, dst)
-        if open(dst, "rb").read(4) not in (b"pac\x00", b"XMB ", b"TSK ", b"NTXR", b"NTP3"):
-            pr = subprocess.Popen([IMAS2DEC, dst], cwd=CACHE, stdout=subprocess.DEVNULL,
-                                  stderr=subprocess.DEVNULL)
-            for _ in range(1200):
-                if os.path.exists(dst + ".dec") and os.path.getsize(dst + ".dec") > 0:
-                    time.sleep(0.5)
-                    break
-                time.sleep(0.1)
-            try:
-                pr.kill()
-            except OSError:
-                pass
-            if not os.path.exists(dst + ".dec"):
-                raise RuntimeError(f"복호화 실패: {rel}")
-            os.replace(dst + ".dec", dst)
+        open(dst + ".tmp", "wb").write(d)
+        os.replace(dst + ".tmp", dst)
     return open(dst, "rb").read()
+
+
+def font_layer(rel, data):
+    """직접 등록 한글 폰트 층 — deploy_pcport.build_fix/build_temp와 같은 자리·같은 변환(NFH 그대로, NUT은 NTXR+16비트 스왑)."""
+    sys.path.insert(0, FONT_DIR)
+    import deploy_pcport as DP
+    d = bytearray(data)
+    if rel == "initialFix.mpc":
+        for name, off in DP.FIX_NFH.items():
+            blob = open(os.path.join(DP.DIRECT_DIR, name), "rb").read()
+            assert d[off:off + 4] == b"NFH\x00" and len(blob) == 314832, f"{name}: NFH 자리 불일치"
+            d[off:off + len(blob)] = blob
+    else:
+        for name, (r, size, po) in DP.TEMP_NUT.items():
+            base = DP.TEMP_DATA_START + r
+            assert d[base:base + 4] in (b"NTXR", b"NTP3"), f"{name}: NUT 자리 불일치"
+            new = bytearray(open(os.path.join(DP.DIRECT_DIR, name), "rb").read())
+            assert len(new) == size, f"{name}: 크기 불일치"
+            new[0:4] = b"NTXR"
+            new[po:] = DP.swap16(bytes(new[po:]))
+            d[base:base + size] = new
+    return bytes(d)
 
 
 # ---------------------------------------------------------------- 텍스처 코덱 후보
@@ -423,6 +439,7 @@ def build():
     targets |= set(TB.DIRECT)            # 레슨 결과 배너 상주 사본(gscript\adv_common.mpc)
     targets |= set(SR_LAYOUT)            # 스태프롤 이름 칸 틈 0(staffroll_layout.py, SWG 행렬 제자리)
     targets |= {"iface\\member_select.mpc"}  # 멤버 선택 카드 이름 크기 26(profile_card.py)
+    targets |= set(FONT_LAYER)              # 한글 폰트 층(순정 위에 매 빌드)
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
     report = {"ok": [], "skip": [], "fail": [], "unmatched": []}
@@ -439,6 +456,11 @@ def build():
             data = decrypt_port(rel)
             orig = data
             n_tex = n_x = n_b = 0
+            n_f = 0
+            if rel in FONT_LAYER:
+                data = font_layer(rel, data)
+                n_f = int(data != orig)
+                print(f"    한글 폰트 층 {'적용' if n_f else '변경 없음'}")
             if rel in jobs:
                 data, n_tex = apply_textures(rel, data, jobs[rel], print, report["unmatched"])
             if rel in xjobs:
@@ -459,7 +481,7 @@ def build():
                 n_l, data = n_l + int(ch), new
                 print(f"    프로필 이름 크기 26 {'적용' if ch else '변경 없음'}")
             data, n_x = apply_xmb(rel, data, tr, print)
-            if n_tex + n_x + n_b + n_l == 0:
+            if n_tex + n_x + n_b + n_l + n_f == 0:
                 report["skip"].append(f"{rel}: 적용할 번역 없음")
                 continue
             dst = os.path.join(OUT, rel)

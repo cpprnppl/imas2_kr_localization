@@ -1784,6 +1784,18 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   - 함정 2개: (1) ps3_res_apply 순정 사본 ps3_res_orig/initialFix.mpc는 폰트 주입 상태가 기준 → 새 NFH를 같은 방식으로 넣고 매니페스트 sha 갱신
     (차이는 NFH 표 안 4,010B뿐, 텍스트 한글 0 확인). (2) pcport_apply의 원본은 동결된 build_imas2_o2\game의 복호화 캐시(_cache/pcport, 10-16 옛 폰트 주입본)
     → 빌드할 때마다 PC initialFix/initialTemp가 옛 폰트로 되돌아감. 캐시 2개에 deploy_pcport와 같은 방식으로 새 NFH·NUT 주입.
+- **PC 빌드 "원본" 오염 수정**(10-29, KOR 지적): pcport_apply·dance_lyrics가 원본으로 공유 build_imas2_o2\game을 읽고 있었다
+  (주석은 "읽기 전용 원본"). 그 폴더는 10-15 한글판 동결본 — 캐시 72개를 360 순정(unpack\imas2, 메모리 복호화)과 대조하니
+  initialFix·initialTemp(10-16 폰트 주입 평문)·songinfo/twi/lyrics_twi(예전 시험 한글판)가 달랐고, dance\dan_twi_1/3/5도 시험 한글판.
+  → 매 PC 빌드가 initialFix/initialTemp를 그 캐시에서 다시 만들어 deploy_pcport로 넣은 새 폰트(翔)를 옛 폰트로 덮었다(한 번 되돌아간 원인).
+  고침: 원본 = unpack\imas2\resource(메모리 복호화, 새 캐시 _cache/pcport_x360·_cache/dance_x360), 폰트는 pcport_apply "한글 폰트 층"으로
+  매 빌드 순정 위에 적용(deploy_pcport와 같은 자리·변환). 옛 캐시는 *_OLD_sharedgame_*로 이름을 바꾸고 NOTE.txt. PC 재빌드 뒤 game_kor
+  initialFix NFH·initialTemp NUT = 새 폰트, twi 가사 텍스트·dan_twi 3개는 이전과 바이트/문구 동일(test-5 영향 없음).
+- **대사 3줄 넘김**(10-29, 사용자 폴드8 "대사 개행되어 3줄되고 넘어감", chi_w01_09 #23704): excel2scb.rewrap이 702px 폭으로 다시 감쌀 때
+  글자 폭 추정(공백·쉼표·마침표 13.5, …「」 27)이 실제 폰트 advance(9, 26)보다 커서 2줄에 들어가는 대사를 3줄로 만들었다(대사창은 2줄).
+  _char_width를 배포 폰트 NFH advance로(게임 tools에선 resource\im2_font.nfh, 레포에선 font_patcher/output_direct), 경고 기준 3줄 초과 →
+  2줄 초과. 웹앱 회수 엑셀 52,229행 기준 3줄 이상 289 → 92행(나머지는 번역을 줄여야 함, 목록 공유 노트). chi_w01_09는 번역 그대로 2줄.
+  웹앱 gameWrap도 같은 폭(META.adv, 기본값과 다른 1,002자). sync_to_game으로 게임 tools 반영. pcport360은 excel2scb.rewrap을 그대로 씀.
 - **bg2d·PC 미반영 그림 전수**(10-29, 포팅 세션·사용자 지적 "타루키정·라멘집 사무소 전경"):
   - bg2d_0003/0006(사무소 전경 낮·밤)·0155~0157(자판기) 한글판은 PS3에만 들어감. 360 s2d는 파일 전체 XCompress(0x0FF512ED, LZX)라 pcport_apply가 건너뜀.
     360 게임은 그 머리인 파일만 풀고 나머지는 그대로 읽음(imas2pc stubs.cpp) → 해제 후 평문 s2d 배포 방식으로 test-6 예정(LZX 해제기 필요).

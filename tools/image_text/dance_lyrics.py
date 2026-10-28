@@ -38,10 +38,12 @@ sys.path.insert(0, HERE)
 from extract_image_text import OUT_DEFAULT, IMAS2DEC  # noqa: E402
 from xmb_text import parse_xmb, find_xmb, collect_texts, rebuild_xmb  # noqa: E402
 
-PORT_RES = r"C:\Users\jackfilm\Desktop\imas2pc\build_imas2_o2\game\resource"   # 읽기 전용 원본
+# 원본 = 360 순정 추출본(읽기 전용, 메모리 복호화). 2026-10-29까지 공유 build_imas2_o2\game을 읽었는데 그 폴더의
+# dan_twi_1/3/5·lyrics_twi는 예전 시험 한글판이었다(순정 아님) — pcport_apply와 같이 고침.
+PORT_RES = r"C:\Users\jackfilm\Desktop\unpack\imas2\resource"
 # 배포는 사본에만 (2026-10-22 리컴파일 감독 합의: 공유 game = 전 세션 회귀 기준선)
 KOR_RES = r"C:\Users\jackfilm\Desktop\imas2pc\game_kor\resource"
-CACHE = os.path.join(OUT_DEFAULT, "_cache", "dance")
+CACHE = os.path.join(OUT_DEFAULT, "_cache", "dance_x360")     # 순정 복호화본만 (옛 _cache/dance = 공유 game 기준, 쓰지 않음)
 PATCHED = os.path.join(OUT_DEFAULT, "patched_dance")
 
 
@@ -50,22 +52,18 @@ def md5(b):
 
 
 def decrypt_cached(rel):
-    """게임 트리의 dance pac 사본을 복호화해 캐시. 이미 평문이면 그대로."""
-    src = os.path.join(PORT_RES, rel)
+    """360 순정 dance pac을 메모리에서 복호화해 캐시. 이미 평문이면 그대로."""
+    import platform_audit as PAU
     dst = os.path.join(CACHE, os.path.basename(rel))
     if os.path.exists(dst):
         return open(dst, "rb").read()
+    raw = open(os.path.join(PORT_RES, rel), "rb").read()
+    d = raw if raw[:4] == b"pac\x00" else PAU.dec_any(raw, "x360")
+    if d is None:
+        raise RuntimeError(f"복호화 실패: {rel}")
     os.makedirs(CACHE, exist_ok=True)
-    shutil.copy2(src, dst)
-    if open(dst, "rb").read(4) != b"pac\x00":
-        pr = subprocess.Popen([IMAS2DEC, dst], cwd=CACHE, stdout=subprocess.DEVNULL)
-        try:
-            pr.wait(180)
-        except subprocess.TimeoutExpired:
-            pr.kill()
-        if not os.path.exists(dst + ".dec"):
-            raise RuntimeError(f"복호화 실패: {rel}")
-        os.replace(dst + ".dec", dst)
+    open(dst + ".tmp", "wb").write(d)
+    os.replace(dst + ".tmp", dst)
     data = open(dst, "rb").read()
     assert data[:4] == b"pac\x00", rel
     return data

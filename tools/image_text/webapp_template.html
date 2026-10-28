@@ -429,12 +429,13 @@ async function loadKrimgList() {
 
 /* ---------------- 경고/통계 ---------------- */
 /* 게임 줄바꿈 미리보기 — tools/scb/excel2scb.py rewrap()과 같은 규칙(띄어쓰기 교정 Kiwi 제외).
-   빌드는 번역문의 줄바꿈을 풀고 대사창 폭 702px(한글 26px·전각 27px·반각 13.5px)로 다시 감싼다.
+   빌드는 번역문의 줄바꿈을 풀고 대사창 폭 702px로 다시 감싼다. 글자 폭 = 배포 폰트 advance(META.adv, 공백·쉼표 9px 등).
    대사창은 2줄, 한 대사 상한 57자(116바이트) — 넘으면 끝이 잘린다. */
 const WRAP_W = 702, MAX_UNITS = 57, MAX_RUN = 6;
 const isHan = c => c >= "가" && c <= "힣";
 function cWidth(ch) {
-  const o = ch.codePointAt(0);
+  const o = ch.codePointAt(0), a = (META.adv || {})[o];
+  if (a && !(o >= 0xE000 && o <= 0xF8FF)) return a;
   if (o < 0x2E80) return 13.5;
   if (o >= 0xE000 && o <= 0xF8FF) return 162;
   if (o >= 0xAC00 && o <= 0xD7A3) return 26;
@@ -529,7 +530,7 @@ function warns(r) {
     w.push(["기계번역 오류(영문) — 게임엔 일본어로 나감", "red"]);   // excel2scb.is_garbage_translation과 같은 판정
   if (r.cat === "script") {
     const g = gameWrap(r.kr, !!(r.meta || {}).choice);
-    if (g.lines.length >= 3) w.push([`게임에서 ${g.lines.length}줄 — 줄여 주세요`, "red"]);
+    if (g.lines.length >= 3) w.push([`대사 상자 ${g.lines.length}줄 — 넘침(상자는 2줄), 줄여 주세요`, "red"]);
     if (g.cut) w.push([`너무 김 — 게임에서 끝이 잘림 (57자 상한)`, "red"]);
   } else if (nj !== nk) w.push([`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);
   const kj = /^「[\s\S]*」$/.test(r.jp.trim()), kk = /^「[\s\S]*」$/.test(r.kr.trim());
