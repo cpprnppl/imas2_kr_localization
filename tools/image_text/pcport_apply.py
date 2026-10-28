@@ -213,6 +213,28 @@ def kr_jobs():
     return by
 
 
+def keep_unchanged_blocks(img, ref, raw, dec, enc, w, h, codec):
+    """작업본에서 글자가 안 바뀐 곳은 360 원본 바이트를 그대로 둔다(2026-10-29, pc-360-dlc 지적: 1280×720 배경을 통째로
+    재인코딩하면 블록 98%가 바뀌어 PC 패치 차이에 배경 그림 전체가 들어감. 작업본 PNG는 다시 저장되며 픽셀 92%가 미세하게 달라짐).
+    바뀐 곳 = 작업본과 원본 참고(PS3 덤프)의 차이 > 48(3px 넓힘 — 재저장 잡음은 대부분 48 이하, 글자는 강함). 그 밖은 360 원본을 디코드한 픽셀로 채운 합성 그림을 만들고,
+    합성 그림·원본 디코드를 같은 인코더로 인코드해 블록 바이트가 같은 곳은 원본 블록 유지 — 배치(타일링)와 무관하게 성립."""
+    orig = np.asarray(dec(raw, w, h), np.uint8)
+    diff = np.abs(img.astype(np.int16) - ref.astype(np.int16)).max(axis=2) > 48
+    m = diff.copy()
+    for dy in range(-3, 4):          # 3px 넓힘(글자 가장자리 안티에일리어싱)
+        for dx in range(-3, 4):
+            m |= np.roll(np.roll(diff, dy, 0), dx, 1)
+    merged = np.where(m[..., None], img, orig).astype(np.uint8)
+    new, base = enc(merged), enc(orig)
+    bs = 8 if "DXT1" in codec else 16 if "DXT" in codec else 4
+    out = bytearray(new)
+    n = min(len(new), len(base), len(raw))
+    for i in range(0, n - n % bs, bs):
+        if new[i:i + bs] == base[i:i + bs]:
+            out[i:i + bs] = raw[i:i + bs]
+    return bytes(out)
+
+
 def apply_textures(rel, data, jobs, log, unmatched):
     """PS3 텍스처 n ↔ 360 텍스처는 **번호가 아니라 내용으로** 짝짓는다(360판은 텍스처
     순서·구성이 다른 파일이 있음). 같은 치수의 360 텍스처 전부를 후보 디코더로 풀어
@@ -248,7 +270,7 @@ def apply_textures(rel, data, jobs, log, unmatched):
         img = np.asarray(Image.open(png).convert("RGBA"), np.uint8)
         if img.shape[:2] != (t["h"], t["w"]):
             raise ValueError(f"{rel}#{n}: 작업본 치수 불일치")
-        new = enc(img)
+        new = keep_unchanged_blocks(img, ref, raw, dec, enc, t["w"], t["h"], name)
         if len(new) < t["data_size"]:          # 밉 없는 상위 1장만 — 나머지(밉)는 원본 유지
             new = new + raw[len(new):]
         if len(new) != t["data_size"]:
@@ -471,10 +493,10 @@ def build():
         if not os.path.exists(os.path.join(PORT, rel)):
             report["skip"].append(f"{rel}: PC 포트에 없음(360판 미포함)")
             continue
-        if rel.lower().endswith(".s2d") and os.environ.get("IMAS2_PCPORT_S2D") != "1":
-            # 360 s2d = XCompress(0x0FF512ED). 해제·주입은 된다(xcomp/). 다만 결과가 평문이라 PC 패치 생성기가 압축 원본과 비교하면
-            # 차이에 배경 전체(원본 픽셀)가 들어간다 → 설치기 해제 변환이 생기고 화면 확인이 끝날 때까지 기본은 건너뜀.
-            report["skip"].append(f"{rel}: 360 XCompress s2d — 해제 가능, 패치 변환·화면 확인 전이라 기본 제외(IMAS2_PCPORT_S2D=1로 켬)")
+        if rel.lower().endswith(".s2d") and os.environ.get("IMAS2_PCPORT_S2D") == "0":
+            # 360 s2d = XCompress(0x0FF512ED) → 해제 후 주입, 평문 배포(PC 1배 화면 확인 10-29: 사무소 전경 한글 간판 정상).
+            # PC 패치 생성기는 src_transform "xcompress"로 해제 원본 기준 차이(pc-360-dlc 5bfa3dd). IMAS2_PCPORT_S2D=0이면 끔.
+            report["skip"].append(f"{rel}: 360 XCompress s2d — IMAS2_PCPORT_S2D=0으로 끔")
             continue
         print(f"▶ {rel}")
         try:
@@ -571,7 +593,8 @@ def deploy(other_disc_ok=False):
         os.makedirs(os.path.dirname(b), exist_ok=True)
         shutil.copy2(dst, b)
         orig_sha = sha(open(b, "rb").read())
-        shutil.copy2(src, dst)
+        shutil.copy2(src, dst + ".tmp")   # 새 파일로 바꿔치기 — 제자리 쓰기는 mkroot 하드링크 시험 루트까지 바꾼다
+        os.replace(dst + ".tmp", dst)
         assert sha(open(dst, "rb").read()) == it["sha256"]
         mani.append({"rel": rel, "orig_sha256": orig_sha, "new_sha256": it["sha256"]})
         print(f"배포: {rel}")

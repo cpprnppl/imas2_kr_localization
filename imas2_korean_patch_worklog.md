@@ -1803,6 +1803,17 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
     jacket_koi 360 임시 "仮" 재킷 1은 웹앱 행 없음), (다) 360에서 안 쓰임 17(お守りINFO·스페셜 아이돌·PS3 메뉴 항목·NationwideRanking 버튼). 목록: 공유 노트.
 - **프로필 이름 칸 크기 시험**(10-29, 사용자 "ㄱㄱ"): ProCharaSelect.swg TEXT1 크기 30→26(member_select +0x16570, SWG +0x15c10, PS3·360 같은 SWG).
   PS3 격리: "키사라기 치하야 (16)" 8자 전체가 "(" 앞 ~6px에서 끝남, 잘림·글자 모양 정상, "하루카 (17)" 정상. 시험본만, 원복 sha 확인. 근거: 공유 노트 profile_name_box_research.md.
+- **bg2d PC 반영**(10-29): pcport_apply가 0x0FF512ED 원본을 xcomp_ed_unpack.exe로 풀어 평문 TSK s2d로 배포(기본 켬, 끄려면 IMAS2_PCPORT_S2D=0).
+  PC 1배에서 bg2d_0003 평문 s2d가 한글(타루키정·라멘)로 표시됨을 확인.
+  - 텍스처 재인코드는 블록 보존: 참조 대비 차이 >48 화소를 3px 팽창한 곳만 한글, 나머지는 360 원본 디코드 화소로 합친 뒤,
+    합친 그림과 원본 디코드를 같은 코덱으로 인코드해 같은 블록은 원본 바이트를 그대로 둔다. 바뀐 8바이트 블록 비율: 0003 3.6%, 0006 0.9%, 0155 4.6%, 0156 16.3%, 0157 6.0%
+    (처음 방식은 98%가 바뀜 — 원본 바이트 차분 최소화).
+  - 10-29 04:28 게이트 재빌드(pcport_apply → gamedata_apply validate·deploy 통과) 뒤 game_kor 확인: bg2d 5장 머리 'TSK ', 해제 원본 대비 블록 비율 위와 같음,
+    initialFix의 NFH 2개가 repo output_direct와 바이트 동일(XMB 증가로 +0x480/+0x470 밀린 자리), member_select 이름 크기 26.
+  - pcport_apply deploy가 shutil.copy2로 제자리 쓰기를 해서 game_kor를 하드링크한 mkroot 시험 루트(imas2pc_ps3feat_game_*, 링크 225)까지 같이 바뀌었다.
+    공유 원본 game은 별도 파일이라 불변(bg2d_0003 0x0FF512ED 그대로). 임시 파일 + os.replace로 고침(gamedata_apply와 같은 방식).
+- **프로필 카드 확인**(10-29): 이름 크기 26 + 풀네임 + 위 작은 줄 원문 한자(웹앱 fullname_h). PC 1배·PS3 격리 모두 "天海 春香 / 아마미 하루카 (17)",
+  "如月 千早 / 키사라기 치하야 (16)", "萩原 雪歩 / 하기와라 유키호 (17)" 정상, 나이와 겹치지 않음. 캡처: 공유 노트 pc1x_profile_cards_test6.png·ps3_profile_cards_test6.png.
 
 ## 42. DLC 그림 주입 경로 — 카탈로그·로고·재킷 + 메인 메뉴 배경 ad_bg (2026-10-23, KOR 지시)
 
