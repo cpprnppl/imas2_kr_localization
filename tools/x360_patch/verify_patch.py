@@ -54,6 +54,8 @@ def main():
     for d, ds, fs in os.walk(game):
         for fn in fs:
             rel = os.path.relpath(os.path.join(d, fn), game).replace(os.sep, "/")
+            if rel in excluded:                    # held (e.g. XCompress originals): stays original, not compared
+                continue
             n += 1
             ref = WHOLE_SRC.get(rel, os.path.join(a.game, *rel.split("/")))
             if sha_file(os.path.join(d, fn)) != sha_file(ref):
