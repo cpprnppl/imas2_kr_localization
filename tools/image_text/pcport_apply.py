@@ -74,13 +74,37 @@ def decrypt_port(rel):
     dst = os.path.join(CACHE, rel.replace("\\", "__"))
     if not os.path.exists(dst):
         raw = open(os.path.join(PORT, rel), "rb").read()
-        d = raw if raw[:4] in (b"pac\x00", b"XMB ", b"TSK ", b"NTXR", b"NTP3") else PAU.dec_any(raw, "x360")
+        if raw[:4] == XCOMP_MAGIC:       # 360 XCompress 파일(bg2d s2d) — LZX 해제(xcomp/xcomp_ed_unpack, FORMAT.md)
+            d = xcomp_unpack(raw, rel)
+        else:
+            d = raw if raw[:4] in (b"pac\x00", b"XMB ", b"TSK ", b"NTXR", b"NTP3") else PAU.dec_any(raw, "x360")
         if d is None:
             raise RuntimeError(f"복호화 실패: {rel}")
         os.makedirs(CACHE, exist_ok=True)
         open(dst + ".tmp", "wb").write(d)
         os.replace(dst + ".tmp", dst)
     return open(dst, "rb").read()
+
+
+XCOMP_MAGIC = b"\x0f\xf5\x12\xed"
+XCOMP_EXE = os.path.join(HERE, "xcomp", "xcomp_ed_unpack.exe")
+
+
+def xcomp_unpack(raw, rel):
+    """0x0FF512ED XCompress 파일 → 평문. 결과는 TSK여야 한다(360 bg2d 323개 검증된 해제기)."""
+    if not os.path.exists(XCOMP_EXE):
+        raise RuntimeError(f"{rel}: 해제기 없음 — xcomp/FORMAT.md의 빌드 명령으로 {XCOMP_EXE} 생성")
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        src, dst = os.path.join(td, "in.bin"), os.path.join(td, "out.bin")
+        open(src, "wb").write(raw)
+        r = subprocess.run([XCOMP_EXE, src, dst], capture_output=True, text=True)
+        if r.returncode != 0 or not os.path.exists(dst):
+            raise RuntimeError(f"{rel}: XCompress 해제 실패 {r.stderr.strip()[:200]}")
+        d = open(dst, "rb").read()
+    if d[:4] != b"TSK ":
+        raise RuntimeError(f"{rel}: 해제 결과가 TSK가 아님")
+    return d
 
 
 def font_layer(rel, data):
@@ -447,9 +471,10 @@ def build():
         if not os.path.exists(os.path.join(PORT, rel)):
             report["skip"].append(f"{rel}: PC 포트에 없음(360판 미포함)")
             continue
-        if rel.lower().endswith(".s2d"):
-            # 360판 s2d는 imas2dec 미지원 형식(선두 0F F5 12 ED — 압축 추정). 별도 과제.
-            report["skip"].append(f"{rel}: 360 s2d 복호화 미지원(별도 조사 필요)")
+        if rel.lower().endswith(".s2d") and os.environ.get("IMAS2_PCPORT_S2D") != "1":
+            # 360 s2d = XCompress(0x0FF512ED). 해제·주입은 된다(xcomp/). 다만 결과가 평문이라 PC 패치 생성기가 압축 원본과 비교하면
+            # 차이에 배경 전체(원본 픽셀)가 들어간다 → 설치기 해제 변환이 생기고 화면 확인이 끝날 때까지 기본은 건너뜀.
+            report["skip"].append(f"{rel}: 360 XCompress s2d — 해제 가능, 패치 변환·화면 확인 전이라 기본 제외(IMAS2_PCPORT_S2D=1로 켬)")
             continue
         print(f"▶ {rel}")
         try:
