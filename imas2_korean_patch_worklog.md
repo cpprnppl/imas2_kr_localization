@@ -1714,6 +1714,13 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
     test-4 전체 패치 initialFix(한글 1,578칸)에서 n401·n402만 단축안으로 바꾼 판도 같은 조합 정상(21:55, 한글 가사로 스테이지 진행).
     원문보다 긴 스테이지 설명이 약 25행 더 있다(스타일리시 메이저/마이너 57자 등) — 원문 길이 이하로 줄이는 것이 안전.
   - PC game_kor initialFix에도 같은 웹앱 행 한글이 들어간다 → 같은 조합 PC 시험 필요(감독 게이트).
+  - 웹앱 반영(KOR 결정 + 사용자 승인 "전부 반영", 22시): webapp_fill --replace(읽은 값 조건부 교체·이력).
+    n401·n402 → 46자 단축안(줄바꿈 위치만 조정, 글자 수 동일). 원문보다 긴 스테이지 설명 25행(PS3 23·360 전용 2) → 행별 원문 글자 수 이하 초안,
+    작업자 "Claude 초벌 (원문 길이 초과·팀 검수 필요)". 가사 dod/LYR_034 "자자ー" → "자자~"(ps3-360-pc 제보). 재조회로 28행 반영 확인.
+  - 전수 점검 field_len_audit.py: 필드 묶음(파일#XMB · chain, DLC는 원본 XMB 요소 이름)별 원문 최대 UTF-16 초과 —
+    initialFix x1·x2 122행(의상 설명 54·곡 작사작곡 20·스테이지 설명 14 등), DLC 163행(package text 91·catalog desc 55 등). 고칠 범위는 KOR 결정.
+    블래키시 961 SP 의상 설명(41자 > 묶음 최대 39)은 최종 시험에서 정상 → 초과가 곧 튕김은 아님(후보 목록).
+  - 웹앱 경고 "원문 필드 최대 길이 초과 N/M자"(gamedata 전체, 스테이지 설명 빨강·그 밖 주황, 저장은 막지 않음). META.fieldmax는 gamedata_texts.json 기준.
   - 부수: 스페셜 S4U 아티스트란 "이쥬인 호쿠토"가 "이쥬인 혀"로 보인다. ranker_npc 값·PS3 폰트 글리프는 정상이고 같은 7자 "미타라이 쇼타"는 정상 → 게임 표시 쪽 문제, 미해결.
     웹앱 gamedata profile fullname 16행이 전부 이름만(天海 春香→하루카) — 팀 의도 확인 필요.
 - **스태프롤 이름 편집기**(10-28, 사용자 요청·KOR 승인): 웹앱 메뉴 「스태프롤 이름」(#/staffroll). tools/image_text/staffroll_names.py → staffroll_names.json을 META에 내장.
