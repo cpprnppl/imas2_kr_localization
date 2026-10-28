@@ -316,6 +316,12 @@ function renderNav() {
   srch.className = "pf-v5-c-nav__item";
   srch.innerHTML = `<a class="pf-v5-c-nav__link${cat === "search" ? " pf-m-current" : ""}" data-cat="search">전체 검색</a>`;
   ul.appendChild(srch);
+  if (META.staffroll) {
+    const sr = document.createElement("li");
+    sr.className = "pf-v5-c-nav__item";
+    sr.innerHTML = `<a class="pf-v5-c-nav__link${cat === "staffroll" ? " pf-m-current" : ""}" data-cat="staffroll">스태프롤 이름</a>`;
+    ul.appendChild(sr);
+  }
   for (const sec of META.nav) {
     const li = document.createElement("li");
     const open = sec.cat === cat;
@@ -341,9 +347,10 @@ function renderNav() {
   li.innerHTML = `<a class="pf-v5-c-nav__link${cat === "activity" ? " pf-m-current" : ""}" data-cat="activity">수정 이력</a>`;
   ul.appendChild(li);
   ul.onclick = ev => {
-    const a = ev.target.closest("[data-grp],[data-sec],[data-cat='activity'],[data-cat='dash'],[data-cat='search']");
+    const a = ev.target.closest("[data-grp],[data-sec],[data-cat='activity'],[data-cat='dash'],[data-cat='search'],[data-cat='staffroll']");
     if (!a) return;
     if (a.dataset.cat === "dash") { showDash(); return; }
+    if (a.dataset.cat === "staffroll") { showStaffroll(); return; }
     if (a.dataset.cat === "search") { showSearch(); return; }
     if (a.dataset.sec) {
       const item = a.closest(".pf-v5-c-nav__item");
@@ -1786,6 +1793,262 @@ async function showActivity() {
   run();
 }
 
+/* ---------------- 스태프롤 이름 (한자 이름 = 64×64 글자 타일 조립) ----------------
+   META.staffroll = staffroll_names.py. 칸 x,y = 이름 로컬 좌표(정지 자세, 타일 좌상단), keys = 저장할 tex_kr 키
+   (md5 = 그 그림의 모든 위치, md5@위치 = 그 위치만 — 같은 그림을 다른 이름 칸이 따로 쓰는 海·井·月),
+   affects = 같은 키를 써서 같이 바뀌는 다른 이름(쌍둥이 双·海·美), screen = 로컬→화면 [a,b,tx,ty] (天海春香 실화면 맞춤).
+   이름 한 장(가로 W×64)을 올리면 칸마다 64×64로 잘라 그 칸의 키로 저장한다. 칸 사이 틈은 게임에 안 나온다. */
+const SR = { sel: null, cand: null, view: "cur", grid: true, bg: null };
+const srName = id => META.staffroll.names.find(n => n.id === id);
+const srW = nm => nm.slots[nm.slots.length - 1].x + 64 - nm.slots[0].x;
+function srEff(sl) {                       // 지금 그 위치에 들어가는 작업본 키 (위치 키가 md5 키보다 우선)
+  const lk = `${sl.md5}@${sl.loc}`;
+  return KRIMG[lk] ? lk : (KRIMG[sl.md5] ? sl.md5 : null);
+}
+function srImg(src) {
+  return new Promise(res => {
+    const im = new Image();
+    im.crossOrigin = "anonymous";
+    im.onload = () => res(im);
+    im.onerror = () => res(null);
+    im.src = src;
+  });
+}
+async function srTiles(nm, mode) {        // 칸별 이미지: mode "jp" | "cur"(작업본 있으면 작업본) | "cand"(업로드 후보)
+  return Promise.all(nm.slots.map(async (sl, k) => {
+    if (mode === "cand" && SR.cand) {
+      const c = srCandFor(nm, k);
+      if (c) return c;
+    }
+    if (mode !== "jp") {
+      const key = srEff(sl);
+      if (key) { const u = await krimgUrl(key); if (u) return srImg(u); }
+    }
+    return srImg(`${CFG.texbase}/jp/${sl.md5}.png`);
+  }));
+}
+function srCandFor(nm, k) {               // 후보(SR.cand)가 이 이름의 k번째 칸에 들어가는가 — 같은 키를 공유하면 같이 바뀜
+  const c = SR.cand, keys = new Set(nm.slots[k].keys);
+  const own = srName(c.id);
+  for (let j = 0; j < own.slots.length; j++)
+    if (own.slots[j].keys.some(x => keys.has(x))) return c.tiles[j];
+  return null;
+}
+async function srDraw(cv, nm, mode) {
+  if (!SR.bg) SR.bg = await srImg(`${CFG.texbase}/staffroll/bg_haruka.jpg`);
+  const g = cv.getContext("2d");
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.clearRect(0, 0, cv.width, cv.height);
+  if (SR.bg) g.drawImage(SR.bg, 0, 0);
+  const [a, b, tx, ty] = META.staffroll.screen;
+  g.setTransform(a, b, -b, a, tx, ty - 20);   // 배경 = 1280×720 실화면의 (0,20)~(640,290)
+  const tiles = await srTiles(nm, mode);
+  nm.slots.forEach((sl, k) => {
+    const im = tiles[k];
+    if (nm.shadow && im) { g.globalAlpha = .45; g.filter = "brightness(0)"; g.drawImage(im, sl.x + 2, sl.y + 2, 64, 64);
+      g.filter = "none"; g.globalAlpha = 1; }
+    if (im) g.drawImage(im, sl.x, sl.y, 64, 64);
+    if (SR.grid) { g.strokeStyle = "rgba(0,200,255,.8)"; g.lineWidth = 1; g.strokeRect(sl.x + .5, sl.y + .5, 63, 63); }
+  });
+  g.setTransform(1, 0, 0, 1, 0, 0);
+}
+function srDone(nm) { return nm.slots.filter(sl => srEff(sl)).length; }
+
+async function showStaffroll(selId) {
+  closeNavIfNarrow();
+  cat = "staffroll"; grp = null; renderNav();
+  try { history.replaceState(null, "", "#/staffroll" + (selId ? "/" + selId : "")); } catch (e) {}
+  $("#crumb").textContent = "스태프롤 이름";
+  $("#budget").hidden = true; $("#grpStat").textContent = "";
+  $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true; $("#srcFilter").hidden = true;
+  $("#content").innerHTML = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content">불러오는 중…</div></div>`;
+  await loadKrimgList();
+  SR.sel = selId && srName(selId) ? selId : (SR.sel || META.staffroll.names[0].id);
+  SR.cand = null;
+  srRender();
+}
+function srRender() {
+  const names = META.staffroll.names;
+  const row = nm => {
+    const d = srDone(nm), n = nm.slots.length;
+    return `<tr class="pf-v5-c-table__tr${nm.id === SR.sel ? " pf-m-selected" : ""}" data-sr="${nm.id}" style="cursor:pointer${nm.id === SR.sel ? ";background:var(--pf-v5-global--BackgroundColor--200)" : ""}">
+      <td class="pf-v5-c-table__td"><b>${esc(nm.jp)}</b><div class="pf-v5-u-color-200" style="font-size:11px">${esc(nm.role || "")}${nm.same_as ? ` · = ${esc(srName(nm.same_as).jp)} 타일` : ""}</div></td>
+      <td class="pf-v5-c-table__td nowrap">${nm.plat === "ps3"
+        ? '<span class="pf-v5-c-label pf-m-compact pf-m-orange"><span class="pf-v5-c-label__content">PS3 전용</span></span>'
+        : '<span class="pf-v5-c-label pf-m-compact"><span class="pf-v5-c-label__content">PS3·360</span></span>'}</td>
+      <td class="pf-v5-c-table__td num-td">${nm.same_as ? "—" : `${d}/${n}`}</td></tr>`;
+  };
+  const tbl = (title, list) => `<h3 class="pf-v5-c-title pf-m-md pf-v5-u-mt-md pf-v5-u-mb-sm">${title}</h3>
+    <table class="pf-v5-c-table pf-m-compact"><thead class="pf-v5-c-table__thead"><tr class="pf-v5-c-table__tr">
+      <th class="pf-v5-c-table__th">이름</th><th class="pf-v5-c-table__th">판</th><th class="pf-v5-c-table__th">작업 칸</th></tr></thead>
+      <tbody class="pf-v5-c-table__tbody">${list.map(row).join("")}</tbody></table>`;
+  $("#content").innerHTML = `<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+    <div style="flex:0 1 22rem;min-width:18rem">
+      <p class="pf-v5-u-color-200" style="font-size:13px">스태프롤의 한자 이름은 글자 타일(64×64)을 칸마다 따로 붙여 만듭니다.
+        이름을 한 장 그림으로 올리면 칸별로 잘라 저장합니다.</p>
+      ${tbl(`본편 스태프롤 (${names.filter(n => n.plat === "both").length}명)`, names.filter(n => n.plat === "both"))}
+      ${tbl(`류구코마치 스태프롤 (${names.filter(n => n.plat === "ps3").length}명)`, names.filter(n => n.plat === "ps3"))}
+    </div>
+    <div style="flex:1 1 40rem;min-width:20rem" id="srEd"></div></div>`;
+  $("#content").querySelectorAll("[data-sr]").forEach(tr => tr.onclick = () => {
+    SR.sel = tr.dataset.sr; SR.cand = null;
+    try { history.replaceState(null, "", "#/staffroll/" + SR.sel); } catch (e) {}
+    srRender();
+  });
+  srEditor();
+}
+async function srEditor() {
+  const nm = srName(SR.sel), W = srW(nm), x0 = nm.slots[0].x;
+  const main = nm.same_as ? srName(nm.same_as) : nm;
+  const aff = [...new Set(main.slots.flatMap(sl => sl.affects))].map(srName)
+    .filter(o => o && o.id !== nm.id && o.id !== main.id);
+  const affTxt = aff.map(o => {
+    const ks = main.slots.map((sl, k) => o.slots.some(os => os.keys.some(x => sl.keys.includes(x))) ? k + 1 : 0).filter(Boolean);
+    return `${esc(o.jp)}${o.plat === "ps3" ? "(류구)" : ""} — 칸 ${ks.join("·")}`;
+  });
+  $("#srEd").innerHTML = `
+    <h2 class="pf-v5-c-title pf-m-lg">${esc(nm.jp)} <span class="pf-v5-u-color-200" style="font-size:14px;font-weight:400">
+      ${esc(nm.role || "")} · ${nm.slots.length}칸 · ${nm.file} #${nm.sprite}</span></h2>
+    ${nm.same_as ? `<div class="pf-v5-c-alert pf-m-info pf-m-inline pf-v5-u-mt-sm"><div class="pf-v5-c-alert__title">
+      류구코마치 스태프롤(PS3 전용)의 이 이름은 본편 「${esc(main.jp)}」와 같은 타일을 씁니다 — 본편에서 작업하면 여기도 바뀝니다.
+      <a href="#" id="srGoMain">본편 ${esc(main.jp)} 열기</a></div></div>` : ""}
+    ${affTxt.length ? `<div class="pf-v5-c-alert pf-m-warning pf-m-inline pf-v5-u-mt-sm"><div class="pf-v5-c-alert__title">
+      같은 그림을 쓰는 칸이 있어 같이 바뀝니다: ${affTxt.join(" / ")}</div></div>` : ""}
+    <div class="pf-v5-u-mt-md" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <div class="pf-v5-c-toggle-group pf-m-compact">
+        ${[["cur", "현재(작업본 반영)"], ["jp", "원본"], ["cand", "올린 그림"]].map(([v, l]) => `
+          <div class="pf-v5-c-toggle-group__item"><button class="pf-v5-c-toggle-group__button${SR.view === v ? " pf-m-selected" : ""}"
+            data-srv="${v}" ${v === "cand" && !SR.cand ? "disabled" : ""}><span class="pf-v5-c-toggle-group__text">${l}</span></button></div>`).join("")}
+      </div>
+      <label style="font-size:13px"><input type="checkbox" id="srGrid" ${SR.grid ? "checked" : ""}> 칸 테두리</label>
+    </div>
+    <div class="pf-v5-u-mt-sm" style="line-height:0"><canvas id="srCv" width="640" height="270" style="max-width:100%;border:1px solid var(--pf-v5-global--BorderColor--100)"></canvas></div>
+    <div class="pf-v5-u-color-200" style="font-size:12px;margin-top:4px">게임 화면 미리보기: 360판 실화면(天海春香 장면) 배경에 칸 위치·기울기(5°)를 맞춘 것.
+      배경색·띠는 아이돌마다 다릅니다.${nm.approx ? " <b>이 이름은 정지 배치라 위치가 근사치입니다(+2px 그림자 겹침).</b>" : ""}</div>
+    <h3 class="pf-v5-c-title pf-m-md pf-v5-u-mt-md">칸</h3>
+    <div id="srSlots" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+    ${nm.same_as ? "" : `
+    <h3 class="pf-v5-c-title pf-m-md pf-v5-u-mt-lg">이름 한 장 올리기</h3>
+    <p style="font-size:13px">크기 <b>${W}×64</b> PNG(투명 배경). 칸 위치는 왼쪽부터
+      ${nm.slots.map(sl => sl.x - x0).join(" · ")}px, 칸 폭 64px — 칸 사이 틈에 그린 것은 게임에 안 나옵니다.
+      같은 비율의 큰 그림(예: ${W * 2}×128)은 줄여서 씁니다.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="pf-v5-c-button pf-m-secondary" id="srTpl">템플릿 PNG 받기 (원본 칸 배치)</button>
+      <button class="pf-v5-c-button pf-m-primary" id="srUp">이름 그림 올리기…</button>
+      ${SR.cand ? `<button class="pf-v5-c-button pf-m-primary" id="srSave">${nm.slots.length}칸 저장</button>
+        <button class="pf-v5-c-button pf-m-link" id="srCancel">취소</button>` : ""}
+    </div>
+    <div id="srCand" class="pf-v5-u-mt-sm"></div>`}`;
+  if (nm.same_as) $("#srGoMain").onclick = ev => { ev.preventDefault(); SR.sel = main.id; srRender(); };
+  $("#srEd").querySelectorAll("[data-srv]").forEach(b => b.onclick = () => { SR.view = b.dataset.srv; srEditor(); });
+  $("#srGrid").onchange = ev => { SR.grid = ev.target.checked; srDraw($("#srCv"), nm, SR.view); };
+  if (SR.view === "cand" && !SR.cand) SR.view = "cur";
+  srDraw($("#srCv"), nm, SR.view);
+  // 칸 목록: 원본 / 지금 들어가는 작업본(작업자·시각)
+  const jp = await srTiles(nm, "jp"), cur = await srTiles(nm, "cur");
+  $("#srSlots").innerHTML = nm.slots.map((sl, k) => {
+    const key = srEff(sl), m = key && KRIMG[key];
+    return `<div style="font-size:11px;text-align:center">
+      <div class="pf-v5-u-color-200">칸 ${k + 1}</div>
+      <div style="display:flex;gap:2px"><span class="thumb"><img data-k="jp${k}" width="64" height="64"></span>
+        <span class="thumb">${m ? `<img data-k="kr${k}" width="64" height="64">` : '<span style="display:inline-block;width:64px;height:64px;line-height:64px">—</span>'}</span></div>
+      <div class="pf-v5-u-color-200">${m ? `${esc(m.by || "")} ${fmtTs(m.ts).slice(5)}` : "원본"}${key && key.includes("@") ? " · 이 위치만" : ""}</div>
+      ${sl.affects.length ? `<div style="color:var(--pf-v5-global--warning-color--200)">공유: ${sl.affects.map(i => esc(srName(i).jp)).join(", ")}</div>` : ""}</div>`;
+  }).join("");
+  nm.slots.forEach((sl, k) => {
+    const a = $(`#srSlots [data-k="jp${k}"]`); if (a && jp[k]) a.src = jp[k].src;
+    const b = $(`#srSlots [data-k="kr${k}"]`); if (b && cur[k]) b.src = cur[k].src;
+  });
+  if (nm.same_as) return;
+  $("#srTpl").onclick = async () => {
+    const cv = document.createElement("canvas"); cv.width = W; cv.height = 64;
+    const g = cv.getContext("2d");
+    nm.slots.forEach((sl, k) => { if (jp[k]) g.drawImage(jp[k], sl.x - x0, 0, 64, 64); });
+    cv.toBlob(bl => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(bl); a.download = `staffroll_${nm.id}_${nm.jp}_${W}x64.png`; a.click();
+    }, "image/png");
+  };
+  $("#srUp").onclick = () => {
+    if (needNick()) return;
+    const inp = document.createElement("input");
+    inp.type = "file"; inp.accept = "image/png";
+    inp.onchange = () => { if (inp.files[0]) srLoadCand(nm, inp.files[0]); };
+    inp.click();
+  };
+  if (SR.cand) {
+    $("#srSave").onclick = () => srSave(nm);
+    $("#srCancel").onclick = () => { SR.cand = null; SR.view = "cur"; srEditor(); };
+    $("#srCand").innerHTML = `<div style="font-size:12px" class="pf-v5-u-color-200">잘린 칸(저장될 그림):</div>
+      <div style="display:flex;gap:6px">${SR.cand.tiles.map((t, k) => `<span class="thumb"><img src="${t.src}" width="64" height="64" title="칸 ${k + 1}"></span>`).join("")}</div>
+      ${SR.cand.note ? `<div class="pf-v5-u-mt-sm" style="font-size:12px">${esc(SR.cand.note)}</div>` : ""}
+      ${aff.length ? `<div class="pf-v5-u-mt-sm" style="font-size:12px"><b>같이 바뀌는 이름 미리보기</b></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">${aff.map(o => `<div><div style="font-size:11px">${esc(o.jp)}</div>
+          <canvas data-aff="${o.id}" width="640" height="270" style="width:320px;border:1px solid var(--pf-v5-global--BorderColor--100)"></canvas></div>`).join("")}</div>` : ""}`;
+    aff.forEach(o => srDraw($(`#srCand [data-aff="${o.id}"]`), o, "cand"));
+  }
+}
+async function srLoadCand(nm, file) {
+  if (file.size > 4 * 1024 * 1024) { toast("4MB 이하 PNG만 올릴 수 있습니다"); return; }
+  const bmp = await createImageBitmap(file);
+  const W = srW(nm), x0 = nm.slots[0].x;
+  let note = "";
+  if (bmp.width !== W || bmp.height !== 64) {
+    const r = bmp.width / bmp.height, want = W / 64;
+    if (Math.abs(r - want) / want > 0.01) {
+      toast(`크기 불일치: ${bmp.width}×${bmp.height} — ${W}×64(또는 같은 비율)로 만들어 주세요`); return;
+    }
+    note = `${bmp.width}×${bmp.height} → ${W}×64로 줄여서 잘랐습니다. 가능하면 ${W}×64로 직접 만들어 올려 주세요.`;
+  }
+  const full = document.createElement("canvas"); full.width = W; full.height = 64;
+  const fg = full.getContext("2d");
+  fg.imageSmoothingQuality = "high";
+  fg.drawImage(bmp, 0, 0, W, 64);
+  const tiles = await Promise.all(nm.slots.map(sl => new Promise(res => {
+    const c = document.createElement("canvas"); c.width = 64; c.height = 64;
+    c.getContext("2d").drawImage(full, sl.x - x0, 0, 64, 64, 0, 0, 64, 64);
+    c.toBlob(async bl => {
+      const im = await srImg(URL.createObjectURL(bl));
+      im.blob = bl; res(im);
+    }, "image/png");
+  })));
+  SR.cand = { id: nm.id, tiles, note };
+  SR.view = "cand";
+  srEditor();
+}
+async function srSave(nm) {
+  if (needNick()) return;
+  const c = SR.cand;
+  if (!c || c.id !== nm.id) return;
+  const others = new Set();
+  nm.slots.forEach(sl => sl.keys.forEach(k => { const m = KRIMG[k]; if (m && m.by && m.by !== nick) others.add(m.by); }));
+  if (others.size && !confirm(`${[...others].join(", ")}님이 올린 작업본을 덮어씁니다. 계속할까요?`)) return;
+  $("#srSave").disabled = true;
+  let n = 0;
+  for (let k = 0; k < nm.slots.length; k++) {
+    const sl = nm.slots[k];
+    const bytes = new Uint8Array(await c.tiles[k].blob.arrayBuffer());
+    let b64 = "";
+    for (let i = 0; i < bytes.length; i += 0x8000) b64 += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    b64 = btoa(b64);
+    const ts = Date.now();
+    for (const key of sl.keys) {
+      const { error } = await sb.from("tex_kr").upsert({ md5: key, data: b64, ts, by: nick });
+      if (error) { toast(`칸 ${k + 1} 저장 실패: ${error.message}`); $("#srSave").disabled = false; return; }
+      const old = KRIMG[key];
+      if (old && old.url) URL.revokeObjectURL(old.url);
+      KRIMG[key] = { ts, by: nick, url: URL.createObjectURL(new Blob([bytes], { type: "image/png" })) };
+    }
+    sb.from("hist").insert({ row_id: `image:interface:${sl.md5}`, cat: "image", grp: "interface", key: sl.md5, ts, by: nick,
+      kr: `[스태프롤 이름] ${nm.jp} 칸 ${k + 1}/${nm.slots.length} 그림 (${sl.keys.length > 1 || sl.keys[0].includes("@") ? "이 이름 칸만" : "이 그림 전체"})`,
+      st: 1 }).then(() => {});
+    n++;
+  }
+  toast(`${nm.jp}: ${n}칸 저장 완료`, "success");
+  SR.cand = null; SR.view = "cur";
+  srRender();
+}
+
 /* ---------------- 잡동사니 ---------------- */
 let toastTimer;
 function toast(msg, kind) {
@@ -1886,8 +2149,12 @@ async function boot() {
   $("#nick").value = nick;
   setupEmoji();
   renderNav();
+  if ((location.hash || "").startsWith("#/staffroll") && META.staffroll) {
+    showStaffroll(decodeURIComponent(location.hash.split("/")[2] || ""));
+    return;
+  }
   // 주소 #/<분류>/<소분류>[/<검색어>] 로 바로 열기 (링크 공유용)
-  const hm = decodeURIComponent(location.hash || "").match(/^#\/([^/]+)\/([^/]+)(?:\/(.+))?$/);
+  const hm =decodeURIComponent(location.hash || "").match(/^#\/([^/]+)\/([^/]+)(?:\/(.+))?$/);
   if (hm && navMeta(hm[1], hm[2]).grp) {
     await openGroup(hm[1], hm[2]);
     let q3 = hm[3] || "";

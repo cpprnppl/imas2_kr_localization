@@ -144,6 +144,10 @@ def main():
     }
     pc = os.path.join(HERE, "platform_counts.json")     # platform_audit.py counts
     meta["plat_counts"] = json.load(open(pc, encoding="utf-8")) if os.path.exists(pc) else {}
+    sr = os.path.join(HERE, "staffroll_names.json")     # staffroll_names.py — 「스태프롤 이름」 메뉴
+    if os.path.exists(sr):
+        s = json.load(open(sr, encoding="utf-8"))
+        meta["staffroll"] = {"screen": s["screen"], "names": s["names"]}
     tpl = open(os.path.join(HERE, "webapp_template.html"), encoding="utf-8").read()
     html = tpl.replace("/*__DATA__*/null", json.dumps(meta, ensure_ascii=False))
     html = html.replace("/*__CFG__*/null", json.dumps(cfg))

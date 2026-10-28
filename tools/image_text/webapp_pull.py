@@ -152,14 +152,18 @@ def pull_image(rows, reviewed_only, code=None):
             break
         offset += 20
     m = 0
-    for im in imgs:
-        r = by_key.get(im["md5"])
+    # 키 "md5@위치" = 그 위치에만 쓰는 작업본(스태프롤 이름: 같은 그림을 다른 이름 칸이 따로 씀) — md5 키 뒤에 써서 우선
+    for im in sorted(imgs, key=lambda v: "@" in v["md5"]):
+        md5, _, only = im["md5"].partition("@")
+        r = by_key.get(md5)
         if r is None:
             continue
         if reviewed_only and r.get("st", 0) < 2:
             continue
         png = base64.b64decode(im["data"])
         for loc in (r.get("meta") or {}).get("locs", []):
+            if only and loc != only:
+                continue
             rel, nn = loc.rsplit("#", 1)
             if loc.startswith("x360:"):  # 360 본편 전용 그림: kr_x360/<상대경로>_<n>.png
                 stem = rel[5:].replace("/", "_").rsplit(".", 1)[0]
