@@ -395,7 +395,10 @@ def cmd_validate(_a):
 
 # ---------------------------------------------------------------- 배포·복원
 def rpcs3_running():
-    return os.system('tasklist /FI "IMAGENAME eq rpcs3.exe" | find /I "rpcs3.exe" >nul') == 0
+    # tasklist 출력을 파이썬에서 본다 — `| find /I`는 Git Bash에서 GNU find로 풀려 항상 "안 돎"이 됐다(2026-10-28)
+    import subprocess
+    out = subprocess.run(["tasklist"], capture_output=True, text=True, errors="replace").stdout.lower()
+    return "rpcs3.exe" in out
 
 
 def cmd_deploy(_a):

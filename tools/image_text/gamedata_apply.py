@@ -30,6 +30,7 @@ import struct
 import shutil
 import hashlib
 import argparse
+import subprocess
 import collections
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -417,7 +418,8 @@ def cmd_deploy(a):
         why = game_kor_busy(True)
         if why:
             sys.exit(f"❌ {why} — 배포 보류")
-    elif os.path.exists(LOCK) or os.system('tasklist /FI "IMAGENAME eq imas2pc.exe" | find /I "imas2pc.exe" >nul') == 0:
+    elif os.path.exists(LOCK) or "imas2pc.exe" in subprocess.run(["tasklist"], capture_output=True, text=True,
+                                                                  errors="replace").stdout.lower():
         sys.exit("❌ 게임 실행 중(gpu_run.lock 또는 imas2pc.exe) — 배포 보류")
     if not validate_all():
         sys.exit("❌ 구조 검증 실패 — 배포 중단")
