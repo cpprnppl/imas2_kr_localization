@@ -142,15 +142,15 @@ def pull_image(rows, reviewed_only, code=None):
     offset = 0
     while True:
         req_ = urllib.request.Request(
-            f"{CFG['url']}/rest/v1/tex_kr?select=*&limit=100&offset={offset}",
+            f"{CFG['url']}/rest/v1/tex_kr?select=*&order=md5&limit=20&offset={offset}",   # 큰 그림이 몰린 100행 페이지는 서버 500
             headers={"apikey": CFG["anon_key"],
                      "Authorization": f"Bearer {CFG['anon_key']}",
                      "x-team-code": code})
         chunk = json.load(urllib.request.urlopen(req_))
         imgs += chunk
-        if len(chunk) < 100:
+        if len(chunk) < 20:
             break
-        offset += 100
+        offset += 20
     m = 0
     for im in imgs:
         r = by_key.get(im["md5"])
