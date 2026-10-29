@@ -305,6 +305,8 @@ def build_one(rel, tr, st):
 def translations(code):
     by_pair, by_jp, n, scb_tr = G.translations(code)
     xmb_tr = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
+    import rs_gate as RG                    # NPC 유닛·프로듀서 이름 = 대사 치환 문자열 — 31단위 게이트(10-29)
+    RG.gate(RG.xmb_items(xmb_tr), "xmb_translations.json")
     return (by_pair, by_jp, scb_tr, xmb_tr), n
 
 

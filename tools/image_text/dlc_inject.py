@@ -206,6 +206,8 @@ class Translations:
         from exe_inject import font_set
         self.mapping = font_set()   # 직접 등록 폰트 한글 집합(폰트 세션 기준 파일)
         tr = json.load(open(os.path.join(HERE, "dlc_translations.json"), encoding="utf-8"))
+        import rs_gate as RG                # 랭커 유닛·프로듀서 이름 = 대사 치환 문자열 — 31단위 넘으면 게임 멈춤(10-29)
+        RG.gate(RG.dlc_items(tr), "dlc_translations.json")
         self.by_src = defaultdict(list)    # (plat, pkg, rel) → [(xi|None, tid, jp, kr)]
         self.jp_by_grp = defaultdict(lambda: defaultdict(Counter))
         self.n_rows = 0

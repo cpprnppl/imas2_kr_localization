@@ -467,6 +467,8 @@ def apply_xmb(rel, data, tr, log):
 
 def build():
     tr = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
+    import rs_gate as RG                    # NPC 유닛·프로듀서 이름 = 대사 치환 문자열 — 31단위 게이트(10-29)
+    RG.gate(RG.xmb_items(tr), "xmb_translations.json")
     jobs = kr_jobs()
     xjobs = x360_jobs()                    # 360판 전용 그림(kr_x360/) — 2026-10-23 전까지 주입 경로가 없었다
     targets = set(jobs) | set(xjobs)

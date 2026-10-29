@@ -434,7 +434,7 @@ async function loadKrimgList() {
    (2026-10-29 확정: 대사창 칸 64 → 136(PC 훅·PS3 RPCS3 패치), 엔진 버퍼 128 — PS3는 보호가 없어 127이 유일한 안전장치.
    이름 코드 최대 길이 = tools/scb/scb_common.NAME_CODE_MAX와 같은 값). 선택지는 예전 57자. */
 const WRAP_W = 702, MAX_UNITS = 57, MAX_RUN = 6, HARD_UNITS = 127;
-const NAME_MAX = {0xF001: 10, 0xF002: 6, 0xF011: 6, 0xF012: 6, 0xF015: 6, 0xF016: 6, 0xF017: 6, 0xF01A: 12, 0xF01B: 12, 0xF01D: 2, 0xF01E: 2, 0xF01F: 31};
+const NAME_MAX = {0xF001: 10, 0xF002: 6, 0xF011: 6, 0xF012: 6, 0xF015: 6, 0xF016: 6, 0xF017: 6, 0xF01A: 12, 0xF01B: 12, 0xF01D: 31, 0xF01E: 31, 0xF01F: 31};
 const unitsMax = s => { let n = 0; for (const c of s) { const o = c.codePointAt(0); n += (o >= 0xE000 && o <= 0xF8FF) ? (NAME_MAX[o] || 31) : 1; } return n; };
 const tooLong = (res, choice) => {
   if (choice) return [...res].length > MAX_UNITS;
@@ -542,6 +542,12 @@ function warns(r) {
     if (g.lines.length >= 3) w.push([`대사 상자 ${g.lines.length}줄 — 넘침(상자는 2줄), 줄여 주세요`, "red"]);
     if (g.cut) w.push([`너무 김 — 게임에서 끝 ${g.lost}자가 잘림 (대사 상자 2줄 폭)`, "red"]);
   } else if (nj !== nk) w.push([`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);
+  // 대사 치환 문자열(곡명·유닛 이름·캐릭터 호칭) — 게임이 64B 스택 버퍼로 검사 없이 옮긴다: 31자 넘으면 멈춤 (tools/image_text/rs_gate.py와 같은 판정)
+  { const f = String(r.key || "").split("#").pop().split(/[.:/]/).pop();
+    const rs = (r.cat === "gamedata" && ((r.grp === "song" && f === "name") || (r.grp === "system" && (f === "unit" || f === "title")) || (r.grp === "profile" && f.includes("name"))))
+      || (r.cat === "xmb" && (r.grp === "exep_init" || r.grp === "ranker") && /^NPC[UP]_/.test(f))
+      || (r.cat === "dlc" && r.grp === "ranker" && /^rank[UP]_/.test(f));
+    if (rs && U16(r.kr) > 31) w.push([`곡명·유닛 이름 칸 ${U16(r.kr)}/31자 — 넘으면 게임 멈춤, 줄여 주세요`, "red"]); }
   const kj = /^「[\s\S]*」$/.test(r.jp.trim()), kk = /^「[\s\S]*」$/.test(r.kr.trim());
   if (kj !== kk) w.push(["「」 다름", "orange"]);
   if (U16(r.kr) > U16(r.jp) * 1.6 + 4) w.push([`길이 ${U16(r.kr)}/${U16(r.jp)}`, "orange"]);
