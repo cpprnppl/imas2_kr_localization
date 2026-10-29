@@ -89,6 +89,7 @@ python -I tools/x360_patch/build_iso.py "C:\Users\jackfilm\Desktop\imas2_360\Ido
 - **DLC 주의**: DLC 원본 해시는 개발팀이 제공한 패키지 `THE iDOLM@STER 2 ALL DLC.pkg`(PSN 판매 다운로드 아님)에서 뽑았다. 다른 경로로 받은 DLC 파일은 해시가 다를 수 있고, 그런 파일은 건너뛴다.
 - 낱개 폰트(`resource\im2_font*`)는 넣지 않는다(`excluded`). 순정 PKG에 없는 파일이고 게임도 읽지 않는다. 게임이 쓰는 폰트는 initialFix.mpc와 initialTemp.mpc에 넣은 것이고, 이 두 파일은 diff로 들어간다.
 - exe 문자열은 `imas2_kor_exe.yml`(RPCS3 패치, PSN PPU 해시 전용)을 통째로 싣는다. 새 값만 들어 있다.
+- `--add-yml EDITION=PATH`(psn|disc|disc_upd, 여러 번): 같은 EBOOT용 RPCS3 패치를 그 판의 exe 문자열 yml에 합친다. 같은 PPU 키 아래 패치 이름이 하나 더 생긴다(예: 대사창 칸 136 `imas2_kor_dialog136_*.yml`). PPU 키가 다르거나 이름이 겹치면 멈춘다. 매니페스트 `rpcs3_patch[].merged`에 합친 파일의 sha256과 패치 이름을 적는다.
 - **RPCS3 실행 안내(테스터)**: RPCS3는 `--no-gui`로 실행하지 않는다(부팅 직후 거의 항상 멈춤). 일반(GUI) 모드로 실행하고, 부팅 직후(약 3~4초) 멈추면 1~2분 기다렸다가 다시 실행한다. 성공률은 약 50%다. 게임별 커스텀 설정은 필요 없고, 전역 LLVM 설정을 권장한다.
   - 근거(ui 부팅 시험): `--no-gui` 0/4, GUI 전역 LLVM 4/7. 멈춤 원인은 게임 그리기 스레드의 null 읽기 경합이라 설정으로는 고칠 수 없다.
 - **디스크판 BLJS10083 (VERSION 01.01 / APP_VER 01.00)**: 디스크 USRDIR은 EBOOT.BIN만 빼고 PSN 순정과 같다(3,480/3,481 바이트 일치). 그래서 diff는 두 판에 공통(`edition: "both"`)이다.

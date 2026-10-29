@@ -131,19 +131,61 @@ def rebuild(orig, e, kdbytes, table):
     return out
 
 
-def yml_entry(path, edition, out, variant=None):
-    """Our RPCS3 patch file for one edition: copied to w/, hash key and patch names read from the yml."""
-    y = open(path, "rb").read()
-    name = f"imas2_kor_exe_{edition}{'_' + variant if variant else ''}.yml"
-    open(os.path.join(out, "w", name), "wb").write(y)
-    lines = y.decode("utf-8").splitlines()
+def _yml_key_names(path, text):
+    lines = text.splitlines()
     keys = [l[:-1] for l in lines if l.startswith("PPU-") and l.endswith(":")]
     names = [l.strip()[1:-2] for l in lines if l.startswith('  "') and l.endswith('":')]
     if len(keys) != 1 or not names:
         sys.exit(f"{path}: expected one PPU key and patch names")
-    return {"edition": edition, **({"variant": variant} if variant else {}),
-            "file": f"w/{name}", "sha256": sha256(y), "size": len(y), "schema": "Version: 1.2",
-            "hash_key": keys[0], "patch_names": names, "origin": "exe_inject build-ps3: new values only"}
+    return keys[0], names
+
+
+def yml_entry(path, edition, out, variant=None, extras=()):
+    """Our RPCS3 patch file for one edition: copied to w/, hash key and patch names read from the yml.
+    extras: more patch ymls for the same EBOOT (e.g. the dialogue box 136 cap); each must carry the same PPU key,
+    and its patches are appended under that key as further patch names (kor_patch_rpcs3 enables every name)."""
+    y = open(path, "rb").read()
+    text = y.decode("utf-8")
+    key, names = _yml_key_names(path, text)
+    eol = "\r\n" if "\r\n" in text else "\n"
+    merged = []
+    for xp in extras:
+        xb = open(xp, "rb").read()
+        xt = xb.decode("utf-8")
+        xkey, xnames = _yml_key_names(xp, xt)
+        if xkey != key:
+            sys.exit(f"{xp}: PPU key {xkey} is not the {edition} EBOOT key {key}")
+        if set(xnames) & set(names):
+            sys.exit(f"{xp}: patch name already present: {sorted(set(xnames) & set(names))}")
+        lines = xt.splitlines()
+        block = lines[lines.index(xkey + ":") + 1:]
+        while block and not block[-1].strip():
+            block.pop()
+        text = text.rstrip("\r\n") + eol + eol.join(block) + eol
+        names += xnames
+        merged.append({"file": os.path.basename(xp), "sha256": sha256(xb), "patch_names": xnames})
+    y = text.encode("utf-8")
+    assert _yml_key_names(path, text) == (key, names)
+    name = f"imas2_kor_exe_{edition}{'_' + variant if variant else ''}.yml"
+    open(os.path.join(out, "w", name), "wb").write(y)
+    e = {"edition": edition, **({"variant": variant} if variant else {}),
+         "file": f"w/{name}", "sha256": sha256(y), "size": len(y), "schema": "Version: 1.2",
+         "hash_key": key, "patch_names": names, "origin": "exe_inject build-ps3: new values only"}
+    if merged:
+        e["origin"] += "; + " + ", ".join(f"{m['file']} ({', '.join(m['patch_names'])})" for m in merged)
+        e["merged"] = merged
+    return e
+
+
+def add_ymls(a, edition):
+    out = []
+    for v in a.add_yml:
+        ed, _, path = v.partition("=")
+        if ed not in ("psn", "disc", "disc_upd") or not path:
+            sys.exit(f"--add-yml {v}: expected psn|disc|disc_upd=PATH")
+        if ed == edition:
+            out.append(path)
+    return out
 
 
 def files_of(root):
@@ -207,7 +249,7 @@ def gen(a):
                 {"src_origin": "THE iDOLM@STER 2 ALL DLC.pkg (BLJS10083 DLC; package provided by the dev team, "
                                "not a PSN retail download)"})
     os.makedirs(os.path.join(a.out, "w"))
-    man["rpcs3_patch"] = [yml_entry(a.exe_yml, "psn", a.out)]
+    man["rpcs3_patch"] = [yml_entry(a.exe_yml, "psn", a.out, extras=add_ymls(a, "psn"))]
     if a.disc_hashes:                                             # disc edition BLJS10083 (same data as PSN)
         disc = {k.lower(): v for k, v in json.load(open(a.disc_hashes, encoding="utf-8")).items()}
         dm = disc[marker]["sha256"]
@@ -223,13 +265,13 @@ def gen(a):
                 e["edition"] = "both"                             # DLC: one BLJS10083 package for both editions
                 both += 1
         print(f"disc: {both}/{len(man['files'])} entries have the same source in the disc USRDIR")
-        man["rpcs3_patch"].append(yml_entry(a.disc_yml, "disc", a.out))
+        man["rpcs3_patch"].append(yml_entry(a.disc_yml, "disc", a.out, extras=add_ymls(a, "disc")))
         if a.update_yml:              # disc + HDD update 01.02: same game data, own EBOOT (dev_hdd0/game/BLJS10083)
             man["image"].append({"edition": "disc_upd", "title_id": "BLJS10083", "app_ver": "01.02",
                                  "usrdir_marker": marker, "marker_sha256": dm,
                                  "label": "BLJS10083 (disc + HDD update, APP_VER 01.02)"})
             man["key_table"]["offset_hints"]["disc_upd"] = a.update_offset
-            man["rpcs3_patch"].append(yml_entry(a.update_yml, "disc_upd", a.out))
+            man["rpcs3_patch"].append(yml_entry(a.update_yml, "disc_upd", a.out, extras=add_ymls(a, "disc_upd")))
     json.dump(man, open(os.path.join(a.out, "manifest.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     allf = man["files"]
     from collections import Counter
@@ -295,6 +337,8 @@ def main():
     for o in ("--pristine", "--pristine-dlc", "--deployed", "--table", "--out", "--patch", "--work", "--exe-yml",
               "--disc-hashes", "--disc-offset", "--disc-yml", "--update-offset", "--update-yml"):
         ap.add_argument(o)
+    ap.add_argument("--add-yml", action="append", default=[], metavar="EDITION=PATH",
+                    help="extra RPCS3 patch yml merged under that edition's EBOOT key (psn/disc/disc_upd)")
     a = ap.parse_args()
     (gen if a.cmd == "gen" else verify)(a)
 
