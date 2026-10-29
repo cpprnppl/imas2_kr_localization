@@ -121,12 +121,14 @@ WRAP_WARN_LINES = 2  # 이 줄 수 초과 시 경고(수동 축약 대상) — �
 # 대사 길이 상한 (2026-10-29 확정, 공유 노트 imas2-dialogue-buffer-116B.md — 감독 360 정적 분석 + PC 1배·RPCS3 실측):
 #   ① SCB 대사 → 엔진 +668 버퍼 128단위(256B), 길이 제한 없는 복사(이름 코드 0xF001~ 펼침 포함) → 127단위를 넘으면 힙 손상.
 #      10-15 라이브 시작 정지(한글 5/5, 최대 3,072B 비명 대사)가 이것.
-#   ② 대사창 TextField 용량 64단위 → 보이는 길이 = 63 − 줄 수(1줄 62, 2줄 61, 줄바꿈 포함). 넘는 부분은 게임이 조용히 버린다.
-#      시험: attract 데모 대사 178B → PC·RPCS3 모두 61단위('…18 19')에서 끊김, 정지 없음.
-#   예전 116B(57단위)는 순정 MSG 최대 길이에서 정한 값이라 4단위 보수적이었다(1,013행이 불필요하게 잘림).
-TEXTFIELD_CAP = 64                        # 대사창 TextField 용량(단위) — 보이는 길이 63 − 줄 수
-HARD_UNITS = 127                          # 엔진 +668 버퍼(128단위) — 이름을 펼친 뒤 이 값을 넘으면 힙 손상
-NAME_UNITS = 6                            # 이름 코드(PUA) 1개를 펼친 길이 추정(폭 162px = 한글 6자와 같은 여유)
+#   ② 대사창 TextField 용량 원래 64단위(보이는 길이 63 − 줄 수) → PC 훅(imas2pc 56c7582)·PS3 RPCS3 패치(ps3_dialog_cap.py)로 136.
+#      136 ≥ 127 + 줄 머리 + 널이라 엔진이 넘기는 대사는 화면에서 잘리지 않는다(PC 1배·RPCS3 실측 10-29, KOR·사용자 확정).
+#   → 규칙: 대사 = 2줄 폭 안 + 이름 코드를 최대 길이로 펼쳐 127단위 이하(scb_common.units_max). PS3는 엔진 복사 보호가 없어
+#      127 게이트가 유일한 안전장치(RPCS3: 200단위 줄은 표시되지 않고 다음 줄까지 건너뜀).
+#   예전 116B(57단위)·64칸(61단위) 상한은 1,518행을 불필요하게 잘랐다.
+TEXTFIELD_CAP = 136                       # 대사창 TextField 용량(단위) — 훅·패치 적용 후
+HARD_UNITS = 127                          # 엔진 +668 버퍼(128단위) — 이름을 최대 길이로 펼친 뒤 이 값을 넘으면 힙 손상
+NAME_UNITS = 6                            # 이름 코드(PUA) 1개의 보통 길이(폭 162px = 한글 6자) — 화면 폭 계산용
 # 선택지(opcode 258, 다른 버퍼 — 미확인)와 한글 없는 줄은 예전 상한 그대로
 MAX_ENTRY_BYTES = 116                     # UTF-16BE + 널(2B) 포함
 MAX_TEXT_UNITS = (MAX_ENTRY_BYTES - 2) // 2   # = 57 코드유닛 (\n 포함)
@@ -139,12 +141,11 @@ def _units(s: str) -> int:
 
 
 def _too_long(result: str, choice: bool = False) -> bool:
-    """대사창에 다 안 보이는가 (선택지는 예전 57단위). 대사는 2줄을 넘어도 '너무 김' — 3줄째는 상자 밖으로 넘쳐 보이므로
-    2줄에 맞게 자른다(2026-10-29 KOR 결정 B: 잘림은 경고 목록으로 축약, 상자 밖 넘침은 0)."""
+    """너무 긴가 (선택지는 예전 57단위). 대사는 2줄을 넘으면 '너무 김' — 3줄째는 상자 밖으로 넘쳐 보이므로 2줄에 맞게 자른다
+    (2026-10-29 KOR 결정 B). 길이는 이름 코드를 최대 길이로 펼쳐 127단위 이하(엔진 버퍼, PS3 유일한 안전장치)."""
     if choice:
         return len(result) > MAX_TEXT_UNITS
-    n = result.count("\n") + 1
-    return n > WRAP_WARN_LINES or _units(result) > TEXTFIELD_CAP - 1 - n
+    return result.count("\n") + 1 > WRAP_WARN_LINES or common.units_max(result) > HARD_UNITS
 
 # 글자 폭 = 배포 폰트(im2_font.nfh) 레코드의 advance (2026-10-29). 예전 추정값(ASCII·공백 13.5, 전각 문장부호 27)은
 # 실제(공백·쉼표·마침표 9, …「」 26)보다 커서, 2줄에 들어가는 대사 197행을 3줄로 만들었다(대사창 밖으로 넘침).
@@ -400,7 +401,7 @@ def rewrap(text: str, choice: bool = False) -> str:
     """기존 \n을 풀고(어절 중간 분리 복원) 띄어쓰기를 교정한 뒤
     대사창 폭에 맞게 자연스러운 지점에서 다시 감싼다. choice=True(선택지 MSG)면 선택지 상자 폭으로.
     한글이 없는(미번역/일본어) 문자열은 재배치하지 않되, 116B 캡은 항상 적용.
-    대사 길이는 대사창에 보이는 만큼(63 − 줄 수 단위)으로 자른다 — 넘으면 게임이 어차피 버린다."""
+    대사는 2줄 폭 안·이름을 최대 길이로 펼쳐 127단위 이하로 자른다(_too_long)."""
     if not any('가' <= c <= '힣' for c in text):
         return _cap_units(text)
     parts = [p.strip() for p in text.split("\n")]
@@ -438,7 +439,7 @@ def rewrap(text: str, choice: bool = False) -> str:
     return result
 
 
-# rewrap이 대사창 표시 상한(63 − 줄 수) 때문에 끝을 잘라낸 기록 [(잘린 글자 수, 결과)] — resolve_translations가 줄마다 비우고 읽는다
+# rewrap이 대사 상한(2줄 폭·127단위) 때문에 끝을 잘라낸 기록 [(잘린 글자 수, 결과)] — resolve_translations가 줄마다 비우고 읽는다
 # (2026-10-29: 화면엔 멀쩡한 2줄인데 끝이 잘린 대사 1,488행이 경고 없이 배포돼 있었음)
 LAST_CUTS = []
 
@@ -585,9 +586,9 @@ def build_msg_block(parsed, new_texts_by_index: dict, font_map: dict, old_msg_si
 
         raw = txt.encode("utf-16-be", errors="replace") + b"\x00\x00"
         ln = len(raw)
-        if i in new_texts_by_index and _units(txt) > HARD_UNITS:
+        if i in new_texts_by_index and common.units_max(txt) > HARD_UNITS:
             raise ValueError(
-                f"entry[{i}] {_units(txt)}단위 > {HARD_UNITS} — 엔진 대사 버퍼 초과(힙 손상 유발). "
+                f"entry[{i}] {common.units_max(txt)}단위(이름 최대) > {HARD_UNITS} — 엔진 대사 버퍼 초과(힙 손상 유발). "
                 f"rewrap 캡이 적용되지 않은 경로가 있음: {txt[:30]!r}")
         bodies.append(raw)
         offsets.append((ln, ofs))
@@ -753,7 +754,7 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
         warns.append(f"⚠ 그 외 {len(too_long)-5}개 더 {WRAP_WARN_LINES}줄 초과")
     cuts = sorted(CUT_BY_IDX.items())
     for i, n in cuts[:5]:
-        warns.append(f"⚠ 대사창 표시 상한(63−줄 수) 초과 — 끝 {n}자 잘림(축약 필요) entry[{i}]: …{new_by_idx[i].replace(chr(10), ' ')[-15:]}")
+        warns.append(f"⚠ 대사 상한(2줄 폭·127단위) 초과 — 끝 {n}자 잘림(축약 필요) entry[{i}]: …{new_by_idx[i].replace(chr(10), ' ')[-15:]}")
     if len(cuts) > 5:
         warns.append(f"⚠ 그 외 {len(cuts)-5}개 더 표시 상한 잘림")
     return True, warns
@@ -761,7 +762,7 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
 
 def resolve_translations(parsed, abs_to_tr: dict, choices=frozenset()):
     """엑셀 행(원본 abs_offset → (원문, 번역))을 MSG 문자열 인덱스로 매칭해
-    rewrap(줄폭·표시 상한)까지 적용. pcport360.py도 같은 규칙을 쓰려고 분리.
+    rewrap(줄폭·대사 상한)까지 적용. pcport360.py도 같은 규칙을 쓰려고 분리.
     choices = choice_indices(dec) — 선택지 MSG는 선택지 상자 폭으로 감싼다.
     Returns (new_by_idx, text_recovered, misses, garbage_skipped)."""
     CUT_BY_IDX.clear()
@@ -868,7 +869,7 @@ def main():
     print(f"\n{'='*60}")
     print(f"완료: 성공 {ok} / 실패 {fail}")
     if total_cut:
-        print(f"⚠ 대사창 표시 상한(2줄 61자, 1줄 62자)으로 끝이 잘린 대사 {total_cut}줄 — 번역 축약 필요(화면엔 2줄로 보여도 글이 빠짐)")
+        print(f"⚠ 대사 상한(2줄 폭·이름 최대 펼침 127단위)으로 끝이 잘린 대사 {total_cut}줄 — 번역 축약 필요(화면엔 2줄로 보여도 글이 빠짐)")
     print(f"출력 위치: {OUTPUT_DIR}")
     if full_build:
         build_state.mark_done("ps3")

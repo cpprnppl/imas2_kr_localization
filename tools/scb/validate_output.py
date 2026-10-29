@@ -54,10 +54,11 @@ def validate_dec(dec, orig=None):
         if of != prev_end:
             issues.append(f"entry{i} ofs {of} != {prev_end}")
         raw = dec[base + of: base + of + ln]
-        # 엔진 대사 버퍼 128단위(이름 코드 펼친 뒤 127 + 널) — 넘으면 힙 손상(2026-10-29 감독 정적 분석, 예전 116B는 순정 최대 길이)
-        units = (ln - 2) // 2 + 5 * sum(1 for j in range(0, ln - 2, 2) if 0xE0 <= raw[j] <= 0xF8)
+        # 엔진 대사 버퍼 128단위(이름 코드를 최대 길이로 펼친 뒤 127 + 널) — 넘으면 힙 손상, PS3는 보호 없음
+        # (2026-10-29 감독 정적 분석·RPCS3 실측, 이름 코드 최대 길이 = scb_common.NAME_CODE_MAX. 예전 116B는 순정 최대 길이)
+        units = common.units_max(raw[:-2].decode("utf-16-be", errors="replace"))
         if units > 127:
-            issues.append(f"entry{i} {units}단위 > 127 (엔진 대사 버퍼 초과 — 힙 손상 유발)")
+            issues.append(f"entry{i} {units}단위(이름 최대) > 127 (엔진 대사 버퍼 초과 — 힙 손상 유발)")
         if ln < 2 or raw[-2:] != b"\x00\x00":
             issues.append(f"entry{i} 널 종단 없음")
         body = raw[:-2]

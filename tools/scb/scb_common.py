@@ -8,6 +8,26 @@
 import os, struct, re
 from Crypto.Cipher import AES
 
+# ── 대사 이름 코드(PUA) → 펼친 최대 길이(UTF-16 단위) ─────────────────
+# 엔진이 대사를 +668 버퍼(128단위)로 복사하며 이름 코드를 펼친다. PS3엔 길이 보호가 없어 127을 넘으면 뒤 칸을 덮어쓴다
+# (RPCS3 실측: 200단위 줄이 화면에 안 나오고 다음 줄까지 건너뜀). 그래서 127 게이트는 이름을 최대 길이로 센다.
+# 출처: 2026-10-29 감독 360 정적 분석(공유 노트 imas2-dialogue-buffer-116B.md "Name codes"), 한글판 길이는 웹앱 회수본 기준 + 여유.
+NAME_CODE_MAX = {
+    0xF001: 10,                     # 프로듀스 중인 유닛 이름 — 설정 함수가 10으로 자름(키보드는 32)
+    0xF002: 6,                      # 프로듀서 이름
+    0xF011: 6, 0xF012: 6,           # 유닛 멤버 1·2 이름(名) — 캐릭터 XMB firstname, 한글판 최장 3(리츠코 등) + 여유
+    0xF015: 6, 0xF016: 6, 0xF017: 6,  # 스크립트가 고른 캐릭터 이름(名) — 같은 표
+    0xF01A: 12, 0xF01B: 12,         # pre_001~047·101~114 문구(도도부현 등) — 한글판 최장 9('안개의 도시 런던') + 여유
+    0xF01D: 2, 0xF01E: 2,           # 숫자(%d, 11 이하)
+    0xF01F: 31,                     # 정적 버퍼(wcsncpy 31)
+}
+NAME_CODE_DEFAULT = 31              # 표에 없는 코드는 가장 긴 버퍼로
+
+
+def units_max(s):
+    """이름 코드를 최대 길이로 펼쳤을 때의 길이 — 엔진 버퍼 127 게이트용."""
+    return sum(NAME_CODE_MAX.get(ord(c), NAME_CODE_DEFAULT) if 0xE000 <= ord(c) <= 0xF8FF else 1 for c in s)
+
 # ── 경로 설정 ──────────────────────────────────────────────
 TOOLS_DIR   = os.path.dirname(os.path.abspath(__file__))
 GSCRIPT_DIR = os.path.dirname(TOOLS_DIR)

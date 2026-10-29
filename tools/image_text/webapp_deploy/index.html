@@ -430,14 +430,15 @@ async function loadKrimgList() {
 /* ---------------- 경고/통계 ---------------- */
 /* 게임 줄바꿈 미리보기 — tools/scb/excel2scb.py rewrap()과 같은 규칙(띄어쓰기 교정 Kiwi 제외).
    빌드는 번역문의 줄바꿈을 풀고 대사창 폭 702px로 다시 감싼다. 글자 폭 = 배포 폰트 advance(META.adv, 공백·쉼표 9px 등).
-   대사창은 2줄, 보이는 길이 = 63 − 줄 수(2줄 61자, 줄바꿈 포함 · 이름 코드는 6자로 계산) — 2줄을 넘거나 길면 빌드가 2줄에 맞게 끝을 자른다
-   (2026-10-29 확정: 대사창 64칸, 감독·ps3-360-pc 정적 분석 + PC·RPCS3 실측. 예전 57자는 순정 최대 길이). 선택지는 예전 57자. */
-const WRAP_W = 702, MAX_UNITS = 57, MAX_RUN = 6, FIELD_CAP = 64, NAME_UNITS = 6;
-const units = s => { let n = 0; for (const c of s) { const o = c.codePointAt(0); n += (o >= 0xE000 && o <= 0xF8FF) ? NAME_UNITS : 1; } return n; };
+   대사창은 2줄 — 2줄 폭을 넘거나, 이름 코드를 최대 길이로 펼쳐 127자를 넘으면 빌드가 2줄에 맞게 끝을 자른다
+   (2026-10-29 확정: 대사창 칸 64 → 136(PC 훅·PS3 RPCS3 패치), 엔진 버퍼 128 — PS3는 보호가 없어 127이 유일한 안전장치.
+   이름 코드 최대 길이 = tools/scb/scb_common.NAME_CODE_MAX와 같은 값). 선택지는 예전 57자. */
+const WRAP_W = 702, MAX_UNITS = 57, MAX_RUN = 6, HARD_UNITS = 127;
+const NAME_MAX = {0xF001: 10, 0xF002: 6, 0xF011: 6, 0xF012: 6, 0xF015: 6, 0xF016: 6, 0xF017: 6, 0xF01A: 12, 0xF01B: 12, 0xF01D: 2, 0xF01E: 2, 0xF01F: 31};
+const unitsMax = s => { let n = 0; for (const c of s) { const o = c.codePointAt(0); n += (o >= 0xE000 && o <= 0xF8FF) ? (NAME_MAX[o] || 31) : 1; } return n; };
 const tooLong = (res, choice) => {
   if (choice) return [...res].length > MAX_UNITS;
-  const n = res.split("\n").length;
-  return n > 2 || units(res) > FIELD_CAP - 1 - n;
+  return res.split("\n").length > 2 || unitsMax(res) > HARD_UNITS;
 };
 const isHan = c => c >= "가" && c <= "힣";
 function cWidth(ch) {
@@ -539,7 +540,7 @@ function warns(r) {
   if (r.cat === "script") {
     const g = gameWrap(r.kr, !!(r.meta || {}).choice);
     if (g.lines.length >= 3) w.push([`대사 상자 ${g.lines.length}줄 — 넘침(상자는 2줄), 줄여 주세요`, "red"]);
-    if (g.cut) w.push([`너무 김 — 게임에서 끝 ${g.lost}자가 잘림 (대사 상자 2줄·61자)`, "red"]);
+    if (g.cut) w.push([`너무 김 — 게임에서 끝 ${g.lost}자가 잘림 (대사 상자 2줄 폭)`, "red"]);
   } else if (nj !== nk) w.push([`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);
   const kj = /^「[\s\S]*」$/.test(r.jp.trim()), kk = /^「[\s\S]*」$/.test(r.kr.trim());
   if (kj !== kk) w.push(["「」 다름", "orange"]);
