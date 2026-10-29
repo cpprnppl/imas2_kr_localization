@@ -408,10 +408,18 @@ def rewrap(text: str, choice: bool = False) -> str:
         if _text_width(flat) <= WRAP_WIDTH:
             return flat          # 상자 폭 안 / 한 어절이 너무 김 → 한 줄(게임이 글자 단위로 자름)
     result = "\n".join(_wrap_balanced(flat))
+    n0 = len(flat)
     while len(result) > MAX_TEXT_UNITS and flat:
         flat = flat[: max(0, len(flat) - 2)].rstrip()
         result = "\n".join(_wrap_balanced(flat))
+    if n0 > len(flat):
+        LAST_CUTS.append((n0 - len(flat), result))
     return result
+
+
+# rewrap이 57자(116B) 상한 때문에 끝을 잘라낸 기록 [(잘린 글자 수, 결과)] — resolve_translations가 줄마다 비우고 읽는다
+# (2026-10-29: 화면엔 멀쩡한 2줄인데 끝이 잘린 대사 1,488행이 경고 없이 배포돼 있었음)
+LAST_CUTS = []
 
 
 # -------------------------
@@ -722,6 +730,11 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
         warns.append(f"⚠ {WRAP_WARN_LINES}줄 초과(축약 필요) entry[{i}]: {t.splitlines()[0][:20]}…")
     if len(too_long) > 5:
         warns.append(f"⚠ 그 외 {len(too_long)-5}개 더 {WRAP_WARN_LINES}줄 초과")
+    cuts = sorted(CUT_BY_IDX.items())
+    for i, n in cuts[:5]:
+        warns.append(f"⚠ {MAX_TEXT_UNITS}자({MAX_ENTRY_BYTES}B) 상한 초과 — 끝 {n}자 잘림(축약 필요) entry[{i}]: …{new_by_idx[i].replace(chr(10), ' ')[-15:]}")
+    if len(cuts) > 5:
+        warns.append(f"⚠ 그 외 {len(cuts)-5}개 더 {MAX_TEXT_UNITS}자 상한 잘림")
     return True, warns
 
 
@@ -730,6 +743,7 @@ def resolve_translations(parsed, abs_to_tr: dict, choices=frozenset()):
     rewrap(줄폭·116B 캡)까지 적용. pcport360.py도 같은 규칙을 쓰려고 분리.
     choices = choice_indices(dec) — 선택지 MSG는 선택지 상자 폭으로 감싼다.
     Returns (new_by_idx, text_recovered, misses, garbage_skipped)."""
+    CUT_BY_IDX.clear()
     abs_to_index = { s["abs_offset"]: s["index"] for s in parsed["strings"] }
 
     # fallback: 원문 텍스트 -> index (유일한 경우만). 구버전 추출기의 abs_offset 오류 구제용
@@ -757,8 +771,14 @@ def resolve_translations(parsed, abs_to_tr: dict, choices=frozenset()):
             else:
                 misses += 1
                 continue
+        del LAST_CUTS[:]
         new_by_idx[idx] = rewrap(tr, idx in choices)
+        if LAST_CUTS:
+            CUT_BY_IDX[idx] = LAST_CUTS[-1][0]
     return new_by_idx, text_recovered, misses, garbage_skipped
+
+
+CUT_BY_IDX = {}   # 마지막 resolve_translations 호출에서 57자 상한으로 끝이 잘린 줄 {MSG 인덱스: 잘린 글자 수}
 
 
 # -------------------------
@@ -805,11 +825,13 @@ def main():
     ok = 0
     fail = 0
     all_warns = []
+    total_cut = 0
 
     for i, (rel_path, abs_map) in enumerate(sorted(translations.items()), 1):
         print(f"  [{i:4}/{total_files}] {rel_path} ({len(abs_map)}줄) ... ", end="")
         try:
             success, warns = patch_one_scb(rel_path, abs_map, font_map)
+            total_cut += len(CUT_BY_IDX)
             if success:
                 print("✅ OK")
                 ok += 1
@@ -824,6 +846,8 @@ def main():
 
     print(f"\n{'='*60}")
     print(f"완료: 성공 {ok} / 실패 {fail}")
+    if total_cut:
+        print(f"⚠ {MAX_TEXT_UNITS}자({MAX_ENTRY_BYTES}B) 상한으로 끝이 잘린 대사 {total_cut}줄 — 번역 축약 필요(화면엔 2줄로 보여도 글이 빠짐)")
     print(f"출력 위치: {OUTPUT_DIR}")
     if full_build:
         build_state.mark_done("ps3")
