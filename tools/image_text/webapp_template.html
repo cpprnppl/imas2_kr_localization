@@ -430,8 +430,15 @@ async function loadKrimgList() {
 /* ---------------- 경고/통계 ---------------- */
 /* 게임 줄바꿈 미리보기 — tools/scb/excel2scb.py rewrap()과 같은 규칙(띄어쓰기 교정 Kiwi 제외).
    빌드는 번역문의 줄바꿈을 풀고 대사창 폭 702px로 다시 감싼다. 글자 폭 = 배포 폰트 advance(META.adv, 공백·쉼표 9px 등).
-   대사창은 2줄, 한 대사 상한 57자(116바이트) — 넘으면 끝이 잘린다. */
-const WRAP_W = 702, MAX_UNITS = 57, MAX_RUN = 6;
+   대사창은 2줄, 보이는 길이 = 63 − 줄 수(2줄 61자, 줄바꿈 포함 · 이름 코드는 6자로 계산) — 2줄을 넘거나 길면 빌드가 2줄에 맞게 끝을 자른다
+   (2026-10-29 확정: 대사창 64칸, 감독·ps3-360-pc 정적 분석 + PC·RPCS3 실측. 예전 57자는 순정 최대 길이). 선택지는 예전 57자. */
+const WRAP_W = 702, MAX_UNITS = 57, MAX_RUN = 6, FIELD_CAP = 64, NAME_UNITS = 6;
+const units = s => { let n = 0; for (const c of s) { const o = c.codePointAt(0); n += (o >= 0xE000 && o <= 0xF8FF) ? NAME_UNITS : 1; } return n; };
+const tooLong = (res, choice) => {
+  if (choice) return [...res].length > MAX_UNITS;
+  const n = res.split("\n").length;
+  return n > 2 || units(res) > FIELD_CAP - 1 - n;
+};
 const isHan = c => c >= "가" && c <= "힣";
 function cWidth(ch) {
   const o = ch.codePointAt(0), a = (META.adv || {})[o];
@@ -501,15 +508,16 @@ function gameWrap(text, choice) {
   let flat = parts[0];
   for (const p of parts.slice(1)) flat = flat + joinSep(flat, p) + p;
   flat = flat.split(/\s+/).filter(Boolean).join(" ");
-  if ([...flat].length > MAX_UNITS) flat = compressRuns(flat);
+  if (tooLong(flat, choice)) flat = compressRuns(flat);
   if (choice) {                              // 선택지 MSG(meta.choice) — excel2scb._wrap_choice와 같은 규칙
     const ch = wrapChoice(flat);
     if (ch && [...ch.join("\n")].length <= MAX_UNITS) return { lines: ch, cut: false };
     if (tWidth(flat) <= WRAP_W) return { lines: [flat], cut: false };
   }
   let res = wrapBalanced(flat).join("\n"), cut = false;
-  while ([...res].length > MAX_UNITS && flat) { flat = flat.slice(0, Math.max(0, flat.length - 2)).trimEnd(); res = wrapBalanced(flat).join("\n"); cut = true; }
-  return { lines: res.split("\n"), cut };
+  const n0 = [...flat].length;
+  while (tooLong(res, choice) && flat) { flat = flat.slice(0, Math.max(0, flat.length - 2)).trimEnd(); res = wrapBalanced(flat).join("\n"); cut = true; }
+  return { lines: res.split("\n"), cut, lost: n0 - [...flat].length };
 }
 
 function warns(r) {
@@ -531,7 +539,7 @@ function warns(r) {
   if (r.cat === "script") {
     const g = gameWrap(r.kr, !!(r.meta || {}).choice);
     if (g.lines.length >= 3) w.push([`대사 상자 ${g.lines.length}줄 — 넘침(상자는 2줄), 줄여 주세요`, "red"]);
-    if (g.cut) w.push([`너무 김 — 게임에서 끝이 잘림 (57자 상한)`, "red"]);
+    if (g.cut) w.push([`너무 김 — 게임에서 끝 ${g.lost}자가 잘림 (대사 상자 2줄·61자)`, "red"]);
   } else if (nj !== nk) w.push([`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);
   const kj = /^「[\s\S]*」$/.test(r.jp.trim()), kk = /^「[\s\S]*」$/.test(r.kr.trim());
   if (kj !== kk) w.push(["「」 다름", "orange"]);
