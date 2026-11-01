@@ -1639,6 +1639,12 @@ function startEdit(r, td) {
     hint.classList.toggle("bad", nk !== nj || over);
   };
   td.textContent = ""; td.appendChild(ta);
+  if (r.cat === "script" && !(r.meta || {}).choice) {   // 대사 줄바꿈 안내(2026-11-02 결정 A — 입력한 줄바꿈 존중)
+    const guide = document.createElement("div");
+    guide.className = "nl-hint";
+    guide.textContent = "Shift+Enter 위치가 그대로 게임 줄바꿈이 됩니다. 2줄·한 줄 폭(한글 약 27자)·127자를 넘으면 게임이 자동 줄바꿈하고 경고가 뜹니다. 아래 '게임 표시' = 게임 화면.";
+    td.appendChild(guide);
+  }
   if (r.cat !== "image") { td.appendChild(hint); updHint(); ta.addEventListener("input", updHint); }
   if (r.cat !== "image") {
     td.insertAdjacentHTML("beforeend", quickBarHtml());
