@@ -472,6 +472,10 @@ def rewrap(text: str, choice: bool = False) -> str:
     return result
 
 
+# 줄 첫머리에 오면 윗줄로 올리는 문장부호(쉼표·마침표·물음표·느낌표·말줄임·닫는 괄호·따옴표·물결) — 웹앱 LEAD_PUNCT와 같음
+_LEAD_PUNCT = ",.!?…、。，．！？」』）)]〉》'\"’”～~・"
+
+
 def _manual_layout(text: str):
     """번역자가 넣은 줄바꿈(웹앱 Shift+Enter)대로 쓸 수 있으면 그 문자열, 아니면 None.
     조건(2026-11-02 사용자 결정 A): 2줄 이하, 빈 줄 없음, 각 줄 702px 이하, 이름 코드를 최대 길이로 펼쳐 127단위 이하.
@@ -479,6 +483,15 @@ def _manual_layout(text: str):
     lines = [" ".join(p.split()) for p in text.replace("\r", "").strip().split("\n")]
     if len(lines) > WRAP_WARN_LINES or not all(lines):
         return None
+    # 둘째 줄이 문장부호로 시작하면 그 부호를 윗줄 끝으로(2026-11-02 사용자 결정, '다 같이⏎, 매일' → '다 같이,⏎매일')
+    if len(lines) == 2:
+        k = 0
+        while k < len(lines[1]) and lines[1][k] in _LEAD_PUNCT:
+            k += 1
+        if k:
+            lines = [lines[0] + lines[1][:k], lines[1][k:].strip()]
+            if not lines[1]:
+                lines = lines[:1]
     if any(_text_width(l) > WRAP_WIDTH for l in lines):
         return None
     s = "\n".join(lines)
