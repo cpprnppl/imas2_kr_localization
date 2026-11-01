@@ -209,7 +209,11 @@ def _join_sep(prev: str, nxt: str) -> str:
         if b in "「『（([" or a in ",.!?…、。」』！？）)]":
             return ""
         return " "
-    # 한글⏎한글: 앞말이 '이'로 끝나면 서술격 조사 분리(활동이⏎다, 아이⏎돌들은)
+    # 한글⏎한글: Kiwi가 있으면 일단 붙이고 Kiwi가 띄어쓰기를 판단(_kiwi_space가 접합 지점에서만 공백 추가) —
+    # 예전 규칙(아래)은 어절 중간에서 끊은 줄에 공백을 넣었다('있겠는⏎데!' → '있겠는 데!', 2026-11-02 사용자 지적)
+    if _kiwi_ready():
+        return ""
+    # Kiwi 없을 때: 앞말이 '이'로 끝나면 서술격 조사 분리(활동이⏎다, 아이⏎돌들은)
     if b == "이":
         return ""
     # 뒷줄 첫 한글 어절이 단음절 조사/어미면 붙임 (속도⏎로)
@@ -242,6 +246,13 @@ def is_garbage_translation(t: str) -> bool:
 _KIWI = None
 _KIWI_TRIED = False
 
+def _kiwi_ready() -> bool:
+    """Kiwi를 (처음 한 번) 불러 보고 쓸 수 있는지."""
+    if not _KIWI_TRIED:
+        _kiwi_space("가가", [1])
+    return _KIWI is not None
+
+
 def _kiwi_space(s: str, junctions=None) -> str:
     """Kiwi로 띄어쓰기를 교정하되, '공백 추가'만, 그것도 junctions
     (공백 없이 이어붙인 \n 접합 지점, 공백 제외 문자 인덱스)에서만 수용한다.
@@ -264,6 +275,20 @@ def _kiwi_space(s: str, junctions=None) -> str:
     if [c for c in s if c != " "] != [c for c in spaced if c != " "]:
         return s  # 공백 외 변형이 생기면 원문 유지(안전)
     junctions = set(junctions)
+    # Kiwi.space는 고유명사 뒤 등에서 공백을 빠뜨린다('마코토⏎일행' → '마코토일행'). 접합 지점에서 새 단어(체언·용언·부사 등)가
+    # 시작하면 띄우고, 조사·어미·접미사(J/E/X/VCP)면 붙인다(2026-11-02).
+    force = set()
+    try:
+        ns_before, n = [], 0
+        for ch in s:
+            ns_before.append(n)
+            n += ch != " "
+        for t in _KIWI.tokenize(s):
+            if t.start < len(s) and ns_before[t.start] in junctions and s[t.start] != " " and \
+                    (t.start == 0 or s[t.start - 1] != " ") and not t.tag.startswith(("J", "E", "X", "VCP", "VCN", "S")):
+                force.add(ns_before[t.start])
+    except Exception:
+        force = set()
     out = []
     i = j = 0
     emitted = 0  # 지금까지 출력한 비공백 문자 수 = 현재 gap 인덱스
@@ -281,6 +306,8 @@ def _kiwi_space(s: str, junctions=None) -> str:
                 out.append(" ")
             j += 1
         else:
+            if emitted in force and out and out[-1] != " ":
+                out.append(" ")
             out.append(ci)
             i += 1
             j += 1
@@ -398,12 +425,18 @@ def _cap_units(text: str) -> str:
     return s[:MAX_TEXT_UNITS].rstrip() if len(s) > MAX_TEXT_UNITS else s
 
 def rewrap(text: str, choice: bool = False) -> str:
-    """기존 \n을 풀고(어절 중간 분리 복원) 띄어쓰기를 교정한 뒤
+    """대사: 번역자가 넣은 줄바꿈이 2줄·폭·127단위 안이면 그대로 쓴다(_manual_layout, 2026-11-02 사용자 결정 A).
+    아니면 기존 \n을 풀고(어절 중간 분리 복원) 띄어쓰기를 교정한 뒤
     대사창 폭에 맞게 자연스러운 지점에서 다시 감싼다. choice=True(선택지 MSG)면 선택지 상자 폭으로.
     한글이 없는(미번역/일본어) 문자열은 재배치하지 않되, 116B 캡은 항상 적용.
     대사는 2줄 폭 안·이름을 최대 길이로 펼쳐 127단위 이하로 자른다(_too_long)."""
     if not any('가' <= c <= '힣' for c in text):
         return _cap_units(text)
+    if not choice and "\n" in text.strip():
+        manual = _manual_layout(text)
+        if manual is not None:
+            return manual            # 입력한 줄바꿈 존중(2026-11-02 사용자 결정 A)
+        LAST_AUTO.append(text)       # 입력한 줄바꿈으론 안 들어감(3줄 이상·폭·127 초과) → 자동 줄바꿈 + 경고
     parts = [p.strip() for p in text.split("\n")]
     flat = parts[0]
     junctions = []  # 공백 없이 이어붙인 지점(공백 제외 문자 인덱스)
@@ -439,9 +472,24 @@ def rewrap(text: str, choice: bool = False) -> str:
     return result
 
 
+def _manual_layout(text: str):
+    """번역자가 넣은 줄바꿈(웹앱 Shift+Enter)대로 쓸 수 있으면 그 문자열, 아니면 None.
+    조건(2026-11-02 사용자 결정 A): 2줄 이하, 빈 줄 없음, 각 줄 702px 이하, 이름 코드를 최대 길이로 펼쳐 127단위 이하.
+    각 줄은 앞뒤 공백·겹친 공백만 정리한다. 웹앱 gameWrap과 같은 규칙."""
+    lines = [" ".join(p.split()) for p in text.replace("\r", "").strip().split("\n")]
+    if len(lines) > WRAP_WARN_LINES or not all(lines):
+        return None
+    if any(_text_width(l) > WRAP_WIDTH for l in lines):
+        return None
+    s = "\n".join(lines)
+    return s if common.units_max(s) <= HARD_UNITS else None
+
+
 # rewrap이 대사 상한(2줄 폭·127단위) 때문에 끝을 잘라낸 기록 [(잘린 글자 수, 결과)] — resolve_translations가 줄마다 비우고 읽는다
 # (2026-10-29: 화면엔 멀쩡한 2줄인데 끝이 잘린 대사 1,488행이 경고 없이 배포돼 있었음)
 LAST_CUTS = []
+# 번역자가 줄바꿈을 넣었지만 그대로는 안 들어가 자동 줄바꿈한 대사(경고용) — resolve_translations가 줄마다 비우고 읽는다
+LAST_AUTO = []
 
 
 # -------------------------
@@ -757,6 +805,11 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
         warns.append(f"⚠ 대사 상한(2줄 폭·127단위) 초과 — 끝 {n}자 잘림(축약 필요) entry[{i}]: …{new_by_idx[i].replace(chr(10), ' ')[-15:]}")
     if len(cuts) > 5:
         warns.append(f"⚠ 그 외 {len(cuts)-5}개 더 표시 상한 잘림")
+    autos = sorted(AUTO_IDX)
+    for i in autos[:3]:
+        warns.append(f"⚠ 입력한 줄바꿈으론 안 들어감(3줄 이상·폭·127 초과) — 자동 줄바꿈 entry[{i}]: {new_by_idx[i].replace(chr(10), ' ⏎ ')[:24]}…")
+    if len(autos) > 3:
+        warns.append(f"⚠ 그 외 {len(autos)-3}개 더 입력 줄바꿈 무시(자동 줄바꿈)")
     return True, warns
 
 
@@ -766,6 +819,7 @@ def resolve_translations(parsed, abs_to_tr: dict, choices=frozenset()):
     choices = choice_indices(dec) — 선택지 MSG는 선택지 상자 폭으로 감싼다.
     Returns (new_by_idx, text_recovered, misses, garbage_skipped)."""
     CUT_BY_IDX.clear()
+    AUTO_IDX.clear()
     abs_to_index = { s["abs_offset"]: s["index"] for s in parsed["strings"] }
 
     # fallback: 원문 텍스트 -> index (유일한 경우만). 구버전 추출기의 abs_offset 오류 구제용
@@ -794,13 +848,17 @@ def resolve_translations(parsed, abs_to_tr: dict, choices=frozenset()):
                 misses += 1
                 continue
         del LAST_CUTS[:]
+        del LAST_AUTO[:]
         new_by_idx[idx] = rewrap(tr, idx in choices)
         if LAST_CUTS:
             CUT_BY_IDX[idx] = LAST_CUTS[-1][0]
+        if LAST_AUTO:
+            AUTO_IDX.add(idx)
     return new_by_idx, text_recovered, misses, garbage_skipped
 
 
-CUT_BY_IDX = {}   # 마지막 resolve_translations 호출에서 57자 상한으로 끝이 잘린 줄 {MSG 인덱스: 잘린 글자 수}
+CUT_BY_IDX = {}   # 마지막 resolve_translations 호출에서 대사 상한으로 끝이 잘린 줄 {MSG 인덱스: 잘린 글자 수}
+AUTO_IDX = set()  # 마지막 resolve_translations 호출에서 입력한 줄바꿈을 못 지키고 자동 줄바꿈한 줄(MSG 인덱스)
 
 
 # -------------------------
@@ -848,12 +906,14 @@ def main():
     fail = 0
     all_warns = []
     total_cut = 0
+    total_auto = 0
 
     for i, (rel_path, abs_map) in enumerate(sorted(translations.items()), 1):
         print(f"  [{i:4}/{total_files}] {rel_path} ({len(abs_map)}줄) ... ", end="")
         try:
             success, warns = patch_one_scb(rel_path, abs_map, font_map)
             total_cut += len(CUT_BY_IDX)
+            total_auto += len(AUTO_IDX)
             if success:
                 print("✅ OK")
                 ok += 1
@@ -870,6 +930,8 @@ def main():
     print(f"완료: 성공 {ok} / 실패 {fail}")
     if total_cut:
         print(f"⚠ 대사 상한(2줄 폭·이름 최대 펼침 127단위)으로 끝이 잘린 대사 {total_cut}줄 — 번역 축약 필요(화면엔 2줄로 보여도 글이 빠짐)")
+    if total_auto:
+        print(f"⚠ 입력한 줄바꿈으론 2줄·폭·127단위에 안 들어가 자동 줄바꿈한 대사 {total_auto}줄 (나머지는 입력한 줄바꿈 그대로)")
     print(f"출력 위치: {OUTPUT_DIR}")
     if full_build:
         build_state.mark_done("ps3")

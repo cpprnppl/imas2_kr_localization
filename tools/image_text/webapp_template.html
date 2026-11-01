@@ -503,8 +503,22 @@ function compressRuns(s) {
   for (const c of s) { if (c !== "\n" && out.length >= MAX_RUN && out.slice(-MAX_RUN).every(x => x === c)) continue; out.push(c); }
   return out.join("");
 }
+/* 입력한 줄바꿈(Shift+Enter) 존중 — 2줄 이하·빈 줄 없음·각 줄 702px·이름 최대 펼침 127자 이하면 그대로 (excel2scb._manual_layout과 같은 규칙,
+   2026-11-02 사용자 결정 A). 아니면 아래 자동 줄바꿈 + 경고. */
+function manualLayout(text) {
+  const lines = text.replace(/\r/g, "").trim().split("\n").map(l => l.split(/\s+/).filter(Boolean).join(" "));
+  if (lines.length > 2 || !lines.every(l => l)) return null;
+  if (lines.some(l => tWidth(l) > WRAP_W)) return null;
+  return unitsMax(lines.join("\n")) <= HARD_UNITS ? lines : null;
+}
 function gameWrap(text, choice) {
   if (![...text].some(isHan)) { const t = [...text].length > MAX_UNITS ? compressRuns(text) : text; return { lines: t.split("\n"), cut: [...t].length > MAX_UNITS }; }
+  let auto = false;
+  if (!choice && text.trim().includes("\n")) {
+    const m = manualLayout(text);
+    if (m) return { lines: m, cut: false, manual: true };
+    auto = true;                               // 입력한 줄바꿈으론 안 들어감 → 자동 줄바꿈
+  }
   const parts = text.split("\n").map(p => p.trim());
   let flat = parts[0];
   for (const p of parts.slice(1)) flat = flat + joinSep(flat, p) + p;
@@ -518,7 +532,7 @@ function gameWrap(text, choice) {
   let res = wrapBalanced(flat).join("\n"), cut = false;
   const n0 = [...flat].length;
   while (tooLong(res, choice) && flat) { flat = flat.slice(0, Math.max(0, flat.length - 2)).trimEnd(); res = wrapBalanced(flat).join("\n"); cut = true; }
-  return { lines: res.split("\n"), cut, lost: n0 - [...flat].length };
+  return { lines: res.split("\n"), cut, lost: n0 - [...flat].length, auto };
 }
 
 function warns(r) {
@@ -541,6 +555,7 @@ function warns(r) {
     const g = gameWrap(r.kr, !!(r.meta || {}).choice);
     if (g.lines.length >= 3) w.push([`대사 상자 ${g.lines.length}줄 — 넘침(상자는 2줄), 줄여 주세요`, "red"]);
     if (g.cut) w.push([`너무 김 — 게임에서 끝 ${g.lost}자가 잘림 (대사 상자 2줄 폭)`, "red"]);
+    else if (g.auto) w.push([`입력한 줄바꿈으론 안 들어감(3줄 이상·폭 초과) — 게임은 자동 줄바꿈`, "orange"]);
   } else if (nj !== nk) w.push([`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);
   // 대사 치환 문자열(곡명·유닛 이름·캐릭터 호칭) — 게임이 64B 스택 버퍼로 검사 없이 옮긴다: 31자 넘으면 멈춤 (tools/image_text/rs_gate.py와 같은 판정)
   { const f = String(r.key || "").split("#").pop().split(/[.:/]/).pop();
@@ -1608,7 +1623,7 @@ function startEdit(r, td) {
   const updHint = () => {
     if (r.cat === "script") {
       const g = gameWrap(ta.value.replace(/\r/g, ""), !!(r.meta || {}).choice);
-      hint.innerHTML = `게임 표시 (${g.lines.length}줄${g.cut ? " · 끝 잘림" : ""}): ` + g.lines.map(l => `<span class="gw-line">${esc(l)}</span>`).join("");
+      hint.innerHTML = `게임 표시 (${g.lines.length}줄${g.cut ? " · 끝 잘림" : ""}${g.manual ? " · 입력한 줄바꿈 그대로" : g.auto ? " · 자동 줄바꿈(입력대로는 안 들어감)" : ""}): ` + g.lines.map(l => `<span class="gw-line">${esc(l)}</span>`).join("");
       hint.classList.toggle("bad", g.lines.length >= 3 || g.cut);
       return;
     }
