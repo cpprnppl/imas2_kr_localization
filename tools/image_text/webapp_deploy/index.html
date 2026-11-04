@@ -515,7 +515,26 @@ function manualLayout(text) {
     if (k) { lines = [lines[0] + lines[1].slice(0, k), lines[1].slice(k).trim()]; if (!lines[1]) lines = lines.slice(0, 1); }
   }
   if (lines.some(l => tWidth(l) > WRAP_W)) return null;
+  if (lines.length === 2 && splitsWord(lines[0], lines[1])) return null;   // 이름·단어 가운데 줄바꿈은 안 지킴(2026-11-04)
   return unitsMax(lines.join("\n")) <= HARD_UNITS ? lines : null;
+}
+/* excel2scb.NO_SPLIT_NAMES / TAIL_EXACT / TAIL_PREFIX와 같음(빌드와 같은 규칙 — 미리보기 = 게임). */
+const NO_SPLIT_NAMES = ["프로듀서", "하루카", "치하야", "유키호", "야요이", "리츠코", "아즈사", "이오리", "마코토", "미키", "히비키", "타카네",
+  "아미", "마미", "토우마", "호쿠토", "쇼타", "코토리", "아마미", "키사라기", "하기와라", "타카츠키", "아키즈키", "미우라",
+  "미나세", "키쿠치", "후타미", "호시이", "가나하", "시조", "아마가세", "미타라이", "이쥬인", "오토나시", "타카기", "쿠로이",
+  "류구코마치", "주피터", "쥬피터",
+  "프로듀스", "프로덕션", "아이돌", "오디션", "레슨", "스테이지", "라이브", "유닛", "스케줄", "페스티벌", "사무소", "사장님", "선생님"];
+const TAIL_EXACT = ["이가", "이는", "이를", "이의", "이도", "이와", "이고", "이야", "이다", "이요", "랑", "가", "는", "은", "을", "를", "의",
+  "에", "와", "과", "도", "로", "만", "께", "보다", "요", "죠", "다", "고", "서", "면", "씨", "님", "군", "쨩", "짱", "들"];
+const TAIL_PREFIX = ["이랑", "이에게", "이한테", "이에요", "이었", "이라고", "이라는", "이라서", "이라면", "에게", "에서", "한테", "부터",
+  "까지", "처럼", "니까", "는데", "지만", "으로", "이니까", "였다", "였어", "입니다", "이에요", "예요",
+  "네요", "군요", "구나", "거든", "잖아", "는걸", "이죠", "인데", "이네", "이에"];
+function splitsWord(l1, l2) {
+  if (!(l1 && l2 && isHan(l1[l1.length - 1]) && isHan(l2[0]))) return false;
+  const joined = l1 + l2, j = l1.length;
+  for (const n of NO_SPLIT_NAMES) { let k = joined.indexOf(n); while (k >= 0) { if (k < j && j < k + n.length) return true; k = joined.indexOf(n, k + 1); } }
+  let head = ""; for (const c of l2.split(" ")[0]) { if (isHan(c)) head += c; else break; }
+  return TAIL_EXACT.includes(head) || TAIL_PREFIX.some(f => head.startsWith(f));
 }
 function gameWrap(text, choice) {
   if (![...text].some(isHan)) { const t = [...text].length > MAX_UNITS ? compressRuns(text) : text; return { lines: t.split("\n"), cut: [...t].length > MAX_UNITS }; }

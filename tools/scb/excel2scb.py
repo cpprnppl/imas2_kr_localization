@@ -494,8 +494,73 @@ def _manual_layout(text: str):
                 lines = lines[:1]
     if any(_text_width(l) > WRAP_WIDTH for l in lines):
         return None
+    if len(lines) == 2 and _splits_word(lines[0], lines[1]):
+        return None           # 이름·단어 가운데, 단어와 조사 사이에서 끊은 줄바꿈은 안 지킴(2026-11-04 사용자 "이름 갈라지는거 에반데")
     s = "\n".join(lines)
     return s if common.units_max(s) <= HARD_UNITS else None
+
+
+# 줄바꿈으로 갈라지면 안 되는 이름(웹앱 NO_SPLIT_NAMES와 같음)
+NO_SPLIT_NAMES = ("프로듀서", "하루카", "치하야", "유키호", "야요이", "리츠코", "아즈사", "이오리", "마코토", "미키", "히비키", "타카네",
+                  "아미", "마미", "토우마", "호쿠토", "쇼타", "코토리", "아마미", "키사라기", "하기와라", "타카츠키", "아키즈키", "미우라",
+                  "미나세", "키쿠치", "후타미", "호시이", "가나하", "시조", "아마가세", "미타라이", "이쥬인", "오토나시", "타카기", "쿠로이",
+                  "류구코마치", "주피터", "쥬피터",
+  "프로듀스", "프로덕션", "아이돌", "오디션", "레슨", "스테이지", "라이브", "유닛", "스케줄", "페스티벌", "사무소", "사장님", "선생님")
+# 다음 줄 첫 어절이 이것과 같거나(TAIL_EXACT) 이것으로 시작하면(TAIL_PREFIX) 앞 단어에 붙는 조사·어미 — 웹앱과 같은 목록
+TAIL_EXACT = ("이가", "이는", "이를", "이의", "이도", "이와", "이고", "이야", "이다", "이요", "랑", "가", "는", "은", "을", "를", "의",
+              "에", "와", "과", "도", "로", "만", "께", "보다", "요", "죠", "다", "고", "서", "면", "씨", "님", "군", "쨩", "짱", "들")
+TAIL_PREFIX = ("이랑", "이에게", "이한테", "이에요", "이었", "이라고", "이라는", "이라서", "이라면", "에게", "에서", "한테", "부터",
+               "까지", "처럼", "니까", "는데", "지만", "으로", "이니까", "였다", "였어", "입니다", "이에요", "예요",
+  "네요", "군요", "구나", "거든", "잖아", "는걸", "이죠", "인데", "이네", "이에")
+
+
+def _splits_word(l1: str, l2: str) -> bool:
+    """줄바꿈이 이름 가운데이거나 단어와 조사·어미 사이인가(윗줄 끝·아랫줄 첫 글자가 둘 다 한글이고 공백 없이 이어질 때).
+    웹앱 splitsWord와 같은 규칙(미리보기 = 게임). Kiwi 형태소 판정은 축약 어미('기쁘긴⏎한데') 때문에 거짓 양성이 많아 쓰지 않는다."""
+    if not (l1 and l2 and _is_hangul(l1[-1]) and _is_hangul(l2[0])):
+        return False
+    joined = l1 + l2
+    j = len(l1)
+    for n in NO_SPLIT_NAMES:                           # 이름이 줄바꿈에 걸침
+        k = joined.find(n)
+        while k >= 0:
+            if k < j < k + len(n):
+                return True
+            k = joined.find(n, k + 1)
+    head = ""
+    for c in l2.split(" ")[0]:
+        if _is_hangul(c):
+            head += c
+        else:
+            break
+    return head in TAIL_EXACT or any(head.startswith(f) for f in TAIL_PREFIX)
+    joined = l1 + l2
+    j = len(l1)
+    for n in NO_SPLIT_NAMES:                           # 이름이 줄바꿈에 걸침
+        k = joined.find(n)
+        while k >= 0:
+            if k < j < k + len(n):
+                return True
+            k = joined.find(n, k + 1)
+    w = l2.split(" ")[0]
+    head = ""
+    for c in w:
+        if _is_hangul(c):
+            head += c
+        else:
+            break
+    if any(head == f or (head.startswith(f) and len(f) >= 2) for f in TAIL_FRAGS):
+        return True
+    if _kiwi_ready():                                  # 빌드: Kiwi로 단어(형태소) 가운데인지
+        try:
+            for t in _KIWI.tokenize(joined):
+                if t.start < j < t.start + t.len:
+                    return True
+                if t.start == j and t.tag.startswith(("J", "E", "XS", "VCP", "VCN")):
+                    return True
+        except Exception:
+            pass
+    return False
 
 
 # rewrap이 대사 상한(2줄 폭·127단위) 때문에 끝을 잘라낸 기록 [(잘린 글자 수, 결과)] — resolve_translations가 줄마다 비우고 읽는다
