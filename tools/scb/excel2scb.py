@@ -527,6 +527,10 @@ def _splits_word(l1: str, l2: str) -> bool:
             if k < j < k + len(n):
                 return True
             k = joined.find(n, k + 1)
+    # 연결어미 '-는데'·'-(으)ㄴ데' 가운데('있었는⏎데도'): 윗줄 끝 '는' + 아랫줄 '데…', 또는 윗줄 끝 받침 ㄴ + '데도·데요·데,'
+    # (ㄹ 뒤 명사 '데'(곳, '갈 데도')는 안 걸림 — 2026-11-04 사용자 결정)
+    if l2[0] == "데" and (l1[-1] == "는" or ((ord(l1[-1]) - 0xAC00) % 28 == 4 and l2.startswith(("데도", "데요", "데,")))):
+        return True
     head = ""
     for c in l2.split(" ")[0]:
         if _is_hangul(c):

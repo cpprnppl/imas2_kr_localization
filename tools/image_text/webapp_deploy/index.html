@@ -533,6 +533,9 @@ function splitsWord(l1, l2) {
   if (!(l1 && l2 && isHan(l1[l1.length - 1]) && isHan(l2[0]))) return false;
   const joined = l1 + l2, j = l1.length;
   for (const n of NO_SPLIT_NAMES) { let k = joined.indexOf(n); while (k >= 0) { if (k < j && j < k + n.length) return true; k = joined.indexOf(n, k + 1); } }
+  /* 연결어미 '-는데'·'-(으)ㄴ데' 가운데: 윗줄 끝 '는' + '데…', 또는 윗줄 끝 받침 ㄴ + '데도·데요·데,' (excel2scb와 같음) */
+  const last = l1[l1.length - 1];
+  if (l2[0] === "데" && (last === "는" || ((last.charCodeAt(0) - 0xAC00) % 28 === 4 && ["데도", "데요", "데,"].some(f => l2.startsWith(f))))) return true;
   let head = ""; for (const c of l2.split(" ")[0]) { if (isHan(c)) head += c; else break; }
   return TAIL_EXACT.includes(head) || TAIL_PREFIX.some(f => head.startsWith(f));
 }
