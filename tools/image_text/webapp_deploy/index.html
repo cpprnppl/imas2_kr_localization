@@ -459,6 +459,8 @@ function joinSep(prev, nxt) {
   // 빌드는 '이'로 끝나면 붙이고 Kiwi가 띄어쓰기를 되살린다 — 미리보기는 Kiwi 결과에 맞춰 조사 조각만 붙임
   let frag = "";
   for (const c of nxt) { if (isHan(c)) frag += c; else break; }
+  /* 연결어미 '-는데' 접합('없는⏎데.', '있었는⏎데도')은 붙임 — excel2scb._kiwi_space와 같음('키우는 데 1년'처럼 뒤에 공백이 오면 띄움) */
+  if (a === "데" && (b === "는" || (b.charCodeAt(0) - 0xAC00) % 28 === 4) && nxt[1] !== " " && (nxt.length === 1 || !isHan(nxt[1]) || "도요".includes(nxt[1]))) return "";
   return P_FRAG.has(frag) ? "" : " ";
 }
 const BREAK_P = "、。，．,.!?！？…」』～♪";

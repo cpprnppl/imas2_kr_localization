@@ -275,6 +275,15 @@ def _kiwi_space(s: str, junctions=None) -> str:
     if [c for c in s if c != " "] != [c for c in spaced if c != " "]:
         return s  # 공백 외 변형이 생기면 원문 유지(안전)
     junctions = set(junctions)
+    # 연결어미 '-는데'가 줄바꿈에 걸렸던 접합('없는⏎데.', '있었는⏎데도')은 Kiwi가 의존명사 '데'로 보고 띄우므로 붙인 채 둔다
+    # (뒤가 문장부호·'도'·'요'일 때만 — '키우는 데 1년'처럼 뒤에 공백+단어가 오면 Kiwi 판단을 따름)
+    ns = [c for c in s if c != " "]
+    for k in list(junctions):
+        if 0 < k < len(ns) and ns[k] == "데" and (ns[k - 1] == "는" or (ord(ns[k - 1]) - 0xAC00) % 28 == 4) and \
+                (k + 1 == len(ns) or not _is_hangul(ns[k + 1]) or ns[k + 1] in "도요"):
+            nxt = s[[i for i, c in enumerate(s) if c != " "][k] + 1:][:1]
+            if nxt != " ":
+                junctions.discard(k)
     # Kiwi.space는 고유명사 뒤 등에서 공백을 빠뜨린다('마코토⏎일행' → '마코토일행'). 접합 지점에서 새 단어(체언·용언·부사 등)가
     # 시작하면 띄우고, 조사·어미·접미사(J/E/X/VCP)면 붙인다(2026-11-02).
     force = set()
