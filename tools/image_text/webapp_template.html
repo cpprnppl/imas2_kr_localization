@@ -539,6 +539,9 @@ function splitsWord(l1, l2) {
   const last = l1[l1.length - 1];
   if (l2[0] === "데" && (last === "는" || ((last.charCodeAt(0) - 0xAC00) % 28 === 4 && ["데도", "데요", "데,"].some(f => l2.startsWith(f))))) return true;
   let head = ""; for (const c of l2.split(" ")[0]) { if (isHan(c)) head += c; else break; }
+  /* 어미 한 글자 조각 '야·지·네' — 바로 뒤가 문장부호일 때만 (excel2scb와 같음) */
+  const nx = l2.slice(head.length, head.length + 1), FRAG_END = "!?.,~…」』)）";
+  if (nx && (((head === "야" || head === "지") && FRAG_END.includes(nx)) || (head === "네" && FRAG_END.includes(nx) && nx !== ","))) return true;
   return TAIL_EXACT.includes(head) || TAIL_PREFIX.some(f => head.startsWith(f));
 }
 function gameWrap(text, choice) {

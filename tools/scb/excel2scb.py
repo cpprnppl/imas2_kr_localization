@@ -521,6 +521,7 @@ TAIL_EXACT = ("이가", "이는", "이를", "이의", "이도", "이와", "이�
 TAIL_PREFIX = ("이랑", "이에게", "이한테", "이에요", "이었", "이라고", "이라는", "이라서", "이라면", "에게", "에서", "한테", "부터",
                "까지", "처럼", "니까", "는데", "지만", "으로", "이니까", "였다", "였어", "입니다", "이에요", "예요",
   "네요", "군요", "구나", "거든", "잖아", "는걸", "이죠", "인데", "이네", "이에")
+FRAG_END = "!?.,~…」』)）"   # '야·지·네' 조각 뒤에 오면 끊김으로 보는 문장부호(웹앱과 같음)
 
 
 def _splits_word(l1: str, l2: str) -> bool:
@@ -546,6 +547,11 @@ def _splits_word(l1: str, l2: str) -> bool:
             head += c
         else:
             break
+    # 어미 한 글자 조각 '야·지·네' — 바로 뒤가 문장부호일 때만('교관이⏎야!', '정말이⏎지,', '보이⏎네!').
+    # 뒤에 공백+단어면 감탄사 '야', 대답·수사 '네', 의존명사 '지'(만난 지 3년)일 수 있어 뺀다(2026-11-05 사용자 결정)
+    nxt = l2[len(head):len(head) + 1]
+    if nxt and ((head in ("야", "지") and nxt in FRAG_END) or (head == "네" and nxt in FRAG_END and nxt != ",")):
+        return True
     return head in TAIL_EXACT or any(head.startswith(f) for f in TAIL_PREFIX)
     joined = l1 + l2
     j = len(l1)
