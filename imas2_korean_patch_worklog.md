@@ -1971,3 +1971,10 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   - test-11 칸 넘침(NUL 위치 m = 줄 수 + 글자 + 1 ≥ cap): 카탈로그 설명 71행 + DLC package caption 1행. S4U 칸 64 필드 0행(스테이지 설명은 10-28 수정 유지).
     안전·안 잘림 상한 = 글자 ≤ cap − 2 − 줄 수. 표·목록·PAT yml 3개·그림: KOR 노트 ps3_s4u_textfield_cap_20261108.md.
   - 남은 결정(KOR·사용자): PAT를 설치기 yml에 넣기, 71+1행 축약(웹앱 쓰기 승인), 빌드 게이트·웹앱 경고를 '원문 최대' 대신 필드별 cap으로.
+- **PS3 TextField 팅김 방지 PAT 확정 = '할당 +2'**(11-08 15:58, KOR·사용자 "둘다 ㄱㄱ"): TextField 생성자 두 변형(01.02 0x3553ec·0x3555f4 / 01.00 0x35496c·0x354b74 /
+  PSN 0x354fac·0x3551b4)에서 `slwi r4,r4,1`→`addi r4,r4,1`, 바로 뒤 `clrldi r3,r3,32`→`slwi r4,r4,1`(r3 상위 32비트는 이미 0) = 버퍼 (cap+1)*2바이트, 판마다 4워드, 코드 동굴 없음.
+  격리 RPCS3: 카탈로그 → 항목 → 나가기 2/2 정상(같은 부팅 6회 포함), 설명 "…비주" 119단위 그대로(글자 손해 없음), S4U 라이브 시작 정상, TTY abort 0.
+  루프 경계 PAT(B, 한 글자 덜 보임)도 2/2 정상이었으나 A로 확정. yml: KOR 노트 imas2_kor_textfield_alloc2_{psn,disc,disc102}.yml → pc-360-dlc가 설치기 yml에 병합(VARIANT=A).
+- **TextField 칸 게이트**(78e0ac4): tools/image_text/field_caps.py — 글자(줄바꿈 포함) ≤ cap−2−줄 수. 실측·정적 칸(카탈로그 설명 128, S4U 설명 64, 도움말 128)은
+  gamedata_apply·dlc_inject 빌드 실패 + 웹앱 빨강, 추정·원문 기준(원문 m 최대+1)은 보고·주황(원문 기준까지 막으면 188행 — 풀네임 등 의도한 행 포함). 웹앱 '원문 필드 최대 초과' 경고 대체, DLC 카탈로그·package 포함.
+  카탈로그 71 + package caption 1 = 72행 축약 초안(검토표 artifact AGJGVDhQ…, 사용자 "72줄 다 좋아" — KOR 경유), 웹앱 반영은 ui 세션 직접 승인 대기(점검: 72행 모두 초안 시점 값 그대로).
