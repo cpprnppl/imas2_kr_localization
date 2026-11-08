@@ -2002,3 +2002,8 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
 - **13판 체인 — ps3_res_orig 폰트 재주입**(11-09): ps3_res_apply validate가 '폰트 직접 등록판 아니오'로 막음 — 사본 initialFix가 10-29 폰트 상태(10-29 '함정 1'과 같은 일).
   사본 initialFix에 새 NFH 2개(3b2700a)를 같은 자리로 교체(차이 = NFH 표 안 76,971B뿐), manifest sha d2834a17 갱신, 이전 사본은 scratchpad font3\에 보관. ps3_res_orig의 성격은 docs/PIPELINE.md에 적음(빌드 기준본, 진짜 순정 아님).
 - **exe_inject deploy360**: game_kor 파일이 mkroot 시험 루트들과 하드링크(kor_exe_strings.bin 링크 223개) → 제자리 copy2 대신 tmp + os.replace(pc-360-dlc 지적).
+- **exe 문구 13판 갱신**(11-09, KOR 결정 A): exe_translations.json을 웹앱 exe 437행으로 갱신(10-23 회수본 대비 kr 322행 변경, 파일 형식은 기존 평면 형식 유지 — exe_inject는 kr만 읽음).
+  10-23 이후 팀 수정으로 360 고정 칸(코드 즉시값, 재배치 불가)을 넘던 15행은 사용자 승인 축약안으로 웹앱에 조건부 교체(by conduit, 이력 15):
+  여자아이를 골라 주세요(23·19칸, 가위바위보할 붙여 씀), '리더로 합니다\n계속할까요?'(19칸, 마침표 생략), 을(를) 고르세요, 게임으로 복귀, 설정 저장 안내 58/63,
+  시점 전환·조작, 선택 항목에, 의상명이 없습니다, 서·남, 곡 선택, 다음·이전 100위. build360 넘침 0(제자리 186·재배치 14), build-ps3 세 종 초과 0,
+  yml psn bbbcc803 · disc df824a09 · disc102 1a8c60ca, kor_exe_strings.bin ca8c8f2e → deploy360.
