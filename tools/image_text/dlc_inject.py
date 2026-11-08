@@ -208,6 +208,9 @@ class Translations:
         tr = json.load(open(os.path.join(HERE, "dlc_translations.json"), encoding="utf-8"))
         import rs_gate as RG                # 랭커 유닛·프로듀서 이름 = 대사 치환 문자열 — 31단위 넘으면 게임 멈춤(10-29)
         RG.gate(RG.dlc_items(tr), "dlc_translations.json")
+        import field_caps as FC             # TextField 칸 — 카탈로그 설명 128 등, 넘으면 힙 손상으로 튕김(11-08)
+        FC.gate([{"cat": "dlc", "grp": k.split("/", 1)[0], "key": k.split("/", 1)[1], "jp": v.get("jp", ""), "kr": v.get("kr")}
+                 for k, v in tr.items() if isinstance(v, dict)], "dlc_translations.json")
         self.by_src = defaultdict(list)    # (plat, pkg, rel) → [(xi|None, tid, jp, kr)]
         self.jp_by_grp = defaultdict(lambda: defaultdict(Counter))
         self.n_rows = 0

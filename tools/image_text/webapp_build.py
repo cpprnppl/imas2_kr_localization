@@ -144,15 +144,21 @@ def main():
     }
     pc = os.path.join(HERE, "platform_counts.json")     # platform_audit.py counts
     meta["plat_counts"] = json.load(open(pc, encoding="utf-8")) if os.path.exists(pc) else {}
-    gt = os.path.join(HERE, "gamedata_texts.json")      # 필드 묶음(파일#XMB · chain)별 원문 최대 UTF-16 길이 — 웹앱 경고
+    # TextField 칸(field_caps, 11-08): 묶음별 cap·등급 + DLC 행 → 묶음. 웹앱 '칸 넘침' 경고 = 빌드 게이트와 같은 값
+    import field_caps as FC
+    cap_rows = []
+    gt = os.path.join(HERE, "gamedata_texts.json")
     if os.path.exists(gt):
-        fm = {}
-        for v in json.load(open(gt, encoding="utf-8")).values():
-            ch = (v.get("meta") or {}).get("chain")
-            if ch and v.get("jp"):
-                g = f"{v['key'].rsplit(':', 1)[0]} · {ch}"
-                fm[g] = max(fm.get(g, 0), len(v["jp"].encode("utf-16-be")) // 2)
-        meta["fieldmax"] = fm
+        cap_rows += [{"cat": "gamedata", "grp": v.get("grp", ""), "key": v["key"], "jp": v.get("jp", ""), "meta": v.get("meta") or {}}
+                     for v in json.load(open(gt, encoding="utf-8")).values() if v.get("key")]
+    dt = os.path.join(HERE, "dlc_translations.json")
+    if os.path.exists(dt):
+        cap_rows += [{"cat": "dlc", "grp": k.split("/", 1)[0], "key": k.split("/", 1)[1], "jp": v.get("jp", "")}
+                     for k, v in json.load(open(dt, encoding="utf-8")).items()
+                     if isinstance(v, dict) and k.split("/", 1)[0] in ("catalog", "package")]
+    if cap_rows:
+        meta["fieldcap"] = {g: [c, lv] for g, (c, lv, _w) in FC.caps(cap_rows).items()}
+        meta["dlcgroup"] = {r["key"].split("#")[0]: FC.group_of(r) for r in cap_rows if r["cat"] == "dlc"}
     # 글자 폭 = 배포 폰트 advance(excel2scb._char_width와 같은 값) — 기본값(반각 13.5·한글 26·전각 27)과 다른 글자만 (2026-10-29)
     nf = os.path.join(os.path.dirname(os.path.dirname(HERE)), "font_patcher", "output_direct", "im2_font.nfh")
     if os.path.exists(nf):

@@ -277,6 +277,8 @@ def translations(code):
     rows = [r for r in allr if r["cat"] == "gamedata" and r["kr"]]
     import rs_gate as RG                    # 곡명·프리셋 유닛·캐릭터 이름 = 대사 치환 문자열 — 31단위 게이트(10-29)
     RG.gate([(r["cat"], r["grp"], r["key"], r["kr"]) for r in rows], "웹앱 gamedata")
+    import field_caps as FC                 # TextField 칸 — S4U 설명 64·도움말 128 등, 넘으면 힙 손상으로 튕김(11-08)
+    FC.gate([r for r in allr if r["cat"] == "gamedata"], "웹앱 gamedata")
     by_pair, by_jp = {}, collections.defaultdict(collections.Counter)
     for r in rows:
         k = r["key"][5:] if r["key"].startswith("x360:") else r["key"]

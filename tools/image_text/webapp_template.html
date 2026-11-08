@@ -607,13 +607,19 @@ function warns(r) {
     w.push([nj2 === nk2 ? "이모티콘 종류 다름" : `이모티콘 개수 다름 (KR ${nk2} · JP ${nj2})`, "orange"]);
   }
   if (phSig(r.jp) !== phSig(r.kr)) w.push(["치환 코드 다름", "red"]);
-  // 원문 필드 최대 길이 초과: 게임이 칸을 그 필드 원문 최대 길이의 고정 버퍼로 복사할 수 있다
-  // (2026-10-28 S4U 튕김 = 스테이지 설명 63자 > 원문 최대 48자). 막지 않고 경고만. 묶음 = 파일#XMB · meta.chain
-  if (r.cat === "gamedata" && META.fieldmax) {
-    const fm = META.fieldmax[`${r.key.slice(0, r.key.lastIndexOf(":"))} · ${(r.meta || {}).chain || ""}`];
-    if (fm && U16(r.kr) > fm)
-      w.push([`원문 필드 최대 길이 초과 ${U16(r.kr)}/${fm}자 — 게임 버퍼 넘침 위험`,
-              (r.meta || {}).chain === "stage_info/caption" ? "red" : "orange"]);
+  // TextField 칸(field_caps.py, 11-08): 글자(줄바꿈 포함) ≤ cap − 2 − 줄 수. 넘으면 게임 SetText가 버퍼 뒤에 NUL을 써
+  // 힙이 깨져 튕김(PS3 S4U 팅김 = 카탈로그 설명 칸 128). hard(실측·정적) = 빨강·빌드 실패 / est·jp(추정·원문 기준) = 주황
+  if (META.fieldcap) {
+    const g = r.cat === "gamedata" ? `gamedata ${r.key.slice(0, r.key.lastIndexOf(":"))} · ${(r.meta || {}).chain || "?"}`
+            : r.cat === "dlc" && META.dlcgroup ? META.dlcgroup[r.key.split("#")[0]] : null;
+    const fc = g && META.fieldcap[g];
+    if (fc) {
+      const L = r.kr.split("\n").length, lim = fc[0] - 2 - L;
+      if (U16(r.kr) > lim)
+        w.push([fc[1] === "hard" ? `칸 넘침 ${U16(r.kr)}/${lim}자(${L}줄, 칸 ${fc[0]}) — 게임 튕김, 줄여 주세요`
+                                 : `칸 넘침 위험 ${U16(r.kr)}/${lim}자(${L}줄, 칸 ${fc[0]} ${fc[1] === "est" ? "추정" : "원문 기준"})`,
+                fc[1] === "hard" ? "red" : "orange"]);
+    }
   }
   const cap = (r.meta || {}).cap;     // 실행 파일 문자열 슬롯(글자 수, 다음 문자열까지 기준 추정)
   if (r.cat === "exe" && cap && [...r.kr].length > cap) w.push([`슬롯 초과 ${[...r.kr].length}/${cap}자`, "red"]);
