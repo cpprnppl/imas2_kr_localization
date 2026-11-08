@@ -2009,3 +2009,8 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   yml psn bbbcc803 · disc df824a09 · disc102 1a8c60ca, kor_exe_strings.bin ca8c8f2e → deploy360.
   같은 날 사용자 추가 지시 "여자아이를 아이로": 女の子を選んでください 4행(0x0BD1F0·220·250·278) '여자아이' → '아이'(가위바위보 할 띄어쓰기 복원) →
   yml psn 13dcae1c · disc 09a77edc · disc102 b403f803, kor_exe_strings.bin f8a6d3b6(넘침 0·초과 0 유지).
+- **스태프롤 사람 이름 한국어 표기**(11-09, 사용자 "스태프롤도 반영해"): 일본어로 보이던 508칸(공통·PS3·360 전용) 웹앱 조건부 교체(by conduit, 이력 508).
+  표기: 성우 = 공식 한글 매뉴얼, 캐릭터 = 프로젝트 표기, 그 밖 첫소리 카·타·おお=오오. 역할명은 영어 유지. MobyGames 한자 대조(209 일치·21 수정), 竹之内 亮 = 타케노우치 료(VNDB), 沈 炯 = 선지옹(INST 블로그).
+  읽기 미확정 6명(堀 洋将·小林 剛·中村 有希野·小石川 園美·美踊·澤池 孝博)은 사용자 결정으로 '한국어(원문)' 병기 — 화면에 한자 남음(희생 슬롯 아님 확인), x0·x1 12칸 = pc-360-dlc 일본어 잔존 게이트 예외.
+  森田 育代 = '모리타 이쿠요(Artist Management Int'l)'(칸 m ≤ 40). 빌드 t13sr: ps3_res_apply staff_roll 82f63e62 · gamedata_apply(PC) f90fa34f, 검증 통과, 폰트 없는 글자 0.
+  칸 게이트 보고 185→187: 360 전용 staff_roll 5칸 묶음(원문 기준 추정 cap 18)의 '사쿠라이 나오키 (Norifis)' 2칸 — 같은 묶음 다른 칸이 이미 m 22라 같은 부류.
