@@ -15,6 +15,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 GAME_TOOLS = r"C:\Users\jackfilm\Desktop\rpcs3-v0.0.39-18811-6bfb3327_win64_msvc\dev_hdd0\game\NPJB00337\USRDIR\resource\gscript\tools"
 FILES = ["scb_common.py", "excel2scb.py", "scb2excel.py", "validate_output.py", "deploy.py",
          "patch_attract.py", "deploy_pcport.py", "pcport360.py", "build_state.py"]
+# 이름이 다른 쌍: 폰트 매핑 원천(레포) → 게임 tools의 font_mapping.json (2026-11-08 — 10-29 뒨 翔→眥 이후 게임 쪽이 옛 매핑으로 남아 있었음)
+RENAMED = [(os.path.join(os.path.dirname(os.path.dirname(HERE)), "font_patcher", "font_mapping_src.json"), "font_mapping.json")]
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 pull = "--pull" in sys.argv
@@ -30,4 +32,13 @@ for f in FILES:
         continue
     shutil.copy2(src, dst)
     print(f"  복사: {f}  {'게임→레포' if pull else '레포→게임'}")
+for repo_path, game_name in RENAMED:
+    src, dst = (os.path.join(GAME_TOOLS, game_name), repo_path) if pull else (repo_path, os.path.join(GAME_TOOLS, game_name))
+    if not os.path.exists(src):
+        print(f"  (없음, 건너뜀) {src}")
+    elif os.path.exists(dst) and filecmp.cmp(src, dst, shallow=False):
+        print(f"  (동일) {game_name}")
+    else:
+        shutil.copy2(src, dst)
+        print(f"  복사: {os.path.basename(src)} → {os.path.basename(dst)}  {'게임→레포' if pull else '레포→게임'}")
 print("완료. (--pull로 가져왔다면 git commit을 잊지 말 것)")

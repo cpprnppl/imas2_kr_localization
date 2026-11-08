@@ -1985,3 +1985,13 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   PS3 DLC 트리 ecb126ea…, 360 content_kor c6d9cc08…, attract b510b448…, initialFix 3897a004…(변화 없음). PS3 yml = pc-360-dlc VARIANT=A.
 - **칸 게이트 보강**(4154047, 감독 PC SetText 표 314행 대조): 의상·스테이지 설명 64, 도움말 128 = 정적값과 일치. DLC package caption은 짧은 설명(원문 m<64, 111행 = S4U
   의상·스테이지 설명 cap 64)과 긴 곡 설명(32행)이 섞인 묶음 → field_caps.SPLIT으로 짧은 쪽을 칸 64 hard. 넘치던 2행(cp04 node266, cp06 node195 — cp06은 오역) 사용자 승인 반영.
+- **폰트 희생 슬롯 3자 이동**(11-08, 사용자 결정 "글꼴에서 빼기" — KOR 경유): 스태프롤 사람 이름(원문 그대로 둠)의 髙·邉·繪가 희생 슬롯이라 화면에서 빈칸/'?'였음
+  (직접 등록 전환 §25 뒤 희생 한자 코드는 폰트에서 사라짐). 매핑 원천에서 툿 髙→丗(U+4E17), 웹 邉→丯(U+4E2F), 댓 繪→仐(U+4ED0).
+  새 자리 조건: 웹앱 전 분류 63,938행(jp·kr, 이미지·exe 포함)에 안 나옴, 기존 희생 아님, 두 폰트 다 25px 이상 슬롯. 齟齬綺餃(메일·팬레터 4행)는 번역으로 사라져 대상 아님.
+  repatch_fonts → nfh_convert_direct → validate_fonts PASS → deploy_fonts --direct(PS3 게임 폴더, 백업 _backup_fontfix_20261108_234953). PC는 pcport_apply 폰트 층이
+  font_patcher/output_direct를 매 빌드 적용하므로 다음 PC 빌드에 자동 반영. 대사·XMB는 원시 한글이라 다시 빌드할 것 없음.
+  정적 검증(이전 배포본 대비, 게임 프레이밍으로 읽음): 한글 2,359자 글리프 픽셀 동일(im2_font 977자는 아틀라스 자리만 이동), 그 밖 레코드 필드·픽셀 차이 0,
+  髙·邉·繪 레코드·픽셀 = 순정, 배포본 loose 4종·initialFix NFH·initialTemp NUT = output_direct.
+  **주의(도구)**: repatch_fonts.nfh_records의 gidx(+28, 폰트팀 프레이밍)는 실제로는 다음 레코드의 시트 번호다. 레코드 자기 시트는 게임 프레이밍 +0
+  (= 폰트팀 레코드 시작 4바이트 앞). im2_font_l(29시트)에서 시트 경계 28곳을 그려 확인. 이번 산출물은 정상(위 비교)이지만 font_l 시트 경계 슬롯을
+  재배치할 일이 생기면 이 필드를 고쳐야 함. 게임 tools의 font_mapping.json도 sync_to_game.py가 레포 원천으로 맞추게 함(10-29 뒨 翔→眥 이후 옛 매핑이었음 — 뒨은 번역 0행이라 영향 없음).
