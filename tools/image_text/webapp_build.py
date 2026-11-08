@@ -159,6 +159,7 @@ def main():
     if cap_rows:
         meta["fieldcap"] = {g: [c, lv] for g, (c, lv, _w) in FC.caps(cap_rows).items()}
         meta["dlcgroup"] = {r["key"].split("#")[0]: FC.group_of(r) for r in cap_rows if r["cat"] == "dlc"}
+        meta["fieldsplit"] = {g: [thr, c, lv] for g, (thr, c, lv, _w) in FC.SPLIT.items()}
     # 글자 폭 = 배포 폰트 advance(excel2scb._char_width와 같은 값) — 기본값(반각 13.5·한글 26·전각 27)과 다른 글자만 (2026-10-29)
     nf = os.path.join(os.path.dirname(os.path.dirname(HERE)), "font_patcher", "output_direct", "im2_font.nfh")
     if os.path.exists(nf):

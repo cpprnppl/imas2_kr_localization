@@ -612,7 +612,9 @@ function warns(r) {
   if (META.fieldcap) {
     const g = r.cat === "gamedata" ? `gamedata ${r.key.slice(0, r.key.lastIndexOf(":"))} · ${(r.meta || {}).chain || "?"}`
             : r.cat === "dlc" && META.dlcgroup ? META.dlcgroup[r.key.split("#")[0]] : null;
-    const fc = g && META.fieldcap[g];
+    let fc = g && META.fieldcap[g];
+    const sp = g && META.fieldsplit && META.fieldsplit[g];      // 섞인 묶음: 원문 m < 기준이면 다른 칸(예: DLC 짧은 설명 = S4U 칸 64)
+    if (fc && sp && r.jp.split("\n").length + U16(r.jp) + 1 < sp[0]) fc = [sp[1], sp[2]];
     if (fc) {
       const L = r.kr.split("\n").length, lim = fc[0] - 2 - L;
       if (U16(r.kr) > lim)

@@ -29,6 +29,10 @@ KNOWN = {
     "dlc package x1 · caption/text_node": (128, "est", "원문 m 최대 120, 카탈로그 계열 팝업 추정"),
     "gamedata initialFix#x2 · song/caption": (128, "est", "원문 m 최대 111, 칸 64 아님"),
 }
+# 한 묶음에 두 종류가 섞인 곳: 원문 m < 기준인 행은 다른 칸. 묶음 → (원문 m 기준, cap, 등급, 근거)
+SPLIT = {
+    "dlc package x1 · caption/text_node": (64, 64, "hard", "PC SetText 실측(감독 11-08): 짧은 설명 = S4U 의상·스테이지 설명 cap 64"),
+}
 
 
 def u16(s):
@@ -86,6 +90,8 @@ def violations(rows):
         if g not in cs:
             continue
         cap, lv, _why = cs[g]
+        if g in SPLIT and m(r.get("jp")) < SPLIT[g][0]:
+            cap, lv = SPLIT[g][1], SPLIT[g][2]
         if m(r["kr"]) >= cap:
             out.append((lv, g, r["key"], cap, r["kr"].count("\n") + 1, u16(r["kr"]), limit(cap, r["kr"]), r["kr"]))
     return out
