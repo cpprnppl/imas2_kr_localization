@@ -21,6 +21,8 @@
 .pair-panel{margin-top:4px;padding:6px 8px;border-left:3px solid var(--pf-v5-global--info-color--100);background:var(--pf-v5-global--BackgroundColor--200);font-size:12px}
 .pair-h{font-size:11px;color:var(--pf-v5-global--Color--200);margin-top:2px}
 .pair-note{font-size:11px;color:var(--pf-v5-global--Color--200);margin-top:4px}
+.memo-note{font-size:12px;margin-top:4px;padding:3px 7px;border-left:3px solid #e0a800;background:rgba(224,168,0,.14);border-radius:3px;cursor:pointer;white-space:pre-wrap;word-break:break-word}
+.memo-note .memo-by{color:var(--pf-v5-global--Color--200);font-size:11px}
 .pair-parent td{border-bottom:0!important;background:var(--pf-v5-global--BackgroundColor--200)}
 .pair-child td{background:var(--pf-v5-global--BackgroundColor--200);border-top:1px dashed var(--pf-v5-global--BorderColor--100)!important}
 .pair-lbl{font-size:11px;font-weight:600;margin-bottom:2px}
@@ -391,9 +393,9 @@ async function fetchAll(c, g) {
 function renderFilter() {
   const opts = cat === "image"
     ? [["all", "전체"], ["todo", "문구 미정"], ["translated", "번역됨 (식질 대기)"],
-       ["edited", "식질됨 (검수 대기)"], ["done", "검수 완료"], ["warn", "경고 있음"]]
+       ["edited", "식질됨 (검수 대기)"], ["done", "검수 완료"], ["warn", "경고 있음"], ["memo", "논의 필요"]]
     : [["all", "전체"], ["todo", "미번역"], ["review", "번역됨 (검수 대기)"],
-       ["done", "검수 완료"], ["warn", "경고 있음"]].concat(cat === "script" ? [["cut", "대사 끝 잘림"]] : []);
+       ["done", "검수 완료"], ["warn", "경고 있음"], ["memo", "논의 필요"]].concat(cat === "script" ? [["cut", "대사 끝 잘림"]] : []);
   const counts = {};
   for (const [v] of opts) counts[v] = 0;
   for (const r of rows) {
@@ -760,6 +762,7 @@ function markMissing(kr) {
 
 function passFilter(r, f) {
   if (f === "all") return true;
+  if (f === "memo") return !!memoOf(r);
   if (f === "warn") return warns(r).some(([, c]) => c !== "grey");
   if (f === "cut") return r.cat === "script" && !!r.kr && gameWrap(r.kr, !!(r.meta || {}).choice).cut;   // 게임에서 끝이 잘리는 대사
   if (isBlank(r)) return false;
@@ -789,7 +792,7 @@ function visibleRows() {
     if (q) {
       const m = r.meta || {};
       const hay = [r.key, r.jp, r.kr, m.sp, m.file,
-                   (m.locs || []).join(" ")];
+                   (m.locs || []).join(" "), (m.memo || {}).t];
       if (!hay.some(s => (s || "").toLowerCase().includes(q))) return false;
     }
     return passFilter(r, filter);
@@ -800,7 +803,32 @@ function stLabel(r) {
   return `
     <button class="pf-v5-c-button pf-m-compact ${r.st >= 1 && r.kr ? "pf-m-primary" : "pf-m-control"}" data-act="st1">${r.cat === "image" ? "문구" : "번역"}</button>
     <button class="pf-v5-c-button pf-m-compact ${r.st >= 2 ? "pf-m-primary" : "pf-m-control"}" data-act="st2">검수</button>
-    <button class="pf-v5-c-button pf-m-compact pf-m-plain" data-act="hist" title="수정 이력">🕘</button>`;
+    <button class="pf-v5-c-button pf-m-compact pf-m-plain" data-act="hist" title="수정 이력">🕘</button>${memoBtn(r)}`;
+}
+
+/* ---------------- 논의 메모 (rows.meta.memo = {t, by, ts}) — 표기·말장난 등 팀이 정해야 할 행에 남김 ---------------- */
+function memoOf(r) { const m = (r.meta || {}).memo; return m && m.t ? m : null; }
+function memoBtn(r) {
+  return `<button class="pf-v5-c-button pf-m-compact pf-m-plain" data-act="memo" data-id="${esc(r.id)}" title="논의 메모 ${memoOf(r) ? "고치기" : "남기기"}">${memoOf(r) ? "💬" : "🗨"}</button>`;
+}
+function memoHtml(r) {
+  const m = memoOf(r);
+  return m ? `<div class="memo-note" data-act="memo" data-id="${esc(r.id)}" title="눌러서 고치기 (비우면 지움)">논의 필요 · ${esc(m.t)}<span class="memo-by"> — ${esc(m.by || "")}${m.ts ? " · " + fmtTs(m.ts) : ""}</span></div>` : "";
+}
+async function editMemo(r) {
+  if (needNick()) return;
+  const cur = memoOf(r);
+  const t = window.prompt("논의 메모 — 팀이 정해야 할 점을 적어 주세요 (비우면 지움)", cur ? cur.t : "");
+  if (t === null) return;
+  const { data, error: e1 } = await sb.from("rows").select("meta").eq("id", r.id).single();   // 서버의 최신 meta에 메모만 합침
+  if (e1) { toast("메모 저장 실패: " + e1.message); return; }
+  const meta = Object.assign({}, (data && data.meta) || {});
+  if (t.trim()) meta.memo = { t: t.trim(), by: nick, ts: Date.now() }; else delete meta.memo;
+  const { error } = await sb.from("rows").update({ meta }).eq("id", r.id);
+  if (error) { toast("메모 저장 실패: " + error.message); return; }
+  r.meta = meta;
+  render();
+  toast(t.trim() ? "메모를 남겼습니다" : "메모를 지웠습니다", "success");
 }
 
 function render() {
@@ -871,7 +899,7 @@ function render() {
     h += `<tr class="pf-v5-c-table__tr${dim}" data-id="${esc(r.id)}">
       <td class="pf-v5-c-table__td v-mid">${first}</td>
       ${cat === "image" ? `<td class="pf-v5-c-table__td v-mid">${second}</td>` : `<td class="pf-v5-c-table__td" style="max-width:26rem">${second}</td>`}
-      <td class="pf-v5-c-table__td kr-cell${r.kr ? "" : " is-empty"}" data-act="edit">${r.kr ? markMissing(r.kr) : (isBlank(r) ? "—" : "클릭해서 입력")}${srcBadge(r) ? `<div class="src-row">${srcBadge(r)}</div>` : ""}</td>
+      <td class="pf-v5-c-table__td kr-cell${r.kr ? "" : " is-empty"}" data-act="edit">${r.kr ? markMissing(r.kr) : (isBlank(r) ? "—" : "클릭해서 입력")}${srcBadge(r) ? `<div class="src-row">${srcBadge(r)}</div>` : ""}${memoHtml(r)}</td>
       <td class="pf-v5-c-table__td" style="max-width:10rem">${w.map(([t, c]) =>
         `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}</td>
       <td class="pf-v5-c-table__td nowrap v-mid">${platBadge(r) ? `<div class="plat-tag">${platBadge(r)}</div>` : ""}${isBlank(r) ? "" : stLabel(r)}</td>
@@ -1230,7 +1258,7 @@ function renderCards() {
           <div class="jp-cell" style="font-size:13px;line-height:1.7">${fmtText(r.jp)}</div>${pairToggleHtml(r)}</div>
         <div><div class="pf-v5-u-color-200" style="font-size:11px;margin-bottom:2px;display:flex;gap:6px;align-items:center">${PART_LABEL[part] || part} (KR) ${srcBadge(r)}
             ${w.map(([t, c]) => `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}
-            <button class="pf-v5-c-button pf-m-plain pf-m-compact" data-act="mchist" data-id="${esc(r.id)}" title="수정 이력" style="margin-left:auto">🕘</button></div>
+            <button class="pf-v5-c-button pf-m-plain pf-m-compact" data-act="mchist" data-id="${esc(r.id)}" title="수정 이력" style="margin-left:auto">🕘</button>${memoBtn(r)}</div>${memoHtml(r)}
           <textarea class="pf-v5-c-form-control mc-ta" data-id="${esc(r.id)}" data-jpn="${jpN}" rows="${jpN + 1}"
             spellcheck="false" style="width:100%;font-size:13px;line-height:1.7">
 ${esc(r.kr)}</textarea>${quickBarHtml()}${phChipsHtml(r.jp)}
@@ -1314,6 +1342,8 @@ function renderStats() {
 function rowById(id) { return rows.find(r => r.id === id); }
 
 $("#content").addEventListener("click", ev => {
+  const memoAct = ev.target.closest("[data-act=memo]");
+  if (memoAct) { const r = rowById(memoAct.dataset.id); if (r) editMemo(r); return; }
   const lyrAct = ev.target.closest("[data-act=lyrsave],[data-act=lyrreview]");
   if (lyrAct) {
     const card = lyrAct.closest(".lyr-card");
