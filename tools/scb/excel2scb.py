@@ -404,18 +404,16 @@ def choice_indices(dec: bytes) -> set:
 
 
 def _wrap_choice(flat: str):
-    """선택지 문구가 상자 폭을 넘으면 공백에서 2줄로(둘 다 들어가는 곳 > 문장부호 뒤 > 균형). 못 나누면 None."""
+    """선택지 문구가 상자 폭을 넘으면 공백에서 2줄로 — 두 줄 중 긴 쪽이 가장 짧은 곳(균형, 11-08 KOR: 첫 공백 '다,⏎…' 금지).
+    같은 폭이면 문장부호 뒤. 못 나누면 None."""
     if not flat or not (CHOICE_WIDTH < _text_width(flat) <= WRAP_WIDTH):
         return None
     words = flat.split(" ")
     best = None
     for k in range(1, len(words)):
         l1, l2 = " ".join(words[:k]), " ".join(words[k:])
-        w1, w2 = _text_width(l1), _text_width(l2)
-        if w1 > CHOICE_WIDTH:
-            break
-        fits = w2 <= CHOICE_WIDTH
-        score = (0 if fits else 1, 0 if l1[-1] in _BREAK_PUNCT else 1, abs(w1 - w2))
+        mx = max(_text_width(l1), _text_width(l2))
+        score = (0 if mx <= CHOICE_WIDTH else 1, mx, 0 if l1[-1] in _BREAK_PUNCT else 1)
         if best is None or score < best[0]:
             best = (score, k)
     if best is None:
@@ -449,6 +447,10 @@ def rewrap(text: str, choice: bool = False) -> str:
         if manual is not None:
             return manual            # 입력한 줄바꿈 존중(2026-11-02 사용자 결정 A)
         LAST_AUTO.append(text)       # 입력한 줄바꿈으론 안 들어감(3줄 이상·폭·127 초과) → 자동 줄바꿈 + 경고
+    if choice and "\n" in text.strip():
+        manual = _manual_choice(text)
+        if manual is not None:
+            return manual            # 선택지도 입력한 줄바꿈 존중(11-08 KOR)
     parts = [p.strip() for p in text.split("\n")]
     flat = parts[0]
     junctions = []  # 공백 없이 이어붙인 지점(공백 제외 문자 인덱스)
@@ -486,6 +488,28 @@ def rewrap(text: str, choice: bool = False) -> str:
 
 # 줄 첫머리에 오면 윗줄로 올리는 문장부호(쉼표·마침표·물음표·느낌표·말줄임·닫는 괄호·따옴표·물결) — 웹앱 LEAD_PUNCT와 같음
 _LEAD_PUNCT = ",.!?…、。，．！？」』）)]〉》'\"’”～~・"
+
+
+def _manual_choice(text: str):
+    """선택지도 입력한 줄바꿈 존중(11-08 KOR, 대사 A안과 같은 원칙): 2줄 이하·빈 줄 없음·각 줄 선택지 상자 폭(209) 이하·
+    단어 가운데 끊김 아님·57단위 이하면 그 문자열, 아니면 None. 둘째 줄 첫 문장부호는 윗줄 끝으로. 웹앱 manualChoice와 같은 규칙."""
+    lines = [" ".join(p.split()) for p in text.replace("\r", "").strip().split("\n")]
+    if len(lines) > 2 or not all(lines):
+        return None
+    if len(lines) == 2:
+        k = 0
+        while k < len(lines[1]) and lines[1][k] in _LEAD_PUNCT:
+            k += 1
+        if k:
+            lines = [lines[0] + lines[1][:k], lines[1][k:].strip()]
+            if not lines[1]:
+                lines = lines[:1]
+    if any(_text_width(l) > CHOICE_WIDTH for l in lines):
+        return None
+    if len(lines) == 2 and _splits_word(lines[0], lines[1]):
+        return None
+    s = "\n".join(lines)
+    return None if _too_long(s, True) else s
 
 
 def _manual_layout(text: str):

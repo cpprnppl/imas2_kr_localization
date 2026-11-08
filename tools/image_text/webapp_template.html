@@ -491,14 +491,25 @@ function wrapChoice(flat) {
   const W = tWidth(flat);
   if (!flat || !(W > CHOICE_W && W <= WRAP_W)) return null;
   const words = flat.split(" "); let best = null;
-  for (let k = 1; k < words.length; k++) {
+  for (let k = 1; k < words.length; k++) {   // 두 줄 중 긴 쪽이 가장 짧은 곳(균형, 11-08) — 같으면 문장부호 뒤
     const l1 = words.slice(0, k).join(" "), l2 = words.slice(k).join(" ");
-    const w1 = tWidth(l1), w2 = tWidth(l2);
-    if (w1 > CHOICE_W) break;
-    const sc = [w2 <= CHOICE_W ? 0 : 1, BREAK_P.includes(l1[l1.length - 1]) ? 0 : 1, Math.abs(w1 - w2)];
+    const mx = Math.max(tWidth(l1), tWidth(l2));
+    const sc = [mx <= CHOICE_W ? 0 : 1, mx, BREAK_P.includes(l1[l1.length - 1]) ? 0 : 1];
     if (!best || sc[0] < best[0][0] || (sc[0] === best[0][0] && (sc[1] < best[0][1] || (sc[1] === best[0][1] && sc[2] < best[0][2])))) best = [sc, k];
   }
   return best ? [words.slice(0, best[1]).join(" "), words.slice(best[1]).join(" ")] : null;
+}
+function manualChoice(text) {                 // excel2scb._manual_choice — 2줄·각 줄 209px·단어 가운데 끊김 아님·57단위
+  let lines = text.replace(/\r/g, "").trim().split("\n").map(l => l.split(/\s+/).filter(Boolean).join(" "));
+  if (lines.length > 2 || !lines.every(l => l)) return null;
+  if (lines.length === 2) {
+    let k = 0;
+    while (k < lines[1].length && LEAD_PUNCT.includes(lines[1][k])) k++;
+    if (k) { lines = [lines[0] + lines[1].slice(0, k), lines[1].slice(k).trim()]; if (!lines[1]) lines = lines.slice(0, 1); }
+  }
+  if (lines.some(l => tWidth(l) > CHOICE_W)) return null;
+  if (lines.length === 2 && splitsWord(lines[0], lines[1])) return null;
+  return tooLong(lines.join("\n"), true) ? null : lines;
 }
 function compressRuns(s) {
   const out = [];
@@ -552,9 +563,16 @@ function gameWrap(text, choice) {
     if (m) return { lines: m, cut: false, manual: true };
     auto = true;                               // 입력한 줄바꿈으론 안 들어감 → 자동 줄바꿈
   }
+  if (choice && text.trim().includes("\n")) {  // 선택지도 입력한 줄바꿈 존중(11-08 KOR) — excel2scb._manual_choice와 같음
+    const m = manualChoice(text);
+    if (m) return { lines: m, cut: false, manual: true };
+  }
   const parts = text.split("\n").map(p => p.trim());
   let flat = parts[0];
-  for (const p of parts.slice(1)) flat = flat + joinSep(flat, p) + p;
+  for (const p of parts.slice(1)) {             // 선택지: 단어 가운데 끊김(조사·어미·이름)은 붙임 — 빌드는 Kiwi가 같은 판단
+    const glue = choice && flat && p && isHan(flat[flat.length - 1]) && isHan(p[0]) && splitsWord(flat, p);
+    flat = flat + (glue ? "" : joinSep(flat, p)) + p;
+  }
   flat = flat.split(/\s+/).filter(Boolean).join(" ");
   if (tooLong(flat, choice)) flat = compressRuns(flat);
   if (choice) {                              // 선택지 MSG(meta.choice) — excel2scb._wrap_choice와 같은 규칙
