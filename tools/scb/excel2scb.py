@@ -380,9 +380,10 @@ def _wrap_balanced(flat: str) -> list:
 # '…괜찮습니 / 다'). 실측: '아니요, 괜찮습니'(추정 209)는 들어가고 '다'(235)가 넘침 → 209 이하로 어절 경계에서 미리 끊는다.
 # 선택지 MSG는 CMD 스트림의 선택지 명령(0x0103, 인자 4개, 첫 인자 = MSG 인덱스)으로 식별(전 파일 2,640줄, 2026-10-23).
 # 원문도 선택지는 '\n'으로 2줄을 쓴다('ステージの\n反映について') — 상자는 2줄까지.
-# 209는 PC(360 데이터) 실측. PS3(RPCS3)는 상자가 더 넓다: 1080p 스샷(11-08)에서 261은 들어가고 287이 넘침 — 대신 PS3는 자르지 않고
-# 상자 밖으로 그린다. 같은 번역문이 두 플랫폼에 들어가므로 좁은 쪽(209 × 2줄)을 지킨다. 못 지키면 CHOICE_OVER로 경고.
-CHOICE_WIDTH = 209.0
+# 11-08 정적 확정: 말풍선은 adv_common.mpc ComAnser SWG(PS3·360 바이트 동일) 스프라이트 24 — 채움 32×9.75(±156)+모서리(±170),
+# 화면 배율(1080p 스샷 바깥 폭 460px)로 글자 시작~안쪽 끝 ≈ 250~270(빌드 폭 단위). PS3 실측 261 들어감·287 넘침과 일치 → 261.
+# 예전 209는 10-23 PC가 옛 폰트(10-16 주입본)였을 때 값이다(지금 PC NFH = PS3와 바이트 동일). 못 지키면 CHOICE_OVER로 경고.
+CHOICE_WIDTH = 261.0
 CHOICE_WIDTH_PS3 = 261.0
 CHOICE_OPCODE = 0x01030400
 
@@ -930,8 +931,7 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
     if len(cuts) > 5:
         warns.append(f"⚠ 그 외 {len(cuts)-5}개 더 표시 상한 잘림")
     for i, w in sorted(CHOICE_OVER.items())[:5]:
-        ps3 = "PS3도 상자 밖" if w > CHOICE_WIDTH_PS3 else "PC 글자 잘림"
-        warns.append(f"⚠ 선택지 상자 넘침({w:.0f}/{CHOICE_WIDTH:.0f}px, {ps3}) — 축약 필요 entry[{i}]: {new_by_idx[i].replace(chr(10), ' ⏎ ')[:24]}")
+        warns.append(f"⚠ 선택지 상자 넘침({w:.0f}/{CHOICE_WIDTH:.0f}px, PS3는 상자 밖·PC는 글자 잘림) — 축약 필요 entry[{i}]: {new_by_idx[i].replace(chr(10), ' ⏎ ')[:24]}")
     if len(CHOICE_OVER) > 5:
         warns.append(f"⚠ 그 외 {len(CHOICE_OVER)-5}개 더 선택지 상자 넘침")
     autos = sorted(AUTO_IDX)

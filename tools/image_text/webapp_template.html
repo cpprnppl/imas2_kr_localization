@@ -486,7 +486,7 @@ function wrapBalanced(flat) {
   return lines;
 }
 /* 선택지 상자는 게임이 글자 단위로 자른다('괜찮습니 / 다') — 선택지 MSG가 209px를 넘으면 어절 경계에서 2줄 */
-const CHOICE_W = 209;
+const CHOICE_W = 261;   // excel2scb.CHOICE_WIDTH — ComAnser 말풍선 정적 계산 + PS3 실측(261 들어감·287 넘침), 11-08
 function wrapChoice(flat) {
   const W = tWidth(flat);
   if (!flat || !(W > CHOICE_W && W <= WRAP_W)) return null;
@@ -607,7 +607,7 @@ function warns(r) {
     if (g.lines.length >= 3) w.push([`대사 상자 ${g.lines.length}줄 — 넘침(상자는 2줄), 줄여 주세요`, "red"]);
     if ((r.meta || {}).choice && g.lines.length <= 2) {      // 선택지 상자 209px × 2줄(PC 실측). PS3는 261까지 보이나 넘으면 상자 밖(11-08 스샷)
       const mw = Math.max(...g.lines.map(l => tWidth(l)));
-      if (mw > CHOICE_W) w.push([`선택지 상자 넘침 ${Math.round(mw)}/${CHOICE_W}px — ${mw > 261 ? "PS3는 상자 밖으로" : "PS3는 들어가나"} PC는 글자가 잘림, 줄여 주세요`, "red"]);
+      if (mw > CHOICE_W) w.push([`선택지 상자 넘침 ${Math.round(mw)}/${CHOICE_W}px — PS3는 상자 밖으로, PC는 글자가 잘림. 줄여 주세요`, "red"]);
     }
     if (g.cut) w.push([`너무 김 — 게임에서 끝 ${g.lost}자가 잘림 (대사 상자 2줄 폭)`, "red"]);
     else if (g.auto) w.push([`입력한 줄바꿈으론 안 들어감(3줄 이상·폭 초과) — 게임은 자동 줄바꿈`, "orange"]);
