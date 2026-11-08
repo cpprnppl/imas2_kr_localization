@@ -1978,3 +1978,10 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
 - **TextField 칸 게이트**(78e0ac4): tools/image_text/field_caps.py — 글자(줄바꿈 포함) ≤ cap−2−줄 수. 실측·정적 칸(카탈로그 설명 128, S4U 설명 64, 도움말 128)은
   gamedata_apply·dlc_inject 빌드 실패 + 웹앱 빨강, 추정·원문 기준(원문 m 최대+1)은 보고·주황(원문 기준까지 막으면 188행 — 풀네임 등 의도한 행 포함). 웹앱 '원문 필드 최대 초과' 경고 대체, DLC 카탈로그·package 포함.
   카탈로그 71 + package caption 1 = 72행 축약 초안(검토표 artifact AGJGVDhQ…, 사용자 "72줄 다 좋아" — KOR 경유), 웹앱 반영은 ui 세션 직접 승인 대기(점검: 72행 모두 초안 시점 값 그대로).
+- **test-12 데이터**(11-08, KOR 지시): 회수 대사 17:29:18(52,656행, 첫 시도 서버 500 → 재시도) + DLC 18:27:53(2행 추가 반영분, 사용자 "12판에 넣어"), XMB·이미지 17:28.
+  02:37 이후 변경: 대사 13(유키호 8 말레이B·공통 5 NAMIO, 글자 변경은 all_arr_11 '애들아→얘들아' 2행), DLC 74(카탈로그 71 + package 3, conduit = 칸 축약·DLC 스테이지 설명 2).
+  체인 20단계 exit 0(18:14~18:22) + DLC 3단계 재실행(18:30~18:32). 게이트: 대사 잘림·127·3줄·이름 코드 0, 선택지 39(기존), 칸 게이트 실측·정적 위반 0.
+  배포본: 바뀐 대사 13/13(PS3·PC), 72행 축약본 PS3 36/36·360 36/36, cp04·cp06 스테이지 설명 PS3 반영. 해시: PS3 SCB 1,183 d9e4af58…, PC SCB 1,158 ead7282e…,
+  PS3 DLC 트리 ecb126ea…, 360 content_kor c6d9cc08…, attract b510b448…, initialFix 3897a004…(변화 없음). PS3 yml = pc-360-dlc VARIANT=A.
+- **칸 게이트 보강**(4154047, 감독 PC SetText 표 314행 대조): 의상·스테이지 설명 64, 도움말 128 = 정적값과 일치. DLC package caption은 짧은 설명(원문 m<64, 111행 = S4U
+  의상·스테이지 설명 cap 64)과 긴 곡 설명(32행)이 섞인 묶음 → field_caps.SPLIT으로 짧은 쪽을 칸 64 hard. 넘치던 2행(cp04 node266, cp06 node195 — cp06은 오역) 사용자 승인 반영.
