@@ -1999,3 +1999,6 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   360 xex에는 万·人 단독 문자열이 한 곳씩이라 PC는 이미 만·명. PS3 EBOOT(PSN)에는 万 5곳·人 5곳인데 exe_texts.json meta.eboot에 万 2곳·人 3곳만 있었다.
   빠진 5곳 추가: 万 0x58ddb8(차트 PTS·枚·位 옆)·0x591a80(결과 PTS 옆)·0x5a4138, 人 0x591a88·0x5a4140(전부 4바이트 정렬 단독 문자열, 칸 8).
   build-ps3 PSN·디스크(01.01)·디스크 01.02 → 세 yml 모두 이 5줄만 추가(디스크 대응 227/233, 주소마다 万/人 확인). 枚·位 등 이웃 문자열은 이미 대응돼 있음.
+- **13판 체인 — ps3_res_orig 폰트 재주입**(11-09): ps3_res_apply validate가 '폰트 직접 등록판 아니오'로 막음 — 사본 initialFix가 10-29 폰트 상태(10-29 '함정 1'과 같은 일).
+  사본 initialFix에 새 NFH 2개(3b2700a)를 같은 자리로 교체(차이 = NFH 표 안 76,971B뿐), manifest sha d2834a17 갱신, 이전 사본은 scratchpad font3\에 보관. ps3_res_orig의 성격은 docs/PIPELINE.md에 적음(빌드 기준본, 진짜 순정 아님).
+- **exe_inject deploy360**: game_kor 파일이 mkroot 시험 루트들과 하드링크(kor_exe_strings.bin 링크 223개) → 제자리 copy2 대신 tmp + os.replace(pc-360-dlc 지적).

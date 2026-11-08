@@ -302,7 +302,9 @@ def deploy360(_a):
         dst = os.path.join(GAME_KOR, fn)
         if os.path.exists(dst):
             shutil.copy2(dst, dst + time.strftime(".bak_%Y%m%d_%H%M%S"))
-        shutil.copy2(src, dst)
+        tmp = dst + ".tmp_deploy"                # 제자리 쓰기 금지: game_kor 파일은 mkroot 시험 루트들과 하드링크(11-09 pc-360-dlc 지적)
+        shutil.copy2(src, tmp)
+        os.replace(tmp, dst)                     # 새 inode로 교체 → 링크된 시험 루트는 그대로
         print(f"배포: {dst} (실행: IMAS2PC_DISC_ROOT={GAME_KOR})")
 
 
