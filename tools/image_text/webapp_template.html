@@ -587,6 +587,10 @@ function warns(r) {
   if (r.cat === "script") {
     const g = gameWrap(r.kr, !!(r.meta || {}).choice);
     if (g.lines.length >= 3) w.push([`대사 상자 ${g.lines.length}줄 — 넘침(상자는 2줄), 줄여 주세요`, "red"]);
+    if ((r.meta || {}).choice && g.lines.length <= 2) {      // 선택지 상자 209px × 2줄(PC 실측). PS3는 261까지 보이나 넘으면 상자 밖(11-08 스샷)
+      const mw = Math.max(...g.lines.map(l => tWidth(l)));
+      if (mw > CHOICE_W) w.push([`선택지 상자 넘침 ${Math.round(mw)}/${CHOICE_W}px — ${mw > 261 ? "PS3는 상자 밖으로" : "PS3는 들어가나"} PC는 글자가 잘림, 줄여 주세요`, "red"]);
+    }
     if (g.cut) w.push([`너무 김 — 게임에서 끝 ${g.lost}자가 잘림 (대사 상자 2줄 폭)`, "red"]);
     else if (g.auto) w.push([`입력한 줄바꿈으론 안 들어감(3줄 이상·폭 초과) — 게임은 자동 줄바꿈`, "orange"]);
   } else if (nj !== nk) w.push([`개행 수 다름 (KR ${nk} · JP ${nj})`, "red"]);

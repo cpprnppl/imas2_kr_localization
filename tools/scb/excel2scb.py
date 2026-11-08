@@ -380,7 +380,10 @@ def _wrap_balanced(flat: str) -> list:
 # '…괜찮습니 / 다'). 실측: '아니요, 괜찮습니'(추정 209)는 들어가고 '다'(235)가 넘침 → 209 이하로 어절 경계에서 미리 끊는다.
 # 선택지 MSG는 CMD 스트림의 선택지 명령(0x0103, 인자 4개, 첫 인자 = MSG 인덱스)으로 식별(전 파일 2,640줄, 2026-10-23).
 # 원문도 선택지는 '\n'으로 2줄을 쓴다('ステージの\n反映について') — 상자는 2줄까지.
+# 209는 PC(360 데이터) 실측. PS3(RPCS3)는 상자가 더 넓다: 1080p 스샷(11-08)에서 261은 들어가고 287이 넘침 — 대신 PS3는 자르지 않고
+# 상자 밖으로 그린다. 같은 번역문이 두 플랫폼에 들어가므로 좁은 쪽(209 × 2줄)을 지킨다. 못 지키면 CHOICE_OVER로 경고.
 CHOICE_WIDTH = 209.0
+CHOICE_WIDTH_PS3 = 261.0
 CHOICE_OPCODE = 0x01030400
 
 
@@ -902,6 +905,11 @@ def patch_one_scb(rel_path: str, abs_to_tr: dict, font_map: dict):
         warns.append(f"⚠ 대사 상한(2줄 폭·127단위) 초과 — 끝 {n}자 잘림(축약 필요) entry[{i}]: …{new_by_idx[i].replace(chr(10), ' ')[-15:]}")
     if len(cuts) > 5:
         warns.append(f"⚠ 그 외 {len(cuts)-5}개 더 표시 상한 잘림")
+    for i, w in sorted(CHOICE_OVER.items())[:5]:
+        ps3 = "PS3도 상자 밖" if w > CHOICE_WIDTH_PS3 else "PC 글자 잘림"
+        warns.append(f"⚠ 선택지 상자 넘침({w:.0f}/{CHOICE_WIDTH:.0f}px, {ps3}) — 축약 필요 entry[{i}]: {new_by_idx[i].replace(chr(10), ' ⏎ ')[:24]}")
+    if len(CHOICE_OVER) > 5:
+        warns.append(f"⚠ 그 외 {len(CHOICE_OVER)-5}개 더 선택지 상자 넘침")
     autos = sorted(AUTO_IDX)
     for i in autos[:3]:
         warns.append(f"⚠ 입력한 줄바꿈으론 안 들어감(3줄 이상·폭·127 초과) — 자동 줄바꿈 entry[{i}]: {new_by_idx[i].replace(chr(10), ' ⏎ ')[:24]}…")
@@ -917,6 +925,7 @@ def resolve_translations(parsed, abs_to_tr: dict, choices=frozenset()):
     Returns (new_by_idx, text_recovered, misses, garbage_skipped)."""
     CUT_BY_IDX.clear()
     AUTO_IDX.clear()
+    CHOICE_OVER.clear()
     abs_to_index = { s["abs_offset"]: s["index"] for s in parsed["strings"] }
 
     # fallback: 원문 텍스트 -> index (유일한 경우만). 구버전 추출기의 abs_offset 오류 구제용
@@ -951,11 +960,17 @@ def resolve_translations(parsed, abs_to_tr: dict, choices=frozenset()):
             CUT_BY_IDX[idx] = LAST_CUTS[-1][0]
         if LAST_AUTO:
             AUTO_IDX.add(idx)
+        if idx in choices and any('가' <= c <= '힣' for c in tr):
+            ls = new_by_idx[idx].split("\n")
+            w = max(_text_width(l) for l in ls)
+            if len(ls) > 2 or w > CHOICE_WIDTH:
+                CHOICE_OVER[idx] = w
     return new_by_idx, text_recovered, misses, garbage_skipped
 
 
 CUT_BY_IDX = {}   # 마지막 resolve_translations 호출에서 대사 상한으로 끝이 잘린 줄 {MSG 인덱스: 잘린 글자 수}
 AUTO_IDX = set()  # 마지막 resolve_translations 호출에서 입력한 줄바꿈을 못 지키고 자동 줄바꿈한 줄(MSG 인덱스)
+CHOICE_OVER = {}  # 선택지 상자(209 × 2줄)를 못 지킨 선택지 {MSG 인덱스: 가장 긴 줄 폭} — PS3는 상자 밖, PC는 글자 잘림
 
 
 # -------------------------
@@ -1004,6 +1019,7 @@ def main():
     all_warns = []
     total_cut = 0
     total_auto = 0
+    total_choice = 0
 
     for i, (rel_path, abs_map) in enumerate(sorted(translations.items()), 1):
         print(f"  [{i:4}/{total_files}] {rel_path} ({len(abs_map)}줄) ... ", end="")
@@ -1011,6 +1027,7 @@ def main():
             success, warns = patch_one_scb(rel_path, abs_map, font_map)
             total_cut += len(CUT_BY_IDX)
             total_auto += len(AUTO_IDX)
+            total_choice += len(CHOICE_OVER)
             if success:
                 print("✅ OK")
                 ok += 1
@@ -1029,6 +1046,8 @@ def main():
         print(f"⚠ 대사 상한(2줄 폭·이름 최대 펼침 127단위)으로 끝이 잘린 대사 {total_cut}줄 — 번역 축약 필요(화면엔 2줄로 보여도 글이 빠짐)")
     if total_auto:
         print(f"⚠ 입력한 줄바꿈으론 2줄·폭·127단위에 안 들어가 자동 줄바꿈한 대사 {total_auto}줄 (나머지는 입력한 줄바꿈 그대로)")
+    if total_choice:
+        print(f"⚠ 선택지 상자({CHOICE_WIDTH:.0f}px × 2줄)를 넘는 선택지 {total_choice}줄 — PS3는 상자 밖으로, PC는 글자가 잘림. 번역 축약 필요")
     print(f"출력 위치: {OUTPUT_DIR}")
     if full_build:
         build_state.mark_done("ps3")
