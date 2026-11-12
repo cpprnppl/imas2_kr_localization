@@ -357,7 +357,9 @@ KR_PS3 = os.path.join(OUT_DEFAULT, "kr_dlc_ps3")
 
 def image_targets(res_root, plat):
     pats = ["catalog_info.nut", os.path.join("songinfo", "*", "jacket_*.nut")]
-    pats.append("ad_bg.jpg" if plat == "ps3" else "ad_bg.ptc")
+    if plat != "ps3":
+        pats.append("ad_bg.ptc")
+    # PS3 ad_bg.jpg는 빼고 원본 유지(KOR 11-12): JPEG라 블록 보존이 안 돼 패치 diff 100%, 재암호화본 표시도 미확인.
     out = []
     for pat in pats:
         out += [os.path.relpath(p, res_root) for p in glob.glob(os.path.join(res_root, pat))]
