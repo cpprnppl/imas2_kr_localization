@@ -817,6 +817,14 @@ def rpcs3_running():
     return "rpcs3.exe" in out
 
 
+def _replace(src, dst):
+    """제자리 쓰기 금지: RPCS3 DLC 파일이 격리 시험 루트와 하드링크일 수 있어(2026-11-13 확인, cp01 메일 등 1,880개)
+    copy2로 덮으면 링크된 다른 루트까지 바뀐다 → tmp에 복사한 뒤 os.replace로 새 inode로 교체(exe_inject.deploy360과 같음)."""
+    tmp = dst + ".tmp_deploy"
+    shutil.copy2(src, tmp)
+    os.replace(tmp, dst)
+
+
 def deploy_ps3(_args):
     if rpcs3_running():
         sys.exit("[중단] RPCS3 실행 중 — 종료 후 다시")
@@ -833,7 +841,7 @@ def deploy_ps3(_args):
             print(f"  (이전 배포본 교체) {it['key']}")
     for it in rep["files"]:
         cp, rel = it["key"].split("/", 1)
-        shutil.copy2(os.path.join(PS3_OUT, cp, "resource", rel), os.path.join(PS3_DLC, cp, "resource", rel))
+        _replace(os.path.join(PS3_OUT, cp, "resource", rel), os.path.join(PS3_DLC, cp, "resource", rel))
     json.dump({"time": time.strftime("%Y-%m-%d %H:%M:%S"), "files": rep["files"], "plain": rep["plain"]},
               open(os.path.join(PS3_ORIG, "deployed.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"{len(rep['files'])}개 배포 → {PS3_DLC} (되돌리기: restore-ps3)")
@@ -848,7 +856,7 @@ def restore_ps3(_args):
         cp, rel = key.split("/", 1)
         live = os.path.join(PS3_DLC, cp, "resource", rel)
         if sha(open(live, "rb").read()) != h:
-            shutil.copy2(os.path.join(PS3_ORIG, cp, "resource", rel), live)
+            _replace(os.path.join(PS3_ORIG, cp, "resource", rel), live)
             n += 1
     print(f"순정 복원 {n}개")
 

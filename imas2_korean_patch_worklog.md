@@ -2047,3 +2047,8 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   그림 섞인 텍스처는 16,384px 그대로. image_hold.json에서 #160 제거(보류 19 = 로고 18 + ki2). 재빌드 t14img 23:21–23:29 전 단계 통과.
   예외 목록: PS3 474(라벨 473 + text_cell 1), PC 412(411 + 1). 요약표(파일별 수·diff 최댓값·글자 영역 안 변경 비율 최솟값) 공유 노트 *_summary.md —
   라벨의 글자 영역 안 변경 비율 최솟값 0.606(mainmenu), 50% 미만 0. 웹앱 보류 행 19개 메모('14판: 원본 유지(diff>50%)')는 권한 확인 대기로 미기록.
+- **14판 PS3 DLC 평문 NUT 화면 확인 + deploy-ps3 하드링크 안전 교체**(11-13 02:46–02:59, KOR 지시): 격리 루트 rpcs3_iso_s4u(디스크+01.02, 테스터 세이브)에
+  14판 zip의 patch_ps3(80cffec61dae)를 CLI 설치기(빌드 1ffbab881c = 14판 런처와 같음)로 적용(applied 533, 실패 0, PAT 3줄) → 카탈로그 vol.18 1·2쪽(catalog_info.nut 평문 NTP3)이
+  한글로 그려짐(빈칸 아님) → DLC 폴더 안 평문 NUT도 게임이 읽고 그린다. 설치기 --restore → 1,474 대상 = 매니페스트 원본 sha(메일 6개는 설치기 백업이 없어 ps3_dlc_orig 순정으로),
+  yml/config·세이브 = 설치 전 해시. 발견: 격리 루트 DLC 1,880개가 사용자 RPCS3 DLC와 하드링크였다(쓰기 전 끊음, 사용자 DLC 167개 배포 sha 그대로 확인).
+  dlc_inject deploy-ps3·restore-ps3가 copy2 제자리 쓰기라 링크로 번질 수 있어 tmp + os.replace로 바꿈(deploy360과 같음).
