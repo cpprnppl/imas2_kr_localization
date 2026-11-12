@@ -2038,3 +2038,8 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   재빌드 t14img(20:29–20:40): ps3_res 135개·이미지 대조 0(같음 10)·validate 통과·배포, pcport→gamedata 배포, DLC 360 88·PS3 130 파일.
 - **PS3 DLC cp12 ad_bg.jpg 제외**(11-12, KOR 결정): JPEG라 블록 보존이 안 돼 패치 diff 100%, 재암호화본 화면 표시도 미확인 → dlc_inject PS3 그림 대상에서 뺌(원본 유지).
   build-ps3 그림 45개, restore-ps3 → deploy-ps3 175개, 게임 폴더 ad_bg = 순정. 이미지 게이트 예외 목록: PS3 483(라벨 473 + 원본 그림+한글 부제 10), PC 422(411 + 11) — 공유 노트.
+- **14판 그림 정리 — 보류 목록 image_hold.json**(11-12 23시, KOR 결정): '원본 그림 + 한글 부제' 21개는 예외로 받지 않음. 마스크 확인 결과
+  로고(PS3 7 DLC + ilh, PC 10 DLC)는 팀이 원본 로고를 줄여 부제를 넣은 재배치라 바뀐 영역 = 로고 전체(흩어진 잡음 아님) → 정리해도 50% 초과 → 14판 원본.
+  ki2 재킷은 한글 없음(재저장 잡음만) → 원본. ProStaffRoll #160(캐릭터 원안 크레딧 512x64)은 글자 칸 전체 교체지만 넓이 32,768px로 예외 규칙 밖 → 원본(KOR에 재확인 요청).
+  image_hold.py/json을 모든 그림 경로가 봄. 재빌드 t14img 23:10–23:17: ps3_res 134개(이미지 대조 0), 360 DLC 그림 34·PS3 DLC 37, restore-ps3 → deploy-ps3 167.
+  예외 목록 = 글자 라벨만(PS3 473, PC 411). 규칙은 docs/PIPELINE.md '그림 주입 규칙'.

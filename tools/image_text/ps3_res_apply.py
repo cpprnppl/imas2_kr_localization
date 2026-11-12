@@ -221,9 +221,10 @@ def extra_images(rel, plain):
     texs = walk_nuts(plain, lambda *a: None)
     data, n = bytearray(plain), 0
     stem = os.path.splitext(os.path.basename(rel))[0]
+    from image_hold import held          # 보류 목록(원본 유지, KOR 14판 기준)
     for it in items:
         p = os.path.join(OUT_DEFAULT, "kr", os.path.dirname(rel), f"{stem}_{it['n']:03d}.png")
-        if not os.path.exists(p):
+        if not os.path.exists(p) or held("ps3", rel, it["n"]):
             continue
         t = texs[it["n"]]
         raw = bytes(data[t["data_off"]:t["data_off"] + t["data_size"]])
@@ -324,6 +325,7 @@ def image_expect(code):
         off += len(b)
         if len(b) < 500:
             break
+    from image_hold import held          # 보류(원본 유지) 텍스처는 기대 목록에서 뺀다
     exp = collections.defaultdict(set)
     for r in rows:
         m = r.get("meta") or {}
@@ -335,7 +337,7 @@ def image_expect(code):
             rel, n = loc.split("#")
             stem = os.path.splitext(os.path.basename(rel))[0]
             if os.path.exists(os.path.join(OUT_DEFAULT, "kr", os.path.dirname(rel), f"{stem}_{int(n):03d}.png")) \
-                    and os.path.exists(os.path.join(JP_ROOT, rel)):
+                    and os.path.exists(os.path.join(JP_ROOT, rel)) and not held("ps3", rel, int(n)):
                 exp[rel].add(int(n))
     return {k: sorted(v) for k, v in sorted(exp.items())}
 

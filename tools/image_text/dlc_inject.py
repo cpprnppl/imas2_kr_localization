@@ -368,13 +368,16 @@ def image_targets(res_root, plat):
 
 def kr_images(plat, pkg, rel):
     """{n: png 경로} — 이 파일에 대한 한글 작업본."""
+    from image_hold import held          # 보류 목록(원본 유지, KOR 14판 기준)
     stem = rel.replace("\\", "/").replace("/", "_").rsplit(".", 1)[0]
     d = os.path.join(KR_360, pkg[:6]) if plat == "360" else os.path.join(KR_PS3, pkg)
     out = {}
     if os.path.isdir(d):
         for fn in os.listdir(d):
             if fn.startswith(stem + "_") and fn.endswith(".png") and fn[len(stem) + 1:-4].isdigit():
-                out[int(fn[len(stem) + 1:-4])] = os.path.join(d, fn)
+                n = int(fn[len(stem) + 1:-4])
+                if not held("pc" if plat == "360" else "ps3", rel, n, pkg):
+                    out[n] = os.path.join(d, fn)
     return out
 
 

@@ -440,6 +440,11 @@ def main():
                 reldir = os.path.relpath(dirpath, src_root)
                 reldir = "" if reldir == "." else reldir
                 stem, n = m.group(1), int(m.group(2))
+                from image_hold import held      # 보류 목록(원본 유지, KOR 14판 기준)
+                if held("ps3", os.path.join(reldir, stem), n) or any(
+                        held("ps3", os.path.join(reldir, stem + ext), n) for ext in (".mpc", ".nut", ".s2d", ".tsk")):
+                    log(f"[보류] {os.path.join(reldir, fn)} — image_hold.json(원본 유지)")
+                    continue
                 hit = next(
                     (rel for rel in idx
                      if os.path.dirname(rel) == reldir

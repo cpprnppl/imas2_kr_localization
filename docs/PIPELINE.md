@@ -41,3 +41,17 @@
 ## 주의: `ps3_res_orig`는 '빌드 기준본'이다 (2026-11-09)
 - `Desktop\imas2_image_text\ps3_res_orig`(ps3_res_apply·gamedata_apply --plat ps3의 '순정 사본')는 **텍스트는 순정(한글 0)이지만, initialFix·initialTemp는 우리 폰트(NFH/NUT)가 주입된 상태가 기준**이다(FONT_INJECTED). 폰트를 다시 만들면 이 사본의 initialFix에도 같은 NFH를 넣고 manifest sha를 갱신해야 한다(안 하면 ps3_res_apply validate가 막고, 빌드는 옛 폰트로 되돌린다).
 - 진짜 순정: 폰트 원본 = `USRDIR\_backup\im2_font*_20260223_*.nfh/nut`(repatch_fonts PRISTINE, md5 고정). PS3 initialFix 원본 파일은 로컬에 따로 없다(가장 이른 `_backup_fontfix_20261012`도 이미 폰트 패치본) — 원본은 사용자 PSN 패키지/디스크 이미지.
+
+## 그림 주입 규칙 (2026-11-12, 14판부터)
+1. **블록 보존 인코드** — 모든 그림 경로(inject_image_text, ps3_res_apply.extra_images, dlc_inject PS3·360, pcport_apply)에서
+   작업본과 원본의 차이를 화면 값(RGB×알파 + 알파)으로 비교해 >48(+3px 넓힘)인 곳만 작업본, 나머지는 원본 픽셀로 합성한 뒤 인코드하고,
+   원본 디코드를 같은 인코더로 인코드한 결과와 블록이 같은 곳은 **원본 블록 바이트를 그대로** 쓴다. 완전 투명 픽셀의 RGB 차이는 안 센다.
+   통째 재인코드는 금지 — 패치 diff에 원본 그림 전체가 실린다.
+2. **평문 출력** — PS3에서 그림을 바꾼 암호화 파일(.nut·.s2d·.tsk, DLC 재킷·로고·catalog_info.nut)은 평문으로 낸다.
+   원본 key·prefix·풋터로 재암호화한 NUT는 게임이 읽고도 그리지 않는다(빈 재킷, 13판까지의 버그). 글자만 바꾼 암호화 XMB는 재암호화 유지(화면 확인됨).
+3. **이미지 게이트(pc-360-dlc)** — 텍스처마다 패치 diff 50% 이하. 예외는 **넓이 16,384px 이하 글자 라벨만**(공유 노트 image_gate_exceptions_{ps3,pc}_*.json).
+   그림 위주 텍스처(타이틀, 팬레터 봉투, 스태프롤, 결과 화면, 카탈로그, 재킷·로고)가 블록 보존 뒤에도 50%를 넘으면 예외가 아니라
+   **원본 유지**: tools/image_text/image_hold.json에 올리고(이유 포함) 모든 경로가 건너뛴다. JPEG(ad_bg.jpg)는 블록 보존이 안 돼 PS3에서도 원본.
+4. **웹앱 이미지 행 ↔ 주입 대조 게이트**(ps3_res_apply build·validate) — PS3 본편 위치에 행과 kr 작업본이 있는데 주입이 안 된 텍스처 = 실패.
+   보류 목록 항목과 '작업본이 원본과 눈에 띄는 차이 없음'은 통과. image_extra.json 파일(index.json 밖)도 빌드 대상.
+5. **배포에서 빠진 파일 원복** — ps3_res_apply deploy는 지난 배포에 있었는데 이번 산출에서 빠진 파일을 순정으로 되돌린다. dlc_inject는 restore-ps3 → deploy-ps3 순서.

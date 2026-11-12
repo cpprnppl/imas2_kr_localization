@@ -210,7 +210,9 @@ def kr_jobs():
             p = os.path.join(KR, os.path.dirname(it["rel"]), f"{stem}_{it['n']:03d}.png")
             if os.path.exists(p) and (it["n"], p) not in by.get(it["rel"], []):
                 by.setdefault(it["rel"], []).append((it["n"], p))
-    return by
+    from image_hold import held          # 보류 목록(원본 유지, KOR 14판 기준) — 번호는 PS3 작업본 번호
+    by = {rel: [(n, p) for n, p in v if not held("pc", rel, n)] for rel, v in by.items()}
+    return {rel: v for rel, v in by.items() if v}
 
 
 def keep_unchanged_blocks(img, ref, raw, dec, enc, w, h, codec):
@@ -308,7 +310,9 @@ def x360_jobs():
     for fn in os.listdir(KR_X360):
         m = re.match(r"^(.+)_(\d{3})\.png$", fn)
         if m and m.group(1) in under:
-            by.setdefault(under[m.group(1)], []).append((int(m.group(2)), os.path.join(KR_X360, fn)))
+            from image_hold import held
+            if not held("pc", under[m.group(1)], int(m.group(2))):
+                by.setdefault(under[m.group(1)], []).append((int(m.group(2)), os.path.join(KR_X360, fn)))
     return by
 
 

@@ -1,0 +1,149 @@
+{
+ "_doc": "그림 보류(원본 유지) 목록 — image_hold.py 참고. KOR 14판 기준 2026-11-12.",
+ "hold": [
+  {
+   "plat": "ps3",
+   "pkg": "cp03",
+   "rel": "songinfo/gm2/jacket_gm2_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "ps3",
+   "pkg": "cp07",
+   "rel": "songinfo/daz/jacket_daz_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "ps3",
+   "pkg": "cp12",
+   "rel": "songinfo/ful/jacket_ful_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "ps3",
+   "pkg": "cp13",
+   "rel": "songinfo/mah/jacket_mah_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "ps3",
+   "pkg": "cp14",
+   "rel": "songinfo/age/jacket_age_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "ps3",
+   "pkg": "cp15",
+   "rel": "songinfo/wat/jacket_wat_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "ps3",
+   "pkg": "cp16",
+   "rel": "songinfo/omo/jacket_omo_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "ps3",
+   "rel": "songinfo/ilh/jacket_ilh_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "ps3",
+   "pkg": "cp07",
+   "rel": "songinfo/ki2/jacket_ki2.nut",
+   "n": 0,
+   "why": "작업본에 한글 없음(재저장 잡음만 흩어짐) — 정리하면 원본과 같음"
+  },
+  {
+   "plat": "ps3",
+   "rel": "interface/swg/ProStaffRoll.tsk",
+   "n": 160,
+   "why": "스태프롤 글자 칸 512x64 전체 교체(캐릭터 원안 크레딧) — 넓이 32,768px로 예외 규칙(16,384px) 밖, diff 64% → 14판 원본(KOR 결정 대기 항목)"
+  },
+  {
+   "plat": "pc",
+   "rel": "interface/swg/ProStaffRoll.tsk",
+   "n": 160,
+   "why": "스태프롤 글자 칸 512x64 전체 교체(캐릭터 원안 크레딧) — 넓이 32,768px로 예외 규칙(16,384px) 밖, diff 64% → 14판 원본(KOR 결정 대기 항목)"
+  },
+  {
+   "plat": "pc",
+   "pkg": "2D7E7F",
+   "rel": "songinfo/bnd/jacket_bnd_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "pc",
+   "pkg": "2C2886",
+   "rel": "songinfo/cng/jacket_cng_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "pc",
+   "pkg": "5C92FB",
+   "rel": "songinfo/hon/jacket_hon_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "pc",
+   "pkg": "5F94D5",
+   "rel": "songinfo/ido/jacket_ido_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "pc",
+   "pkg": "3044E3",
+   "rel": "songinfo/ilh/jacket_ilh_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "pc",
+   "pkg": "E2C491",
+   "rel": "songinfo/kam/jacket_kam_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "pc",
+   "pkg": "066BA1",
+   "rel": "songinfo/ksm/jacket_ksm_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "pc",
+   "pkg": "DA3EEC",
+   "rel": "songinfo/lmg/jacket_lmg_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "pc",
+   "pkg": "590711",
+   "rel": "songinfo/mnk/jacket_mnk_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  },
+  {
+   "plat": "pc",
+   "pkg": "99F4C8",
+   "rel": "songinfo/ove/jacket_ove_logo.nut",
+   "n": 0,
+   "why": "원본 로고를 줄여 한글 부제를 넣은 재배치(바뀐 영역 = 로고 전체) — 블록 보존·정리 뒤에도 diff 50% 초과, 14판은 원본(KOR 11-12)"
+  }
+ ]
+}
