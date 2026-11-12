@@ -21,6 +21,7 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import image_gate
 import kd
 import xdvdfs
 
@@ -56,6 +57,7 @@ WHOLE_SRC = {                                 # whole files that do not live in 
     "ps3_rival_sales.bin": r"C:\Users\jackfilm\Desktop\imas2_ps3conv\overlay\rival_sales\ps3_rival_sales.bin",
 }
 EXCLUDED = {}                                 # held until their rulings land
+GATE = image_gate.Gate("pc")                  # image diff-ratio gate; main() sets limit/exceptions from the args
 
 
 def sha256(b):
@@ -115,6 +117,9 @@ def diff_entry(target, orig, new, table, out, extra=None):
         e["table_source"] = "cipher_table"
     if extra:
         e.update(extra)
+    ratio = GATE.check(target, new, d, pkg=e.get("pkg"))       # PC outputs are plaintext: textures parse as is
+    if ratio is not None:
+        e["image_max_add_ratio"] = ratio
     return e
 
 
@@ -122,7 +127,11 @@ def main():
     ap = argparse.ArgumentParser()
     for a in ("--iso", "--game", "--dlc", "--dlc-kor", "--table", "--out"):
         ap.add_argument(a, required=True)
+    ap.add_argument("--image-exceptions", help="ui's list of fully redrawn textures (image_gate.py format)")
+    ap.add_argument("--image-limit", type=float, default=image_gate.LIMIT)
     a = ap.parse_args()
+    global GATE
+    GATE = image_gate.Gate("pc", a.image_exceptions, a.image_limit)
     table = open(a.table, "rb").read()
     if len(table) != TABLE_LEN:
         sys.exit("table must be 384 bytes")
@@ -169,6 +178,7 @@ def main():
                                             "IM2PCRAW banner = raw pixels incl. original art; left out (supervisor 2026-10-24: banner stays Japanese; revisit only with a ptc_decode src_transform)"})
                     continue
                 man["dlc"].append(diff_entry(rel, orig, new, table, a.out, {"pkg": pkg}))
+    man["image_gate"] = GATE.summary()
     json.dump(man, open(os.path.join(a.out, "manifest.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     allf = man["files"] + man["dlc"]
     print(f"files {len(man['files'])} dlc {len(man['dlc'])} whole {len(man['whole'])} excluded {len(man['excluded'])}")
@@ -176,6 +186,8 @@ def main():
           f"flagged runs {sum(e['add_flagged_runs'] for e in allf)}")
     big = sorted((e["add_bytes"] / max(1, e["out_size"]), e["target"]) for e in allf)[-8:]
     print("highest ADD ratio:", [(round(r, 2), t) for r, t in big])
+    if not GATE.report():
+        sys.exit(3)                    # manifest kept for diagnosis; the patch is not shippable
 
 
 if __name__ == "__main__":

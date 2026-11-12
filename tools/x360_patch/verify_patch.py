@@ -17,6 +17,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import image_gate  # noqa: E402
 import kd  # noqa: E402
 from gen_patch import WHOLE_SRC, xdecompress  # noqa: E402
 
@@ -40,12 +41,14 @@ def main():
     ap = argparse.ArgumentParser()
     for a in ("--iso", "--game", "--dlc", "--dlc-kor", "--table", "--work"):
         ap.add_argument(a, required=True)
+    ap.add_argument("--image-exceptions")
     a = ap.parse_args()
     os.makedirs(a.work, exist_ok=False)
     before = sha_file(a.iso)
     patch, game, dlc = (os.path.join(a.work, n) for n in ("patch", "game", "dlc"))
     run([os.path.join(HERE, "gen_patch.py"), "--iso", a.iso, "--game", a.game, "--dlc", a.dlc,
-         "--dlc-kor", a.dlc_kor, "--table", a.table, "--out", patch])
+         "--dlc-kor", a.dlc_kor, "--table", a.table, "--out", patch]
+        + (["--image-exceptions", a.image_exceptions] if a.image_exceptions else []))
     run([os.path.join(HERE, "xdvdfs.py"), "extract", a.iso, game])
     shutil.copytree(a.dlc, dlc)
     man = json.load(open(os.path.join(patch, "manifest.json"), encoding="utf-8"))
@@ -94,12 +97,21 @@ def main():
                 continue
             if sha_file(os.path.join(d, fn)) != sha_file(os.path.join(a.dlc_kor, sub, *rel.split("/"))):
                 mism.append("dlc:" + rel)
+    # image gate, independently of gen_patch: every applied output against its own diff
+    gate = image_gate.Gate("pc", a.image_exceptions)
+    for e in man["files"]:
+        gate.check(e["target"], open(os.path.join(game, *e["target"].split("/")), "rb").read(),
+                   open(os.path.join(patch, e["diff"]), "rb").read())
+    for e in man["dlc"]:
+        gate.check(e["target"], open(os.path.join(dlc, sub, e["pkg"], *e["target"].split("/")), "rb").read(),
+                   open(os.path.join(patch, e["diff"]), "rb").read(), pkg=e["pkg"])
+    gate_ok = gate.report()
     after = sha_file(a.iso)
     print(f"game files compared {n}, dlc files compared {nd}, mismatches {len(mism)}, excluded {len(excluded)}")
     for m in mism[:20]:
         print("  MISMATCH", m)
     print(f"original ISO sha256 before {before} after {after} ({'unchanged' if before == after else 'CHANGED'})")
-    sys.exit(1 if mism or flagged or xbad or before != after else 0)
+    sys.exit(1 if mism or flagged or xbad or not gate_ok or before != after else 0)
 
 
 if __name__ == "__main__":

@@ -27,6 +27,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import image_gate  # noqa: E402
 import kd  # noqa: E402
 
 FOOTER = 64
@@ -203,6 +204,7 @@ def gen(a):
         sys.exit("table must be 1152 bytes")
     os.makedirs(a.out, exist_ok=False)
     os.makedirs(os.path.join(a.out, "d"))
+    gate = image_gate.Gate("ps3", a.image_exceptions, a.image_limit)
     pr = files_of(a.pristine)
     marker = "resource/game/comueff/eff_com_rain.tsk"             # small, present in the PKG, never patched
     man = {"format": "imas2kor-ps3-patch/1", "target": "ps3_rpcs3",
@@ -238,6 +240,9 @@ def gen(a):
         e.update(add_bytes=p["add_bytes"], add_flagged_runs=p["add_flagged_runs"], raw_fallback=p["raw_fallback"])
         e.update(extra)
         assert rebuild(orig, e, p["_diff"], table) == new, rel
+        ratio = gate.check(rel, p["_out"], p["_diff"])               # _out = plaintext before any re-encryption
+        if ratio is not None:
+            e["image_max_add_ratio"] = ratio
         man["files"].append(e)
 
     for rel in sorted(pr):
@@ -272,6 +277,7 @@ def gen(a):
                                  "label": "BLJS10083 (disc + HDD update, APP_VER 01.02)"})
             man["key_table"]["offset_hints"]["disc_upd"] = a.update_offset
             man["rpcs3_patch"].append(yml_entry(a.update_yml, "disc_upd", a.out, extras=add_ymls(a, "disc_upd")))
+    man["image_gate"] = gate.summary()
     json.dump(man, open(os.path.join(a.out, "manifest.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     allf = man["files"]
     from collections import Counter
@@ -280,6 +286,8 @@ def gen(a):
     print("transforms:", Counter((e["src_transform"], e["out_transform"], e.get("out_prefix")) for e in allf))
     print(f"ADD bytes {sum(e['add_bytes'] for e in allf):,} / out {sum(e['out_size'] for e in allf):,}; "
           f"flagged runs {sum(e['add_flagged_runs'] for e in allf)}")
+    if not gate.report():
+        sys.exit(3)                    # manifest kept for diagnosis; the patch is not shippable
 
 
 def verify(a):
@@ -295,13 +303,16 @@ def verify(a):
     if sha256(open(os.path.join(work, "USRDIR", *m["usrdir_marker"].split("/")), "rb").read()) != m["marker_sha256"]:
         sys.exit("edition marker mismatch")
     ok, bad = 0, []
+    gate = image_gate.Gate("ps3", a.image_exceptions, a.image_limit)
     for e in man["files"]:
         p = os.path.join(work, "USRDIR", *e["target"].split("/"))
         orig = open(p, "rb").read()
         if sha256(orig) != e["src_sha256"]:
             bad.append((e["target"], "source hash"))
             continue
-        out = rebuild(orig, e, open(os.path.join(a.patch, e["diff"]), "rb").read(), table)
+        kdb = open(os.path.join(a.patch, e["diff"]), "rb").read()
+        gate.check(e["target"], rebuild(orig, dict(e, out_transform="none"), kdb, table), kdb)   # plaintext side
+        out = rebuild(orig, e, kdb, table)
         if sha256(out) != e["out_sha256"]:
             bad.append((e["target"], "result hash"))
             continue
@@ -328,7 +339,8 @@ def verify(a):
           f"raw fallbacks {len(fb)} {fb[:5]}")
     for x in (bad + [(m, 'mismatch') for m in mism])[:20]:
         print("  ", x)
-    sys.exit(1 if bad or mism or leak or flagged or fb else 0)
+    gate_ok = gate.report()
+    sys.exit(1 if bad or mism or leak or flagged or fb or not gate_ok else 0)
 
 
 def main():
@@ -337,6 +349,8 @@ def main():
     for o in ("--pristine", "--pristine-dlc", "--deployed", "--table", "--out", "--patch", "--work", "--exe-yml",
               "--disc-hashes", "--disc-offset", "--disc-yml", "--update-offset", "--update-yml"):
         ap.add_argument(o)
+    ap.add_argument("--image-exceptions", help="ui's list of fully redrawn textures (image_gate.py format)")
+    ap.add_argument("--image-limit", type=float, default=image_gate.LIMIT)
     ap.add_argument("--add-yml", action="append", default=[], metavar="EDITION=PATH",
                     help="extra RPCS3 patch yml merged under that edition's EBOOT key (psn/disc/disc_upd)")
     a = ap.parse_args()
