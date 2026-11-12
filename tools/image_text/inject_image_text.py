@@ -290,6 +290,35 @@ def psnr(a: np.ndarray, b: np.ndarray) -> float:
     return 99.0 if mse == 0 else 10 * np.log10(255.0 ** 2 / mse)
 
 
+# 인코드 단위(바이트): DXT 4×4 블록, 비압축은 픽셀
+BLOCK_BYTES = {"DXT1": 8, "DXT3": 16, "DXT5": 16, "ARGB32": 4, "ARGB32L": 4, "ARGB1555": 2, "RGB565": 2, "ARGB4444": 2}
+
+
+def keep_blocks(img, raw, dec, enc, w, h, bs):
+    """블록 보존 인코드(2026-11-12, pc-360-dlc 지적·KOR 14판 차단 — PC pcport_apply.keep_unchanged_blocks와 같은 방식):
+    작업본에서 글자가 안 바뀐 곳은 원본 블록 바이트를 그대로 둔다. 통째 재인코드하면 배경·로고 블록이 거의 다 바뀌어
+    패치 차이에 원본 그림 전체가 실린다(bg2d 90~99%, 로고 99.6%).
+    바뀐 곳 = 원본 디코드와 화면 값(RGB×알파 + 알파) 차이 > 48, 3px 넓힘 — 재저장 잡음과 완전 투명 픽셀의 RGB는 안 센다.
+    그 밖은 원본 디코드로 채운 합성 그림을 인코드하고, 원본 디코드를 같은 인코더로 인코드한 결과와 블록이 같은 곳은 원본 바이트.
+    → (새 바이트, 합성 그림)"""
+    orig = np.asarray(dec(raw, w, h), np.uint8)
+    pm = lambda x: np.concatenate([x[..., :3].astype(np.float32) * x[..., 3:] / 255.0,  # noqa: E731
+                                   x[..., 3:].astype(np.float32)], axis=-1)
+    diff = np.abs(pm(img) - pm(orig)).max(axis=2) > 48
+    m = diff.copy()
+    for dy in range(-3, 4):
+        for dx in range(-3, 4):
+            m |= np.roll(np.roll(diff, dy, 0), dx, 1)
+    merged = np.where(m[..., None], img, orig).astype(np.uint8)
+    new, base = enc(merged), enc(orig)
+    out = bytearray(new)
+    n = min(len(new), len(base), len(raw))
+    for i in range(0, n - n % bs, bs):
+        if new[i:i + bs] == base[i:i + bs]:
+            out[i:i + bs] = raw[i:i + bs]
+    return bytes(out), merged
+
+
 def inject_file(rel: str, texmap: dict, jobs: list, out_root: str,
                 dst_dir: str, min_psnr: float, log) -> bool:
     """jobs: [(n, png_path)]. 성공 시 patched/<rel> 생성."""
@@ -313,19 +342,21 @@ def inject_file(rel: str, texmap: dict, jobs: list, out_root: str,
         if t["mip"] != 1:
             log(f"    [실패] #{n:03d}: mip={t['mip']} — 밉맵 텍스처는 미지원")
             return False
-        enc = encode_texture(t["fmt"], img)
+        raw0 = orig[t["data_off"]:t["data_off"] + t["data_size"]]
+        enc, merged = keep_blocks(img, raw0, lambda r, w, h, f=FMT_IDS[t["fmt"]]: decode_texture(f, r, w, h),
+                                  lambda im, f=t["fmt"]: encode_texture(f, im), t["w"], t["h"], BLOCK_BYTES[t["fmt"]])
         if len(enc) != t["data_size"]:
             log(f"    [실패] #{n:03d}: 인코드 크기 {len(enc)} != data_size {t['data_size']}")
             return False
         data[t["data_off"]:t["data_off"] + t["data_size"]] = enc
-        results.append((n, t, img))
+        results.append((n, t, img, merged))
 
     # ---- 게이트 1: 크기/영역 밖 불변
     if len(data) != len(orig):
         log("    [실패] 게이트1: 파일 크기 변동")
         return False
     mask = np.ones(len(orig), bool)
-    for n, t, _ in results:
+    for n, t, _img, _mg in results:
         mask[t["data_off"]:t["data_off"] + t["data_size"]] = False
     oa = np.frombuffer(orig, np.uint8)
     na = np.frombuffer(bytes(data), np.uint8)
@@ -340,11 +371,12 @@ def inject_file(rel: str, texmap: dict, jobs: list, out_root: str,
         log("    [실패] 게이트2: NUT 구조 변동")
         return False
     # ---- 게이트 3: 재디코드 일치
-    for n, t, img in results:
+    for n, t, img, merged in results:
         raw = bytes(data[t["data_off"]:t["data_off"] + t["data_size"]])
         dec = decode_texture(FMT_IDS[t["fmt"]], raw, t["w"], t["h"])
         if t["fmt"] in ("ARGB32", "ARGB32L"):
-            if not (dec == img).all():
+            # 블록 보존: 바뀐 곳은 작업본, 나머지는 원본 그대로 → 합성 그림과 완전 일치 + 작업본과 PSNR 문턱
+            if not (dec == merged).all() or psnr(dec, img) < min_psnr:
                 log(f"    [실패] 게이트3: #{n:03d} 무손실 재디코드 불일치")
                 return False
         else:
@@ -363,8 +395,12 @@ def inject_file(rel: str, texmap: dict, jobs: list, out_root: str,
     qual = ", ".join(
         f"#{n:03d} 무손실" if t["fmt"] in ("ARGB32", "ARGB32L") else
         f"#{n:03d} {psnr(decode_texture(FMT_IDS[t['fmt']], bytes(data[t['data_off']:t['data_off']+t['data_size']]), t['w'], t['h']), img):.1f}dB"
-        for n, t, img in results[:8])
-    log(f"    OK {len(results)}장 주입 → patched\\{rel}  ({qual}{'…' if len(results) > 8 else ''})")
+        for n, t, img, _mg in results[:8])
+    chg = sum(sum(1 for x, y in zip(orig[t["data_off"]:t["data_off"] + t["data_size"]],
+                                    data[t["data_off"]:t["data_off"] + t["data_size"]]) if x != y)
+              for _n, t, _i, _m in results)
+    tot = sum(t["data_size"] for _n, t, _i, _m in results)
+    log(f"    OK {len(results)}장 주입 → patched\\{rel}  ({qual}{'…' if len(results) > 8 else ''}) 바뀐 바이트 {chg:,}/{tot:,}")
     return True
 
 

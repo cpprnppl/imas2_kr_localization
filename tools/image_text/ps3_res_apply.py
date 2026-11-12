@@ -212,7 +212,7 @@ def extra_images(rel, plain):
     import numpy as np
     from PIL import Image
     from extract_image_text import walk_nuts, decode_texture
-    from inject_image_text import encode_texture, psnr
+    from inject_image_text import encode_texture, psnr, keep_blocks, BLOCK_BYTES
     ex = os.path.join(HERE, "image_extra.json")
     items = [it for it in json.load(open(ex, encoding="utf-8"))["items"] if it["rel"] == rel] \
         if os.path.exists(ex) else []
@@ -231,7 +231,9 @@ def extra_images(rel, plain):
             raise ValueError(f"{rel}#{it['n']}: 원본 텍스처 md5가 image_extra와 다름")
         img = np.asarray(Image.open(p).convert("RGBA"), np.uint8)
         fmt = {0: "DXT1", 1: "DXT3", 2: "DXT5"}.get(t["fmt"], t["fmt"])
-        new = encode_texture(fmt, img)
+        top = t["w"] * t["h"] * {"DXT1": 1, "DXT3": 2, "DXT5": 2}.get(fmt, 0) // 2 or len(raw)   # 상위 밉 1장 크기
+        new, _merged = keep_blocks(img, raw[:top], lambda r, w, h, f=t["fmt"]: decode_texture(f, r, w, h),
+                                   lambda im, f=fmt: encode_texture(f, im), t["w"], t["h"], BLOCK_BYTES.get(fmt, 16))
         new = new + raw[len(new):] if len(new) < len(raw) else new
         if len(new) != len(raw):
             raise ValueError(f"{rel}#{it['n']}: 인코드 크기 불일치")
@@ -340,11 +342,29 @@ def image_expect(code):
 
 def image_gate(expect, files, log=print):
     """기대 텍스처마다 산출 파일의 그 텍스처 데이터가 순정과 달라야 통과 — 웹앱 행·작업본은 있는데 주입 안 됨 = 실패."""
-    from extract_image_text import walk_nuts
-    bad = []
+    import numpy as np
+    from PIL import Image
+    from extract_image_text import walk_nuts, decode_texture
+
+    def same_look(rel, n, t, orig):
+        """작업본이 원본과 눈에 띄는 차이가 없음(블록 보존 인코드 기준과 같은 >48 문턱) — 주입할 것이 없어 바이트가 같은 경우."""
+        stem = os.path.splitext(os.path.basename(rel))[0]
+        img = np.asarray(Image.open(os.path.join(OUT_DEFAULT, "kr", os.path.dirname(rel), f"{stem}_{n:03d}.png")).convert("RGBA"))
+        if img.shape[:2] != (t["h"], t["w"]):
+            return False
+        o = decode_texture(t["fmt"], orig[t["data_off"]:t["data_off"] + t["data_size"]], t["w"], t["h"])
+        pm = lambda x: np.concatenate([x[..., :3] * (x[..., 3:] / 255.0), x[..., 3:]], axis=-1)  # noqa: E731
+        return not (np.abs(pm(img.astype(np.float32)) - pm(o.astype(np.float32))).max(axis=2) > 48).any()
+    bad, same = [], 0
     for rel, ns in expect.items():
-        if rel not in files:
-            bad += [f"{rel}#{n:03d}: 산출 없음(빌드 대상 밖)" for n in ns]
+        if rel not in files:                 # 산출 없음 = 원본과 같음 → 작업본도 원본과 같아야 통과
+            orig = pristine(rel)[0] if os.path.exists(os.path.join(PS3_ORIG, rel)) else None
+            to = walk_nuts(orig, lambda *a: None) if orig else []
+            for n in ns:
+                if orig and n < len(to) and same_look(rel, n, to[n], orig):
+                    same += 1
+                else:
+                    bad.append(f"{rel}#{n:03d}: 산출 없음(빌드 대상 밖)")
             continue
         orig = pristine(rel)[0]
         out = open_raw(open(os.path.join(OUT, rel), "rb").read())[0]
@@ -354,8 +374,12 @@ def image_gate(expect, files, log=print):
                 bad.append(f"{rel}#{n:03d}: 텍스처 없음")
             elif orig[to[n]["data_off"]:to[n]["data_off"] + to[n]["data_size"]] == \
                     out[tn[n]["data_off"]:tn[n]["data_off"] + tn[n]["data_size"]]:
-                bad.append(f"{rel}#{n:03d}: 순정과 같음(주입 안 됨)")
-    log(f"[이미지 대조] 웹앱 행+작업본 {sum(map(len, expect.values()))}장({len(expect)}개 파일) 중 주입 안 됨 {len(bad)}")
+                if same_look(rel, n, to[n], orig):
+                    same += 1
+                else:
+                    bad.append(f"{rel}#{n:03d}: 순정과 같음(주입 안 됨)")
+    log(f"[이미지 대조] 웹앱 행+작업본 {sum(map(len, expect.values()))}장({len(expect)}개 파일) 중 주입 안 됨 {len(bad)}"
+        + (f" (작업본이 원본과 같아 바꿀 것 없음 {same})" if same else ""))
     for b in bad[:20]:
         log(f"   {b}")
     return not bad
@@ -508,6 +532,29 @@ def cmd_deploy(_a):
         after = sha(open(dst, "rb").read())
         assert after == v["sha"], rel
         man.append({"rel": rel, "before_sha256": before, "after_sha256": after})
+    # 지난 배포에 있었는데 이번 산출에서 빠진 파일(블록 보존 등으로 원본과 같아진 것)은 순정으로 되돌린다 —
+    # 안 그러면 예전 배포본이 게임 폴더에 남는다(2026-11-12 songinfo 재킷 6장).
+    prev = sorted(d for d in os.listdir(USRDIR) if d.startswith("_backup_ps3res_") and os.path.join(USRDIR, d) != bdir)
+    if prev:
+        pm = json.load(open(os.path.join(USRDIR, prev[-1], "manifest.json"), encoding="utf-8"))
+        for it in pm["files"]:
+            rel = it["rel"]
+            dst = os.path.join(JP_ROOT, rel)
+            if rel in rep["files"] or not os.path.exists(os.path.join(PS3_ORIG, rel)):
+                continue
+            cur = sha(open(dst, "rb").read())
+            pristine_raw = open(os.path.join(PS3_ORIG, rel), "rb").read()
+            if cur == sha(pristine_raw):
+                continue
+            if cur != it["after_sha256"]:
+                print(f"  (건너뜀) {rel}: 지난 배포 뒤 바뀐 파일")
+                continue
+            b = os.path.join(bdir, rel)
+            os.makedirs(os.path.dirname(b), exist_ok=True)
+            shutil.copy2(dst, b)
+            open(dst, "wb").write(pristine_raw)
+            man.append({"rel": rel, "before_sha256": cur, "after_sha256": sha(pristine_raw), "restored_pristine": True})
+            print(f"  순정으로 되돌림: {rel}")
     json.dump({"at": time.strftime("%Y-%m-%d %H:%M"), "report_at": rep["at"], "files": man},
               open(os.path.join(bdir, "manifest.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"{len(man)}개 배포 → {JP_ROOT}\n백업·매니페스트: {bdir}\n원복: python ps3_res_apply.py restore")

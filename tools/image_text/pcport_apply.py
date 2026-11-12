@@ -333,7 +333,7 @@ def apply_x360(rel, data, jobs, log):
         img = np.asarray(Image.open(png).convert("RGBA"), np.uint8)
         if img.shape[:2] != (t["h"], t["w"]):
             raise ValueError(f"{rel}#{n}: 360 작업본 치수 불일치")
-        new = enc(img)
+        new = keep_unchanged_blocks(img, ref, raw, dec, enc, t["w"], t["h"], name)   # 블록 보존(11-12, 이미지 게이트)
         new = new + raw[len(new):] if len(new) < t["data_size"] else new
         if len(new) != t["data_size"]:
             raise ValueError(f"{rel}#{n}: 인코드 크기 {len(new)} != {t['data_size']}")

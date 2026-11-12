@@ -405,7 +405,7 @@ def apply_images(plat, pkg, rel, plain, jobs, log):
     import numpy as np
     from PIL import Image
     from extract_image_text import walk_nuts
-    from inject_image_text import psnr
+    from inject_image_text import psnr, keep_blocks
     data = bytearray(plain)
     texs = walk_nuts(bytes(data).replace(b"NTXR", b"NTP3"), lambda *a: None)
     done = 0
@@ -418,14 +418,18 @@ def apply_images(plat, pkg, rel, plain, jobs, log):
             raise ValueError(f"{rel}#{n:03d}: 치수 {img.shape[1]}x{img.shape[0]} != {t['w']}x{t['h']}")
         dec, enc, lossless = _codecs(plat, t["fmt"])
         raw = bytes(data[t["data_off"]:t["data_off"] + t["data_size"]])
-        new = enc(img)
+        bs = {0: 8, 1: 16, 2: 16, 6: 2, 7: 2, 10: 2, 11: 2, 14: 4, 17: 4, 19: 4, 20: 4}[t["fmt"]]
+        top = t["w"] * t["h"] * {0: 1, 1: 2, 2: 2}.get(t["fmt"], bs * 2) // 2        # 상위 밉 1장 크기
+        # 블록 보존: 글자가 안 바뀐 곳은 원본 바이트(통째 재인코드하면 패치 차이에 원본 그림 전체가 실림, 2026-11-12)
+        new, merged = keep_blocks(img, raw[:top], dec, enc, t["w"], t["h"], bs)
         if len(new) < t["data_size"]:           # 밉 레벨은 원본 유지
             new = new + raw[len(new):]
         if len(new) != t["data_size"]:
             raise ValueError(f"{rel}#{n:03d}: 인코드 {len(new)}B != {t['data_size']}B")
-        q = psnr(dec(new, t["w"], t["h"]), img)
-        lim = 60.0 if lossless else (28.0 if t["fmt"] in (10, 11) else 33.0)   # 16bpp는 양자화 손실 감안
-        if q < lim:
+        d = dec(new, t["w"], t["h"])
+        q = psnr(d, img)
+        lim = 28.0 if t["fmt"] in (10, 11) else 33.0   # 16bpp는 양자화 손실 감안
+        if q < lim or (lossless and psnr(d, merged) < 60.0):
             raise ValueError(f"{rel}#{n:03d}: 재디코드 {q:.1f}dB < {lim}")
         data[t["data_off"]:t["data_off"] + t["data_size"]] = new
         done += 1

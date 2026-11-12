@@ -2028,3 +2028,11 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   수정: ps3_res_apply = 그림 층이 있고 바뀐 암호화 파일(.nut 20·.s2d 5·.tsk 1)을 평문 출력, dlc_inject = PS3 그림(재킷·로고·catalog_info.nut)도 평문(360과 같음).
   평문 재킷 RPCS3 확인 20:26(같은 화면에서 표시, AV 0). 중국팀 PS3 패치도 전부 평문 배포(§19). pc-360-dlc 생성기·설치기는 out_transform none 경로로 그대로 수용.
   영향 판: DLC 재킷·로고 = test-5(patch_10282239)부터 13판, catalog_info.nut·bg2d·ProStaffRoll·alf_tut = 첫 PS3 패치(10250617)부터.
+- **이미지 블록 보존 인코드 — PS3·DLC·PC 360 전용 전 경로**(11-12, pc-360-dlc 이미지 diff 게이트(50%)·KOR 14판 차단): 통째 재인코드하면 원본 그림 블록이
+  거의 다 바뀌어 패치 diff에 그림 전체가 실렸다(PS3 bg2d 90~99%, 로고 99.6%). inject_image_text.keep_blocks(PC pcport_apply.keep_unchanged_blocks와 같은 방식,
+  참고 그림 = 원본 디코드): 화면 값(RGB×알파+알파) 차이 >48 + 3px 넓힘 밖은 원본으로 채운 합성 그림을 인코드하고 원본 인코드와 같은 블록은 원본 바이트.
+  완전 투명 픽셀의 RGB 차이(로고 작업본의 투명부 RGB가 원본 흰색과 다름)는 안 센다. 적용: inject_image_text(51파일), ps3_res_apply.extra_images(songinfo),
+  dlc_inject.apply_images(PS3·360), pcport_apply.apply_x360. 결과 예: bg2d 0.8~13%, ProStaffRoll 23%, DLC 로고 ~20%.
+  기본곡 재킷 6장·9:02pm 재킷은 작업본이 원본과 눈에 띄는 차이가 없어 바뀐 바이트 0(팀 재킷 = 원본, 로고만 한글 부제) → 이미지 대조 게이트는
+  '작업본이 원본과 같음'을 통과로 셈. ps3_res_apply deploy: 지난 배포에 있었는데 이번 산출에서 빠진 파일은 순정으로 되돌림(백업·매니페스트 기록).
+  재빌드 t14img(20:29–20:40): ps3_res 135개·이미지 대조 0(같음 10)·validate 통과·배포, pcport→gamedata 배포, DLC 360 88·PS3 130 파일.
