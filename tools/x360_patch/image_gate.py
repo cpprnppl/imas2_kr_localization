@@ -18,6 +18,8 @@ import kd
 
 LIMIT = 0.5
 MIN_TEX = 1024                                    # smaller textures are not judged (icons, 1-block fills)
+EXEMPT_MAX_W, EXEMPT_MAX_H = 256, 64              # KOR 11-12: only text labels up to 256x64 may be exempted;
+                                                  # larger textures and raw image files never are, whatever the list says
 RAW_EXT = (".jpg", ".jpeg", ".png", ".bmp", ".ptc", ".gtf", ".dds")
 
 
@@ -108,6 +110,9 @@ class Gate:
                 rec = {"target": target, **({"pkg": pkg} if pkg else {}), "tex": idx, "w": w, "h": h,
                        "data_size": size, "add_ratio": round(r, 3)}
                 why = self._exempt(target, pkg, idx)
+                if why is not None and (idx is None or w > EXEMPT_MAX_W or h > EXEMPT_MAX_H):
+                    rec["exception_refused"] = f"larger than {EXEMPT_MAX_W}x{EXEMPT_MAX_H} or a raw image file"
+                    why = None
                 if why is None:
                     self.violations.append(rec)
                 else:
@@ -115,7 +120,8 @@ class Gate:
         return round(worst, 3)
 
     def summary(self):
-        return {"limit": self.limit, "min_texture_bytes": MIN_TEX, "exceptions_sha256": self.exc_sha,
+        return {"limit": self.limit, "min_texture_bytes": MIN_TEX, "exempt_max": f"{EXEMPT_MAX_W}x{EXEMPT_MAX_H}",
+                "exceptions_sha256": self.exc_sha,
                 "textures_checked": self.checked, "exempted": self.exempted, "violations": self.violations}
 
     def report(self, log=print):
