@@ -35,6 +35,11 @@ MAGIC = (b"pac\x00", b"XMB ", b"TSK ", b"NTXR", b"NTP3", b"NUS3", b"\x1bLua", b"
          b"\xff\xd8\xff")                                           # + JPEG (DLC ad_bg.jpg)
 TABLE_OFF, TABLE_LEN = 0x575698, 1152                           # in the decrypted PSN EBOOT.elf
 SKIP_DIRS = ("_backup", "gscript - 복사본", "/tools/", "fontwork/")
+EXCLUDED = {                                  # never shipped even when the deployed copy differs (KOR rulings)
+    "dlc/cp12/resource/ad_bg.jpg": "main-menu banner = full-screen JPEG incl. original idol art; a JPEG re-encode ships "
+                                   "the whole picture (image gate 100%), so it stays Japanese "
+                                   "(KOR 2026-11-12, as the PC IM2PCRAW ad_bg ruling of 2026-10-24)",
+}
 
 
 def sha256(b):
@@ -218,11 +223,14 @@ def gen(a):
            "files": [], "whole": [],
            "excluded": [{"target": "resource/im2_font*.nut|nfh (loose)",
                          "reason": "not in the PKG and not read by the game (ui 2026-10-25: no open in RPCS3.log; "
-                                   "the fonts used are the ones injected into initialFix.mpc/initialTemp.mpc)"}]}
+                                   "the fonts used are the ones injected into initialFix.mpc/initialTemp.mpc)"}]
+                       + [{"target": t, "reason": r} for t, r in EXCLUDED.items()]}
     pr_dlc = files_of(a.pristine_dlc)
     de = files_of(a.deployed)
 
     def add(rel, orig_path, new_path, extra):
+        if rel in EXCLUDED:
+            return
         orig, new = open(orig_path, "rb").read(), open(new_path, "rb").read()
         if orig == new:
             return
