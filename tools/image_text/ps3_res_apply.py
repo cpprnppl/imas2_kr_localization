@@ -296,6 +296,11 @@ def build_one(rel, tr, st):
         out = G.walk(base, orig, tr, st, rel)
     else:
         out = base
+    if enc and has_img and out != orig:
+        # 그림을 바꾼 암호화 파일(.nut·.s2d·.tsk)은 평문으로 배포: 원본 풋터로 재암호화한 NUT는 게임이 읽고도 그리지 않는다
+        # (빈 재킷, 2026-11-12 RPCS3 ilh). 중국팀 PS3 패치도 암호화 파일을 평문으로 배포했고 게임이 그대로 읽는다(워크로그 §19).
+        # 글자만 바꾼 암호화 XMB(가사·ranker)는 재암호화본이 화면에서 정상 확인돼 그대로 둔다.
+        return orig, base, out, out
     if enc:
         c, ctx = enc
         raw = Cipher.encrypt(out, ctx)

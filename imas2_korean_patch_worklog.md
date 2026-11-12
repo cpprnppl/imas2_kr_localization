@@ -2022,3 +2022,9 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   웹앱 이미지 행의 PS3 본편 위치(rel#nnn, DLC·360·배너 타일 제외)에 kr 작업본이 있으면 산출 파일의 그 텍스처가 순정과 달라야 한다
   (build 실패·validate 실패). 13판 산출 대조 = 522장 중 12장 미주입(이번 12장), 수정 후 0. 141개 배포(백업 _backup_ps3res_20261112_191733).
   DLC 재킷·로고(dlc_inject)는 PS3 27·360 29 주입 확인. PC의 PS3 전용 DLC(cp15–18)는 ps3feat ps3_dlc.py가 imas2kor_backup 원본을 변환해 한글 그림 미적용 → 감독(imas2pc) 몫.
+- **PS3 그림 바꾼 암호화 파일은 평문 배포**(11-12, ssanman 보고 '재킷 빈 칸' 원인): 원본 key·prefix·풋터로 재암호화한 NUT는 RPCS3가 파일을 끝까지 읽고도
+  그리지 않는다(PSN DUO 목록 '아이 LIKE 햄버거' 재킷 빈 칸 재현, 옆 Honey Heartbeat 정상. 데이터는 원본과 1,197B만 다름). 풋터 앞 32B가 파일마다 달라
+  내용 무결성 값으로 보임(평문 md5/sha·HMAC는 불일치, 미해독). 글자만 바꾼 암호화 XMB(가사·ranker)는 재암호화본이 화면에서 정상이라 그대로.
+  수정: ps3_res_apply = 그림 층이 있고 바뀐 암호화 파일(.nut 20·.s2d 5·.tsk 1)을 평문 출력, dlc_inject = PS3 그림(재킷·로고·catalog_info.nut)도 평문(360과 같음).
+  평문 재킷 RPCS3 확인 20:26(같은 화면에서 표시, AV 0). 중국팀 PS3 패치도 전부 평문 배포(§19). pc-360-dlc 생성기·설치기는 out_transform none 경로로 그대로 수용.
+  영향 판: DLC 재킷·로고 = test-5(patch_10282239)부터 13판, catalog_info.nut·bg2d·ProStaffRoll·alf_tut = 첫 PS3 패치(10250617)부터.

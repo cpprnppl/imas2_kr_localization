@@ -527,13 +527,9 @@ def build_images(plat, src_root_iter, write, log):
                 else:
                     plain, ctx = c.decrypt(raw)
                     out, n = apply_images(plat, pkg, rel, plain, jobs, log)
-                    if plat == "360":
-                        new = out                                  # PC 포트: 평문
-                    else:
-                        new = Cipher.encrypt(out, ctx) if ctx else out
-                        if ctx:
-                            back, _ = c.decrypt(new)
-                            assert back[:len(out)] == out, "재암호화 검증 실패"
+                    # 360(PC 포트)·PS3 모두 평문: PS3에서 원본 풋터로 재암호화한 NUT는 게임이 읽고도 그리지 않는다
+                    # (빈 재킷, 2026-11-12 RPCS3 재현). 중국팀 PS3 패치처럼 평문으로 배포한다.
+                    new = out
                     log(f"  {pkg[:6] if plat == '360' else pkg}/{rel}: 텍스처 {n}장")
                     write(pkg, rel, new, {"tex": n})
                 nfile += 1
