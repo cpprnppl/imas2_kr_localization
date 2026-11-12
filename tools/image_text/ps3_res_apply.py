@@ -79,6 +79,10 @@ NPC_FILES = ["game\\alf\\alf_common.mpc", "interface\\NationwideRanking.mpc", "i
              "scene\\produce_etc.mpc", "scene\\exep_init.mpc", "scene\\exep_commu.mpc"]
 NEVER = re.compile(r"^(gscript|tools|_)|^scene\\attract\.mpc$|im2_font", re.I)
 HANGUL = re.compile("[가-힣]")
+# index.json 밖 그림(image_extra.json — CN 미수정 songinfo 재킷·로고 등)이 들어 있는 파일도 빌드 대상.
+# 매니페스트·patched에 없는 파일(songinfo\*\jacket_*.nut)은 빠져서 PS3 기본곡 재킷·로고가 원본으로 남았다(2026-11-12).
+_EX = os.path.join(HERE, "image_extra.json")
+EXTRA_RELS = sorted({it["rel"] for it in json.load(open(_EX, encoding="utf-8"))["items"]}) if os.path.exists(_EX) else []
 
 
 def sha(b):
@@ -122,14 +126,14 @@ def candidates(rescan=False):
                 rels |= {os.path.relpath(os.path.join(dp, fn), PATCHED_IMG) for fn in fns}
         rels |= set(TB.RELS)          # 레슨 결과 배너 사본(gscript\adv_common 포함 — NEVER 예외)
         rels |= set(DANCE)            # 라이브 가사 dance pac(매니페스트 이후 추가된 대상)
-        rels |= set(STAFFROLL) | {PCARD.REL}
+        rels |= set(STAFFROLL) | {PCARD.REL} | set(EXTRA_RELS)
         return sorted(r for r in rels if (not NEVER.search(r) or r in TB.RELS) and os.path.exists(os.path.join(JP_ROOT, r)))
     rels = set(G.targets()) | set(NPC_FILES) | set(STANDALONE)
     if os.path.isdir(PATCHED_IMG):
         for dp, _dn, fns in os.walk(PATCHED_IMG):
             for fn in fns:
                 rels.add(os.path.relpath(os.path.join(dp, fn), PATCHED_IMG))
-    rels |= set(TB.RELS) | set(DANCE) | set(STAFFROLL) | {PCARD.REL}
+    rels |= set(TB.RELS) | set(DANCE) | set(STAFFROLL) | {PCARD.REL} | set(EXTRA_RELS)
     return sorted(r for r in rels if (not NEVER.search(r) or r in TB.RELS) and os.path.exists(os.path.join(JP_ROOT, r)))
 
 
@@ -302,6 +306,56 @@ def build_one(rel, tr, st):
     return orig, base, out, out
 
 
+def image_expect(code):
+    """웹앱 이미지 행 ↔ 주입 결과 게이트의 기대 목록 {rel: [텍스처 번호]}: PS3 본편 위치(locs 'rel#nnn', 접두 없는 것 —
+    'ps3:'/'360:' DLC는 dlc_inject 몫)에 한글 작업본 kr/<dir>/<stem>_<nnn>.png가 있는 텍스처. 360 전용 행 제외."""
+    import webapp_fill as WF
+    rows, off = [], 0
+    while True:
+        b = WF._req("GET", f"/rest/v1/rows?cat=eq.image&select=meta&order=id&limit=500&offset={off}", code)
+        rows += b
+        off += len(b)
+        if len(b) < 500:
+            break
+    exp = collections.defaultdict(set)
+    for r in rows:
+        m = r.get("meta") or {}
+        if m.get("plat") == "x360":
+            continue
+        for loc in m.get("locs", []):
+            if re.match(r"^[a-z0-9]+:", loc) or "#" not in loc:     # DLC·360 위치, 배너 타일(tile_banner) 위치
+                continue
+            rel, n = loc.split("#")
+            stem = os.path.splitext(os.path.basename(rel))[0]
+            if os.path.exists(os.path.join(OUT_DEFAULT, "kr", os.path.dirname(rel), f"{stem}_{int(n):03d}.png")) \
+                    and os.path.exists(os.path.join(JP_ROOT, rel)):
+                exp[rel].add(int(n))
+    return {k: sorted(v) for k, v in sorted(exp.items())}
+
+
+def image_gate(expect, files, log=print):
+    """기대 텍스처마다 산출 파일의 그 텍스처 데이터가 순정과 달라야 통과 — 웹앱 행·작업본은 있는데 주입 안 됨 = 실패."""
+    from extract_image_text import walk_nuts
+    bad = []
+    for rel, ns in expect.items():
+        if rel not in files:
+            bad += [f"{rel}#{n:03d}: 산출 없음(빌드 대상 밖)" for n in ns]
+            continue
+        orig = pristine(rel)[0]
+        out = open_raw(open(os.path.join(OUT, rel), "rb").read())[0]
+        to, tn = walk_nuts(orig, lambda *a: None), walk_nuts(out, lambda *a: None)
+        for n in ns:
+            if n >= len(to) or n >= len(tn):
+                bad.append(f"{rel}#{n:03d}: 텍스처 없음")
+            elif orig[to[n]["data_off"]:to[n]["data_off"] + to[n]["data_size"]] == \
+                    out[tn[n]["data_off"]:tn[n]["data_off"] + tn[n]["data_size"]]:
+                bad.append(f"{rel}#{n:03d}: 순정과 같음(주입 안 됨)")
+    log(f"[이미지 대조] 웹앱 행+작업본 {sum(map(len, expect.values()))}장({len(expect)}개 파일) 중 주입 안 됨 {len(bad)}")
+    for b in bad[:20]:
+        log(f"   {b}")
+    return not bad
+
+
 def translations(code):
     by_pair, by_jp, n, scb_tr = G.translations(code)
     xmb_tr = json.load(open(os.path.join(HERE, "xmb_translations.json"), encoding="utf-8"))
@@ -327,12 +381,15 @@ def cmd_build(a):
         open(dst, "wb").write(raw)
         files[rel] = {k: v for k, v in st.items()} | {"size": [len(orig), len(out)], "sha": sha(raw)}
         print(f"  {rel}: " + ", ".join(f"{k} {v}" for k, v in st.items() if v) + f"  {len(orig):,}→{len(out):,}B")
-    json.dump({"at": time.strftime("%Y-%m-%d %H:%M"), "files": files}, open(REPORT, "w", encoding="utf-8"),
-              ensure_ascii=False, indent=1)
+    expect = image_expect(a.code)
+    json.dump({"at": time.strftime("%Y-%m-%d %H:%M"), "files": files, "image_expect": expect},
+              open(REPORT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     tot = collections.Counter()
     for v in files.values():
         tot.update({k: v[k] for k in v if isinstance(v[k], int)})
     print(f"{len(files)}개 → {OUT}  합계 {dict(tot)}")
+    if not image_gate(expect, files):
+        sys.exit("❌ 이미지 대조 게이트 실패 — 웹앱 이미지 행·한글 작업본이 있는데 주입되지 않은 텍스처")
 
 
 # ---------------------------------------------------------------- 검증
@@ -394,6 +451,8 @@ def validate_all(log=print):
                 DL.check_lyrics(base, out, DANCE[rel], rel)
             elif orig[:4] == b"pac\x00":
                 G.check(out, base, orig, rel)
+            elif out != base:                    # 단독 NUT 등(image_extra 그림만): 이미지 층 그대로여야
+                raise ValueError("이미지 층 밖 변동")
             for t in texts_of(out):
                 used |= {ch for ch in t if "가" <= ch <= "힣"}
         except Exception as ex:  # noqa: BLE001
@@ -403,7 +462,11 @@ def validate_all(log=print):
         f"쓰인 한글 {len(used)}자 중 폰트에 없는 글자 {len(miss)}" + (f": {''.join(miss)}" if miss else ""))
     for b in bad:
         log(f"   {b}")
-    return not bad and direct and not miss
+    if "image_expect" not in rep:
+        log("❌ [이미지 대조] 보고서에 기대 목록 없음 — build를 다시 실행")
+        return False
+    img_ok = image_gate(rep["image_expect"], rep["files"], log)
+    return not bad and direct and not miss and img_ok
 
 
 def cmd_validate(_a):

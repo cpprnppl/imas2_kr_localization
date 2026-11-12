@@ -2014,3 +2014,11 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   읽기 미확정 6명(堀 洋将·小林 剛·中村 有希野·小石川 園美·美踊·澤池 孝博)은 사용자 결정으로 '한국어(원문)' 병기 — 화면에 한자 남음(희생 슬롯 아님 확인), x0·x1 12칸 = pc-360-dlc 일본어 잔존 게이트 예외.
   森田 育代 = '모리타 이쿠요(Artist Management Int'l)'(칸 m ≤ 40). 빌드 t13sr: ps3_res_apply staff_roll 82f63e62 · gamedata_apply(PC) f90fa34f, 검증 통과, 폰트 없는 글자 0.
   칸 게이트 보고 185→187: 360 전용 staff_roll 5칸 묶음(원문 기준 추정 cap 18)의 '사쿠라이 나오키 (Norifis)' 2칸 — 같은 묶음 다른 칸이 이미 m 22라 같은 부류.
+- **PS3 기본곡 songinfo 재킷·로고 미주입 수정 + 이미지 대조 게이트**(11-12, ssanman 보고 "songinfo 이미지가 게임에 안 나옴", KOR 지시 A):
+  원인: image_extra.json(CN 미수정 그림)에 songinfo\{nan,ilh,kir,koi,meg,mei}\jacket_*.nut 12장이 있고 kr\ 작업본도 있었지만,
+  ps3_res_apply.candidates()가 매니페스트·patched·배너·dance·스태프롤 파일만 빌드해 이 단독 NUT들이 빌드 대상에 없었다(index.json에도 없어 inject_image_text도 건너뜀).
+  PC는 pcport_apply가 image_extra를 따로 처리해 kir/meg/mei 재킷·로고·koi 로고가 이미 한글(nan·ilh는 PC에 파일 없음).
+  수정: candidates()에 image_extra 파일 포함, 단독 NUT는 validate에서 이미지 층과 같아야 함. 새 게이트 '이미지 대조':
+  웹앱 이미지 행의 PS3 본편 위치(rel#nnn, DLC·360·배너 타일 제외)에 kr 작업본이 있으면 산출 파일의 그 텍스처가 순정과 달라야 한다
+  (build 실패·validate 실패). 13판 산출 대조 = 522장 중 12장 미주입(이번 12장), 수정 후 0. 141개 배포(백업 _backup_ps3res_20261112_191733).
+  DLC 재킷·로고(dlc_inject)는 PS3 27·360 29 주입 확인. PC의 PS3 전용 DLC(cp15–18)는 ps3feat ps3_dlc.py가 imas2kor_backup 원본을 변환해 한글 그림 미적용 → 감독(imas2pc) 몫.
