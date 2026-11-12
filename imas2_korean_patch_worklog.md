@@ -2043,3 +2043,7 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   ki2 재킷은 한글 없음(재저장 잡음만) → 원본. ProStaffRoll #160(캐릭터 원안 크레딧 512x64)은 글자 칸 전체 교체지만 넓이 32,768px로 예외 규칙 밖 → 원본(KOR에 재확인 요청).
   image_hold.py/json을 모든 그림 경로가 봄. 재빌드 t14img 23:10–23:17: ps3_res 134개(이미지 대조 0), 360 DLC 그림 34·PS3 DLC 37, restore-ps3 → deploy-ps3 167.
   예외 목록 = 글자 라벨만(PS3 473, PC 411). 규칙은 docs/PIPELINE.md '그림 주입 규칙'.
+- **ProStaffRoll #160 재포함 — text_cell 규칙**(11-12 23시, KOR·사용자 결정: 스태프롤 이름 한국어): 원본도 글자뿐인 칸은 32,768px까지 예외(kind=text_cell),
+  그림 섞인 텍스처는 16,384px 그대로. image_hold.json에서 #160 제거(보류 19 = 로고 18 + ki2). 재빌드 t14img 23:21–23:29 전 단계 통과.
+  예외 목록: PS3 474(라벨 473 + text_cell 1), PC 412(411 + 1). 요약표(파일별 수·diff 최댓값·글자 영역 안 변경 비율 최솟값) 공유 노트 *_summary.md —
+  라벨의 글자 영역 안 변경 비율 최솟값 0.606(mainmenu), 50% 미만 0. 웹앱 보류 행 19개 메모('14판: 원본 유지(diff>50%)')는 권한 확인 대기로 미기록.
