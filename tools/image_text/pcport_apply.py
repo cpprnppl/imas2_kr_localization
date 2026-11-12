@@ -219,7 +219,10 @@ def keep_unchanged_blocks(img, ref, raw, dec, enc, w, h, codec):
     바뀐 곳 = 작업본과 원본 참고(PS3 덤프)의 차이 > 48(3px 넓힘 — 재저장 잡음은 대부분 48 이하, 글자는 강함). 그 밖은 360 원본을 디코드한 픽셀로 채운 합성 그림을 만들고,
     합성 그림·원본 디코드를 같은 인코더로 인코드해 블록 바이트가 같은 곳은 원본 블록 유지 — 배치(타일링)와 무관하게 성립."""
     orig = np.asarray(dec(raw, w, h), np.uint8)
-    diff = np.abs(img.astype(np.int16) - ref.astype(np.int16)).max(axis=2) > 48
+    # 화면 값(RGB×알파 + 알파)으로 비교 — 완전 투명 픽셀의 RGB 차이(로고 작업본 투명부 등)는 안 센다(2026-11-12, 로고·스태프롤이 100% 바뀌던 원인)
+    pm = lambda x: np.concatenate([x[..., :3].astype(np.float32) * x[..., 3:] / 255.0,  # noqa: E731
+                                   x[..., 3:].astype(np.float32)], axis=-1)
+    diff = np.abs(pm(img) - pm(ref)).max(axis=2) > 48
     m = diff.copy()
     for dy in range(-3, 4):          # 3px 넓힘(글자 가장자리 안티에일리어싱)
         for dx in range(-3, 4):
