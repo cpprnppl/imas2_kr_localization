@@ -212,7 +212,8 @@ def pull_image(rows, reviewed_only, code=None):
     offset = 0
     while True:
         req_ = urllib.request.Request(
-            f"{CFG['url']}/rest/v1/tex_kr?select=*&order=md5&limit=20&offset={offset}",   # 큰 그림이 몰린 100행 페이지는 서버 500
+            f"{CFG['url']}/rest/v1/tex_kr?select=*&md5=not.like.mltd:*&order=md5&limit=20&offset={offset}",   # 큰 그림이 몰린 100행 페이지는 서버 500
+            # 다른 게임(MLTD) 작업본은 키가 "mltd:"로 시작 — 받지 않는다(2026-11-17, 결과는 원래도 iM@S2 image 행 md5로만 매핑)
             headers={"apikey": CFG["anon_key"],
                      "Authorization": f"Bearer {CFG['anon_key']}",
                      "x-team-code": code})

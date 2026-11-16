@@ -420,9 +420,20 @@ async function openGroup(c, g) {
   render();
 }
 
+// 게임 구분(2026-11-17, MLTD 탭 추가 대비): 다른 게임 행은 cat이 "mltd_"로, tex_kr 키는 "mltd:"로 시작한다.
+// 메뉴 섹션은 meta.nav의 game(없으면 "imas2"). 진행 현황·전체 검색·수정 이력의 기본값은 지금 게임만.
+const GAME = "imas2";
+const navOfGame = () => META.nav.filter(s => (s.game || "imas2") === GAME);
+
 async function loadKrimgList() {
-  const { data, error } = await sb.from("tex_kr").select("md5,ts,by").limit(1000);
-  if (error) return;   // 테이블 미생성 등 — 작업본 없음으로 취급
+  const data = [];
+  for (let from = 0; ; from += 1000) {   // 1000행 제한에 잘리지 않게 끝까지(다른 게임 작업본은 빼고)
+    const res = await sb.from("tex_kr").select("md5,ts,by").not("md5", "like", "mltd:%")
+      .order("md5").range(from, from + 999);
+    if (res.error) return;   // 테이블 미생성 등 — 작업본 없음으로 취급
+    data.push(...res.data);
+    if (res.data.length < 1000) break;
+  }
   for (const v of data) {
     const old = KRIMG[v.md5];
     KRIMG[v.md5] = { ts: v.ts, by: v.by, url: old && old.ts === v.ts ? old.url : null };
@@ -1388,7 +1399,7 @@ function showSearch() {
   $("#crumb").textContent = "전체 검색";
   $("#budget").hidden = true; $("#grpStat").textContent = "";
   $("#bulkOpen").hidden = true; $("#subFilter").hidden = true; $("#platFilter").hidden = true; $("#srcFilter").hidden = true;
-  const cats = [["", "모든 분류"], ...META.nav.map(s => [s.cat, s.label])];
+  const cats = [["", "모든 분류"], ...navOfGame().map(s => [s.cat, s.label])];
   $("#content").innerHTML = `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
       <input id="gq" class="pf-v5-c-form-control" style="max-width:420px" placeholder="원문·번역 전체에서 찾기 (2글자 이상, Enter)" value="${esc(gSearch.q)}">
       <select id="gc" class="pf-v5-c-form-control" style="width:auto">${cats.map(([v, l]) => `<option value="${v}"${v === gSearch.c ? " selected" : ""}>${esc(l)}</option>`).join("")}</select>
@@ -1405,7 +1416,7 @@ async function runSearch(q, c) {
   $("#gres").innerHTML = "찾는 중…";
   const v = '"*' + q.replace(/["\\]/g, m => "\\" + m) + '*"';
   // 6만여 행 전체에 OR ilike 한 번은 문장 시간 제한에 걸림 → 분류별로 나눠 동시에(각 0.2~0.9초)
-  const cats = c ? [c] : META.nav.map(x => x.cat);
+  const cats = c ? [c] : navOfGame().map(x => x.cat);
   const parts = await Promise.all(cats.map(cc => sb.from("rows").select("id,cat,grp,key,jp,kr,st,meta")
     .eq("cat", cc).or(`jp.ilike.${v},kr.ilike.${v}`).limit(301)));
   const bad = parts.filter(r => r.error);
@@ -1840,7 +1851,7 @@ async function showDash(force) {
   if (!DASH || force) {
     $("#content").innerHTML = `<div class="pf-v5-c-empty-state"><div class="pf-v5-c-empty-state__content">집계 중…</div></div>`;
     const out = [];
-    for (const sec of META.nav) {
+    for (const sec of navOfGame()) {
       const rows_ = await Promise.all(sec.groups.map(async gm => {
         const [tgt, tr, rv] = await Promise.all([
           countQ(sec.cat, gm.g, sec.cat === "image" ? null : q => q.neq("jp", "")),
@@ -1902,7 +1913,7 @@ async function showActivity() {
       <button class="pf-v5-c-button pf-m-secondary" id="actGo">조회</button>
     </div></div><div id="actList">불러오는 중…</div>`;
   const run = async () => {
-    let q = sb.from("hist").select("*").order("n", { ascending: false }).limit(300);
+    let q = sb.from("hist").select("*").not("cat", "like", "mltd_%").order("n", { ascending: false }).limit(300);
     const by = $("#actBy").value.trim();
     if (by) q = q.eq("by", by);
     const d = $("#actDate").value;

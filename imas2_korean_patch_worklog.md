@@ -2052,3 +2052,8 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   한글로 그려짐(빈칸 아님) → DLC 폴더 안 평문 NUT도 게임이 읽고 그린다. 설치기 --restore → 1,474 대상 = 매니페스트 원본 sha(메일 6개는 설치기 백업이 없어 ps3_dlc_orig 순정으로),
   yml/config·세이브 = 설치 전 해시. 발견: 격리 루트 DLC 1,880개가 사용자 RPCS3 DLC와 하드링크였다(쓰기 전 끊음, 사용자 DLC 167개 배포 sha 그대로 확인).
   dlc_inject deploy-ps3·restore-ps3가 copy2 제자리 쓰기라 링크로 번질 수 있어 tmp + os.replace로 바꿈(deploy360과 같음).
+- **웹앱 게임 구분 준비 — MLTD 탭 추가 전**(11-17, KOR 조건): iM@S2 도구가 rows를 읽는 곳 전수 확인 — Python 도구(webapp_pull, find_text, platform_audit,
+  gamedata/ps3_res/field_len_audit, sheet_merge 등)는 모두 cat 허용 목록(cat=eq.…)이라 MLTD 행(cat=mltd_*)이 들어와도 결과 불변.
+  전체를 읽던 곳 수정: 웹앱 tex_kr 작업본 목록(limit 1000 → 페이지 끝까지 + 'mltd:' 키 제외), 수정 이력(hist cat mltd_* 제외), 진행 현황·전체 검색·검색 분류 목록
+  (meta.nav 섹션 중 game이 지금 게임인 것만, 기본 imas2), webapp_pull image의 tex_kr 받기('mltd:' 키 제외 — 매핑은 원래도 iM@S2 image 행 md5만).
+  규약: MLTD 행 cat = 'mltd_'로 시작, tex_kr 키 = 'mltd:'로 시작, hist.cat 동일, 메뉴 섹션은 meta.nav에 game:'mltd'. 지금 데이터로 필터 전후 결과 동일 확인(tex_kr 627, hist 상위 300).
