@@ -39,6 +39,7 @@ PS3 (RPCS3 patch.yml, PPU 해시 키, 시험 때만 활성화):
 """
 import os
 import sys
+import re
 import json
 import time
 import shutil
@@ -538,7 +539,7 @@ def build_ps3(a):
         rep["inplace"] += 1
     for va, (k, jp, _kr, kr_t) in sorted(pending.items()):
         rep["overflow"].append({"key": k, "jp": jp, "kr": kr_t, "why": "칸·묶음 모두 부족(일본어 유지)"})
-    _finish_ps3(a, disc, patches, rep, missing)
+    _finish_ps3(a, disc, patches, rep, missing, eb)
     return 0
 
 
@@ -560,7 +561,29 @@ def _repack_one(eb, spec, lo, hi, krs, inplace, pending, patches, rep):
         patches.append((eb.f2v(w_fo), struct.pack(">I", new_va), "묶음 재포장 포인터"))
 
 
-def _finish_ps3(a, disc, patches, rep, missing):
+def ps3_gate(eb, patches, text=None):
+    """게이트(11-17 KOR): PS3 패치는 EBOOT 세그먼트 안 쓰기만. RPCS3 patch의 alloc 블록 쓰기는 실행 중 메모리에 남지 않는다(실측) → 실패.
+    text를 주면 yml 본문의 alloc 줄도 검사한다. 코드 상수만 바꾸는 패치(TextField alloc +2 등)는 세그먼트 안 쓰기라 해당 없음."""
+    bad = [f"0x{va:08x} ({note})" for va, _b, note in patches if eb.v2f(va) is None or eb.v2f(va + len(_b) - 1) is None]
+    if text is not None and re.search(r"^\s*- \[ alloc,", text, re.M):
+        bad.append("alloc 줄")
+    if bad:
+        sys.exit("[게이트 실패] EBOOT 밖(alloc 등) 쓰기: " + ", ".join(bad[:8]))
+
+
+def check_ps3(a):
+    """yml 하나를 게이트로 검사: be32/be16 쓰기가 모두 EBOOT 세그먼트 안이고 alloc 줄이 없어야 통과."""
+    eb = Eboot(a.disc_elf) if a.disc_elf else Eboot()
+    text = open(a.yml, encoding="utf-8").read()
+    patches = [(int(m.group(2), 16), bytes(4 if m.group(1) == "be32" else 2), "줄")
+               for m in re.finditer(r"^\s*- \[ (be32|be16), (0x[0-9a-fA-F]+),", text, re.M)]
+    ps3_gate(eb, patches, text)
+    print(f"[게이트 통과] {a.yml}: 쓰기 {len(patches)}개 모두 EBOOT 안, alloc 없음")
+    return 0
+
+
+def _finish_ps3(a, disc, patches, rep, missing, eb):
+    ps3_gate(eb, patches)
     os.makedirs(OUT, exist_ok=True)
     ppu, serial, sfx = (a.disc_ppu, "BLJS10083", a.disc_tag) if disc else (PS3_PPU_HASH, "NPJB00337", "")
     lines = ["Version: 1.2", "", f"{ppu}:", '  "iM@S2 KOR exe strings (imas2_kr_localization exe_inject.py)":',
@@ -717,19 +740,18 @@ def port_texts(a):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["analyze", "build360", "deploy360", "build-ps3", "install-ps3", "uninstall-ps3",
-                                    "port-texts", "retry-text"])
+                                    "port-texts", "retry-text", "check-ps3"])
     ap.add_argument("--code", help="port-texts: 팀 암호")
     ap.add_argument("--out", help="port-texts: 추가 출력 폴더")
     ap.add_argument("--tr", default=TR_DEFAULT)
-    ap.add_argument("--alloc-at", type=lambda x: int(x, 0), default=0x0F000000,
-                    help="build-ps3: RPCS3 alloc 블록 주소(64KB 정렬, 메인 메모리 미사용 영역)")
-    ap.add_argument("--alloc-size", type=lambda x: int(x, 0), default=0x10000)
+    ap.add_argument("--yml", help="check-ps3: 검사할 yml (--disc-elf 없으면 PSN EBOOT 기준)")
     ap.add_argument("--disc-elf", help="build-ps3: 디스크판(BLJS10083) RPCS3 복호 EBOOT.elf → imas2_kor_exe_disc.yml")
     ap.add_argument("--disc-ppu", help="build-ps3 --disc-elf: 디스크판 PPU 해시(PPU-…)")
     ap.add_argument("--disc-tag", default="_disc", help="build-ps3 --disc-elf: 출력 이름 꼬리(01.02 업데이트판은 _disc102)")
     a = ap.parse_args()
     return {"analyze": analyze, "build360": build360, "deploy360": deploy360, "build-ps3": build_ps3,
-            "install-ps3": install_ps3, "uninstall-ps3": uninstall_ps3, "port-texts": port_texts, "retry-text": port_texts}[a.cmd](a)
+            "install-ps3": install_ps3, "uninstall-ps3": uninstall_ps3, "port-texts": port_texts, "retry-text": port_texts,
+            "check-ps3": check_ps3}[a.cmd](a)
 
 
 if __name__ == "__main__":
