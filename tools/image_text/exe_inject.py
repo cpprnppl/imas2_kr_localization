@@ -22,7 +22,8 @@
   인코딩 = 직접 한글(UTF-16BE). 폰트(직접 등록 글자 집합 = font_mapping 키) 밖 한글이면 실패.
 
 PS3 (RPCS3 patch.yml, PPU 해시 키, 시험 때만 활성화):
-  EBOOT VA = 세그먼트 매핑. 데이터 포인터(TOC·표) 참조면 재배치 가능. 인코딩 = 직접 등록 한글(§25, 360과 동일).
+  EBOOT VA = 세그먼트 매핑. 넘치는 문자열은 같은 묶음(PS3_CLUSTERS) 안에서 다시 채우고 데이터 포인터를 옮긴다
+  (alloc 블록은 RPCS3 실행 중 비어 있어 쓰지 않는다, 11-17 실측). 인코딩 = 직접 등록 한글(§25, 360과 동일).
 
   python exe_inject.py analyze                 # 참조 분석 보고 (번역 불필요)
   python exe_inject.py build360 [--tr F]       # out_exe\\kor_exe_strings.bin + 보고
@@ -368,6 +369,81 @@ def disc_hits(psn, disc, fo, jp):
     return []
 
 
+# PS3 문자열 묶음(첫 문자열, 끝 문자열, 최대 길이) — 데이터 포인터로만 참조되는 이웃 문자열 덩어리. 넘치는 번역은 묶음 안에서 다시 채운다.
+PS3_CLUSTERS = [
+    ("Ｐ", "審査員", 0x200),                    # 화자 이름표 표(0x6202AC~)가 가리키는 이름들
+    ("社長", "店員", 0x100),                    # 이름 표 2 (0x69198C~)
+    ("社長", "律子", 0x100),                    # 메일 폴더 이름 표 (0x691A20~)
+    ("待機中", "グラビア撮影中", 0x180),          # PSN 접속 상태 문구
+    ("プロデューサー名を入力して下さい。(6文字以内)", "ルーム", 0x140),   # 이름 입력 창
+]
+
+
+def cluster_range(eb, spec, fo):
+    """fo(파일 오프셋)를 포함하는 spec 묶음의 [lo, hi) 파일 범위, 없으면 None. 끝 = 끝 문자열의 NUL 다음."""
+    first, last, maxlen = spec
+    d = eb.d
+    a, b = u16z(first), u16z(last)
+    i = d.rfind(a, max(0, fo - maxlen), fo + 2)
+    while i >= 0:
+        if i % 2 == 0 and d[i - 2:i] == b"\x00\x00":
+            j = d.find(b, i, i + maxlen)
+            while j >= 0 and (j % 2 or d[j - 2:j] != b"\x00\x00"):
+                j = d.find(b, j + 1, i + maxlen)
+            if j >= 0 and i <= fo < j + len(b):
+                return i, j + len(b)
+        i = d.rfind(a, max(0, fo - maxlen), i)
+    return None
+
+
+def repack_cluster(eb, lo, hi, krs):
+    """[lo, hi) 묶음을 번역(krs: VA → 한글, 없으면 원문)으로 다시 채운다. 문자열 시작 = 묶음 안 데이터 포인터 대상 ∪ 이어지는 문자열.
+    반환 (blob, [(포인터 워드 파일 오프셋, 새 VA)]) 또는 불가 사유 문자열. 포인터가 문자열 중간을 가리키면 불가."""
+    d = eb.d
+    va_lo, va_hi = eb.f2v(lo), eb.f2v(lo) + (hi - lo)
+    ptrs = defaultdict(list)
+    for o in range(0, len(d) - 3, 4):
+        w = struct.unpack_from(">I", d, o)[0]
+        if va_lo <= w < va_hi:
+            ptrs[w - va_lo].append(o)
+    starts, o = set(ptrs), 0
+    while o < hi - lo:                      # 이어지는 문자열 시작
+        if d[lo + o:lo + o + 2] == b"\x00\x00":
+            o += 2
+            continue
+        starts.add(o)
+        while d[lo + o:lo + o + 2] != b"\x00\x00":
+            o += 2
+    strs = []
+    for s in sorted(starts):
+        if s % 2:
+            return f"홀수 주소 포인터 +{s:#x}"
+        e = s
+        while d[lo + e:lo + e + 2] != b"\x00\x00":
+            e += 2
+        strs.append((s, e))
+    for (s1, e1), (s2, _e2) in zip(strs, strs[1:]):
+        if s2 < e1:
+            return f"문자열 중간을 가리키는 포인터 +{s2:#x}"
+    for s, _e in strs:
+        if not ptrs.get(s):
+            return f"포인터 없는 문자열 +{s:#x} (계산 주소일 수 있음)"
+    texts = [(s, krs.get(va_lo + s, d[lo + s:lo + e].decode("utf-16-be"))) for s, e in strs]
+    for align in (4, 2):
+        blob, pos, newpos = bytearray(), 0, {}
+        for s, t in texts:
+            pos = (pos + align - 1) & ~(align - 1)
+            blob += b"\x00" * (pos - len(blob))
+            newpos[s] = pos
+            blob += u16z(t)
+            pos = len(blob)
+        if len(blob) <= hi - lo:
+            blob += b"\x00" * (hi - lo - len(blob))
+            moved = [(w, va_lo + newpos[s]) for s, ws in ptrs.items() for w in ws if newpos[s] != s]
+            return bytes(blob), moved
+    return f"공간 부족 {len(blob)}/{hi - lo}B"
+
+
 def build_ps3(a):
     disc = bool(a.disc_elf)
     if disc and not a.disc_ppu:
@@ -419,10 +495,9 @@ def build_ps3(a):
             words[w].append(o)
     missing = set()
     patches, rep = [], {"inplace": 0, "reloc": 0, "overflow": [], "skip_enc": []}
-    # 재배치 공간: EBOOT 안에는 안전한 빈 영역이 없어(데이터 세그먼트의 0 구간은 0 초기화 변수일 수 있음)
-    # RPCS3 patch의 alloc으로 ELF·PRX가 쓰지 않는 메인 메모리 상단에 블록을 받는다(--alloc-at).
-    free_lo, free_hi = a.alloc_at, a.alloc_at + a.alloc_size
-    cur = free_lo
+    # 넘치는 문자열: RPCS3 patch의 alloc 블록은 실행 중 비어 있다(11-17 실측: 0x0F000000~ 64KB 전부 0 → 재배치 문자열이 빈칸,
+    # 화자 이름표 누락). → alloc을 쓰지 않고, 같은 문자열 묶음(PS3_CLUSTERS) 안에서 다시 채워 넣고 포인터만 바꾼다.
+    inplace, pending = {}, {}
     for va, (k, v, t, loc) in sorted(vas.items()):
         if loc.get("enc", "u16") != "u16":
             rep["skip_enc"].append(k)
@@ -447,34 +522,57 @@ def build_ps3(a):
         while cap % 4 and e[fo + cap] == 0:
             cap += 1
         if len(new) <= cap:
-            patches.append((va, new + b"\x00" * (cap - len(new)), f"{k} 제자리"))
-            rep["inplace"] += 1
+            inplace[va] = (new + b"\x00" * (cap - len(new)), k, kr)
             continue
-        ptrs = words.get(va, [])
-        if not ptrs or cur + len(new) > free_hi:
-            rep["overflow"].append({"key": k, "jp": jp, "kr": t["kr"], "why": "포인터 없음" if not ptrs else "공간 부족"})
-            continue
-        at = cur
-        cur = (cur + len(new) + 15) & ~15
-        patches.append((at, new, f"{k} 재배치"))
-        for w in ptrs:
-            patches.append((eb.f2v(w), struct.pack(">I", at), f"{k} 포인터"))
+        pending[va] = (k, jp, kr, t["kr"])
+    krs = {va: kr for va, (_k, _j, kr, _t) in pending.items()}
+    krs.update({va: kr for va, (_b, _k, kr) in inplace.items()})
+    done = set()
+    for spec in PS3_CLUSTERS:
+        rngs = {cluster_range(eb, spec, eb.v2f(va)) for va in pending} - {None}
+        for lo, hi in sorted(rngs - done):
+            done.add((lo, hi))
+            _repack_one(eb, spec, lo, hi, krs, inplace, pending, patches, rep)
+    for va, (b, k, _kr) in sorted(inplace.items()):
+        patches.append((va, b, f"{k} 제자리"))
+        rep["inplace"] += 1
+    for va, (k, jp, _kr, kr_t) in sorted(pending.items()):
+        rep["overflow"].append({"key": k, "jp": jp, "kr": kr_t, "why": "칸·묶음 모두 부족(일본어 유지)"})
+    _finish_ps3(a, disc, patches, rep, missing)
+    return 0
+
+
+def _repack_one(eb, spec, lo, hi, krs, inplace, pending, patches, rep):
+    """묶음 하나를 다시 채워 patches에 넣고, 그 안의 제자리·넘침 항목은 목록에서 뺀다(묶음이 대신 쓴다)."""
+    res = repack_cluster(eb, lo, hi, krs)
+    if isinstance(res, str):
+        print(f"  [묶음 재포장 불가] {spec[0][:8]}…{spec[1][:8]} @0x{lo:x}: {res}")
+        return
+    blob, moved = res
+    va_lo = eb.f2v(lo)
+    for va in [va for va in inplace if va_lo <= va < va_lo + len(blob)]:
+        del inplace[va]
+    for va in [va for va in pending if va_lo <= va < va_lo + len(blob)]:
         rep["reloc"] += 1
+        del pending[va]
+    patches.append((va_lo, blob, f"묶음 재포장 {spec[0][:6]}…{spec[1][:6]} ({len(blob)}B)"))
+    for w_fo, new_va in moved:
+        patches.append((eb.f2v(w_fo), struct.pack(">I", new_va), "묶음 재포장 포인터"))
+
+
+def _finish_ps3(a, disc, patches, rep, missing):
     os.makedirs(OUT, exist_ok=True)
     ppu, serial, sfx = (a.disc_ppu, "BLJS10083", a.disc_tag) if disc else (PS3_PPU_HASH, "NPJB00337", "")
     lines = ["Version: 1.2", "", f"{ppu}:", '  "iM@S2 KOR exe strings (imas2_kr_localization exe_inject.py)":',
              "    Games:", '      "THE iDOLM@STER 2":', f"        {serial}: [ All ]",
              "    Author: \"imas2 KOR\"", "    Notes: \"실행 파일 하드코딩 문구 한글화 (직접 등록 한글)\"",
              "    Patch Version: 1.0", "    Patch:"]
-    if cur > free_lo:
-        lines.append(f"      - [ alloc, 0x{free_lo:08x}, 0x{a.alloc_size:x} ] # 재배치 문자열 블록")
     for va, b, note in patches:
         lines += ps3_words(va, b, note)
     open(os.path.join(OUT, f"imas2_kor_exe{sfx}.yml"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
     rep["font_missing"] = "".join(sorted(missing))
-    rep["free"] = [hex(free_lo), hex(free_hi), hex(cur)]
     json.dump(rep, open(os.path.join(OUT, f"report_ps3{sfx}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"PS3{sfx}: 패치 {len(patches)}줄 (제자리 {rep['inplace']} · 재배치 {rep['reloc']} · 초과 {len(rep['overflow'])}"
+    print(f"PS3{sfx}: 패치 {len(patches)}줄 (제자리 {rep['inplace']} · 묶음 재포장 {rep['reloc']} · 초과 {len(rep['overflow'])}"
           f" · SJIS 생략 {len(rep['skip_enc'])}) 폰트 매핑 누락 {len(missing)} → {OUT}\\imas2_kor_exe{sfx}.yml")
     return 0
 
