@@ -66,6 +66,17 @@ PS3_PPU_HASH = "PPU-f942422316f63af3d64dc940b35ec8fddade0f44"
 
 # ---------------------------------------------------------------- 공통
 
+# 화면 문구가 아닌 내부 식별자(플래시 UI 노드 이름) — 웹앱 값과 관계없이 원문 유지(11-17 KOR).
+#  xex360 0x0C2208~0x0C2470: サーチ１~３·サブ…·メニュー１－１~２－タイトル８·保存画面タイトル (0x820B5E78/0x820B5FB0 노드 이름 표)
+#  eboot_ps3 0x591D5C~0x591E14·0x5928FC~0x5929B4: 'メニュー２−８', 'メニュー２−タイトル１~８'(PS3는 U+2212)의 꼬리만 잡힌 행
+IDENTIFIER_RANGES = {"xex360": [(0x0C2208, 0x0C2470)], "eboot_ps3": [(0x591D5C, 0x591E14), (0x5928FC, 0x5929B4)]}
+
+
+def is_identifier(key):
+    _exe, grp, off = key.split(":", 2)
+    return any(lo <= int(off, 16) <= hi for lo, hi in IDENTIFIER_RANGES.get(grp, ()))
+
+
 def load_tr(path):
     d = json.load(open(path, encoding="utf-8"))
     rows = d["rows"] if isinstance(d, dict) and "rows" in d else d
@@ -78,6 +89,11 @@ def load_tr(path):
         for r in rows:
             if r.get("cat") == "exe" and r.get("kr"):
                 out[r.get("id") or f"exe:{r['grp']}:{r['key']}"] = r
+    held = [k for k in out if is_identifier(k)]
+    for k in held:
+        del out[k]
+    if held:
+        print(f"  내부 식별자 {len(held)}행은 원문 유지(IDENTIFIER_RANGES)")
     return out
 
 
