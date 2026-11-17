@@ -424,6 +424,7 @@ async function openGroup(c, g) {
 // 메뉴 섹션은 meta.nav의 game(없으면 "imas2"). 진행 현황·전체 검색·수정 이력의 기본값은 지금 게임만.
 const GAME = "imas2";
 const navOfGame = () => META.nav.filter(s => (s.game || "imas2") === GAME);
+const isMltd = r => String(r.cat || "").startsWith("mltd_");
 
 async function loadKrimgList() {
   const data = [];
@@ -601,6 +602,10 @@ function gameWrap(text, choice) {
 
 function warns(r) {
   const w = [];
+  if (isMltd(r)) {      // 밀리시타: iM@S2 폰트 매핑·칸·줄 폭 규칙은 해당 없음(토큰 검사는 MLTD 쪽 validate_tokens.py)
+    if (r.jp && !r.kr) w.push(["미번역", "red"]);
+    return w;
+  }
   if (r.cat === "image") {
     if (!r.kr) w.push(["문구 미정", "red"]);
     else {
@@ -910,7 +915,7 @@ function render() {
     h += `<tr class="pf-v5-c-table__tr${dim}" data-id="${esc(r.id)}">
       <td class="pf-v5-c-table__td v-mid">${first}</td>
       ${cat === "image" ? `<td class="pf-v5-c-table__td v-mid">${second}</td>` : `<td class="pf-v5-c-table__td" style="max-width:26rem">${second}</td>`}
-      <td class="pf-v5-c-table__td kr-cell${r.kr ? "" : " is-empty"}" data-act="edit">${r.kr ? markMissing(r.kr) : (isBlank(r) ? "—" : "클릭해서 입력")}${srcBadge(r) ? `<div class="src-row">${srcBadge(r)}</div>` : ""}${memoHtml(r)}</td>
+      <td class="pf-v5-c-table__td kr-cell${r.kr ? "" : " is-empty"}" data-act="edit">${r.kr ? (isMltd(r) ? fmtText(r.kr) : markMissing(r.kr)) : (isBlank(r) ? "—" : "클릭해서 입력")}${srcBadge(r) ? `<div class="src-row">${srcBadge(r)}</div>` : ""}${memoHtml(r)}</td>
       <td class="pf-v5-c-table__td" style="max-width:10rem">${w.map(([t, c]) =>
         `<span class="pf-v5-c-label pf-m-${c} pf-m-compact"><span class="pf-v5-c-label__content">${esc(t)}</span></span>`).join(" ")}</td>
       <td class="pf-v5-c-table__td nowrap v-mid">${platBadge(r) ? `<div class="plat-tag">${platBadge(r)}</div>` : ""}${isBlank(r) ? "" : stLabel(r)}</td>

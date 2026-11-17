@@ -2057,3 +2057,10 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
   전체를 읽던 곳 수정: 웹앱 tex_kr 작업본 목록(limit 1000 → 페이지 끝까지 + 'mltd:' 키 제외), 수정 이력(hist cat mltd_* 제외), 진행 현황·전체 검색·검색 분류 목록
   (meta.nav 섹션 중 game이 지금 게임인 것만, 기본 imas2), webapp_pull image의 tex_kr 받기('mltd:' 키 제외 — 매핑은 원래도 iM@S2 image 행 md5만).
   규약: MLTD 행 cat = 'mltd_'로 시작, tex_kr 키 = 'mltd:'로 시작, hist.cat 동일, 메뉴 섹션은 meta.nav에 game:'mltd'. 지금 데이터로 필터 전후 결과 동일 확인(tex_kr 627, hist 상위 300).
+- **MLTD 행 적재 + 웹앱 밀리시타 메뉴**(11-17, 사용자 직접 승인 3건: 시험 적재·미번역 큐 적재·메뉴 추가): MLTD 리드 세션의 handoff 레포(retrixjoon/mltd-kr-handoff)
+  imas2_export를 검사기(열·형식·cat 접두·id 중복·grp ≤5,000·썸네일)로 통과시킨 뒤 넣음. 시험 적재 = mltd_birth 6,647 + mltd_img 933,
+  미번역 큐 = mltd_master 16,569행(4af334c, 전부 st0, 78행은 원문이 바뀐 행이라 meta.prev_kr에 옛 번역). 넣는 방법은 plain insert 500행 단위(upsert 아님).
+  매번 전후로 iM@S2 6분류(script/xmb/gamedata/image/dlc/exe)·tex_kr의 행 수와 해시를 비교해 바이트 동일 확인, 백업 json은 세션 scratchpad.
+  번역된 행까지 넣는 전체 export(422,034행)는 Supabase 용량 확인 + 사용자 승인 전이라 아직 안 넣음. mltd_img 썸네일은 사용자가 서비스 키로 직접 올릴 몫(tex/mltd/jp/).
+  메뉴: mltd_nav.py가 서버에 들어간 mltd_* grp를 모아 mltd_nav.json에 쓰고 webapp_build가 meta.nav 뒤에 game:'mltd' 섹션으로 붙임(마스터 41묶음·생일 57묶음, mltd_img는 썸네일 전이라 뺌).
+  템플릿: mltd_* 행은 경고를 '미번역'만 표시(iM@S2 폰트 매핑·칸·줄 폭 규칙 미적용), 번역 칸의 폰트 미매핑 빨간 표시도 안 함. 진행 현황·전체 검색 기본값은 그대로 iM@S2만.

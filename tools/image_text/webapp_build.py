@@ -142,6 +142,9 @@ def main():
                         {"g": "xdbf360", "label": "360 업적·접속 상태 (화면 미표시)"}]},
         ],
     }
+    mn = os.path.join(HERE, "mltd_nav.json")            # mltd_nav.py — 밀리시타 섹션(game:"mltd"), iM@S2 섹션 뒤
+    if os.path.exists(mn):
+        meta["nav"] += json.load(open(mn, encoding="utf-8"))
     pc = os.path.join(HERE, "platform_counts.json")     # platform_audit.py counts
     meta["plat_counts"] = json.load(open(pc, encoding="utf-8")) if os.path.exists(pc) else {}
     # TextField 칸(field_caps, 11-08): 묶음별 cap·등급 + DLC 행 → 묶음. 웹앱 '칸 넘침' 경고 = 빌드 게이트와 같은 값
