@@ -2090,3 +2090,12 @@ week02_start_haruka 체크포인트, 세이브는 검증 전 `kor_patch_before_t
     PSN·디스크·01.02 동일. (2) RPCS3 실측 — 새 PSN yml을 imported_patch.yml에 잠시 넣고 부팅: 화자 표 3벌이 '마코토·히비키·쿠로이 사장·기자 5·심사위원' 포함 전부 한글,
     PSN 상태 14·이름 입력 12 포인터 전부 한글. 시험 뒤 imported_patch.yml 원래 해시(f965c8de)로 복원. 화면 확인은 PS3 세이브 경로가 없어 메모리 확인으로 갈음.
   - 산출: yml psn bc301e60 · disc b552e5eb · disc102 e8cf226e(KXS 70a8d41f 그대로). 가드판(alloc) yml은 out_exe\_idguard_alloc_20261117.
+- **RPCS3 patch의 alloc 블록 쓰기는 실행 중 메모리에 남지 않는다 — 사용 금지**(11-17 실측, KOR 지시로 규칙화): alloc 블록 0x0F000000~ 64KB가 타이틀 시점에 전부 0
+  (패치 로그 "Applied … (<- N)"이 떠도 그 블록의 be32 쓰기는 없음). EBOOT 세그먼트 안 쓰기만 유효. 게이트: `exe_inject.py check-ps3 --yml F [--disc-elf E]`와
+  build-ps3 끝의 ps3_gate가 alloc 줄·EBOOT 밖 쓰기를 실패로 처리(코드 상수 패치 TextField alloc +2는 세그먼트 안이라 통과 확인).
+  - 수정본 실측: PSN(bc301e60)·디스크 01.02(e8cf226e, 디스크 추출본 + dev_hdd0\game\BLJS10083에 01.02 EBOOT·PARAM.SFO를 시험 중에만, 끝나고 삭제)
+    둘 다 RPCS3 메모리에서 화자 표 3벌 전부 한글(마코토·히비키·쿠로이 사장·기자 5·심사위원). PSN은 PSN 상태 문구 14·이름 입력 12 포인터도 한글.
+    imported_patch.yml·patch_config.yml은 시험 뒤 원래 해시(f965c8de·3e018da8)로, RPCS3 세이브(BLJS10083_SAVEDATA) 해시 불변.
+  - PS3 화면 확인은 못 함: 이 PC의 RPCS3 세이브 슬롯 4개 모두 NEW PRODUCE(새 프로듀스 금지). RPCS3 창 캡처(PrintWindow)는 검게 나와 F12 스크린샷을 써야 한다.
+  - 감독 게이트 절차·스크립트: KOR 공유 노트 nametag_gate_20261117\(README.md, rpcs3_peek.py, peek102.py, mk14ptr.py, full.py).
+  - 남은 결정(KOR·사용자): 終了しますか？(PS3 칸 7자, '종료할까요?' 제안)·세이브 사용자 불일치 오류(6자 줄임안) — 지금은 일본어 유지.
