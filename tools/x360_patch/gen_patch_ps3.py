@@ -22,6 +22,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import sys
 
@@ -137,6 +138,19 @@ def rebuild(orig, e, kdbytes, table):
     return out
 
 
+PATCH_WIDTH = {"be16": 2, "be32": 4, "be64": 8, "bef32": 4, "bef64": 8, "byte": 1}
+
+
+def alloc_writes(text):
+    """Writes that land inside an RPCS3 `alloc` block. RPCS3 does not keep them in the running process (KOR 11-17: the
+    23 relocated PS3 strings showed blank), so a yml with any of them must not ship."""
+    ents = [(m.group(1), int(m.group(2), 16), m.group(3))
+            for m in re.finditer(r"\[ *(\w+), *(0x[0-9a-fA-F]+), *([^\],]+)", text)]
+    allocs = [(a, a + int(v, 16)) for t, a, v in ents if t == "alloc"]
+    return [(t, a) for t, a, v in ents if t != "alloc"
+            and any(lo < a + PATCH_WIDTH.get(t, 1) and a < hi for lo, hi in allocs)]
+
+
 def _yml_key_names(path, text):
     lines = text.splitlines()
     keys = [l[:-1] for l in lines if l.startswith("PPU-") and l.endswith(":")]
@@ -172,6 +186,10 @@ def yml_entry(path, edition, out, variant=None, extras=()):
         merged.append({"file": os.path.basename(xp), "sha256": sha256(xb), "patch_names": xnames})
     y = text.encode("utf-8")
     assert _yml_key_names(path, text) == (key, names)
+    bad = alloc_writes(text)
+    if bad:
+        sys.exit(f"{path} ({edition}): {len(bad)} writes inside an alloc block (RPCS3 drops them at run time), "
+                 f"first {[(t, hex(a)) for t, a in bad[:3]]} - rebuild the yml without alloc relocation")
     name = f"imas2_kor_exe_{edition}{'_' + variant if variant else ''}.yml"
     open(os.path.join(out, "w", name), "wb").write(y)
     e = {"edition": edition, **({"variant": variant} if variant else {}),
@@ -342,13 +360,16 @@ def verify(a):
                 leak.append(f)
     flagged = sum(e["add_flagged_runs"] for e in man["files"])
     fb = [e["target"] for e in man["files"] if e.get("raw_fallback")]
+    aw = {r["edition"]: len(alloc_writes(open(os.path.join(a.patch, r["file"]), encoding="utf-8").read()))
+          for r in man.get("rpcs3_patch", [])}
+    print(f"rpcs3 ymls: writes inside alloc blocks {aw}")
     print(f"applied {ok}, failed {len(bad)}; compared with deployed: {len(man["files"])}, "
           f"mismatches {len(mism)}; table bytes found in {len(leak)} output files; flagged ADD runs {flagged}; "
           f"raw fallbacks {len(fb)} {fb[:5]}")
     for x in (bad + [(m, 'mismatch') for m in mism])[:20]:
         print("  ", x)
     gate_ok = gate.report()
-    sys.exit(1 if bad or mism or leak or flagged or fb or not gate_ok else 0)
+    sys.exit(1 if bad or mism or leak or flagged or fb or not gate_ok or any(aw.values()) else 0)
 
 
 def main():
