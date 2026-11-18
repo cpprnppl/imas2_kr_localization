@@ -377,22 +377,28 @@ PS3_CLUSTERS = [
     ("社長", "律子", 0x100),                    # 메일 폴더 이름 표 (0x691A20~)
     ("待機中", "グラビア撮影中", 0x180),          # PSN 접속 상태 문구
     ("プロデューサー名を入力して下さい。(6文字以内)", "ルーム", 0x140),   # 이름 입력 창
+    ("セーブデータのユーザー情報が異なります。\nPSボタンでゲームを終了し、セーブデータを削除してから\nゲームを再起動して下さい。",
+     "新規にアイドルマスター2のセーブデータを作ります", 0xC0),   # 세이브 사용자 불일치 / 새 세이브
 ]
 
 
 def cluster_range(eb, spec, fo):
-    """fo(파일 오프셋)를 포함하는 spec 묶음의 [lo, hi) 파일 범위, 없으면 None. 끝 = 끝 문자열의 NUL 다음."""
+    """fo(파일 오프셋)를 포함하는 spec 묶음의 [lo, hi) 파일 범위, 없으면 None. 끝 = 끝 문자열의 NUL 다음 + 이어지는 0 채움(16B까지,
+    다음 0 아닌 바이트 앞까지 — 그 자리를 가리키는 포인터가 있으면 repack_cluster가 거부)."""
     first, last, maxlen = spec
     d = eb.d
     a, b = u16z(first), u16z(last)
-    i = d.rfind(a, max(0, fo - maxlen), fo + 2)
+    i = d.rfind(a, max(0, fo - maxlen), fo + len(a))
     while i >= 0:
         if i % 2 == 0 and d[i - 2:i] == b"\x00\x00":
             j = d.find(b, i, i + maxlen)
             while j >= 0 and (j % 2 or d[j - 2:j] != b"\x00\x00"):
                 j = d.find(b, j + 1, i + maxlen)
             if j >= 0 and i <= fo < j + len(b):
-                return i, j + len(b)
+                hi = j + len(b)
+                while hi - (j + len(b)) < 16 and d[hi:hi + 2] == b"\x00\x00":
+                    hi += 2
+                return i, hi
         i = d.rfind(a, max(0, fo - maxlen), i)
     return None
 
